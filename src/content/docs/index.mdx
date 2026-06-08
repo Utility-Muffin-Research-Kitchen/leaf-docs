@@ -1,0 +1,44 @@
+---
+title: Leaf
+description: A soft-green custom firmware for the Miniloong Pocket 1 — themeable, app-driven, and built to run on top of the stock OS.
+template: splash
+hero:
+  tagline: Custom firmware for the Miniloong Pocket 1. Themeable, app-driven, and built to ride on top of the stock OS — so your device stays recoverable.
+  image:
+    file: ../../assets/leaf.png
+  actions:
+    - text: Install Leaf
+      link: /leaf-docs/guide/install/
+      icon: right-arrow
+      variant: primary
+    - text: What is Leaf?
+      link: /leaf-docs/guide/introduction/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Runs on top of stock" icon="approve-check">
+    Leaf loads alongside the stock LoongOS instead of replacing it. If anything
+    goes wrong, the device falls back to stock — and a recovery card restores it
+    fully.
+  </Card>
+  <Card title="Make it yours" icon="seti:css">
+    A themeable launcher with colour schemes, list styles, fonts, an animated
+    status bar, and an RGB-ring identity — all from the Settings menu.
+  </Card>
+  <Card title="Play your games" icon="rocket">
+    RetroArch-powered emulation with per-system folders for ROMs, box art, and
+    saves. You supply your own games and BIOS files.
+  </Card>
+  <Card title="Apps & updates" icon="puzzle">
+    Built-in apps (SSH server, file manager, the Fugazi shader tuner) and
+    over-the-air updates straight from the launcher.
+  </Card>
+</CardGrid>
+
+:::caution[Active development]
+Leaf is pre-1.0 and moving fast. Expect rough edges, and read the release notes
+before installing or updating.
+:::

@@ -1,0 +1,40 @@
+/* Leaf identity — matches the launcher's soft-green scheme.
+   Source palette (Jawaka internal/settings/appearance.c):
+     highlight/accent green  #7FB069
+     dark base               #0F160E
+     text                    #E8F1E3
+     hint                    #7E9579
+   Only Starlight's documented theme custom properties are overridden. */
+
+/* Light theme — deeper greens for contrast on white. */
+:root {
+  --sl-color-accent-low: #d8e9ce;
+  --sl-color-accent: #3f7029;
+  --sl-color-accent-high: #1d340f;
+}
+
+/* Dark theme (default) — the launcher Leaf green on a green-tinted near-black,
+   so the site visually echoes the device. */
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #16240f;
+  --sl-color-accent: #7fb069;
+  --sl-color-accent-high: #cfe7c0;
+
+  --sl-color-white: #eef5ea;
+  --sl-color-gray-1: #dde7d8;
+  --sl-color-gray-2: #b8c6b1;
+  --sl-color-gray-3: #8a9c83;
+  --sl-color-gray-4: #586350;
+  --sl-color-gray-5: #37412f;
+  --sl-color-gray-6: #1c2618;
+  --sl-color-black: #0f160e;
+
+  --sl-color-bg: #0f160e;
+  --sl-color-bg-nav: #0c120b;
+  --sl-color-bg-sidebar: #0c120b;
+}
+
+/* Slightly warm the in-text accent so links read well on the dark green bg. */
+:root[data-theme='dark'] {
+  --sl-color-text-accent: #9ccb87;
+}

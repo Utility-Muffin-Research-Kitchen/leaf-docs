@@ -24,7 +24,7 @@ organization.
   names — `screen_w`, not `sw`.
 - **No `system()` calls** — spawn processes with `fork`/`exec`.
 - **FAT32-safe content** — no symlinks or desktop-only filesystem assumptions in
-  shared launcher/runtime behaviour (the SD card is FAT32).
+  shared launcher/runtime behavior (the SD card is FAT32).
 - **Use the runtime path contract** — don't hardcode SD/launcher/app/data roots;
   use the shared environment variables.
 - **Respect repo ownership** — the umbrella workspace holds cross-cutting plans;

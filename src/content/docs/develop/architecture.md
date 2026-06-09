@@ -47,7 +47,7 @@ Catastrophe **inherits the launcher's look automatically**.
 
 ## Platform abstraction
 
-Device-specific behaviour (display, audio, Wi-Fi, Bluetooth, LED, performance, and
+Device-specific behavior (display, audio, Wi-Fi, Bluetooth, LED, performance, and
 storage) sits behind a platform layer, so the bulk of the launcher stays
 device-agnostic and new hardware can be added behind the same interface.
 

@@ -49,7 +49,7 @@ The stick has an RGB ring you can drive from Settings:
 during gameplay:
 
 - **Auto** — light systems run efficiently; heavier systems automatically boost.
-- **Balanced** / **Performance** / **Battery Saver** — pick a fixed behaviour.
+- **Balanced** / **Performance** / **Battery Saver** — pick a fixed behavior.
 
 Leaf keeps the launcher itself in a low-power state and ramps up the CPU, GPU, and
 memory only when a game launches, then winds back down on exit. There's also a

@@ -9,13 +9,28 @@ Two things make a game run: a **core** (the emulator) and, for some systems, a
 
 ## Cores (the emulators)
 
-A *core* is the emulator for a given system — Leaf uses RetroArch cores under the
-hood. Most systems are ready to play out of the box; a system only shows up in
-the launcher once its core is present on the device.
+A *core* is the emulator for a given system. **Leaf ships with a set of cores, so
+most systems are ready to play out of the box** — a system shows up in the
+launcher once its core is present on the device.
 
-:::note[Reviewer note]
-Confirm which cores ship with a public Leaf release vs. which (if any) the user
-adds, and document the add-a-core path here if there is one.
+Under the hood:
+
+- **RetroArch cores** handle the bulk of systems. Leaf's cores are built downstream
+  of [libretro-super](https://github.com/libretro/libretro-super) (the same source
+  the wider libretro ecosystem uses), so they track upstream rather than being
+  hand-maintained forks.
+- **Standalone emulators** are used for a few heavy systems where a dedicated build
+  performs better than a RetroArch core — for example **PPSSPP** (PSP), **Flycast**
+  (Dreamcast), and a standalone **Nintendo 64** emulator.
+
+Because Leaf runs **upstream RetroArch**, features that upstream adds — including
+**RetroAchievements** with compatible cores — come along for the ride rather than
+needing to be reimplemented.
+
+:::note
+The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Whether
+a given game runs at full speed varies by title — treat these as "best effort,"
+not guaranteed.
 :::
 
 ## BIOS (you supply these)

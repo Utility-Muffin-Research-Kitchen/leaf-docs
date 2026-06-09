@@ -16,9 +16,11 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Leaf',
-      // Square leaf badge (the device's default app icon, tinted Leaf green) +
-      // the "Leaf" title text. Swap this file when the final brand logo lands.
+      // "Deconstructed leaf" duotone mark (separated halves + detached stem held
+      // by negative space) + the "Leaf" title text. Provisional brand mark —
+      // pending Helaas review. Swap src/assets/leaf.png to change it.
       logo: { src: './src/assets/leaf.png', alt: 'Leaf' },
+      favicon: '/favicon.png',
       customCss: ['./src/styles/leaf.css'],
       social: [
         {

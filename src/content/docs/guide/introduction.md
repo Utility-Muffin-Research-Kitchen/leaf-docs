@@ -37,7 +37,7 @@ This has two practical benefits:
 
 ## What you get
 
-- **A themeable launcher** — colour schemes, list styles, fonts, an animated
+- **A themeable launcher** — color schemes, list styles, fonts, an animated
   status bar (clock, battery, Wi-Fi), and a configurable RGB stick-ring.
 - **Emulation** — RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.

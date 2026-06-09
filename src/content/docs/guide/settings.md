@@ -16,11 +16,11 @@ update when the Performance and Bluetooth screens are finalized.
 
 Theme and layout, under **Settings → Appearance**.
 
-- **Theme** — a curated colour-scheme picker: **Leaf** (default), Aurora, Ember,
-  Orchid, Slate, Rosé. Selecting one sets all colour roles at once.
-- **Colours** — fine-tune individual colour roles (accent, background, text,
-  selection, hints, button label, button background) with a colour picker. Editing
-  any colour switches the theme to "Custom."
+- **Theme** — a curated color-scheme picker: **Leaf** (default), Aurora, Ember,
+  Orchid, Slate, Rosé. Selecting one sets all color roles at once.
+- **Colors** — fine-tune individual color roles (accent, background, text,
+  selection, hints, button label, button background) with a color picker. Editing
+  any color switches the theme to "Custom."
 - **Layout** — list/pill **style** (e.g. Rounded, Soft, Square, Leaf), **font
   family**, and **font size**.
 - **Status Bar** — toggle the **clock**, **battery**, and **Wi-Fi** indicators, and

@@ -41,7 +41,7 @@ performance changes and in-game menu actions).
 ## Catastrophe (the UI toolkit)
 
 The launcher and Leaf-native apps are built on **Catastrophe**, a small C UI
-toolkit. The launcher exports its appearance (colours, list/pill style, fonts,
+toolkit. The launcher exports its appearance (colors, list/pill style, fonts,
 hint visibility) to apps through environment variables, so any app built on
 Catastrophe **inherits the launcher's look automatically**.
 

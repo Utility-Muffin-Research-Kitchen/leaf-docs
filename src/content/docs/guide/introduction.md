@@ -52,10 +52,9 @@ Leaf is **pre-1.0 and under active development**. Releases are published on
 GitHub; read each release's notes before installing. It currently targets the
 Miniloong Pocket 1 only.
 
-Leaf is open source, developed in the
-[Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen)
-organization. See [Contributing](/leaf-docs/develop/contributing/) if you'd like
-to help.
+Leaf is open source, baked in the
+[Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen).
+See [Contributing](/leaf-docs/develop/contributing/) if you'd like to help.
 
 ## Next steps
 

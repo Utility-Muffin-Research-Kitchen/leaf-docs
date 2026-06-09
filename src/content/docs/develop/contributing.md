@@ -3,9 +3,8 @@ title: Contributing
 description: How to contribute to Leaf — where to start and the project's conventions.
 ---
 
-Contributions are welcome. Leaf is developed in the open in the
-[Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen)
-organization.
+Contributions are welcome. Leaf is cooked up in the open at the
+[Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen).
 
 ## Where to start
 

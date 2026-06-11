@@ -15,8 +15,10 @@ launcher once its core is present on the device.
 
 Under the hood:
 
-- **RetroArch cores** handle the bulk of systems. Leaf's cores are built downstream
-  of [libretro-super](https://github.com/libretro/libretro-super) (the same source
+- **RetroArch cores** handle the bulk of systems. Leaf's cores are built with a
+  core builder forked from [spruceOS](https://github.com/spruceUI)'s build lane,
+  which is itself downstream of
+  [libretro-super](https://github.com/libretro/libretro-super) (the same source
   the wider libretro ecosystem uses), so they track upstream rather than being
   hand-maintained forks.
 - **Standalone emulators** are used for a few heavy systems where a dedicated build

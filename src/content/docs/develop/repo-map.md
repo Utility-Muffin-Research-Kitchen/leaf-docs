@@ -15,7 +15,7 @@ organization. Each is an independent repo with its own build.
 | **miniloong-launcher-switcher** | The on-device mechanism that boots Leaf on top of stock - boot hook, session supervisor, install/recovery payloads, device defaults |
 | **mlp1-toolchain** | The Buildroot-based Docker image used to cross-compile for the device |
 | **retroarch-builds** | RetroArch fetch/build/packaging |
-| **Cores-spruce** | libretro core builder (downstream of libretro-super) |
+| **Cores-spruce** | libretro core builder, forked from spruceOS's build lane (downstream of libretro-super) |
 | **ssh-server** | The SSH Server app (a `.pak`) |
 | **Thing-File** | The file-manager app (a `.pak`) |
 | **Fugazi** | The Fugazi live CRT-shader tuner app (a `.pak`) |

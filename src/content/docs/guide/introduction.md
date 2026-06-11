@@ -28,7 +28,7 @@ This has two practical benefits:
 | | |
 |---|---|
 | **Model** | Miniloong Pocket 1 (MLP1) |
-| **SoC** | Rockchip RK3566 — quad Cortex-A55 @ 1.8 GHz |
+| **SoC** | Rockchip RK3566 - quad Cortex-A55 @ 1.8 GHz |
 | **GPU** | Mali-G52 |
 | **RAM** | 1 GB LPDDR4X |
 | **Display** | 4" IPS, 720×960 (shown as 960×720 landscape) |
@@ -37,14 +37,14 @@ This has two practical benefits:
 
 ## What you get
 
-- **A themeable launcher** — color schemes, list styles, fonts, an animated
+- **A themeable launcher** - color schemes, list styles, fonts, an animated
   status bar (clock, battery, Wi-Fi, Bluetooth, volume), and a configurable RGB
   stick-ring.
-- **Emulation** — RetroArch with per-system folders for ROMs, box art, saves,
+- **Emulation** - RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.
-- **Apps** — an SSH server, a file manager, and **Fugazi**, a live CRT-shader
+- **Apps** - an SSH server, a file manager, and **Fugazi**, a live CRT-shader
   tuner.
-- **Over-the-air updates** — check for and install new releases right from the
+- **Over-the-air updates** - check for and install new releases right from the
   launcher. See [Updating](/leaf-docs/guide/updating/).
 
 ## Project status
@@ -59,7 +59,7 @@ See [Contributing](/leaf-docs/develop/contributing/) if you'd like to help.
 
 ## Next steps
 
-- **[Install Leaf](/leaf-docs/guide/install/)** — get it running on your device.
-- **[Adding games & ROMs](/leaf-docs/guide/games/)** — fill your library.
-- **[BIOS & cores](/leaf-docs/guide/bios-and-cores/)** — what some systems need
+- **[Install Leaf](/leaf-docs/guide/install/)** - get it running on your device.
+- **[Adding games & ROMs](/leaf-docs/guide/games/)** - fill your library.
+- **[BIOS & cores](/leaf-docs/guide/bios-and-cores/)** - what some systems need
   to run.

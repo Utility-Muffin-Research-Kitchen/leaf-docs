@@ -1,16 +1,16 @@
 ---
 title: Architecture
-description: How Leaf is put together — the run-on-top-of-stock model and the launcher's components.
+description: How Leaf is put together - the run-on-top-of-stock model and the launcher's components.
 ---
 
-A high-level look at how Leaf is built. (Contributor docs are a work in progress —
+A high-level look at how Leaf is built. (Contributor docs are a work in progress -
 expect this to deepen over time.)
 
 ## Run on top of stock
 
 Leaf's defining choice is that it **does not replace the stock OS**. A boot hook
 inserted into the device's normal startup takes over **before the stock home screen
-appears**, and runs the Leaf launcher instead — while leaving stock LoongOS intact
+appears**, and runs the Leaf launcher instead - while leaving stock LoongOS intact
 underneath.
 
 Consequences of this model:
@@ -27,11 +27,11 @@ Consequences of this model:
 
 The launcher is several cooperating processes:
 
-- **`jawakad`** — the daemon. Owns the launch lifecycle, sleep/wake, platform
+- **`jawakad`** - the daemon. Owns the launch lifecycle, sleep/wake, platform
   actions, performance profiles, and coordination with the in-game menu.
-- **`jawaka-launcher`** — the on-screen launcher UI.
-- **`jawaka-menu`** — the main menu and in-game menu.
-- **`jawaka-osd`** — on-screen overlays (volume/brightness).
+- **`jawaka-launcher`** - the on-screen launcher UI.
+- **`jawaka-menu`** - the main menu and in-game menu.
+- **`jawaka-osd`** - on-screen overlays (volume/brightness).
 - A small LED helper drives the RGB ring.
 
 The daemon is the normal entry point; the UI binaries are spawned by it. The
@@ -53,8 +53,8 @@ device-agnostic and new hardware can be added behind the same interface.
 
 ## Graphics
 
-The device composites through a Wayland compositor, and Leaf renders with **GLES2**
-— the supported, working graphics path on this hardware.
+The device composites through a Wayland compositor, and Leaf renders with **GLES2**,
+the supported, working graphics path on this hardware.
 
 :::note[Reviewer note]
 Keep this conceptual and public-safe. Avoid documenting the exact boot-hook

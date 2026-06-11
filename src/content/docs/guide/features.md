@@ -10,22 +10,22 @@ A quick tour of what Leaf adds on top of your games. Most of this lives in
 
 Make the launcher yours from **Settings → Appearance**:
 
-- **Color schemes** — pick a curated palette: **Leaf** (the soft-green default),
+- **Color schemes** - pick a curated palette: **Leaf** (the soft-green default),
   Aurora, Ember, Orchid, Slate, or Rosé. You can also hand-tune individual colors,
   which switches the scheme to "Custom."
-- **List style** — choose how the selection highlight looks (rounded, soft, square,
+- **List style** - choose how the selection highlight looks (rounded, soft, square,
   or the directional **Leaf** pill).
-- **Fonts** — pick a font family and adjust the font size.
+- **Fonts** - pick a font family and adjust the font size.
 
 ## Status bar
 
 A configurable bar across the top (**Settings → Appearance → Status Bar**):
 
-- **Clock** — with style options.
-- **Battery** — animated while charging, with a low-battery warning.
-- **Wi-Fi** — connection state and signal strength.
-- **Bluetooth** — shown when the radio is on, highlighted when a device is connected.
-- **Volume** — the current system volume.
+- **Clock** - with style options.
+- **Battery** - animated while charging, with a low-battery warning.
+- **Wi-Fi** - connection state and signal strength.
+- **Bluetooth** - shown when the radio is on, highlighted when a device is connected.
+- **Volume** - the current system volume.
 
 Each indicator can be toggled. You can also hide the **button hints** footer; with
 hints off, content expands to fill the screen, and apps built on Leaf's toolkit
@@ -41,17 +41,17 @@ The stick has an RGB ring you can drive from Settings:
 
 ## Networking
 
-- **Wi-Fi** (**Settings → Network**) — scan, connect, and turn the radio on or off.
+- **Wi-Fi** (**Settings → Network**) - scan, connect, and turn the radio on or off.
   Your choice persists across reboots.
-- **Bluetooth** (**Settings → Bluetooth**) — pair headsets and controllers.
+- **Bluetooth** (**Settings → Bluetooth**) - pair headsets and controllers.
 
 ## Performance
 
 **Settings → Behavior → Game Performance** lets you pick how hard the device works
 during gameplay:
 
-- **Auto** — light systems run efficiently; heavier systems automatically boost.
-- **Balanced** / **Performance** / **Battery Saver** — pick a fixed behavior.
+- **Auto** - light systems run efficiently; heavier systems automatically boost.
+- **Balanced** / **Performance** / **Battery Saver** - pick a fixed behavior.
 
 Leaf keeps the launcher itself in a low-power state and ramps up the CPU, GPU, and
 memory only when a game launches, then winds back down on exit. There's also a
@@ -67,9 +67,9 @@ leaving the game.
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
-- **SSH Server** — start an SSH server to reach the device over the network.
-- **File manager** — browse and manage files on the device.
-- **Fugazi** — a live CRT-shader tuner.
+- **SSH Server** - start an SSH server to reach the device over the network.
+- **File manager** - browse and manage files on the device.
+- **Fugazi** - a live CRT-shader tuner.
 
 ## Recents & saves
 

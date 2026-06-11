@@ -43,10 +43,10 @@ for [recovery](/leaf-docs/guide/recovery/).
 
 - **Connect to Wi-Fi** so you can update and (later) scrape art: open
   **Settings → Network**.
-- **Add your games** — see [Adding games & ROMs](/leaf-docs/guide/games/).
-- **Add BIOS files** for the systems that need them — see
+- **Add your games** - see [Adding games & ROMs](/leaf-docs/guide/games/).
+- **Add BIOS files** for the systems that need them - see
   [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
-- **Check for updates** from the launcher — see [Updating](/leaf-docs/guide/updating/).
+- **Check for updates** from the launcher - see [Updating](/leaf-docs/guide/updating/).
 
 ## Notes
 

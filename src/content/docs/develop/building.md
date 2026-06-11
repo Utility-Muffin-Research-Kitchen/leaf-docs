@@ -4,13 +4,13 @@ description: Build the Leaf launcher and components from source, and stage them 
 ---
 
 An overview of building Leaf. (Detailed, command-exact instructions live in each
-repo's README — this is the map.)
+repo's README - this is the map.)
 
 ## Prerequisites
 
 - A clone of the relevant repos as siblings (see [Repo map](/leaf-docs/develop/repo-map/)),
   most easily via Leaf's bootstrap target.
-- **Docker** — the cross-compiler runs inside a toolchain image, so you don't install
+- **Docker** - the cross-compiler runs inside a toolchain image, so you don't install
   an ARM toolchain on your host.
 - For deploying to hardware: `adb`, and a device running Leaf.
 
@@ -34,7 +34,7 @@ produce the RetroArch binary and the libretro cores for the device.
 
 ## Staging to a device
 
-Deployment is a **Leaf-level** concern — you don't `cd` into each repo to deploy.
+Deployment is a **Leaf-level** concern - you don't `cd` into each repo to deploy.
 Leaf's `Makefile` is a dispatcher that assembles the SD payload and pushes it over
 `adb`:
 

@@ -52,9 +52,9 @@ BIOS/
 
 ### Systems that need a BIOS
 
-- **Neo Geo** — requires **`neogeo.zip`** in `BIOS/`. Without it, Neo Geo games
+- **Neo Geo** - requires **`neogeo.zip`** in `BIOS/`. Without it, Neo Geo games
   appear but won't launch.
-- **Arcade (FinalBurn Neo / FBNeo)** — many arcade games depend on a BIOS or a
+- **Arcade (FinalBurn Neo / FBNeo)** - many arcade games depend on a BIOS or a
   parent ROM set (for example, CPS systems need their BIOS). These also live in
   `BIOS/` or alongside the game set.
 

@@ -1,6 +1,6 @@
 ---
 title: Contributing
-description: How to contribute to Leaf — where to start and the project's conventions.
+description: How to contribute to Leaf - where to start and the project's conventions.
 ---
 
 Contributions are welcome. Leaf is cooked up in the open at the
@@ -8,7 +8,7 @@ Contributions are welcome. Leaf is cooked up in the open at the
 
 ## Where to start
 
-1. Find the right repository for your change — see the [Repo map](/leaf-docs/develop/repo-map/).
+1. Find the right repository for your change - see the [Repo map](/leaf-docs/develop/repo-map/).
    Keep changes in the **owning** repo (e.g. launcher logic in Jawaka, UI-toolkit
    changes in Catastrophe, the boot/install mechanism in miniloong-launcher-switcher).
 2. Read that repo's README and any in-repo plans/docs.
@@ -20,13 +20,13 @@ Contributions are welcome. Leaf is cooked up in the open at the
   subsystem.
 - **Naming.** Catastrophe uses `cat_` (public), `cat__` (internal), `CAT_`
   (macros/constants/enums). Jawaka uses `jw_` / `jw__`. Use descriptive variable
-  names — `screen_w`, not `sw`.
-- **No `system()` calls** — spawn processes with `fork`/`exec`.
-- **FAT32-safe content** — no symlinks or desktop-only filesystem assumptions in
+  names - `screen_w`, not `sw`.
+- **No `system()` calls** - spawn processes with `fork`/`exec`.
+- **FAT32-safe content** - no symlinks or desktop-only filesystem assumptions in
   shared launcher/runtime behavior (the SD card is FAT32).
-- **Use the runtime path contract** — don't hardcode SD/launcher/app/data roots;
+- **Use the runtime path contract** - don't hardcode SD/launcher/app/data roots;
   use the shared environment variables.
-- **Respect repo ownership** — the umbrella workspace holds cross-cutting plans;
+- **Respect repo ownership** - the umbrella workspace holds cross-cutting plans;
   product repos hold their own code and plans.
 
 ## Pull requests

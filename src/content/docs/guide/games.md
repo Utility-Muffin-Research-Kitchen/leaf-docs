@@ -23,12 +23,12 @@ States/             save states
 BIOS/               BIOS files some systems need (see BIOS & cores)
 ```
 
-- **`Roms/<SYSTEM>/`** — put each game in the folder for its system, e.g.
+- **`Roms/<SYSTEM>/`** - put each game in the folder for its system, e.g.
   `Roms/SNES/Chrono Trigger.sfc` or `Roms/GBA/Metroid Fusion.gba`.
-- **`Images/<SYSTEM>/`** — put box art next to the matching system folder, named
+- **`Images/<SYSTEM>/`** - put box art next to the matching system folder, named
   to match the game. For `Roms/SNES/Chrono Trigger.sfc`, use
   `Images/SNES/Chrono Trigger.png`.
-- **`Saves/` and `States/`** — created and managed for you as you play.
+- **`Saves/` and `States/`** - created and managed for you as you play.
 
 ## System folders
 

@@ -58,7 +58,7 @@ game list.
 
 ## Multi-disc games
 
-For multi-disc games (e.g. PlayStation/Sega CD titles), use an **`.m3u`**
+For multi-disc games (e.g. PlayStation/Sega CD titles), use an `.m3u`
 playlist that lists the disc files, and place it in the system's `Roms/` folder.
 Leaf shows the `.m3u` as a single entry so the game appears once, not once per
 disc.

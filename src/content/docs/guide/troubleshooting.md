@@ -8,7 +8,7 @@ Common issues and how to resolve them. If something here doesn't help, please
 
 ## A system folder isn't showing up
 
-A system only appears in the launcher once its **core** is present. If you added
+A system only appears in the launcher once its core is present. If you added
 games to, say, `Roms/PS/` but PlayStation isn't listed, the core for that system
 likely isn't installed. See [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
 
@@ -17,7 +17,7 @@ likely isn't installed. See [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
 - **Missing BIOS.** Some systems need a BIOS file you supply (e.g. Neo Geo needs
   `neogeo.zip` in `BIOS/`). The game appears but won't start without it.
 - **Arcade ROM-set mismatch.** Arcade games must match the core's expected ROM-set
-  version and stay **zipped**; don't unzip or rename them. A wrong-version set
+  version and stay zipped; don't unzip or rename them. A wrong-version set
   silently fails to load.
 - **Wrong folder.** Make sure the game is in the correct `Roms/<SYSTEM>/` folder.
 
@@ -43,7 +43,7 @@ See [Updating (OTA)](/leaf-docs/guide/updating/).
 
 ## The device booted to stock instead of Leaf
 
-This is Leaf's **crash-safety fallback**: if the launcher fails to start cleanly a
+This is Leaf's crash-safety fallback: if the launcher fails to start cleanly a
 few times in a row, the device drops to the stock interface so you're never stuck.
 Your games and settings are untouched.
 

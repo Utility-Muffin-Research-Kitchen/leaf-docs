@@ -8,9 +8,9 @@ expect this to deepen over time.)
 
 ## Run on top of stock
 
-Leaf's defining choice is that it **does not replace the stock OS**. A boot hook
-inserted into the device's normal startup takes over **before the stock home screen
-appears**, and runs the Leaf launcher instead - while leaving stock LoongOS intact
+Leaf's defining choice is that it does not replace the stock OS. A boot hook
+inserted into the device's normal startup takes over before the stock home screen
+appears, and runs the Leaf launcher instead - while leaving stock LoongOS intact
 underneath.
 
 Consequences of this model:
@@ -35,15 +35,15 @@ The launcher is several cooperating processes:
 - A small LED helper drives the RGB ring.
 
 The daemon is the normal entry point; the UI binaries are spawned by it. The
-daemon and UI communicate over a local **IPC** channel (used for things like
+daemon and UI communicate over a local IPC channel (used for things like
 performance changes and in-game menu actions).
 
 ## Catastrophe (the UI toolkit)
 
-The launcher and Leaf-native apps are built on **Catastrophe**, a small C UI
+The launcher and Leaf-native apps are built on Catastrophe, a small C UI
 toolkit. The launcher exports its appearance (colors, list/pill style, fonts,
 hint visibility) to apps through environment variables, so any app built on
-Catastrophe **inherits the launcher's look automatically**.
+Catastrophe inherits the launcher's look automatically.
 
 ## Platform abstraction
 
@@ -53,7 +53,7 @@ device-agnostic and new hardware can be added behind the same interface.
 
 ## Graphics
 
-The device composites through a Wayland compositor, and Leaf renders with **GLES2**,
+The device composites through a Wayland compositor, and Leaf renders with GLES2,
 the supported, working graphics path on this hardware.
 
 :::note[Reviewer note]

@@ -3,7 +3,7 @@ title: Introduction
 description: What Leaf is, the device it runs on, and how it stays safe by riding on top of the stock OS.
 ---
 
-**Leaf** is a custom firmware (CFW) for the **Miniloong Pocket 1 (MLP1)** handheld.
+**Leaf** is a custom firmware (CFW) for the Miniloong Pocket 1 (MLP1) handheld.
 It replaces the stock home screen with a fast, themeable launcher and adds
 emulation, apps, and over-the-air updates, all without overwriting the device's
 original operating system.

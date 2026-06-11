@@ -27,7 +27,7 @@ A configurable bar across the top (**Settings → Appearance → Status Bar**):
 - **Bluetooth** - shown when the radio is on, highlighted when a device is connected.
 - **Volume** - the current system volume.
 
-Each indicator can be toggled. You can also hide the **button hints** footer; with
+Each indicator can be toggled. You can also hide the button hints footer; with
 hints off, content expands to fill the screen, and apps built on Leaf's toolkit
 follow the same setting.
 
@@ -75,7 +75,7 @@ Leaf ships with a few built-in apps (under the **Apps** tab):
 
 - **Recents** shows what you've been playing; you can remove entries you don't
   want.
-- In-game **saves** and **save states** are written to the SD card (`Saves/`,
+- In-game saves and save states are written to the SD card (`Saves/`,
   `States/`).
 
 :::note[Reviewer note]

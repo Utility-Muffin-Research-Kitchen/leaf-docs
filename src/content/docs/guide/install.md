@@ -3,7 +3,7 @@ title: Install Leaf
 description: Install Leaf on a Miniloong Pocket 1 from an SD card, using the device's built-in update mechanism. No PC tools required.
 ---
 
-Leaf installs from an **SD card** using the Miniloong Pocket 1's own built-in
+Leaf installs from an SD card using the Miniloong Pocket 1's own built-in
 update mechanism. You don't need ADB, a custom flasher, or any PC-side tooling:
 just extract the release to a card and let the device install it.
 
@@ -27,10 +27,10 @@ not for general use.
 1. **Prepare the card.** Format the SD card as FAT32 (or ext4) if it isn't
    already.
 2. **Extract the ZIP to the card root.** Unzip `leaf-mlp1-sd-<release_id>.zip`
-   directly to the **top level** of the SD card, not into a subfolder. You
+   directly to the top level of the SD card, not into a subfolder. You
    should see the install files and folders sitting at the card's root.
 3. **Insert and boot.** Put the card in the powered-off device and turn it on.
-4. **Let it install.** The device's **stock update screen** detects the
+4. **Let it install.** The device's stock update screen detects the
    installer and runs it. Wait for it to finish; don't power off mid-install.
 5. **Power off** when the installer reports it's done.
 6. **Boot into Leaf.** Turn the device back on normally. The Leaf boot animation

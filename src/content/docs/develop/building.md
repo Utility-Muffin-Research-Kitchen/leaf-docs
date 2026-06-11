@@ -16,13 +16,13 @@ repo's README - this is the map.)
 
 ## The toolchain
 
-Cross-compilation uses the **`mlp1-toolchain`** Docker image (Buildroot-based,
+Cross-compilation uses the `mlp1-toolchain` Docker image (Buildroot-based,
 aarch64 for the RK3566). Builds mount the source into the container and compile
 there, so the host only needs Docker.
 
 ## Building the launcher
 
-**Jawaka** builds against the sibling **Catastrophe** toolkit. It has a device build
+**Jawaka** builds against the sibling Catastrophe toolkit. It has a device build
 target that produces all launcher binaries (daemon, launcher, menu, OSD) using the
 toolchain image. There's also a native/mock build for developing the UI on a desktop
 without hardware.
@@ -34,7 +34,7 @@ produce the RetroArch binary and the libretro cores for the device.
 
 ## Staging to a device
 
-Deployment is a **Leaf-level** concern - you don't `cd` into each repo to deploy.
+Deployment is a Leaf-level concern - you don't `cd` into each repo to deploy.
 Leaf's `Makefile` is a dispatcher that assembles the SD payload and pushes it over
 `adb`:
 

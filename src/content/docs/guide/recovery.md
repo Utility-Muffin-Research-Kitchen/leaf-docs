@@ -3,7 +3,7 @@ title: Recovery
 description: Restore the Miniloong Pocket 1 to clean stock firmware, or recover automatically if Leaf fails to start.
 ---
 
-Because Leaf runs **on top of** the stock OS rather than replacing it, recovery is
+Because Leaf runs on top of the stock OS rather than replacing it, recovery is
 low-stakes, and in most cases automatic. The stock firmware is always still there
 underneath.
 
@@ -15,7 +15,7 @@ instead of leaving you stuck on a black screen or a boot loop.
 
 When this happens:
 
-- The device boots into the **stock home screen**.
+- The device boots into the stock home screen.
 - Leaf is only *paused*, not removed; your games, saves, and settings are untouched.
 - Once the underlying issue is resolved (often just a reboot), Leaf resumes on the
   next normal boot.
@@ -26,14 +26,14 @@ a reboot.
 ## Restore to clean stock (recovery card)
 
 If you want to return the device to a clean, stock state (for troubleshooting, to
-hand it on, or to start fresh), use the **recovery card**:
+hand it on, or to start fresh), use the recovery card:
 
-1. Download the Leaf **recovery** ZIP from the
+1. Download the Leaf recovery ZIP from the
    [releases page](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases):
    `leaf-mlp1-recovery-<release_id>.zip`.
-2. Extract it to the **root** of an SD card (same as a fresh
+2. Extract it to the root of an SD card (same as a fresh
    [install](/leaf-docs/guide/install/), not into a subfolder).
-3. Boot the device with that card inserted and let the **stock update screen** run
+3. Boot the device with that card inserted and let the stock update screen run
    the recovery.
 4. Power off when it finishes, then boot normally.
 

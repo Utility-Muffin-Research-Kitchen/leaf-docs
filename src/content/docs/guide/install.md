@@ -55,7 +55,7 @@ for [recovery](/leaf-docs/guide/recovery/).
 - **Crash safety.** If Leaf ever fails to start cleanly several times in a row,
   the device falls back to the stock interface automatically so you're never
   stuck.
-- **Removing Leaf / going back to stock** is covered in
+- **Removing Leaf.** Going back to stock for good is covered in
   [Recovery](/leaf-docs/guide/recovery/).
 
 :::note[Reviewer note]

@@ -11,7 +11,8 @@ all from inside the launcher. You don't need to swap SD cards or touch a PC.
 
 - **Connect to Wi-Fi.** Open **Settings → Network** and join a network. Updates
   download over the internet.
-- Make sure the battery is reasonably charged; the device reboots to install.
+- **Charge up.** Make sure the battery is reasonably charged; the device reboots
+  to install.
 
 ## Update from the launcher
 
@@ -43,7 +44,7 @@ No account or credentials are required; updates use the public releases feed.
 
 - **"Up to date" but you expected a release?** Make sure you're not on a
   dev/test channel and that the release was actually published.
-- **Download fails / network error:** re-check Wi-Fi connectivity
+- **Download fails or network error?** Re-check Wi-Fi connectivity
   (**Settings → Network**) and try again.
 - **A bad release?** You can always reinstall a known-good version from an
   [SD card](/leaf-docs/guide/install/), or restore stock via

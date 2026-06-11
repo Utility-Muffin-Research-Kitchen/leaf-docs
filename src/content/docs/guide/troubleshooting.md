@@ -29,13 +29,13 @@ See [Adding games & ROMs](/leaf-docs/guide/games/) and
 The network can associate without finishing address setup, especially on
 mixed-security (WPA2/WPA3) routers. Try:
 
-1. Toggling Wi-Fi off and on (**Settings → Wi-Fi**), or forgetting and rejoining
+1. Toggling Wi-Fi off and on (**Settings → Network**), or forgetting and rejoining
    the network.
 2. Rebooting the device.
 
 ## Updates won't download
 
-- Confirm Wi-Fi is connected and has working internet (**Settings → Wi-Fi**).
+- Confirm Wi-Fi is connected and has working internet (**Settings → Network**).
 - Make sure you're on a published release channel — a dev/test build may report
   "up to date" when no public release is newer.
 

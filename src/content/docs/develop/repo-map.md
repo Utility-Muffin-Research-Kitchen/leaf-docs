@@ -18,6 +18,8 @@ organization. Each is an independent repo with its own build.
 | **Cores-spruce** | libretro core builder (downstream of libretro-super) |
 | **ssh-server** | The SSH Server app (a `.pak`) |
 | **Thing-File** | The file-manager app (a `.pak`) |
+| **Fugazi** | The Fugazi live CRT-shader tuner app (a `.pak`) |
+| **CentralScrutinizer** | Network file/ROM manager — a web UI served from the device (in development) |
 | **miniloong-adb-keeper** | SD payload used to enable developer access on the device |
 | **leaf-docs** | This documentation site |
 
@@ -33,6 +35,5 @@ organization. Each is an independent repo with its own build.
   swap and install/recovery flow).
 
 :::note[Reviewer note]
-Confirm repo names/visibility before release (some apps may be private or renamed),
-and add any repos not listed here.
+Confirm repo names/visibility before release (some apps may be private or renamed).
 :::

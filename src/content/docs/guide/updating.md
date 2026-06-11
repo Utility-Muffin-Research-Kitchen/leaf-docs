@@ -9,13 +9,13 @@ all from inside the launcher. No SD swapping or PC tools needed for updates.
 
 ## Before you start
 
-- **Connect to Wi-Fi.** Open **Settings → Wi-Fi** and join a network. Updates
+- **Connect to Wi-Fi.** Open **Settings → Network** and join a network. Updates
   download over the internet.
 - Make sure the battery is reasonably charged — the device reboots to install.
 
 ## Update from the launcher
 
-1. Open **Settings → About → System Update**.
+1. Open **Settings → System Update**.
 2. Leaf checks the [Leaf releases feed](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases)
    and tells you whether a newer version is available.
 3. If there is one, choose to **download** it. Leaf fetches the release over a
@@ -44,13 +44,12 @@ No account or credentials are required — updates use the public releases feed.
 - **"Up to date" but you expected a release?** Make sure you're not on a
   dev/test channel and that the release was actually published.
 - **Download fails / network error:** re-check Wi-Fi connectivity
-  (**Settings → Wi-Fi**) and try again.
+  (**Settings → Network**) and try again.
 - **A bad release?** You can always reinstall a known-good version from an
   [SD card](/leaf-docs/guide/install/), or restore stock via
   [Recovery](/leaf-docs/guide/recovery/).
 
 :::note[Reviewer note]
-Confirm the exact menu path (Settings → About → System Update) and the on-screen
-step wording against the shipped build, and whether a release picker / channel
-selector is exposed to end users.
+Confirm the on-screen step wording against the shipped build, and whether a release
+picker / channel selector is exposed to end users.
 :::

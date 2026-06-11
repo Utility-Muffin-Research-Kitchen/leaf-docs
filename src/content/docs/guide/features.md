@@ -24,6 +24,8 @@ A configurable bar across the top (**Settings → Appearance → Status Bar**):
 - **Clock** — with style options.
 - **Battery** — animated while charging, with a low-battery warning.
 - **Wi-Fi** — connection state and signal strength.
+- **Bluetooth** — shown when the radio is on, highlighted when a device is connected.
+- **Volume** — the current system volume.
 
 Each indicator can be toggled. You can also hide the **button hints** footer; with
 hints off, content expands to fill the screen — and apps built on Leaf's toolkit
@@ -39,7 +41,7 @@ The stick has an RGB ring you can drive from Settings:
 
 ## Networking
 
-- **Wi-Fi** (**Settings → Wi-Fi**) — scan, connect, and turn the radio on or off.
+- **Wi-Fi** (**Settings → Network**) — scan, connect, and turn the radio on or off.
   Your choice persists across reboots.
 - **Bluetooth** (**Settings → Bluetooth**) — pair headsets and controllers.
 
@@ -77,7 +79,5 @@ Leaf ships with a few built-in apps (under the **Apps** tab):
   `States/`).
 
 :::note[Reviewer note]
-Some of these areas (Bluetooth, the performance panel, the game switcher) are
-actively being polished — confirm exact menu paths and wording against the shipped
-build before release.
+Confirm exact menu paths and wording against the shipped build before release.
 :::

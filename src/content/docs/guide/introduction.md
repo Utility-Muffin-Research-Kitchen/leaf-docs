@@ -38,7 +38,8 @@ This has two practical benefits:
 ## What you get
 
 - **A themeable launcher** — color schemes, list styles, fonts, an animated
-  status bar (clock, battery, Wi-Fi), and a configurable RGB stick-ring.
+  status bar (clock, battery, Wi-Fi, Bluetooth, volume), and a configurable RGB
+  stick-ring.
 - **Emulation** — RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.
 - **Apps** — an SSH server, a file manager, and **Fugazi**, a live CRT-shader

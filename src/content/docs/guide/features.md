@@ -1,6 +1,6 @@
 ---
 title: Features tour
-description: A walkthrough of the Leaf launcher — appearance, status bar, lighting, networking, performance, and built-in apps.
+description: 'A walkthrough of the Leaf launcher: appearance, status bar, lighting, networking, performance, and built-in apps.'
 ---
 
 A quick tour of what Leaf adds on top of your games. Most of this lives in
@@ -28,7 +28,7 @@ A configurable bar across the top (**Settings → Appearance → Status Bar**):
 - **Volume** — the current system volume.
 
 Each indicator can be toggled. You can also hide the **button hints** footer; with
-hints off, content expands to fill the screen — and apps built on Leaf's toolkit
+hints off, content expands to fill the screen, and apps built on Leaf's toolkit
 follow the same setting.
 
 ## Lighting (RGB ring)
@@ -59,8 +59,8 @@ live performance panel in the in-game menu for tuning while a game runs.
 
 ## In-game menu
 
-While a game is running, the in-game menu gives you quick actions — resume, save
-and load states, the performance panel, and quit back to the launcher — without
+While a game is running, the in-game menu gives you quick actions (resume, save
+and load states, the performance panel, quit back to the launcher) without
 leaving the game.
 
 ## Apps
@@ -73,8 +73,8 @@ Leaf ships with a few built-in apps (under the **Apps** tab):
 
 ## Recents & saves
 
-- **Recents** surfaces what you've been playing for quick access; you can remove
-  entries you don't want.
+- **Recents** shows what you've been playing; you can remove entries you don't
+  want.
 - In-game **saves** and **save states** are written to the SD card (`Saves/`,
   `States/`).
 

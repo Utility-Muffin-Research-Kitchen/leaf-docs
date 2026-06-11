@@ -64,7 +64,7 @@ with a stick click.
 ## Accounts
 
 Sign-ins for external services (ScreenScraper, RetroAchievements). These are
-placeholders for now — sign-in is coming in a later release.
+placeholders for now; sign-in is coming in a later release.
 
 ## Behavior
 

@@ -5,14 +5,14 @@ description: What Leaf is, the device it runs on, and how it stays safe by ridin
 
 **Leaf** is a custom firmware (CFW) for the **Miniloong Pocket 1 (MLP1)** handheld.
 It replaces the stock home screen with a fast, themeable launcher and adds
-emulation, apps, and over-the-air updates — without overwriting the device's
+emulation, apps, and over-the-air updates, all without overwriting the device's
 original operating system.
 
 ## The big idea: run on top of stock
 
-Most custom firmware *replaces* the stock OS. Leaf doesn't. Instead it **hooks
+Most custom firmware *replaces* the stock OS. Leaf doesn't. Instead it hooks
 into the device's normal boot and takes over before the stock home screen
-appears**, while leaving stock LoongOS intact underneath.
+appears, leaving stock LoongOS intact underneath.
 
 This has two practical benefits:
 
@@ -43,15 +43,15 @@ This has two practical benefits:
 - **Emulation** — RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.
 - **Apps** — an SSH server, a file manager, and **Fugazi**, a live CRT-shader
-  tuner, with more to come.
+  tuner.
 - **Over-the-air updates** — check for and install new releases right from the
   launcher. See [Updating](/leaf-docs/guide/updating/).
 
 ## Project status
 
-Leaf is **pre-1.0 and under active development**. Releases are published on
-GitHub; read each release's notes before installing. It currently targets the
-Miniloong Pocket 1 only.
+Leaf is pre-1.0 and changes quickly. Releases are published on GitHub; read
+each release's notes before installing. It currently targets the Miniloong
+Pocket 1 only.
 
 Leaf is open source, baked in the
 [Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen).

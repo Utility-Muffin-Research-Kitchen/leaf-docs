@@ -3,15 +3,15 @@ title: Updating (OTA)
 description: Check for and install Leaf updates over the air, straight from the launcher.
 ---
 
-Leaf can update itself **over the air (OTA)** — it checks GitHub for new
+Leaf can update itself **over the air (OTA)**: it checks GitHub for new
 releases, downloads and verifies them, and hands off to the device's installer,
-all from inside the launcher. No SD swapping or PC tools needed for updates.
+all from inside the launcher. You don't need to swap SD cards or touch a PC.
 
 ## Before you start
 
 - **Connect to Wi-Fi.** Open **Settings → Network** and join a network. Updates
   download over the internet.
-- Make sure the battery is reasonably charged — the device reboots to install.
+- Make sure the battery is reasonably charged; the device reboots to install.
 
 ## Update from the launcher
 
@@ -26,7 +26,7 @@ all from inside the launcher. No SD swapping or PC tools needed for updates.
 5. After it comes back up, you can confirm the running version under
    **Settings → About**.
 
-No account or credentials are required — updates use the public releases feed.
+No account or credentials are required; updates use the public releases feed.
 
 ## How it works (briefly)
 
@@ -36,7 +36,7 @@ No account or credentials are required — updates use the public releases feed.
   against a published SHA-256 sum. Leaf ships its own trusted-certificate bundle,
   so secure downloads work even though it's running on top of stock.
 - **Install handoff:** on the MLP1, Leaf stages the update and reuses the stock
-  installer to apply it on the next boot — the same safe path used for a fresh
+  installer to apply it on the next boot, the same safe path used for a fresh
   [SD install](/leaf-docs/guide/install/).
 
 ## Troubleshooting

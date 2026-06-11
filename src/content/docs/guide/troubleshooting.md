@@ -17,7 +17,7 @@ likely isn't installed. See [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
 - **Missing BIOS.** Some systems need a BIOS file you supply (e.g. Neo Geo needs
   `neogeo.zip` in `BIOS/`). The game appears but won't start without it.
 - **Arcade ROM-set mismatch.** Arcade games must match the core's expected ROM-set
-  version and stay **zipped** — don't unzip or rename them. A wrong-version set
+  version and stay **zipped**; don't unzip or rename them. A wrong-version set
   silently fails to load.
 - **Wrong folder.** Make sure the game is in the correct `Roms/<SYSTEM>/` folder.
 
@@ -36,25 +36,25 @@ mixed-security (WPA2/WPA3) routers. Try:
 ## Updates won't download
 
 - Confirm Wi-Fi is connected and has working internet (**Settings → Network**).
-- Make sure you're on a published release channel — a dev/test build may report
+- Make sure you're on a published release channel; a dev/test build may report
   "up to date" when no public release is newer.
 
 See [Updating (OTA)](/leaf-docs/guide/updating/).
 
 ## The device booted to stock instead of Leaf
 
-This is Leaf's **crash-safety fallback** — if the launcher fails to start cleanly a
+This is Leaf's **crash-safety fallback**: if the launcher fails to start cleanly a
 few times in a row, the device drops to the stock interface so you're never stuck.
 Your games and settings are untouched.
 
-**Fix:** just **reboot**. Leaf resumes on the next normal boot. See
+**Fix:** just reboot. Leaf resumes on the next normal boot. See
 [Recovery](/leaf-docs/guide/recovery/).
 
 ## A game feels slow or laggy
 
 Set **Settings → Behavior → Game Performance** to **Performance** (or leave it on
-**Auto**, which boosts heavier systems automatically). Note that the most demanding
-systems are at the edge of what this hardware can do — see the note in
+**Auto**, which boosts heavier systems automatically). The most demanding systems
+are at the edge of what this hardware can do; see the note in
 [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
 
 ## The device sleeps or powers off on its own

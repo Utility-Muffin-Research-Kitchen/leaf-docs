@@ -3,9 +3,9 @@ title: Adding games & ROMs
 description: Where to put ROMs, box art, saves, and states on the SD card so Leaf finds them.
 ---
 
-Leaf reads your library from a set of clearly-named folders on the SD card. Drop
-files into the right folder and they show up in the launcher — no database to
-manage by hand.
+Leaf reads your library from a set of clearly named folders on the SD card. Drop
+files into the right folder and they show up in the launcher; there's no database
+to manage by hand.
 
 :::caution[Bring your own games]
 Leaf does not include any games. Only add ROMs you are legally entitled to use.
@@ -41,13 +41,13 @@ Each console has its own `Roms/` subfolder. Common ones include:
 | `GB` / `GBC` / `GBA` | Game Boy / Color / Advance |
 | `GENESIS` | Sega Genesis / Mega Drive |
 | `MS` / `GG` | Sega Master System / Game Gear |
-| `TG16` | TurboGraf-16 / PC Engine |
-| `NEOGEO` | Neo Geo (needs a BIOS — see below) |
+| `TG16` | TurboGrafx-16 / PC Engine |
+| `NEOGEO` | Neo Geo (needs a BIOS; see below) |
 | `NGPC` | Neo Geo Pocket Color |
 | `ATARI2600` | Atari 2600 |
 
 A system appears in the launcher once its emulator core is available on the
-device. If a folder's system isn't showing up, its core may not be installed —
+device. If a folder's system isn't showing up, its core may not be installed;
 see [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
 
 ## Box art

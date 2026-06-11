@@ -16,7 +16,7 @@ not for general use.
 ## What you need
 
 - A Miniloong Pocket 1.
-- An SD card (FAT32 or ext4). A backup of anything already on it; installing
+- An SD card, FAT32 (or ext4). A backup of anything already on it; installing
   works on the card you boot from.
 - The Leaf install ZIP from the
   [Leaf releases page](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases):
@@ -24,7 +24,7 @@ not for general use.
 
 ## Steps
 
-1. **Prepare the card.** Format the SD card as **FAT32** (or ext4) if it isn't
+1. **Prepare the card.** Format the SD card as FAT32 (or ext4) if it isn't
    already.
 2. **Extract the ZIP to the card root.** Unzip `leaf-mlp1-sd-<release_id>.zip`
    directly to the **top level** of the SD card, not into a subfolder. You

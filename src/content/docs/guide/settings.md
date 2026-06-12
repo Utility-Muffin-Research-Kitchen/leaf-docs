@@ -63,8 +63,15 @@ with a stick click.
 
 ## Accounts
 
-Sign-ins for external services (ScreenScraper, RetroAchievements). These are
-placeholders for now; sign-in is coming in a later release.
+Sign-ins for external services. Press A on a row to enter a username and
+password with the on-screen keyboard; press Y to sign out.
+
+- **RetroAchievements** - signs RetroArch into retroachievements.org at every
+  game launch, so achievements appear in supported cores. Use your account
+  username, not your email address. If a launch happens to miss the sign-in
+  (a Wi-Fi blip), the next one retries.
+- **ScreenScraper.fr** - stores your screenscraper.fr login for the upcoming
+  artwork scraper; the row shows "Saved" until the first scrape verifies it.
 
 ## Behavior
 

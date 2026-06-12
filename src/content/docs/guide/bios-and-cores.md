@@ -9,9 +9,12 @@ BIOS files you must supply yourself.
 
 ## Cores (the emulators)
 
-A *core* is the emulator for a given system. Leaf ships with a set of cores, so
-most systems are ready to play out of the box. A system shows up in the
-launcher once its core is present on the device.
+A *core* is the emulator for a given system. Every supported system's emulator
+ships in the release, so games are ready to play as soon as your ROMs are in
+place; a system shows up in the launcher once its emulator is present on the
+device. Each emulator is the work of its own authors: the full license text and
+a pointer to the source for every one ships inside the install under
+`licenses/`.
 
 Under the hood:
 
@@ -21,9 +24,13 @@ Under the hood:
   [libretro-super](https://github.com/libretro/libretro-super) (the same source
   the wider libretro ecosystem uses), so they track upstream rather than being
   hand-maintained forks.
-- **Standalone emulators** are used for a few heavy systems where a dedicated build
-  performs better than a RetroArch core, for example PPSSPP (PSP), Flycast
-  (Dreamcast), and a standalone Nintendo 64 emulator.
+- **Standalone PPSSPP** runs PSP games; a dedicated build outperforms the
+  RetroArch core on this hardware. PSP ROMs can be `.chd`, `.iso`, `.cso`, or
+  `.pbp`, and PSP needs no BIOS. Standalone sessions work a little differently:
+  the Menu button exits the game, and the in-game menu and save states (which
+  are RetroArch features) don't apply. Volume keys work as usual.
+- **Dreamcast and Nintendo 64** run through their RetroArch cores today
+  (Flycast and Mupen64Plus-Next); dedicated standalone builds are planned.
 
 Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than
@@ -59,6 +66,8 @@ BIOS/
 - **Arcade (FinalBurn Neo / FBNeo)** - many arcade games depend on a BIOS or a
   parent ROM set (for example, CPS systems need their BIOS). These also live in
   `BIOS/` or alongside the game set.
+- **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
+  (for example `scph5501.bin` for US titles) improves compatibility.
 
 Handheld systems like Neo Geo Pocket / Color need no BIOS; plain ROMs
 just work.

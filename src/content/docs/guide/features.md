@@ -45,6 +45,12 @@ The stick has an RGB ring you can drive from Settings:
   Your choice persists across reboots.
 - **Bluetooth** (**Settings → Bluetooth**) - pair headsets and controllers.
 
+## Achievements
+
+Sign in to RetroAchievements once (**Settings → Accounts**) and RetroArch logs
+you in at every game launch; achievements and progress show up in supported
+cores. See [Settings → Accounts](/leaf-docs/guide/settings/#accounts).
+
 ## Performance
 
 **Settings → Behavior → Game Performance** lets you pick how hard the device works

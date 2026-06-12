@@ -90,5 +90,7 @@ Check for, download, and install updates over the air. See
 
 ## About
 
-The installed Leaf version plus system info (OS, kernel, hardware, and network
-addresses).
+The installed Leaf version, system info (OS, kernel, hardware, and network
+addresses), and the open-source components Leaf is built on, each with its
+license. The full license text for every bundled emulator also ships inside
+the install under `licenses/`.

@@ -67,10 +67,10 @@ leaving the game.
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
-- **Central Scrutinizer** - manage your library from a web browser. Launch it
-  on the device, open the address it shows from any computer or phone on your
-  network, and upload ROMs and box art, manage saves and BIOS files, or browse
-  the SD card, all without pulling the card.
+- **Central Scrutinizer** - manage your library over Wi-Fi from a web browser.
+  Launch it on the device, open the address it shows from any computer or phone
+  on your network, and upload ROMs and box art, manage saves and BIOS files, or
+  browse the SD card, all without pulling the card.
 - **Fugazi** - a live CRT-shader tuner.
 - **SSH Server** - start an SSH server to reach the device over the network.
 - **File manager** - browse and manage files on the device.

@@ -27,8 +27,8 @@ Under the hood:
 - **Standalone PPSSPP** runs PSP games; a dedicated build outperforms the
   RetroArch core on this hardware. PSP ROMs can be `.chd`, `.iso`, `.cso`, or
   `.pbp`, and PSP needs no BIOS. Standalone sessions work a little differently:
-  the Menu button exits the game, and the in-game menu and save states (which
-  are RetroArch features) don't apply. Volume keys work as usual.
+  the Menu button opens PPSSPP's pause menu, and the RetroArch in-game menu and
+  save states don't apply. Volume keys work as usual.
 - **Dreamcast and Nintendo 64** run through their RetroArch cores today
   (Flycast and Mupen64Plus-Next); dedicated standalone builds are planned.
 

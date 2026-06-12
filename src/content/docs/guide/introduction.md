@@ -42,8 +42,8 @@ This has two practical benefits:
   stick-ring.
 - **Emulation** - RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.
-- **Apps** - an SSH server, a file manager, and **Fugazi**, a live CRT-shader
-  tuner.
+- **Apps** - Central Scrutinizer (manage games and files from your browser),
+  Fugazi (a live CRT-shader tuner), an SSH server, and a file manager.
 - **Over-the-air updates** - check for and install new releases right from the
   launcher. See [Updating](/leaf-docs/guide/updating/).
 

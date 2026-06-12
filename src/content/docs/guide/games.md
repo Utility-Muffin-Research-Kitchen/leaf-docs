@@ -5,7 +5,9 @@ description: Where to put ROMs, box art, saves, and states on the SD card so Lea
 
 Leaf reads your library from a set of clearly named folders on the SD card. Drop
 files into the right folder and they show up in the launcher; there's no database
-to manage by hand.
+to manage by hand. You can fill the folders by putting the SD card in your
+computer, or over Wi-Fi with the Central Scrutinizer app (see
+[Features → Apps](/leaf-docs/guide/features/#apps)).
 
 :::caution[Bring your own games]
 Leaf does not include any games. Only add ROMs you are legally entitled to use.

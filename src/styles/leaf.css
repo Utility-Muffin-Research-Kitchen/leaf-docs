@@ -38,3 +38,10 @@
 :root[data-theme='dark'] {
   --sl-color-text-accent: #9ccb87;
 }
+
+/* The landing-page device showcase is a full-bleed block (margin: calc(50% - 50vw))
+   so it centers on the page; that can overshoot by the scrollbar's width. Clip the
+   horizontal overflow (clip, not hidden, so the sticky header still works). */
+html {
+  overflow-x: clip;
+}

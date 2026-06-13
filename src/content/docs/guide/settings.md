@@ -70,8 +70,23 @@ password with the on-screen keyboard; press Y to sign out.
   game launch, so achievements appear in supported cores. Use your account
   username, not your email address. If a launch happens to miss the sign-in
   (a Wi-Fi blip), the next one retries.
-- **ScreenScraper.fr** - stores your screenscraper.fr login for the upcoming
-  artwork scraper; the row shows "Saved" until the first scrape verifies it.
+- **ScreenScraper.fr** - signs Leaf into screenscraper.fr so it can download box
+  art (see [Scraping](#scraping) below, and
+  [Adding games → Box art](/leaf-docs/guide/games/#box-art)). The row reads
+  "Saved" until the first scrape verifies the login, then "Signed in as &lt;user&gt;"
+  with your thread allowance and daily quota.
+
+## Scraping
+
+How Leaf picks box art when it downloads from ScreenScraper.fr (sign in first
+under [Accounts](#accounts)). You start a scrape from a game or system's Options
+menu, covered in [Adding games → Options menu](/leaf-docs/guide/games/#options-menu).
+
+- **Artwork Priority** - the order Leaf prefers artwork types (box art, title
+  screen, in-game shot, and so on). It saves the first type a game has available.
+- **Region Priority** - the order Leaf prefers regions when a game has art for
+  several. On each list, A includes or excludes an entry, and X grabs an entry so
+  Up/Down reorders it.
 
 ## Behavior
 

@@ -29,6 +29,11 @@ Under the hood:
   `.pbp`, and PSP needs no BIOS. Standalone sessions work a little differently:
   the Menu button opens PPSSPP's pause menu, and the RetroArch in-game menu and
   save states don't apply. Volume keys work as usual.
+- **Standalone DraStic** runs Nintendo DS games (`.nds`) from `Roms/NDS/`, and
+  needs no BIOS of your own. Like PPSSPP it's a standalone session: the Menu
+  button opens DraStic's own menu (save states, options, and the second-screen
+  layout live there), so the RetroArch in-game menu doesn't apply. Volume keys
+  work as usual.
 - **Dreamcast and Nintendo 64** run through their RetroArch cores today
   (Flycast and Mupen64Plus-Next); dedicated standalone builds are planned.
 

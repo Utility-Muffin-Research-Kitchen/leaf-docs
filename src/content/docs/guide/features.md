@@ -81,6 +81,14 @@ Leaf ships with a few built-in apps (under the **Apps** tab):
 - **SSH Server** - start an SSH server to reach the device over the network.
 - **File manager** - browse and manage files on the device.
 
+## Box art
+
+Press **X** on a game or system to open its **Options** menu, where you can rename
+it, pick a core, set a performance profile, or scrape box art. Leaf downloads art
+from ScreenScraper.fr (sign in under **Settings → Accounts**), and it runs in the
+background while you keep browsing or playing. You can always drop images into
+`Images/` by hand instead. See [Adding games → Box art](/leaf-docs/guide/games/#box-art).
+
 ## Recents & saves
 
 - **Recents** shows what you've been playing; you can remove entries you don't

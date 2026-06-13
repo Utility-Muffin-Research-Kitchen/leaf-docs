@@ -77,14 +77,9 @@ Leaf ships with a few built-in apps (under the **Apps** tab):
   Launch it on the device, open the address it shows from any computer or phone
   on your network, and upload ROMs and box art, manage saves and BIOS files, or
   browse the SD card, all without pulling the card.
-- **Fugazi** - a live CRT-shader tuner. It shows a full-screen preview while you
-  dial in a retro look: screen curvature, scanlines and their spacing, a phosphor
-  mask, glow, a vignette, brightness, and color warmth. Pick a setting with
-  Up/Down and adjust it with the shoulder buttons; press **X** for a test pattern
-  to judge the effect on a clean image. When it looks right, **install** bakes
-  your settings into a RetroArch shader preset and sets it as the global default,
-  so the look applies to every game on its next launch with no per-game setup.
-  See [CRT shaders with Fugazi](#crt-shaders-with-fugazi) below.
+- **Fugazi** - a live CRT-shader tuner: dial in a retro look with a full-screen
+  preview, then apply it to every game. See
+  [CRT shaders with Fugazi](#crt-shaders-with-fugazi) below.
 - **SSH Server** - start an SSH server to reach the device over the network.
 - **File manager** - browse and manage files on the device.
 

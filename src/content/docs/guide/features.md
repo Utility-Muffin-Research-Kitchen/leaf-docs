@@ -73,10 +73,11 @@ leaving the game.
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
-- **Central Scrutinizer** - manage your library over Wi-Fi from a web browser.
-  Launch it on the device, open the address it shows from any computer or phone
-  on your network, and upload ROMs and box art, manage saves and BIOS files, or
-  browse the SD card, all without pulling the card.
+- **Central Scrutinizer** - manage your library over Wi-Fi from a web browser:
+  upload ROMs and box art, manage saves and BIOS files, and browse the SD card,
+  all without pulling the card. See
+  [Managing your library with Central Scrutinizer](#managing-your-library-with-central-scrutinizer)
+  below.
 - **Fugazi** - a live CRT-shader tuner. Dial in a retro look (scanlines, screen
   curvature, a phosphor mask, glow, and more) against a full-screen preview, then
   install it as the global shader so it applies to every game. See
@@ -91,6 +92,32 @@ it, pick a core, set a performance profile, or scrape box art. Leaf downloads ar
 from ScreenScraper.fr (sign in under **Settings → Accounts**), and it runs in the
 background while you keep browsing or playing. You can always drop images into
 `Images/` by hand instead. See [Adding games → Box art](/leaf-docs/guide/games/#box-art).
+
+## Managing your library with Central Scrutinizer
+
+Open **Central Scrutinizer** from the **Apps** tab to manage the SD card from any
+computer or phone on the same Wi-Fi network - no card-pulling, no cables.
+
+To connect:
+
+1. Put the device on Wi-Fi (**Settings → Network**).
+2. Launch Central Scrutinizer. It serves a small web manager and shows the
+   address to reach it at.
+3. Open that address in a browser on a computer or phone on the same network.
+
+From the browser you can:
+
+- Upload ROMs straight into the right system folder, and box art into `Images/`.
+- Manage your saves, save states, and BIOS files.
+- Browse the SD card and tidy up files.
+
+It's the over-the-air alternative to filling the folders by hand; either way the
+layout is the same (see [Adding games & ROMs](/leaf-docs/guide/games/)). A few
+things to know:
+
+- Both ends have to be on the same network. The address is local only - it isn't
+  reachable from the public internet.
+- The manager runs while the app is open; exit it on the device to stop serving.
 
 ## CRT shaders with Fugazi
 

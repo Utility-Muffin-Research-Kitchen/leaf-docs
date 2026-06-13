@@ -77,7 +77,14 @@ Leaf ships with a few built-in apps (under the **Apps** tab):
   Launch it on the device, open the address it shows from any computer or phone
   on your network, and upload ROMs and box art, manage saves and BIOS files, or
   browse the SD card, all without pulling the card.
-- **Fugazi** - a live CRT-shader tuner.
+- **Fugazi** - a live CRT-shader tuner. It shows a full-screen preview while you
+  dial in a retro look: screen curvature, scanlines and their spacing, a phosphor
+  mask, glow, a vignette, brightness, and color warmth. Pick a setting with
+  Up/Down and adjust it with the shoulder buttons; press **X** for a test pattern
+  to judge the effect on a clean image. When it looks right, **install** bakes
+  your settings into a RetroArch shader preset and sets it as the global default,
+  so the look applies to every game on its next launch with no per-game setup.
+  See [CRT shaders with Fugazi](#crt-shaders-with-fugazi) below.
 - **SSH Server** - start an SSH server to reach the device over the network.
 - **File manager** - browse and manage files on the device.
 
@@ -88,6 +95,35 @@ it, pick a core, set a performance profile, or scrape box art. Leaf downloads ar
 from ScreenScraper.fr (sign in under **Settings → Accounts**), and it runs in the
 background while you keep browsing or playing. You can always drop images into
 `Images/` by hand instead. See [Adding games → Box art](/leaf-docs/guide/games/#box-art).
+
+## CRT shaders with Fugazi
+
+Open **Fugazi** from the **Apps** tab to give games a CRT look. It renders a
+live, full-screen preview, so you can see exactly what each setting does before
+committing to it.
+
+The workflow:
+
+1. Move through the settings with **Up/Down** and adjust the highlighted one with
+   the shoulder buttons.
+2. Press **X** to swap in a built-in test pattern - a clean image makes
+   scanlines, curvature, and the mask easy to judge; press **Y** to clear it.
+3. When you like the look, press **A** to install it.
+
+Installing bakes your values into a RetroArch shader preset on the SD card and
+registers it as RetroArch's global preset. Because it's the global preset, the
+shader is used by every core the next time you launch a game - there's no
+per-game or per-system setup. To change the look later, reopen Fugazi, tune, and
+install again; the new preset replaces the old one.
+
+A couple of things to keep in mind:
+
+- The preview is representative, but the final look over a real game also depends
+  on that core's output resolution and the panel, so it's worth tuning with a
+  game in mind.
+- Heavier settings (a fine phosphor mask, strong glow) cost more GPU time. On 8-
+  and 16-bit systems that's usually free, but on demanding cores it can eat into
+  your headroom - ease off the mask if a game struggles.
 
 ## Recents & saves
 

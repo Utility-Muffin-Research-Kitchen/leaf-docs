@@ -37,6 +37,14 @@ export default defineConfig({
           content:
             "if(!localStorage.getItem('starlight-theme')){document.documentElement.dataset.theme='dark';}",
         },
+        // Social-card image for link previews (Discord, Slack, iMessage, etc.).
+        // Starlight emits og:title/description but no og:image, so embeds show no
+        // image. Open Graph needs absolute URLs. Regenerate with scripts/make-og.py.
+        { tag: 'meta', attrs: { property: 'og:image', content: `${SITE}${BASE}/og.png` } },
+        { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+        { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+        { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Leaf - custom firmware for the Miniloong Pocket 1' } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${SITE}${BASE}/og.png` } },
       ],
       sidebar: [
         {

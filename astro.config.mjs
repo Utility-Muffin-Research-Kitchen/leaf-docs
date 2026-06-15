@@ -62,6 +62,13 @@ export default defineConfig({
           ],
         },
         {
+          label: 'App store',
+          items: [
+            { label: 'Overview', slug: 'app-store/introduction' },
+            { label: 'Disco Boy', slug: 'app-store/disco-boy' },
+          ],
+        },
+        {
           label: 'Develop',
           items: [
             { label: 'Architecture', slug: 'develop/architecture' },

@@ -10,12 +10,14 @@ A quick tour of what Leaf adds on top of your games. Most of this lives in
 
 Make the launcher yours from **Settings → Appearance**:
 
-- **Color schemes** - pick a curated palette: **Leaf** (the soft-green default),
-  Aurora, Ember, Orchid, Slate, or Rosé. You can also hand-tune individual colors,
-  which switches the scheme to "Custom."
+- **Color schemes** - pick a curated palette. Six dark schemes (**Leaf**, the
+  soft-green default, plus Aurora, Ember, Orchid, Slate, and Rosé) and five
+  lighter ones (**Meadow**, Sky, Blush, Sand, and Lavender). You can also hand-tune
+  individual colors, which switches the scheme to "Custom."
 - **List style** - choose how the selection highlight looks (rounded, soft, square,
   or the directional **Leaf** pill).
-- **Fonts** - pick a font family and adjust the font size.
+- **Fonts** - pick a font family (Nunito by default, with eight more) and adjust
+  the font size.
 
 ## Status bar
 
@@ -43,7 +45,8 @@ The stick has an RGB ring you can drive from Settings:
 
 - **Wi-Fi** (**Settings → Network**) - scan, connect, and turn the radio on or off.
   Your choice persists across reboots.
-- **Bluetooth** (**Settings → Bluetooth**) - pair headsets and controllers.
+- **Bluetooth** (**Settings → Bluetooth**) - scan for and pair headsets and
+  controllers; game and system audio follows a connected headset automatically.
 
 ## Achievements
 
@@ -53,7 +56,7 @@ cores. See [Settings → Accounts](/leaf-docs/guide/settings/#accounts).
 
 ## Performance
 
-**Settings → Behavior → Game Performance** lets you pick how hard the device works
+**Settings → General → Game Performance** lets you pick how hard the device works
 during gameplay:
 
 - **Auto** - light systems run efficiently; heavier systems automatically boost.
@@ -63,11 +66,16 @@ Leaf keeps the launcher itself in a low-power state and ramps up the CPU, GPU, a
 memory only when a game launches, then winds back down on exit. There's also a
 live performance panel in the in-game menu for tuning while a game runs.
 
-## In-game menu
+## Menu button
 
-While a game is running, the in-game menu gives you quick actions (resume, save
-and load states, the performance panel, quit back to the launcher) without
-leaving the game.
+On the launcher home, the **Menu** button opens the **System** menu: a library
+rescan, **System Update**, **About**, and the session and power actions (sleep,
+reboot, power off, exit to stock). See
+[Settings → System menu](/leaf-docs/guide/settings/#system-menu-menu-button).
+
+While a game is running, the same button opens the **in-game menu** instead -
+quick actions (resume, save and load states, the performance panel, quit back to
+the launcher) without leaving the game.
 
 ## Apps
 
@@ -128,7 +136,7 @@ committing to it.
 The workflow:
 
 1. Move through the settings with **Up/Down** and adjust the highlighted one with
-   the shoulder buttons.
+   **Left/Right** for fine steps, or **L1/R1** for coarse jumps.
 2. Press **X** to swap in a built-in test pattern - a clean image makes
    scanlines, curvature, and the mask easy to judge; press **Y** to clear it.
 3. When you like the look, press **A** to install it.

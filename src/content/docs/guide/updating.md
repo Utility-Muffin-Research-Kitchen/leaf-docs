@@ -16,7 +16,7 @@ all from inside the launcher. You don't need to swap SD cards or touch a PC.
 
 ## Update from the launcher
 
-1. Open **Settings → System Update**.
+1. Press the **Menu** button and choose **System Update** from the System menu.
 2. Leaf checks the [Leaf releases feed](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases)
    and tells you whether a newer version is available.
 3. If there is one, choose to download it. Leaf fetches the release over a
@@ -25,7 +25,7 @@ all from inside the launcher. You don't need to swap SD cards or touch a PC.
 4. Choose to install. Leaf stages the update and reboots into the device's
    installer to apply it, then reboots back into the new version.
 5. After it comes back up, you can confirm the running version under
-   **Settings → About**.
+   **Menu → About**.
 
 No account or credentials are required; updates use the public releases feed.
 

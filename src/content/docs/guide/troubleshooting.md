@@ -52,14 +52,14 @@ Your games and settings are untouched.
 
 ## A game feels slow or laggy
 
-Set **Settings → Behavior → Game Performance** to **Performance** (or leave it on
+Set **Settings → General → Game Performance** to **Performance** (or leave it on
 **Auto**, which boosts heavier systems automatically). The most demanding systems
 are at the edge of what this hardware can do; see the note in
 [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
 
 ## The device sleeps or powers off on its own
 
-Check the auto-sleep setting under **Settings → Behavior**. If it's enabled and set
+Check the auto-sleep setting under **Settings → General**. If it's enabled and set
 short, lengthen it or turn it off.
 
 ## Bluetooth audio sounds low-quality

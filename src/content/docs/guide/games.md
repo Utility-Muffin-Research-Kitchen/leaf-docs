@@ -68,7 +68,7 @@ the art in the game list.
 [Options menu](#options-menu) on a game or a whole system. Fetched art lands in
 `Images/<SYSTEM>/` exactly as if you had added it by hand, and appears in the list
 as soon as each download finishes. Which image type and region it picks is set
-under **Settings → Scraping** (Artwork Priority and Region Priority).
+under **Settings → Game Art** (Artwork Priority and Region Priority).
 
 ## Options menu
 

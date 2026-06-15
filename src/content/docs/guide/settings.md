@@ -17,10 +17,12 @@ row labels, and available options against the shipped build before release.
 
 Theme and layout, under **Settings → Appearance**.
 
-- **Color Scheme** - a curated palette picker. Six dark schemes - **Leaf** (the
-  soft-green default), Aurora, Ember, Orchid, Slate, and Rosé - and five lighter
-  ones - **Meadow**, Sky, Blush, Sand, and Lavender. Selecting one sets every
-  color role at once.
+![Leaf's fourteen color schemes - seven dark and seven light, paired by spectrum color](/leaf-docs/theme-swatches.png)
+
+- **Color Scheme** - a curated palette picker: seven dark schemes and seven light
+  ones, one of each per color of the spectrum, with **Leaf** (the soft-green
+  default) leading. Each light scheme is the hue-twin of a dark one. Selecting one
+  sets every color role at once.
 - **Colors** - fine-tune individual color roles (accent, background, text,
   selection, hints, button label, button background) with a color picker. Editing
   any color switches the scheme to "Custom."

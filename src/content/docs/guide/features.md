@@ -10,10 +10,9 @@ A quick tour of what Leaf adds on top of your games. Most of this lives in
 
 Make the launcher yours from **Settings → Appearance**:
 
-- **Color schemes** - pick a curated palette. Six dark schemes (**Leaf**, the
-  soft-green default, plus Aurora, Ember, Orchid, Slate, and Rosé) and five
-  lighter ones (**Meadow**, Sky, Blush, Sand, and Lavender). You can also hand-tune
-  individual colors, which switches the scheme to "Custom."
+- **Color schemes** - pick from fourteen curated palettes: a full spectrum in dark
+  and the same spectrum in light, led by **Leaf** (the soft-green default). You can
+  also hand-tune individual colors, which switches the scheme to "Custom."
 - **List style** - choose how the selection highlight looks (rounded, soft, square,
   or the directional **Leaf** pill).
 - **Fonts** - pick a font family (Nunito by default, with eight more) and adjust

@@ -35,7 +35,7 @@ export default defineConfig({
         {
           tag: 'script',
           content:
-            "if(!localStorage.getItem('starlight-theme')){document.documentElement.dataset.theme='dark';}",
+            "if(!localStorage.getItem('starlight-theme')){localStorage.setItem('starlight-theme','dark');document.documentElement.dataset.theme='dark';}",
         },
         // Social-card image for link previews (Discord, Slack, iMessage, etc.).
         // Starlight emits og:title/description but no og:image, so embeds show no

@@ -22,7 +22,8 @@ small music player that sends sound straight to whatever you are listening on.
 - **Cover art** - shows a sidecar `cover.png` / `folder.jpg`, or the artwork
   embedded in the file itself; thumbnails in the lists and full-size art on the
   album header and now-playing screen. No art, and it draws a tidy vinyl record in
-  your theme color.
+  your theme color. Press **SELECT** any time for a full-screen view of the current
+  cover, nothing else on screen.
 - **A now-playing screen** - press **Y** for big art, a scrubber, and a full
   transport: play / pause, skip tracks, scrub back and forward, shuffle, and repeat
   (off, all, or one).
@@ -55,6 +56,7 @@ or just leave the art embedded in the files.
 | Y | toggle the now-playing screen |
 | L1 / R1 | switch tab |
 | L2 / R2 | hold to seek (now-playing track) |
+| SELECT | full-screen cover art (press again, or B, to close) |
 | MENU | quit |
 
 On the now-playing screen, the d-pad and **A** move across the transport row, **L1

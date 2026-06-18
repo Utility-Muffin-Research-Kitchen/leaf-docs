@@ -155,6 +155,21 @@ A couple of things to keep in mind:
   and 16-bit systems that's usually free, but on demanding cores it can eat into
   your headroom - ease off the mask if a game struggles.
 
+## Game switcher
+
+Press **SELECT** anywhere on the home screen to open the game switcher - a focused
+carousel of your recent games for jumping back in fast.
+
+| Button | Action |
+|---|---|
+| Left / Right | move through recent games |
+| A | resume the highlighted game |
+| Y | remove the highlighted game from Recents |
+| B or SELECT | close the switcher |
+
+The currently running game shows a live snapshot of where you left off; others show
+their box art, or a placeholder card with the system name when there's no art yet.
+
 ## Recents & saves
 
 - **Recents** shows what you've been playing; you can remove entries you don't

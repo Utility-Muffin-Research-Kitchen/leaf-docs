@@ -11,6 +11,13 @@ no-one wants to hear your device in public anyway. So put on your headphones,
 [Bluetooth](/leaf-docs/guide/settings/#bluetooth), and rock out. Disco Boy is a
 small music player that sends sound straight to whatever you are listening on.
 
+## Download
+
+Disco Boy is a standalone app, not bundled with Leaf. Grab the latest `.pak` from the
+[releases page](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases),
+extract `DiscoBoy.pak` into the `Apps/mlp1/` folder on your SD card, and it appears in
+your Apps list. It is open source ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy)).
+
 ## Features
 
 - **Browse the way you think** - tabs for **Artists**, **Albums**, and **Folders**.

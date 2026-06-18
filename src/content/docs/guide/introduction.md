@@ -37,6 +37,8 @@ This has two practical benefits:
 
 ## What you get
 
+![The Leaf launcher browsing a Sega Genesis game list, with box art shown alongside](/leaf-docs/screenshot-games.png)
+
 - **A themeable launcher** - color schemes, list styles, fonts, an animated
   status bar (clock, battery, Wi-Fi, Bluetooth, volume), and a configurable RGB
   stick-ring.

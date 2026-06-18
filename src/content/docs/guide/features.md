@@ -8,6 +8,8 @@ A quick tour of what Leaf adds on top of your games. Most of this lives in
 
 ## Appearance
 
+![The launcher in a light lavender color scheme](/leaf-docs/screenshot-theme-light.png)
+
 Make the launcher yours from **Settings → Appearance**:
 
 - **Color schemes** - pick from fourteen curated palettes: a full spectrum in dark
@@ -76,7 +78,11 @@ While a game is running, the same button opens the **in-game menu** instead -
 quick actions (resume, save and load states, the performance panel, quit back to
 the launcher) without leaving the game.
 
+![The in-game menu over a paused game, with a save-state thumbnail and button hints](/leaf-docs/screenshot-ingame-menu.png)
+
 ## Apps
+
+![The Apps tab listing Central Scrutinizer, Disco Boy, File Explorer, Fugazi, RetroArch, and SSH Server](/leaf-docs/screenshot-apps.png)
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
@@ -156,6 +162,8 @@ A couple of things to keep in mind:
   your headroom - ease off the mask if a game struggles.
 
 ## Game switcher
+
+![The game switcher carousel showing recent games as cover tiles, ECCO centered](/leaf-docs/screenshot-switcher.png)
 
 Press **SELECT** anywhere on the home screen to open the game switcher - a focused
 carousel of your recent games for jumping back in fast.

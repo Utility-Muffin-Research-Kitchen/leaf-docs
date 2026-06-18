@@ -56,8 +56,3 @@ device-agnostic and new hardware can be added behind the same interface.
 The device composites through a Wayland compositor, and Leaf renders with GLES2,
 the supported, working graphics path on this hardware.
 
-:::note[Reviewer note]
-Keep this conceptual and public-safe. Avoid documenting the exact boot-hook
-internals, exploit/ADB-enablement details, or any reverse-engineering of stock
-firmware here.
-:::

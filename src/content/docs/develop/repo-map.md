@@ -34,6 +34,3 @@ organization. Each is an independent repo with its own build.
 - **miniloong-launcher-switcher** owns everything device-stock-specific (the boot
   swap and install/recovery flow).
 
-:::note[Reviewer note]
-Confirm repo names/visibility before release (some apps may be private or renamed).
-:::

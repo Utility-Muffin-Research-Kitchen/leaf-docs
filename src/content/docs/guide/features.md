@@ -162,6 +162,3 @@ A couple of things to keep in mind:
 - In-game saves and save states are written to the SD card (`Saves/`,
   `States/`).
 
-:::note[Reviewer note]
-Confirm exact menu paths and wording against the shipped build before release.
-:::

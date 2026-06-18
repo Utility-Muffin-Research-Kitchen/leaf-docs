@@ -45,7 +45,3 @@ Leaf's `Makefile` is a dispatcher that assembles the SD payload and pushes it ov
 After staging launcher/daemon changes, the device is rebooted (or the launcher
 stack restarted) to pick them up.
 
-:::note[Reviewer note]
-Keep exact commands in the repo READMEs (the single source of truth) and link to
-them here rather than duplicating, so this page doesn't go stale.
-:::

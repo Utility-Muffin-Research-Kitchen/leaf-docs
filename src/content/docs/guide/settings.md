@@ -8,11 +8,6 @@ below mirror its top-level list. System tools that aren't persistent settings -
 About, System Update, and a library rescan - live in the **System menu** (the
 Menu button), covered at the end.
 
-:::note[Reviewer note]
-This page is the most likely to drift as the UI evolves - confirm section names,
-row labels, and available options against the shipped build before release.
-:::
-
 ## Appearance
 
 Theme and layout, under **Settings → Appearance**.

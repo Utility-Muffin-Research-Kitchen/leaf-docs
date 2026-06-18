@@ -35,7 +35,3 @@ Contributions are welcome. Leaf is cooked up in the open at the
 - Build the affected component before opening the PR.
 - Open the PR against the owning repo; a maintainer reviews and merges.
 
-:::note[Reviewer note]
-Add the canonical contribution policy (license, DCO/CLA if any, PR checklist,
-review expectations) before promoting this publicly.
-:::

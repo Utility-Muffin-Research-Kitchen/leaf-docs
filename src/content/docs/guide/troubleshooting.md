@@ -67,7 +67,3 @@ short, lengthen it or turn it off.
 Try re-pairing the device, or testing with a different pair of earbuds/headphones to
 narrow down whether it's the codec or the specific device.
 
-:::note[Reviewer note]
-Confirm exact Settings paths and add any device-specific gotchas surfaced during
-release testing.
-:::

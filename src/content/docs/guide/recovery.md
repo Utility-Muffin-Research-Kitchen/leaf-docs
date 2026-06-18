@@ -45,7 +45,3 @@ The recovery card above is also how you fully remove Leaf and go back to stock f
 good. Nothing about Leaf is permanent: it's an additive layer on top of the
 device's original OS.
 
-:::note[Reviewer note]
-Confirm the recovery ZIP name/flow and whether there's a lighter "uninstall"
-(marker-off) path worth documenting separately from a full stock restore.
-:::

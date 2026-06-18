@@ -103,6 +103,3 @@ Some systems need a BIOS file you provide yourself (Neo Geo, for example, needs
 `neogeo.zip` in `BIOS/`). Arcade games are also picky about ROM-set versions.
 See [BIOS & cores](/leaf-docs/guide/bios-and-cores/) for the details.
 
-:::note[Reviewer note]
-Confirm the full canonical system-folder name list against `systems.json`.
-:::

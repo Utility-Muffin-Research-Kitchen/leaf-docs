@@ -58,8 +58,3 @@ for [recovery](/leaf-docs/guide/recovery/).
 - **Removing Leaf.** Going back to stock for good is covered in
   [Recovery](/leaf-docs/guide/recovery/).
 
-:::note[Reviewer note]
-Confirm the exact stock update-screen wording/behavior and any on-device button
-prompts during install, and whether the user must trigger the update screen or
-it appears automatically on boot with the card present.
-:::

@@ -50,7 +50,3 @@ No account or credentials are required; updates use the public releases feed.
   [SD card](/leaf-docs/guide/install/), or restore stock via
   [Recovery](/leaf-docs/guide/recovery/).
 
-:::note[Reviewer note]
-Confirm the on-screen step wording against the shipped build, and whether a release
-picker / channel selector is exposed to end users.
-:::

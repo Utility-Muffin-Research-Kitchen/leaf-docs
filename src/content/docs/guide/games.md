@@ -34,20 +34,50 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 
 ## System folders
 
-Each console has its own `Roms/` subfolder. Common ones include:
+Each console has its own `Roms/` subfolder. Folder names are not
+case-sensitive, and most systems accept a few aliases (`Roms/NES`,
+`Roms/FC`, and `Roms/FAMICOM` all land in the same place), so the name below
+is just the recommended one.
 
 | Folder | System |
 |---|---|
 | `NES` | Nintendo Entertainment System |
+| `FDS` | Famicom Disk System |
 | `SNES` | Super Nintendo |
-| `GB` / `GBC` / `GBA` | Game Boy / Color / Advance |
+| `SFC_JP` | Super Famicom (Japan) |
+| `N64` | Nintendo 64 |
+| `GB` | Game Boy |
+| `GBC` | Game Boy Color |
+| `GBA` | Game Boy Advance |
 | `NDS` | Nintendo DS |
+| `VB` | Virtual Boy |
+| `GW` | Game & Watch |
+| `MS` | Sega Master System |
+| `GG` | Game Gear |
 | `GENESIS` | Sega Genesis / Mega Drive |
-| `MS` / `GG` | Sega Master System / Game Gear |
+| `SEGACD` | Sega CD |
+| `32X` | Sega 32X |
+| `SATURN` | Sega Saturn |
+| `DC` | Dreamcast |
 | `TG16` | TurboGrafx-16 / PC Engine |
+| `PCECD` | TurboGrafx-CD / PC Engine CD |
 | `NEOGEO` | Neo Geo (needs a BIOS; see below) |
+| `NGP` | Neo Geo Pocket |
 | `NGPC` | Neo Geo Pocket Color |
+| `PSX` | PlayStation |
+| `PSP` | PlayStation Portable |
 | `ATARI2600` | Atari 2600 |
+| `ATARI7800` | Atari 7800 |
+| `LYNX` | Atari Lynx |
+| `WS` | WonderSwan |
+| `WSC` | WonderSwan Color |
+| `COLECO` | ColecoVision |
+| `VECTREX` | Vectrex |
+| `PICO8` | Pico-8 |
+| `DOS` | MS-DOS |
+| `EASYRPG` | EasyRPG (RPG Maker 2000/2003) |
+| `ARCADE` | Arcade (MAME / FBNeo, needs matching ROM sets) |
+| `PORTS` | Ports (native game ports) |
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;

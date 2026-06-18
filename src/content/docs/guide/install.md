@@ -52,6 +52,11 @@ for [recovery](/leaf-docs/guide/recovery/).
 
 - **Your stock data is preserved.** Leaf runs on top of stock and doesn't wipe
   the original OS. It only takes over the boot once installed.
+- **Your data lives at the card root.** Games, saves, states, and app data sit at
+  the top level of the card (`Roms/`, `Saves/`, `States/`, and the `.userdata/` and
+  `.umrk/` folders), separate from the firmware. Re-installing or
+  [updating](/leaf-docs/guide/updating/) over an existing card refreshes Leaf
+  itself but leaves all of that untouched.
 - **Crash safety.** If Leaf ever fails to start cleanly several times in a row,
   the device falls back to the stock interface automatically so you're never
   stuck.

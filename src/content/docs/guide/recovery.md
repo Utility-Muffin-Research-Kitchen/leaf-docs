@@ -20,6 +20,10 @@ When this happens:
 - Once the underlying issue is resolved (often just a reboot), Leaf resumes on the
   next normal boot.
 
+Your data lives at the card's root (`Roms/`, `Saves/`, `States/`, and the
+`.userdata/` and `.umrk/` folders), separate from the firmware, so neither the
+fallback nor a recovery card touches it.
+
 So if you ever land on the stock interface unexpectedly, the first thing to try is
 a reboot.
 

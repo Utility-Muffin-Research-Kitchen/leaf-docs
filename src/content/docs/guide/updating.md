@@ -29,6 +29,22 @@ all from inside the launcher. You don't need to swap SD cards or touch a PC.
 
 No account or credentials are required; updates use the public releases feed.
 
+## Manual update (from an SD card)
+
+If you would rather not update over Wi-Fi, or you are moving between dev builds,
+you can update the same way you [install](/leaf-docs/guide/install/):
+
+1. Download `leaf-mlp1-sd-<release_id>.zip` from the
+   [releases page](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases).
+2. Extract it to the **root** of an SD card (not into a subfolder).
+3. Boot the device with that card inserted. The stock update screen applies it
+   and reboots into the new version.
+
+A manual update is safe to run over an existing install. It refreshes only the
+release-managed firmware and **never touches your data**: your games, saves,
+states, and app data live at the card's root (`Roms/`, `Saves/`, `States/`, and
+the `.userdata/` and `.umrk/` folders) and are left exactly as they were.
+
 ## How it works (briefly)
 
 - **Discovery:** Leaf reads the public GitHub Releases feed for the Leaf repo and

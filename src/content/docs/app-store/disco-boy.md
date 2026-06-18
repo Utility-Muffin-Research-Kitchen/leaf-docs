@@ -40,6 +40,9 @@ your Apps list. It is open source ([MIT](https://github.com/Utility-Muffin-Resea
 - **Follows your output** - plays through the speaker, wired headphones, or a
   Bluetooth headset, named up top. Plug in or connect part way through a song and
   the sound follows.
+- **Pocket mode** - click the analog stick and a padlock flashes, the screen powers
+  off, and buttons stop responding, so it can ride in your pocket without skipping or
+  pausing. Music keeps playing; click the stick again to wake it and unlock.
 - **Looks like Leaf** - it inherits your color scheme and matches the rest of the
   firmware.
 
@@ -64,6 +67,7 @@ or just leave the art embedded in the files.
 | L1 / R1 | switch tab |
 | L2 / R2 | hold to seek (now-playing track) |
 | SELECT | full-screen cover art (press again, or B, to close) |
+| Stick click | lock the screen (pocket mode); click again to unlock |
 | MENU | quit |
 
 On the now-playing screen, the d-pad and **A** move across the transport row, **L1

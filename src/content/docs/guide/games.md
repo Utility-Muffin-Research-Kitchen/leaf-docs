@@ -34,10 +34,12 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 
 ## System folders
 
-Each console has its own `Roms/` subfolder. Folder names are not
-case-sensitive, and most systems accept a few aliases (`Roms/NES`,
-`Roms/FC`, and `Roms/FAMICOM` all land in the same place), so the name below
-is just the recommended one.
+Each console has its own `Roms/` subfolder, grouped by maker below. Folder
+names are not case-sensitive, and most systems accept a few aliases (`Roms/NES`,
+`Roms/FC`, and `Roms/FAMICOM` all land in the same place), so the name shown is
+just the recommended one.
+
+**Nintendo**
 
 | Folder | System |
 |---|---|
@@ -46,31 +48,57 @@ is just the recommended one.
 | `SNES` | Super Nintendo |
 | `SFC_JP` | Super Famicom (Japan) |
 | `N64` | Nintendo 64 |
-| `GB` | Game Boy |
-| `GBC` | Game Boy Color |
-| `GBA` | Game Boy Advance |
+| `GB` / `GBC` / `GBA` | Game Boy / Color / Advance |
 | `NDS` | Nintendo DS |
 | `VB` | Virtual Boy |
 | `GW` | Game & Watch |
-| `MS` | Sega Master System |
+
+**Sega**
+
+| Folder | System |
+|---|---|
+| `MS` | Master System |
 | `GG` | Game Gear |
-| `GENESIS` | Sega Genesis / Mega Drive |
+| `GENESIS` | Genesis / Mega Drive |
 | `SEGACD` | Sega CD |
 | `32X` | Sega 32X |
-| `SATURN` | Sega Saturn |
+| `SATURN` | Saturn |
 | `DC` | Dreamcast |
+
+**NEC**
+
+| Folder | System |
+|---|---|
 | `TG16` | TurboGrafx-16 / PC Engine |
 | `PCECD` | TurboGrafx-CD / PC Engine CD |
+
+**SNK**
+
+| Folder | System |
+|---|---|
 | `NEOGEO` | Neo Geo (needs a BIOS; see below) |
-| `NGP` | Neo Geo Pocket |
-| `NGPC` | Neo Geo Pocket Color |
+| `NGP` / `NGPC` | Neo Geo Pocket / Color |
+
+**Sony**
+
+| Folder | System |
+|---|---|
 | `PSX` | PlayStation |
 | `PSP` | PlayStation Portable |
+
+**Atari**
+
+| Folder | System |
+|---|---|
 | `ATARI2600` | Atari 2600 |
 | `ATARI7800` | Atari 7800 |
 | `LYNX` | Atari Lynx |
-| `WS` | WonderSwan |
-| `WSC` | WonderSwan Color |
+
+**Other**
+
+| Folder | System |
+|---|---|
+| `WS` / `WSC` | WonderSwan / Color |
 | `COLECO` | ColecoVision |
 | `VECTREX` | Vectrex |
 | `PICO8` | Pico-8 |

@@ -45,3 +45,11 @@
 html {
   overflow-x: clip;
 }
+
+/* Frame in-content screenshots so dark device captures don't bleed into the dark
+   page. Excludes the full-bleed landing hero and inline SVG glyphs. */
+.sl-markdown-content img:not([src*='.svg']):not([src*='hero']) {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}

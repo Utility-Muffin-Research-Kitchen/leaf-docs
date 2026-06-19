@@ -86,19 +86,19 @@ the launcher) without leaving the game.
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
-- <img src="/leaf-docs/app-icons/central-scrutinizer.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **Central Scrutinizer** - manage your library over Wi-Fi from a web browser:
+- **Central Scrutinizer** - manage your library over Wi-Fi from a web browser:
   upload ROMs and box art, manage saves and BIOS files, and browse the SD card,
   all without pulling the card. See
   [Managing your library with Central Scrutinizer](#managing-your-library-with-central-scrutinizer)
   below.
-- <img src="/leaf-docs/app-icons/fugazi.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **Fugazi** - a live CRT-shader tuner. Dial in a retro look (scanlines, screen
+- **Fugazi** - a live CRT-shader tuner. Dial in a retro look (scanlines, screen
   curvature, a phosphor mask, glow, and more) against a full-screen preview, then
   install it as the global shader so it applies to every game. See
   [CRT shaders with Fugazi](#crt-shaders-with-fugazi) below.
-- <img src="/leaf-docs/app-icons/joes-calibrage.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **Joe's Calibrage** - calibrate the analog stick so games see its full range.
+- **Joe's Calibrage** - calibrate the analog stick so games see its full range.
   See [Calibrating the analog stick](#calibrating-the-analog-stick) below.
-- <img src="/leaf-docs/app-icons/ssh-server.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **SSH Server** - start an SSH server to reach the device over the network.
-- <img src="/leaf-docs/app-icons/file-explorer.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **File manager** - browse and manage files on the device.
+- **SSH Server** - start an SSH server to reach the device over the network.
+- **File manager** - browse and manage files on the device.
 
 ## Box art
 

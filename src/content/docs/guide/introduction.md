@@ -45,8 +45,8 @@ This has two practical benefits:
 - **Emulation** - RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.
 - **Apps** - Central Scrutinizer (manage games and files over Wi-Fi from your
-  browser), Fugazi (a live CRT-shader tuner), an SSH server, and a file
-  manager.
+  browser), Fugazi (a live CRT-shader tuner), Joe's Calibrage (analog-stick
+  calibration), an SSH server, and a file manager.
 - **Over-the-air updates** - check for and install new releases right from the
   launcher. See [Updating](/leaf-docs/guide/updating/).
 

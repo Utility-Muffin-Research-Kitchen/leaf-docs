@@ -86,17 +86,19 @@ the launcher) without leaving the game.
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
-- **Central Scrutinizer** - manage your library over Wi-Fi from a web browser:
+- <img src="/leaf-docs/app-icons/central-scrutinizer.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **Central Scrutinizer** - manage your library over Wi-Fi from a web browser:
   upload ROMs and box art, manage saves and BIOS files, and browse the SD card,
   all without pulling the card. See
   [Managing your library with Central Scrutinizer](#managing-your-library-with-central-scrutinizer)
   below.
-- **Fugazi** - a live CRT-shader tuner. Dial in a retro look (scanlines, screen
+- <img src="/leaf-docs/app-icons/fugazi.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **Fugazi** - a live CRT-shader tuner. Dial in a retro look (scanlines, screen
   curvature, a phosphor mask, glow, and more) against a full-screen preview, then
   install it as the global shader so it applies to every game. See
   [CRT shaders with Fugazi](#crt-shaders-with-fugazi) below.
-- **SSH Server** - start an SSH server to reach the device over the network.
-- **File manager** - browse and manage files on the device.
+- <img src="/leaf-docs/app-icons/joes-calibrage.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **Joe's Calibrage** - calibrate the analog stick so games see its full range.
+  See [Calibrating the analog stick](#calibrating-the-analog-stick) below.
+- <img src="/leaf-docs/app-icons/ssh-server.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **SSH Server** - start an SSH server to reach the device over the network.
+- <img src="/leaf-docs/app-icons/file-explorer.png" alt="" width="34" style="vertical-align:middle;margin-right:4px" /> **File manager** - browse and manage files on the device.
 
 ## Box art
 
@@ -160,6 +162,27 @@ A couple of things to keep in mind:
 - Heavier settings (a fine phosphor mask, strong glow) cost more GPU time. On 8-
   and 16-bit systems that's usually free, but on demanding cores it can eat into
   your headroom - ease off the mask if a game struggles.
+
+## Calibrating the analog stick
+
+Open **Joe's Calibrage** from the **Apps** tab to calibrate the analog stick. The
+stick's physical range is narrower than the value range games expect, so out of
+the box it can feel like it never quite reaches full tilt - a walk instead of a
+run in 3D games. Calibrage measures your stick's real range and saves a profile
+that Leaf uses to remap it back to the full range for every game.
+
+The workflow:
+
+1. Open **Calibrate**, roll the stick slowly around its outer edge a few times,
+   then press **A**.
+2. Let the stick rest at center, then press **Y** to save.
+3. Open **Test Stick** to check it - the dot should now reach the edge of the
+   circle at full throw.
+
+Leaf's input layer reads the profile when the device starts, so **restart the
+device** after saving for it to take effect in games. (The **Test Stick** preview
+reflects your new calibration right away.) **View Values** shows the saved
+profile, and **Restore Backup** brings back a previous calibration.
 
 ## Game switcher
 

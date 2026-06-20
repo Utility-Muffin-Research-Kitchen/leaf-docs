@@ -186,7 +186,7 @@ profile, and **Restore Backup** brings back a previous calibration.
 
 ## Game switcher
 
-![The game switcher carousel showing recent games as cover tiles, ECCO centered](/leaf-docs/screenshot-switcher.png)
+![The game switcher carousel showing recent games as cover tiles, Final Fantasy Tactics centered](/leaf-docs/screenshot-switcher.png)
 
 Press **SELECT** anywhere on the home screen to open the game switcher - a focused
 carousel of your recent games for jumping back in fast.

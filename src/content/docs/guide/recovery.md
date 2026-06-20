@@ -36,7 +36,7 @@ hand it on, or to start fresh), use the recovery card:
    [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest):
    `leaf-mlp1-recovery-<release_id>.zip`.
 2. Extract it to the root of an SD card (same as a fresh
-   [install](/leaf-docs/guide/install/), not into a subfolder).
+   [install](/guide/install/), not into a subfolder).
 3. Boot the device with that card inserted and let the stock update screen run
    the recovery.
 4. Power off when it finishes, then boot normally.

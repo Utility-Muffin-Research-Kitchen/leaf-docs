@@ -12,7 +12,7 @@ Menu button), covered at the end.
 
 Theme and layout, under **Settings → Appearance**.
 
-![Leaf's fourteen color schemes - seven dark and seven light, paired by spectrum color](/leaf-docs/theme-swatches.png)
+![Leaf's fourteen color schemes - seven dark and seven light, paired by spectrum color](/theme-swatches.png)
 
 - **Color Scheme** - a curated palette picker: seven dark schemes and seven light
   ones, one of each per color of the spectrum, with **Leaf** (the soft-green
@@ -71,7 +71,7 @@ before its name.
 
 How Leaf picks artwork when it downloads from ScreenScraper.fr (sign in first
 under [Accounts](#accounts)). You start a scrape from a game or system's Options
-menu, covered in [Adding games → Options menu](/leaf-docs/guide/games/#options-menu).
+menu, covered in [Adding games → Options menu](/guide/games/#options-menu).
 
 - **Artwork Priority** - the order Leaf prefers artwork types (box art, title
   screen, in-game shot, and so on). It saves the first type a game has available.
@@ -91,7 +91,7 @@ fit, it scrolls while the row is selected.
   (a Wi-Fi blip), the next one retries.
 - **ScreenScraper.fr** - signs Leaf into screenscraper.fr so it can download
   artwork (see [Game Art](#game-art) above, and
-  [Adding games → Box art](/leaf-docs/guide/games/#box-art)). The row reads
+  [Adding games → Box art](/guide/games/#box-art)). The row reads
   "Saved" until the first scrape verifies the login, then "Signed in as &lt;user&gt;"
   with your thread allowance and daily quota.
 
@@ -102,7 +102,7 @@ fit, it scrolls while the row is selected.
 - **Boot Splash** - show or hide the Leaf boot animation.
 - **Game Performance** - how hard the device works during gameplay: **Auto**,
   **Balanced**, **Performance**, or **Battery Saver**. See
-  [Features → Performance](/leaf-docs/guide/features/).
+  [Features → Performance](/guide/features/).
 - **Time Zone** - set your local time zone so the clock is correct.
 - **Reset RetroArch Config** - restore RetroArch to its defaults.
 - **Unmount Secondary SD** - safely eject a second SD card before removing it.
@@ -113,7 +113,7 @@ Press the **Menu** button to open the **System** menu - quick actions and system
 tools that sit apart from the persistent Settings:
 
 - **System Update** - check for, download, and install updates over the air. See
-  [Updating (OTA)](/leaf-docs/guide/updating/).
+  [Updating (OTA)](/guide/updating/).
 - **About** - the installed Leaf version, system info (OS, kernel, hardware, and
   network addresses), and the open-source components Leaf is built on, each with
   its license. The full license text for every bundled emulator also ships inside

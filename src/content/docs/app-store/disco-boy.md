@@ -3,12 +3,12 @@ title: Disco Boy
 description: 'A music player for Leaf: browse by artist, album, or folder, with cover art and broad format support, sent to whatever headphones you are on.'
 ---
 
-![Disco Boy on a Miniloong Pocket 1, styled as a Game Boy with a disco ball glowing on the screen](/leaf-docs/discoboy.png)
+![Disco Boy on a Miniloong Pocket 1, styled as a Game Boy with a disco ball glowing on the screen](/discoboy.png)
 
 Let's be honest: the mono speaker on the MLP1 is nothing to write home about, and
 no-one wants to hear your device in public anyway. So put on your headphones,
-[wired](/leaf-docs/guide/settings/#display--sound) or
-[Bluetooth](/leaf-docs/guide/settings/#bluetooth), and rock out. Disco Boy is a
+[wired](/guide/settings/#display--sound) or
+[Bluetooth](/guide/settings/#bluetooth), and rock out. Disco Boy is a
 small music player that sends sound straight to whatever you are listening on.
 
 ## Download

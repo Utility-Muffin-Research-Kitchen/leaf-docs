@@ -32,7 +32,7 @@ No account or credentials are required; updates use the public releases feed.
 ## Manual update (from an SD card)
 
 If you would rather not update over Wi-Fi, or you are moving between dev builds,
-you can update the same way you [install](/leaf-docs/guide/install/):
+you can update the same way you [install](/guide/install/):
 
 1. Download `leaf-mlp1-sd-<release_id>.zip` from the
    [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest).
@@ -54,7 +54,7 @@ the `.userdata/` and `.umrk/` folders) and are left exactly as they were.
   so secure downloads work even though it's running on top of stock.
 - **Install handoff:** on the MLP1, Leaf stages the update and reuses the stock
   installer to apply it on the next boot, the same safe path used for a fresh
-  [SD install](/leaf-docs/guide/install/).
+  [SD install](/guide/install/).
 
 ## Troubleshooting
 
@@ -63,6 +63,6 @@ the `.userdata/` and `.umrk/` folders) and are left exactly as they were.
 - **Download fails or network error?** Re-check Wi-Fi connectivity
   (**Settings → Network**) and try again.
 - **A bad release?** You can always reinstall a known-good version from an
-  [SD card](/leaf-docs/guide/install/), or restore stock via
-  [Recovery](/leaf-docs/guide/recovery/).
+  [SD card](/guide/install/), or restore stock via
+  [Recovery](/guide/recovery/).
 

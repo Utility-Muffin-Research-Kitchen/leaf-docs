@@ -12,7 +12,7 @@ This section is new and will grow over time. For now it is home to one app.
 
 ## Available apps
 
-- **[Disco Boy](/leaf-docs/app-store/disco-boy/)** - a music player for your
+- **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
 
 ## Installing an app

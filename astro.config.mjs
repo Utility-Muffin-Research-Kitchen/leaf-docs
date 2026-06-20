@@ -2,13 +2,15 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
-// Deploy target.
-//   Now:   GitHub Pages project path  ->  https://<org>.github.io/leaf-docs/
-//   Later: custom domain              ->  set `site` to the domain and `base` to '/'
-//          (that single change is all that's needed to flip — internal links use
-//           Starlight slugs, so they follow `base` automatically).
-const SITE = 'https://utility-muffin-research-kitchen.github.io';
-const BASE = '/leaf-docs';
+// Deploy target: custom domain at the apex, served by GitHub Pages.
+//   Custom domain (now):  https://leaf.game/      -> SITE = the domain, BASE = '/'
+//   GitHub Pages project:  https://<org>.github.io/leaf-docs/ -> BASE = '/leaf-docs'
+// Starlight nav follows BASE automatically; in-content absolute paths are written
+// relative to BASE (root here), so they resolve under the apex.
+const SITE = 'https://leaf.game';
+const BASE = '/';
+// Absolute asset URLs (og:image) must not double the slash when BASE is '/'.
+const ASSET_PREFIX = BASE === '/' ? '' : BASE;
 
 export default defineConfig({
   site: SITE,
@@ -40,11 +42,11 @@ export default defineConfig({
         // Social-card image for link previews (Discord, Slack, iMessage, etc.).
         // Starlight emits og:title/description but no og:image, so embeds show no
         // image. Open Graph needs absolute URLs. Regenerate with scripts/make-og.py.
-        { tag: 'meta', attrs: { property: 'og:image', content: `${SITE}${BASE}/og.png` } },
+        { tag: 'meta', attrs: { property: 'og:image', content: `${SITE}${ASSET_PREFIX}/og.png` } },
         { tag: 'meta', attrs: { property: 'og:image:width', content: '1280' } },
         { tag: 'meta', attrs: { property: 'og:image:height', content: '640' } },
         { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Leaf - custom firmware for the Miniloong Pocket 1' } },
-        { tag: 'meta', attrs: { name: 'twitter:image', content: `${SITE}${BASE}/og.png` } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${SITE}${ASSET_PREFIX}/og.png` } },
       ],
       sidebar: [
         {

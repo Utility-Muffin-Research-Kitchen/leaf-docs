@@ -21,7 +21,7 @@ Consequences of this model:
 - **Reuse, not reinvention.** Leaf uses the stock display server, audio, Wi-Fi, and
   power systems rather than shipping its own drivers.
 - **Recoverable by design.** Because stock is always present, a
-  [recovery card](/leaf-docs/guide/recovery/) can restore the device fully.
+  [recovery card](/guide/recovery/) can restore the device fully.
 
 ## The launcher stack
 

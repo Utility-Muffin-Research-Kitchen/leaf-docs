@@ -10,7 +10,7 @@ Common issues and how to resolve them. If something here doesn't help, please
 
 A system only appears in the launcher once its core is present. If you added
 games to, say, `Roms/PS/` but PlayStation isn't listed, the core for that system
-likely isn't installed. See [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
+likely isn't installed. See [BIOS & cores](/guide/bios-and-cores/).
 
 ## A game won't launch
 
@@ -21,8 +21,8 @@ likely isn't installed. See [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
   silently fails to load.
 - **Wrong folder.** Make sure the game is in the correct `Roms/<SYSTEM>/` folder.
 
-See [Adding games & ROMs](/leaf-docs/guide/games/) and
-[BIOS & cores](/leaf-docs/guide/bios-and-cores/).
+See [Adding games & ROMs](/guide/games/) and
+[BIOS & cores](/guide/bios-and-cores/).
 
 ## Wi-Fi connects but there's no internet
 
@@ -39,7 +39,7 @@ mixed-security (WPA2/WPA3) routers. Try:
 - Make sure you're on a published release channel; a dev/test build may report
   "up to date" when no public release is newer.
 
-See [Updating (OTA)](/leaf-docs/guide/updating/).
+See [Updating (OTA)](/guide/updating/).
 
 ## The device booted to stock instead of Leaf
 
@@ -48,14 +48,14 @@ few times in a row, the device drops to the stock interface so you're never stuc
 Your games and settings are untouched.
 
 **Fix:** just reboot. Leaf resumes on the next normal boot. See
-[Recovery](/leaf-docs/guide/recovery/).
+[Recovery](/guide/recovery/).
 
 ## A game feels slow or laggy
 
 Set **Settings → General → Game Performance** to **Performance** (or leave it on
 **Auto**, which boosts heavier systems automatically). The most demanding systems
 are at the edge of what this hardware can do; see the note in
-[BIOS & cores](/leaf-docs/guide/bios-and-cores/).
+[BIOS & cores](/guide/bios-and-cores/).
 
 ## The device sleeps or powers off on its own
 

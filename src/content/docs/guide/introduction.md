@@ -17,7 +17,7 @@ appears, leaving stock LoongOS intact underneath.
 This has two practical benefits:
 
 - **Safety.** If Leaf ever fails to start, the device automatically falls back to
-  the stock interface instead of bricking. A [recovery card](/leaf-docs/guide/recovery/)
+  the stock interface instead of bricking. A [recovery card](/guide/recovery/)
   can also restore the device to a clean stock state at any time.
 - **Compatibility.** Leaf reuses the stock display, audio, Wi-Fi, and power
   systems rather than reinventing drivers, so it behaves like a native part of
@@ -37,7 +37,7 @@ This has two practical benefits:
 
 ## What you get
 
-![The Leaf launcher browsing a Sega Genesis game list, with box art shown alongside](/leaf-docs/screenshot-games.png)
+![The Leaf launcher browsing a Sega Genesis game list, with box art shown alongside](/screenshot-games.png)
 
 - **A themeable launcher** - color schemes, list styles, fonts, an animated
   status bar (clock, battery, Wi-Fi, Bluetooth, volume), and a configurable RGB
@@ -48,7 +48,7 @@ This has two practical benefits:
   browser), Fugazi (a live CRT-shader tuner), Joe's Calibrage (analog-stick
   calibration), an SSH server, and a file manager.
 - **Over-the-air updates** - check for and install new releases right from the
-  launcher. See [Updating](/leaf-docs/guide/updating/).
+  launcher. See [Updating](/guide/updating/).
 
 ## Project status
 
@@ -58,11 +58,11 @@ Pocket 1 only.
 
 Leaf is open source, baked in the
 [Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen).
-See [Contributing](/leaf-docs/develop/contributing/) if you'd like to help.
+See [Contributing](/develop/contributing/) if you'd like to help.
 
 ## Next steps
 
-- **[Install Leaf](/leaf-docs/guide/install/)** - get it running on your device.
-- **[Adding games & ROMs](/leaf-docs/guide/games/)** - fill your library.
-- **[BIOS & cores](/leaf-docs/guide/bios-and-cores/)** - what some systems need
+- **[Install Leaf](/guide/install/)** - get it running on your device.
+- **[Adding games & ROMs](/guide/games/)** - fill your library.
+- **[BIOS & cores](/guide/bios-and-cores/)** - what some systems need
   to run.

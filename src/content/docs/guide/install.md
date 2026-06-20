@@ -35,16 +35,16 @@ just extract the release to a card and let the device install it.
    plays and you land on the Leaf launcher.
 
 That's it: the device is now running Leaf, with stock still intact underneath
-for [recovery](/leaf-docs/guide/recovery/).
+for [recovery](/guide/recovery/).
 
 ## After installing
 
 - **Connect to Wi-Fi** so you can update and (later) scrape art: open
   **Settings → Network**.
-- **Add your games** - see [Adding games & ROMs](/leaf-docs/guide/games/).
+- **Add your games** - see [Adding games & ROMs](/guide/games/).
 - **Add BIOS files** for the systems that need them - see
-  [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
-- **Check for updates** from the launcher - see [Updating](/leaf-docs/guide/updating/).
+  [BIOS & cores](/guide/bios-and-cores/).
+- **Check for updates** from the launcher - see [Updating](/guide/updating/).
 
 ## Notes
 
@@ -53,11 +53,11 @@ for [recovery](/leaf-docs/guide/recovery/).
 - **Your data lives at the card root.** Games, saves, states, and app data sit at
   the top level of the card (`Roms/`, `Saves/`, `States/`, and the `.userdata/` and
   `.umrk/` folders), separate from the firmware. Re-installing or
-  [updating](/leaf-docs/guide/updating/) over an existing card refreshes Leaf
+  [updating](/guide/updating/) over an existing card refreshes Leaf
   itself but leaves all of that untouched.
 - **Crash safety.** If Leaf ever fails to start cleanly several times in a row,
   the device falls back to the stock interface automatically so you're never
   stuck.
 - **Removing Leaf.** Going back to stock for good is covered in
-  [Recovery](/leaf-docs/guide/recovery/).
+  [Recovery](/guide/recovery/).
 

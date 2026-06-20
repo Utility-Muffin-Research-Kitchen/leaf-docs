@@ -8,7 +8,7 @@ repo's README - this is the map.)
 
 ## Prerequisites
 
-- A clone of the relevant repos as siblings (see [Repo map](/leaf-docs/develop/repo-map/)),
+- A clone of the relevant repos as siblings (see [Repo map](/develop/repo-map/)),
   most easily via Leaf's bootstrap target.
 - **Docker** - the cross-compiler runs inside a toolchain image, so you don't install
   an ARM toolchain on your host.

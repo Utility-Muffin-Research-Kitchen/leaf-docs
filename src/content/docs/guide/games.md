@@ -7,7 +7,7 @@ Leaf reads your library from a set of clearly named folders on the SD card. Drop
 files into the right folder and they show up in the launcher; there's no database
 to manage by hand. You can fill the folders by putting the SD card in your
 computer, or over Wi-Fi with the Central Scrutinizer app (see
-[Features → Apps](/leaf-docs/guide/features/#apps)).
+[Features → Apps](/guide/features/#apps)).
 
 :::caution[Bring your own games]
 Leaf does not include any games. Only add ROMs you are legally entitled to use.
@@ -109,7 +109,7 @@ just the recommended one.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
-see [BIOS & cores](/leaf-docs/guide/bios-and-cores/).
+see [BIOS & cores](/guide/bios-and-cores/).
 
 ## Box art
 
@@ -159,5 +159,5 @@ disc.
 
 Some systems need a BIOS file you provide yourself (Neo Geo, for example, needs
 `neogeo.zip` in `BIOS/`). Arcade games are also picky about ROM-set versions.
-See [BIOS & cores](/leaf-docs/guide/bios-and-cores/) for the details.
+See [BIOS & cores](/guide/bios-and-cores/) for the details.
 

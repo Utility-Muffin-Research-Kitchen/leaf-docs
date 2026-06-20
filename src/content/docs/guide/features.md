@@ -8,7 +8,7 @@ A quick tour of what Leaf adds on top of your games. Most of this lives in
 
 ## Appearance
 
-![The launcher in a light lavender color scheme](/leaf-docs/screenshot-theme-light.png)
+![The launcher in a light lavender color scheme](/screenshot-theme-light.png)
 
 Make the launcher yours from **Settings → Appearance**:
 
@@ -53,7 +53,7 @@ The stick has an RGB ring you can drive from Settings:
 
 Sign in to RetroAchievements once (**Settings → Accounts**) and RetroArch logs
 you in at every game launch; achievements and progress show up in supported
-cores. See [Settings → Accounts](/leaf-docs/guide/settings/#accounts).
+cores. See [Settings → Accounts](/guide/settings/#accounts).
 
 ## Performance
 
@@ -72,17 +72,17 @@ live performance panel in the in-game menu for tuning while a game runs.
 On the launcher home, the **Menu** button opens the **System** menu: a library
 rescan, **System Update**, **About**, and the session and power actions (sleep,
 reboot, power off, exit to stock). See
-[Settings → System menu](/leaf-docs/guide/settings/#system-menu-menu-button).
+[Settings → System menu](/guide/settings/#system-menu-menu-button).
 
 While a game is running, the same button opens the **in-game menu** instead -
 quick actions (resume, save and load states, the performance panel, quit back to
 the launcher) without leaving the game.
 
-![The in-game menu over a paused game, with a save-state thumbnail and button hints](/leaf-docs/screenshot-ingame-menu.png)
+![The in-game menu over a paused game, with a save-state thumbnail and button hints](/screenshot-ingame-menu.png)
 
 ## Apps
 
-![The Apps tab listing Central Scrutinizer, Disco Boy, File Explorer, Fugazi, RetroArch, and SSH Server](/leaf-docs/screenshot-apps.png)
+![The Apps tab listing Central Scrutinizer, Disco Boy, File Explorer, Fugazi, RetroArch, and SSH Server](/screenshot-apps.png)
 
 Leaf ships with a few built-in apps (under the **Apps** tab):
 
@@ -106,7 +106,7 @@ Press **X** on a game or system to open its **Options** menu, where you can rena
 it, pick a core, set a performance profile, or scrape box art. Leaf downloads art
 from ScreenScraper.fr (sign in under **Settings → Accounts**), and it runs in the
 background while you keep browsing or playing. You can always drop images into
-`Images/` by hand instead. See [Adding games → Box art](/leaf-docs/guide/games/#box-art).
+`Images/` by hand instead. See [Adding games → Box art](/guide/games/#box-art).
 
 ## Managing your library with Central Scrutinizer
 
@@ -127,7 +127,7 @@ From the browser you can:
 - Browse the SD card and tidy up files.
 
 It's the over-the-air alternative to filling the folders by hand; either way the
-layout is the same (see [Adding games & ROMs](/leaf-docs/guide/games/)). A few
+layout is the same (see [Adding games & ROMs](/guide/games/)). A few
 things to know:
 
 - Both ends have to be on the same network. The address is local only - it isn't
@@ -186,7 +186,7 @@ profile, and **Restore Backup** brings back a previous calibration.
 
 ## Game switcher
 
-![The game switcher carousel showing recent games as cover tiles, Final Fantasy Tactics centered](/leaf-docs/screenshot-switcher.png)
+![The game switcher carousel showing recent games as cover tiles, Final Fantasy Tactics centered](/screenshot-switcher.png)
 
 Press **SELECT** anywhere on the home screen to open the game switcher - a focused
 carousel of your recent games for jumping back in fast.

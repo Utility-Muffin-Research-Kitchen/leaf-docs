@@ -13,10 +13,10 @@ small music player that sends sound straight to whatever you are listening on.
 
 ## Download
 
-Disco Boy is a standalone app, not bundled with Leaf. Download
-**[`DiscoBoy.pak.zip`](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/latest/download/DiscoBoy.pak.zip)**
-(always the latest release), unzip it, and copy the `DiscoBoy.pak` folder into `Apps/mlp1/` on your
-SD card. It appears in your Apps list next boot. Disco Boy is open source
+Disco Boy is a standalone app, not bundled with Leaf. Open the
+**[latest release](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/latest)**,
+download `DiscoBoy.pak.zip` from there, unzip it, and copy the `DiscoBoy.pak` folder into `Apps/mlp1/`
+on your SD card. It appears in your Apps list next boot. Disco Boy is open source
 ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy)).
 
 ## Features

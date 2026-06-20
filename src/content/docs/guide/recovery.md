@@ -33,7 +33,7 @@ If you want to return the device to a clean, stock state (for troubleshooting, t
 hand it on, or to start fresh), use the recovery card:
 
 1. Download the Leaf recovery ZIP from the
-   [releases page](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases):
+   [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest):
    `leaf-mlp1-recovery-<release_id>.zip`.
 2. Extract it to the root of an SD card (same as a fresh
    [install](/leaf-docs/guide/install/), not into a subfolder).

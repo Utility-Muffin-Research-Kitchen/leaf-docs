@@ -35,7 +35,7 @@ If you would rather not update over Wi-Fi, or you are moving between dev builds,
 you can update the same way you [install](/leaf-docs/guide/install/):
 
 1. Download `leaf-mlp1-sd-<release_id>.zip` from the
-   [releases page](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases).
+   [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest).
 2. Extract it to the **root** of an SD card (not into a subfolder).
 3. Boot the device with that card inserted. The stock update screen applies it
    and reboots into the new version.

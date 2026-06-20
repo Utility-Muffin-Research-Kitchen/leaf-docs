@@ -7,10 +7,8 @@ Leaf installs from an SD card using the Miniloong Pocket 1's own built-in
 update mechanism. You don't need ADB, a custom flasher, or any PC-side tooling:
 just extract the release to a card and let the device install it.
 
-:::caution[Read the release notes first]
-Leaf is pre-1.0. Open the [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases)
-and read its notes before installing; some dev releases are explicitly marked
-not for general use.
+:::tip[Download Leaf]
+**[Get the latest release →](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest)** and grab `leaf-mlp1-sd-<release_id>.zip`. Leaf is pre-1.0, so skim the release notes on that page first, then follow the steps below.
 :::
 
 ## What you need
@@ -19,7 +17,7 @@ not for general use.
 - An SD card, FAT32 (or ext4). A backup of anything already on it; installing
   works on the card you boot from.
 - The Leaf install ZIP from the
-  [Leaf releases page](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases):
+  [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest):
   `leaf-mlp1-sd-<release_id>.zip`.
 
 ## Steps

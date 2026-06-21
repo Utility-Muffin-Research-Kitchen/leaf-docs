@@ -28,15 +28,16 @@ on your SD card. It appears in your Apps list next boot. Nimbus is open source
   and **Astro** for sunrise, sunset, day length, and the moon phase. Switch views
   with **L1 / R1**.
 - **Big and glanceable** - a large weather glyph beside a huge temperature, then the
-  stats that matter. Built for the handheld, not shrunk down from a phone.
+  stats that matter: humidity, wind, UV, and air quality, with a details line for
+  gusts, pressure, and dew point. Built for the handheld, not shrunk down from a phone.
 - **Looks like Leaf** - it inherits your color scheme, font, and selection style, and
   the weather glyphs pick up your theme color.
 - **Many places** - search by city or postal code, or let it find you automatically.
   Flip between your saved locations with **Left / Right**.
 - **Instant, then fresh** - it shows your last weather right away and refreshes in the
   background, so it never makes you wait on the network.
-- **Works offline** - the last forecast is cached, and you can switch between
-  Fahrenheit and Celsius any time.
+- **Works offline** - the last forecast is cached, and you can switch units (Fahrenheit
+  or Celsius) and clock (12 or 24 hour) any time.
 
 ## Locations
 
@@ -51,8 +52,8 @@ or delete it. Your home location is what Nimbus opens to.
 | L1 / R1 | switch view (Current, Forecast, Hourly, Astro) |
 | Left / Right | switch saved location |
 | Up / Down | scroll the view |
-| Y | open the menu (Units, Locations, About) |
+| Y | open the menu (Units, Time, Locations, About) |
 | B | quit |
 
-Units, locations, and the About page all live under the **Y** menu. Weather data is
+Units, time format, locations, and the About page all live under the **Y** menu. Weather data is
 by [Open-Meteo](https://open-meteo.com) (CC-BY 4.0).

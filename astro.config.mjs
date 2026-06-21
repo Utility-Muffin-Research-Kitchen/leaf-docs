@@ -68,6 +68,7 @@ export default defineConfig({
           items: [
             { label: 'Overview', slug: 'app-store/introduction' },
             { label: 'Disco Boy', slug: 'app-store/disco-boy' },
+            { label: 'Nimbus', slug: 'app-store/nimbus' },
           ],
         },
         {

@@ -8,12 +8,13 @@ alongside your library and launch from the **Apps** tab. They share the same loo
 themes, fonts, and controls as the rest of Leaf, so they feel like part of the
 firmware rather than something bolted on.
 
-This section is new and will grow over time. For now it is home to one app.
+This section is new and will grow over time.
 
 ## Available apps
 
 - **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
+- **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.
 
 ## Installing an app
 

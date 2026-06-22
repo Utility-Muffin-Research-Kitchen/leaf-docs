@@ -58,9 +58,21 @@ export default defineConfig({
             { label: 'Recovery', slug: 'guide/recovery' },
             { label: 'Adding games & ROMs', slug: 'guide/games' },
             { label: 'BIOS & cores', slug: 'guide/bios-and-cores' },
+            { label: 'Playing games', slug: 'guide/playing' },
             { label: 'Features tour', slug: 'guide/features' },
             { label: 'Settings reference', slug: 'guide/settings' },
             { label: 'Troubleshooting', slug: 'guide/troubleshooting' },
+          ],
+        },
+        {
+          label: 'Built-in apps',
+          items: [
+            { label: 'Overview', slug: 'apps/introduction' },
+            { label: 'Central Scrutinizer', slug: 'apps/central-scrutinizer' },
+            { label: 'Fugazi', slug: 'apps/fugazi' },
+            { label: "Joe's Calibrage", slug: 'apps/joes-calibrage' },
+            { label: 'SSH Server', slug: 'apps/ssh-server' },
+            { label: 'File manager', slug: 'apps/file-manager' },
           ],
         },
         {

@@ -19,7 +19,7 @@ organization. Each is an independent repo with its own build.
 | **ssh-server** | The SSH Server app (a `.pak`) |
 | **Thing-File** | The file-manager app (a `.pak`) |
 | **Fugazi** | The Fugazi live CRT-shader tuner app (a `.pak`) |
-| **CentralScrutinizer** | Network file/ROM manager - a web UI served from the device (in development) |
+| **CentralScrutinizer** | Network file/ROM manager - a web UI served from the device (a bundled app) |
 | **miniloong-adb-keeper** | SD payload used to enable developer access on the device |
 | **leaf-docs** | This documentation site |
 

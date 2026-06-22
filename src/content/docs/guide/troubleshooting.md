@@ -62,8 +62,36 @@ are at the edge of what this hardware can do; see the note in
 Check the auto-sleep setting under **Settings → General**. If it's enabled and set
 short, lengthen it or turn it off.
 
-## Bluetooth audio sounds low-quality
+## Bluetooth audio stutters or cuts out
 
-Try re-pairing the device, or testing with a different pair of earbuds/headphones to
-narrow down whether it's the codec or the specific device.
+Wi-Fi and Bluetooth share one radio on this device, so heavy Wi-Fi use can interrupt
+Bluetooth audio. For the cleanest listening, turn **Wi-Fi off** (**Settings →
+Network**) while using Bluetooth headphones. If it still sounds rough, try re-pairing,
+or test a different pair of earbuds to tell whether it's the device or the codec.
+
+## A Bluetooth device won't reconnect
+
+Open **Settings → Bluetooth** and connect it again. If it still won't, unpair it
+(**Y**) and pair fresh. Some earbuds (Apple AirPods in particular) are reluctant to
+reconnect to non-Apple hardware automatically and may need a manual reconnect each time.
+
+## The stick doesn't reach full tilt
+
+If characters walk when you push the stick all the way (or aiming feels clipped), the
+stick's range needs calibrating. Open **Joe's Calibrage** from the **Apps** tab and run
+**Calibrate**. See [Joe's Calibrage](/apps/joes-calibrage/).
+
+## Black Frame Insertion is greyed out
+
+Black Frame Insertion only works at 120Hz, so it shows "120 Hz only" until you raise
+the refresh rate. Set **Settings → Display & Sound → Refresh Rate** to **120**, then the
+toggle becomes available. See [Settings → Display & Sound](/guide/settings/#display--sound).
+
+## Games, saves, or box art don't stick after a reboot
+
+This is almost always a confused SD card, usually from losing power without a clean
+shutdown. To avoid it, power the device down with **MENU → Power Off** rather than
+yanking the charger or holding the power button. If files seem to be missing or the
+launcher behaves oddly, put the card in a computer and let it repair the volume (on
+Windows, "check disk"; on macOS, Disk Utility's "First Aid"), then reinsert it.
 

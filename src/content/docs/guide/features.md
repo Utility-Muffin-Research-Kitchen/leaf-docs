@@ -90,7 +90,8 @@ reboot, power off, exit to stock). See
 
 While a game is running, the same button opens the **in-game menu** instead -
 quick actions (resume, save and load states, the performance panel, quit back to
-the launcher) without leaving the game.
+the launcher) without leaving the game. See [Playing games](/guide/playing/) for
+the full in-game menu, save states, and per-game performance.
 
 ![The in-game menu over a paused game, with a save-state thumbnail and button hints](/screenshot-ingame-menu.png)
 
@@ -98,21 +99,20 @@ the launcher) without leaving the game.
 
 ![The Apps tab listing Central Scrutinizer, Disco Boy, File Explorer, Fugazi, RetroArch, and SSH Server](/screenshot-apps.png)
 
-Leaf ships with a few built-in apps (under the **Apps** tab):
+Leaf ships with a few built-in apps (under the **Apps** tab). Each has its own page
+under [Built-in apps](/apps/introduction/):
 
-- **Central Scrutinizer** - manage your library over Wi-Fi from a web browser:
-  upload ROMs and box art, manage saves and BIOS files, and browse the SD card,
-  all without pulling the card. See
-  [Managing your library with Central Scrutinizer](#managing-your-library-with-central-scrutinizer)
-  below.
-- **Fugazi** - a live CRT-shader tuner. Dial in a retro look (scanlines, screen
-  curvature, a phosphor mask, glow, and more) against a full-screen preview, then
-  install it as the global shader so it applies to every game. See
-  [CRT shaders with Fugazi](#crt-shaders-with-fugazi) below.
-- **Joe's Calibrage** - calibrate the analog stick so games see its full range.
-  See [Calibrating the analog stick](#calibrating-the-analog-stick) below.
-- **SSH Server** - start an SSH server to reach the device over the network.
-- **File manager** - browse and manage files on the device.
+- **[Central Scrutinizer](/apps/central-scrutinizer/)** - manage your library over
+  Wi-Fi from a web browser: upload ROMs and box art, manage saves and BIOS files, and
+  browse the SD card, all without pulling the card.
+- **[Fugazi](/apps/fugazi/)** - a live CRT-shader tuner. Dial in a retro look
+  (scanlines, screen curvature, a phosphor mask, glow, and more) against a full-screen
+  preview, then install it as the global shader so it applies to every game.
+- **[Joe's Calibrage](/apps/joes-calibrage/)** - calibrate the analog stick so games
+  see its full range.
+- **[SSH Server](/apps/ssh-server/)** - start an SSH server to reach the device over
+  the network.
+- **[File manager](/apps/file-manager/)** - browse and manage files on the device.
 
 ## Box art
 
@@ -121,82 +121,6 @@ it, pick a core, set a performance profile, or scrape box art. Leaf downloads ar
 from ScreenScraper.fr (sign in under **Settings → Accounts**), and it runs in the
 background while you keep browsing or playing. You can always drop images into
 `Images/` by hand instead. See [Adding games → Box art](/guide/games/#box-art).
-
-## Managing your library with Central Scrutinizer
-
-Open **Central Scrutinizer** from the **Apps** tab to manage the SD card from any
-computer or phone on the same Wi-Fi network - no card-pulling, no cables.
-
-To connect:
-
-1. Put the device on Wi-Fi (**Settings → Network**).
-2. Launch Central Scrutinizer. It serves a small web manager and shows the
-   address to reach it at.
-3. Open that address in a browser on a computer or phone on the same network.
-
-From the browser you can:
-
-- Upload ROMs straight into the right system folder, and box art into `Images/`.
-- Manage your saves, save states, and BIOS files.
-- Browse the SD card and tidy up files.
-
-It's the over-the-air alternative to filling the folders by hand; either way the
-layout is the same (see [Adding games & ROMs](/guide/games/)). A few
-things to know:
-
-- Both ends have to be on the same network. The address is local only - it isn't
-  reachable from the public internet.
-- The manager runs while the app is open; exit it on the device to stop serving.
-
-## CRT shaders with Fugazi
-
-Open **Fugazi** from the **Apps** tab to give games a CRT look. It renders a
-live, full-screen preview, so you can see exactly what each setting does before
-committing to it.
-
-The workflow:
-
-1. Move through the settings with **Up/Down** and adjust the highlighted one with
-   **Left/Right** for fine steps, or **L1/R1** for coarse jumps.
-2. Press **X** to swap in a built-in test pattern - a clean image makes
-   scanlines, curvature, and the mask easy to judge; press **Y** to clear it.
-3. When you like the look, press **A** to install it.
-
-Installing bakes your values into a RetroArch shader preset on the SD card and
-registers it as RetroArch's global preset. Because it's the global preset, the
-shader is used by every core the next time you launch a game - there's no
-per-game or per-system setup. To change the look later, reopen Fugazi, tune, and
-install again; the new preset replaces the old one.
-
-A couple of things to keep in mind:
-
-- The preview is representative, but the final look over a real game also depends
-  on that core's output resolution and the panel, so it's worth tuning with a
-  game in mind.
-- Heavier settings (a fine phosphor mask, strong glow) cost more GPU time. On 8-
-  and 16-bit systems that's usually free, but on demanding cores it can eat into
-  your headroom - ease off the mask if a game struggles.
-
-## Calibrating the analog stick
-
-Open **Joe's Calibrage** from the **Apps** tab to calibrate the analog stick. The
-stick's physical range is narrower than the value range games expect, so out of
-the box it can feel like it never quite reaches full tilt - a walk instead of a
-run in 3D games. Calibrage measures your stick's real range and saves a profile
-that Leaf uses to remap it back to the full range for every game.
-
-The workflow:
-
-1. Open **Calibrate**, roll the stick slowly around its outer edge a few times,
-   then press **A**.
-2. Let the stick rest at center, then press **Y** to save.
-3. Open **Test Stick** to check it - the dot should now reach the edge of the
-   circle at full throw.
-
-Leaf's input layer reads the profile when the device starts, so **restart the
-device** after saving for it to take effect in games. (The **Test Stick** preview
-reflects your new calibration right away.) **View Values** shows the saved
-profile, and **Restore Backup** brings back a previous calibration.
 
 ## Game switcher
 

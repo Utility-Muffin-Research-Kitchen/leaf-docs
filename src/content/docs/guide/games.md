@@ -30,7 +30,8 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 - **`Images/<SYSTEM>/`** - put box art next to the matching system folder, named
   to match the game. For `Roms/SNES/Chrono Trigger.sfc`, use
   `Images/SNES/Chrono Trigger.png`.
-- **`Saves/` and `States/`** - created and managed for you as you play.
+- **`Saves/` and `States/`** - created and managed for you as you play. See
+  [Playing games](/guide/playing/) for how in-game saves and save states work.
 
 ## System folders
 

@@ -8,7 +8,9 @@ alongside your library and launch from the **Apps** tab. They share the same loo
 themes, fonts, and controls as the rest of Leaf, so they feel like part of the
 firmware rather than something bolted on.
 
-This section is new and will grow over time.
+These are the apps you **download and add yourself**. For the apps that come
+pre-installed with Leaf, see [Built-in apps](/apps/introduction/). This section is
+new and will grow over time.
 
 ## Available apps
 

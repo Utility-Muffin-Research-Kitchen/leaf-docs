@@ -32,10 +32,21 @@ Theme and layout, under **Settings → Appearance**.
 ## Display & Sound
 
 - **Brightness** - screen backlight level.
+- **Refresh Rate** - display refresh: **60**, **90**, or **120 Hz**. Higher rates
+  feel smoother in the launcher and in games that can keep up; 60 is the most
+  power-efficient.
+- **Black Frame Insertion** - inserts a black frame between game frames to cut
+  motion blur, for a sharper, more CRT-like image in fast-scrolling games. It only
+  works cleanly at **120 Hz**, so it is greyed out as "120 Hz only" at other refresh
+  rates. It applies to RetroArch-based games and trades some brightness for the
+  clarity, so turn Brightness up to compensate. Best for 60fps titles; leave it off
+  for 50fps (PAL) games, where it does not strobe cleanly.
 - **Output** - audio routing: **Speaker**, **Headphones**, or a connected
   **Bluetooth** device.
 - **Volume** - system volume (also adjustable with the hardware volume keys, which
   show an on-screen overlay).
+- **Test Sound** - plays a short clip on the current output so you can confirm sound
+  and which device it lands on.
 
 ## Lighting
 

@@ -123,8 +123,10 @@ the art in the game list.
 
 **Let Leaf fetch it.** Leaf can download box art from
 [ScreenScraper.fr](https://www.screenscraper.fr/). Sign in once under
-**Settings → Accounts → ScreenScraper.fr**, then start a scrape from the
-[Options menu](#options-menu) on a game or a whole system. Fetched art lands in
+**Settings → Accounts → ScreenScraper.fr**, then start a scrape. For a single
+game, press **X** on it and choose **Scrape Artwork**. To do whole systems at once
+(or every system), use **Settings → Game Art → Scrape Artwork**, which lists **All
+Systems** plus each system with its missing-art count. Fetched art lands in
 `Images/<SYSTEM>/` exactly as if you had added it by hand, and appears in the list
 as soon as each download finishes. Which image type and region it picks is set
 under **Settings → Game Art** (Artwork Priority and Region Priority).
@@ -139,10 +141,9 @@ This is where per-item actions live, so they stay out of the main list:
   one is available.
 - **Performance** - set a per-game or per-system performance profile that
   overrides the global default.
-- **Scrape Artwork** - on a game, fetch and replace its box art. On a system,
-  you get **Scrape Missing Artwork** (only games without art) and **Re-scrape All
-  Artwork** (replace everything). While a scrape is queued the row reads **Cancel
-  Scraping**.
+- **Scrape Artwork** - on a game, fetch and replace its box art. While that scrape
+  is queued the row reads **Cancel Scraping**. To scrape a whole system or every
+  system at once, use **Settings → Game Art → Scrape Artwork** instead.
 - **Reset Overrides** - clear the custom name, core, and performance settings you
   set above.
 

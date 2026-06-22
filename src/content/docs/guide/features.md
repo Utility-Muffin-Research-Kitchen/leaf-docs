@@ -117,10 +117,12 @@ under [Built-in apps](/apps/introduction/):
 ## Box art
 
 Press **X** on a game or system to open its **Options** menu, where you can rename
-it, pick a core, set a performance profile, or scrape box art. Leaf downloads art
-from ScreenScraper.fr (sign in under **Settings → Accounts**), and it runs in the
-background while you keep browsing or playing. You can always drop images into
-`Images/` by hand instead. See [Adding games → Box art](/guide/games/#box-art).
+it, pick a core, or set a performance profile; on a game you can also scrape its
+box art. To scrape a whole system or every system at once, use **Settings → Game
+Art → Scrape Artwork**. Leaf downloads art from ScreenScraper.fr (sign in under
+**Settings → Accounts**), and it runs in the background while you keep browsing or
+playing. You can always drop images into `Images/` by hand instead. See
+[Adding games → Box art](/guide/games/#box-art).
 
 ## Game switcher
 

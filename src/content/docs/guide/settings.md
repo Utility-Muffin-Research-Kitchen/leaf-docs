@@ -80,10 +80,17 @@ before its name.
 
 ## Game Art
 
-How Leaf picks artwork when it downloads from ScreenScraper.fr (sign in first
-under [Accounts](#accounts)). You start a scrape from a game or system's Options
-menu, covered in [Adding games → Options menu](/guide/games/#options-menu).
+Download artwork from ScreenScraper.fr and control how Leaf picks it (sign in
+first under [Accounts](#accounts)).
 
+- **Scrape Artwork** - start a scrape for **All Systems** or a single system. Each
+  row shows how many of that system's games are missing art. **Y** switches between
+  **Missing** (only games without art) and **Replace All** (re-fetch everything);
+  **A** starts the scrape and drops you on the Scrape Queue to watch it. For one
+  game, press **X** on it in the launcher instead.
+- **Scrape Queue** - the live list of scrape jobs and their progress. **A** opens a
+  finished job's result (status and the downloaded art), **Y** filters the list,
+  and **X** stops everything or clears finished rows.
 - **Artwork Priority** - the order Leaf prefers artwork types (box art, title
   screen, in-game shot, and so on). It saves the first type a game has available.
 - **Region Priority** - the order Leaf prefers regions when a game has art for

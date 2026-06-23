@@ -69,3 +69,57 @@ game you are playing. The choice is remembered per game.
 
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.
+
+## Nintendo DS (standalone DraStic)
+
+Nintendo DS games run in **DraStic**, a standalone emulator rather than RetroArch,
+so the in-game menu, save states, and switcher above don't apply - DraStic has its
+own menu and its own controls.
+
+DraStic itself is closed-source. The two-screen layouts, the transparent overlay,
+and the button shortcuts below all come from
+[Steward Fu](https://github.com/steward-fu/nds)'s open-source SDL2 wrapper for
+DraStic, which Leaf forks and builds on - most of the heavy lifting here is his
+work. Because the DS has two screens and a touch screen, the wrapper maps
+everything onto the handheld using **MENU** as a modifier you hold together with
+another button.
+
+### Everyday controls
+
+- **MENU** (tap and release) - open DraStic's own menu: save/load states, options,
+  and the screen-layout picker.
+- **MENU + Start** - open the Steward Fu menu for the see-through second screen
+  (its size, position, transparency, and border).
+- **MENU + A** - flip between your two saved screen layouts. By default that's the
+  normal stacked view and a transparent second screen tucked into the corner.
+- **MENU + Left / Right** - cycle through all of the screen layouts.
+- **L2** - switch the D-pad between controlling the game and controlling the DS
+  touch pointer. In pointer mode the D-pad moves the stylus and **A** taps the
+  screen; press **L2** again to switch back.
+- **R2** - swap the two DS screens, so the other one becomes the main view. Handy
+  with the transparent overlay, or for games that put the action on the bottom
+  screen.
+
+### Save states, fast-forward, and quitting
+
+- **MENU + L2** - save state.
+- **MENU + R2** - load state.
+- **MENU + R1** - fast-forward (hold).
+- **MENU + L1** - quit back to the launcher.
+- **MENU + Select** - also opens DraStic's own menu.
+
+### Display tweaks
+
+- **MENU + B** - toggle the picture between sharp pixels and smoothing.
+- **MENU + Y** - cycle the menu background art (or, in pointer mode, the stylus
+  cursor).
+
+**MENU + Up** is intentionally inactive on the Pocket 1. On other devices it
+toggles DraStic's microphone, but that feature relies on a recorded sample played
+back into the game rather than live mic input, and the Pocket 1's 64-bit DraStic
+is a closed-source build the wrapper has to drive through fragile internal entry
+points. Triggering the microphone that way crashed the emulator, so the shortcut
+is switched off here until it can be wired up safely.
+
+Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
+**Left / Right** to change a value, **A** to confirm, and **B** to go back or close.

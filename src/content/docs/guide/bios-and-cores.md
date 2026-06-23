@@ -33,7 +33,10 @@ Under the hood:
   needs no BIOS of your own. Like PPSSPP it's a standalone session: the Menu
   button opens DraStic's own menu (save states, options, and the second-screen
   layout live there), so the RetroArch in-game menu doesn't apply. Volume keys
-  work as usual.
+  work as usual. DraStic uses **MENU** as a modifier for save states, layouts, and
+  the transparent second screen - see
+  [Nintendo DS controls](/guide/playing/#nintendo-ds-standalone-drastic) for the
+  full list.
 - **Dreamcast and Nintendo 64** run through their RetroArch cores today
   (Flycast and Mupen64Plus-Next); dedicated standalone builds are planned.
 

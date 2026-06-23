@@ -34,19 +34,22 @@ Theme and layout, under **Settings → Appearance**.
 - **Brightness** - screen backlight level.
 - **Refresh Rate** - display refresh: **60**, **90**, or **120 Hz**. Higher rates
   feel smoother in the launcher and in games that can keep up; 60 is the most
-  power-efficient.
+  power-efficient. On a TV this setting also picks the HDMI mode and the sharp-versus-
+  smooth trade-off (see [How the TV picture works](#how-the-tv-picture-works)).
 - **Black Frame Insertion** - inserts a black frame between game frames to cut
   motion blur, for a sharper, more CRT-like image in fast-scrolling games. It only
   works cleanly at **120 Hz**, so it is greyed out as "120 Hz only" at other refresh
-  rates. It applies to RetroArch-based games and trades some brightness for the
-  clarity, so turn Brightness up to compensate. Best for 60fps titles; leave it off
-  for 50fps (PAL) games, where it does not strobe cleanly.
+  rates. It applies to RetroArch-based games, on the built-in screen or on a 120 Hz
+  TV, and trades some brightness for the clarity, so turn Brightness up to compensate.
+  Best for 60fps titles; leave it off for 50fps (PAL) games, where it does not strobe
+  cleanly.
 - **HDMI Output** - send the picture to a TV over HDMI in the right shape. **Off**
   keeps everything on the built-in screen; **4:3** sends a pillarboxed, correctly
   proportioned image (black bars on the sides, no stretching); **Stretch** fills a
   16:9 TV edge to edge. Leaf switches over on its own when you plug a cable in and
   drops back to the handheld when you unplug, and the sound follows the picture to
-  the TV. Greyed out as "Not connected" until a TV is plugged in.
+  the TV. Greyed out as "Not connected" until a TV is plugged in. The Refresh Rate
+  setting controls how sharp versus smooth the TV image is (see below).
 - **Volume** - system volume (also adjustable with the hardware volume keys, which
   show an on-screen overlay).
 - **Audio Output** - audio routing: **Speaker**, **Headphones**, a connected
@@ -54,6 +57,31 @@ Theme and layout, under **Settings → Appearance**.
   buttons to switch.
 - **Test Sound** - plays a short clip on the current output so you can confirm sound
   and which device it lands on.
+
+### How the TV picture works
+
+When you connect a TV, the **Refresh Rate** setting decides the trade-off between a
+sharp picture and a smooth one, and Leaf picks the best HDMI mode the TV actually
+supports:
+
+- **60 or 90 Hz** sends **720p**. The handheld's 4:3 image lands on the TV one pixel
+  for one with no scaling, so it is pin-sharp. This is the safe default and works on
+  every HDMI TV.
+- **120 Hz** sends **1080p at 120 Hz** (when the TV reports it). Motion is smoother
+  and **Black Frame Insertion** becomes available on the TV, but the 4:3 image is
+  scaled up to fill 1080p, so it looks a touch softer than the 720p version.
+
+Leaf reads the TV's own list of supported modes over HDMI, so it only switches to
+120 Hz when the set genuinely handles it. If a TV tops out at 60 Hz, choosing 120
+simply stays on the sharp 720p picture and the Black Frame Insertion row stays greyed.
+A 1080p120 signal needs a high-speed (HDMI 2.0 or newer) cable; if the screen goes
+black at 120 Hz, the cable is usually the limit, so drop back to 60/90 or try a better
+cable.
+
+Why not sharp and smooth at the same time? TVs only offer 120 Hz at 1080p or higher,
+never at 720p, and the 4:3 image is only pixel-perfect at 720p. So crisp (720p, 60 Hz)
+and smooth (1080p, 120 Hz) are a real either-or on a TV, and the Refresh Rate setting
+is how you choose between them.
 
 ## Lighting
 

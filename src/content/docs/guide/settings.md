@@ -74,9 +74,12 @@ supports:
 Leaf reads the TV's own list of supported modes over HDMI, so it only switches to
 120 Hz when the set genuinely handles it. If a TV tops out at 60 Hz, choosing 120
 simply stays on the sharp 720p picture and the Black Frame Insertion row stays greyed.
-A 1080p120 signal needs a high-speed (HDMI 2.0 or newer) cable; if the screen goes
-black at 120 Hz, the cable is usually the limit, so drop back to 60/90 or try a better
-cable.
+A 1080p120 signal needs a high-speed (HDMI 2.0 or newer) cable. If your TV or cable
+can't carry it the picture goes black - so whenever Leaf switches to 1080p120 it shows
+a short prompt and, unless you confirm, drops back to the safe 720p picture after a few
+seconds. Once your TV is clearly showing the image, press **L1 then R1** to keep the
+mode; otherwise just wait (or press **B**) and it reverts on its own. That way a cable
+that can't handle 120 Hz can never strand you on a screen you can't see.
 
 Why not sharp and smooth at the same time? TVs only offer 120 Hz at 1080p or higher,
 never at 720p, and the 4:3 image is only pixel-perfect at 720p. So crisp (720p, 60 Hz)

@@ -41,10 +41,17 @@ Theme and layout, under **Settings → Appearance**.
   rates. It applies to RetroArch-based games and trades some brightness for the
   clarity, so turn Brightness up to compensate. Best for 60fps titles; leave it off
   for 50fps (PAL) games, where it does not strobe cleanly.
-- **Output** - audio routing: **Speaker**, **Headphones**, or a connected
-  **Bluetooth** device.
+- **HDMI Output** - send the picture to a TV over HDMI in the right shape. **Off**
+  keeps everything on the built-in screen; **4:3** sends a pillarboxed, correctly
+  proportioned image (black bars on the sides, no stretching); **Stretch** fills a
+  16:9 TV edge to edge. Leaf switches over on its own when you plug a cable in and
+  drops back to the handheld when you unplug, and the sound follows the picture to
+  the TV. Greyed out as "Not connected" until a TV is plugged in.
 - **Volume** - system volume (also adjustable with the hardware volume keys, which
   show an on-screen overlay).
+- **Audio Output** - audio routing: **Speaker**, **Headphones**, a connected
+  **Bluetooth** device, or **HDMI** when a TV is connected. Use the left and right
+  buttons to switch.
 - **Test Sound** - plays a short clip on the current output so you can confirm sound
   and which device it lands on.
 
@@ -75,7 +82,7 @@ before its name.
   alongside a headset.
 - Game and system audio follows the connected headset automatically - no need to
   switch the output by hand. (You can still pick the output under
-  **Display & Sound → Output**.)
+  **Display & Sound → Audio Output**.)
 - Reconnect a paired device from this page whenever you want it; **Y** unpairs it.
 
 ## Game Art

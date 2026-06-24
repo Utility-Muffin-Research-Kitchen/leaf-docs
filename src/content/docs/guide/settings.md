@@ -3,10 +3,12 @@ title: Settings reference
 description: A reference for the Leaf launcher's Settings menu, grouped by section.
 ---
 
-A reference for the Settings menu. Open Settings from the launcher; the sections
-below mirror its top-level list. System tools that aren't persistent settings -
-About, System Update, and a library rescan - live in the **System menu** (the
-Menu button), covered at the end.
+A reference for the Settings menu. Settings lives in the **System** page: press the
+**Menu** button and it opens on the **Settings** tab, whose sections are listed
+below. The System page holds two more tabs alongside it - **Actions** (system tools
+like System Update and a library rescan) and **Info** (read-only Device, Library,
+and Playtime pages) - covered under [The System page](#the-system-page-menu-button)
+at the end.
 
 ## Appearance
 
@@ -153,7 +155,8 @@ fit, it scrolls while the row is selected.
 
 ## General
 
-- **Startup Tab** - which tab the launcher opens on.
+- **Startup Tab** - which game tab the launcher opens on: Recents, Favorites,
+  Games, or Apps.
 - **Auto Sleep** - idle timeout before the device sleeps (can be turned off).
 - **Boot Splash** - show or hide the Leaf boot animation.
 - **Game Performance** - how hard the device works during gameplay: **Auto**,
@@ -163,18 +166,36 @@ fit, it scrolls while the row is selected.
 - **Reset RetroArch Config** - restore RetroArch to its defaults.
 - **Unmount Secondary SD** - safely eject a second SD card before removing it.
 
-## System menu (Menu button)
+## The System page (Menu button)
 
-Press the **Menu** button to open the **System** menu - quick actions and system
-tools that sit apart from the persistent Settings:
+Leaf is organized into two areas. The home tab strip is **Content** - your games:
+**Recents**, **Favorites**, **Games**, and **Apps**. Everything *about* the device
+lives in **System**, which you open with the **Menu** button.
 
-- **System Update** - check for, download, and install updates over the air. See
-  [Updating (OTA)](/guide/updating/).
-- **About** - the installed Leaf version, system info (OS, kernel, hardware, and
-  network addresses), and the open-source components Leaf is built on, each with
-  its license. The full license text for every bundled emulator also ships inside
-  the install under `licenses/`.
-- **Rescan Library** - re-index games and apps; the live game and app counts show
-  beside the row.
-- **Return to Launcher**, **Sleep**, **Exit to Stock**, **Reboot**, and
-  **Power Off** - session and power actions.
+The Menu button is the toggle between the two. Press it to step into System from
+anywhere - including from inside a system's game list - and press it again to drop
+back to exactly where you were. **B** only steps back within whichever area you're
+in and never jumps across the two, so the Menu button is how you leave System.
+
+The System page is tab-driven, like the home strip; **L1 / R1** switch between its
+three tabs:
+
+- **Settings** - everything documented above (Appearance, Display & Sound, Network,
+  Bluetooth, and so on). This tab opens first.
+- **Actions** - things you *do*:
+  - **Search** - search your whole library.
+  - **System Update** - check for, download, and install updates over the air. See
+    [Updating (OTA)](/guide/updating/).
+  - **Rescan Library** - re-index games and apps; the live game and app counts show
+    beside the row.
+  - **Sleep**, **Exit to Stock**, **Reboot**, and **Power Off** - session and power
+    actions.
+- **Info** - read-only pages about your device and library:
+  - **Device** - the installed Leaf version, system info (OS, kernel, hardware, and
+    network addresses), and the open-source components Leaf is built on, each with
+    its license. The full license text for every bundled emulator also ships inside
+    the install under `licenses/`.
+  - **Library** - the size of your collection: total games, systems, and apps,
+    favorites, box-art coverage, and a per-system breakdown.
+  - **Playtime** - how much you've played: total time, games played, your
+    most-played titles, and a per-system breakdown.

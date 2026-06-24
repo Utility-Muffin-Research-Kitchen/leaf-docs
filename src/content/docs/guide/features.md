@@ -83,10 +83,13 @@ live performance panel in the in-game menu for tuning while a game runs.
 
 ## Menu button
 
-On the launcher home, the **Menu** button opens the **System** menu: a library
-rescan, **System Update**, **About**, and the session and power actions (sleep,
-reboot, power off, exit to stock). See
-[Settings → System menu](/guide/settings/#system-menu-menu-button).
+In the launcher, the **Menu** button opens the **System** page - everything about
+the device, kept apart from your games. It's tab-driven (**L1 / R1**): **Settings**,
+**Actions** (Search, **System Update**, a library rescan, and the session and power
+actions), and **Info** (a **Device** page plus **Library** and **Playtime** stats).
+The Menu button toggles between your games and System, so press it again to drop
+back to where you were. See
+[The System page](/guide/settings/#the-system-page-menu-button).
 
 While a game is running, the same button opens the **in-game menu** instead -
 quick actions (resume, save and load states, the performance panel, quit back to

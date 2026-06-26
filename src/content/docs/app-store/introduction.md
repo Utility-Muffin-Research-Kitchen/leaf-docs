@@ -17,6 +17,8 @@ This section is new and will grow over time.
 - **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
 - **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.
+- **[SDLReader](/app-store/sdlreader/)** - a reader for PDFs, comics, ebooks,
+  and text.
 
 ## Installing an app
 

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "product": "pak-rat",
+  "catalog_revision": "prod-20260626T194839Z",
+  "generated_at": "2026-06-26T19:48:39Z",
+  "apps": [
+    {
+      "id": "org.helaas.sdlreader",
+      "name": "SDLReader",
+      "summary": "Read PDFs, comics, ebooks, text, and standalone image files.",
+      "description": "SDLReader is a lightweight document and comic viewer built on SDL2 and MuPDF. This Pak Rat metadata describes the Leaf-compatible MLP1 package only.",
+      "author": "Helaas",
+      "repo_url": "https://github.com/Helaas/SDLReader-brick",
+      "categories": [
+        "reading",
+        "tools"
+      ],
+      "version": "2.4.0",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "2.4.0",
+          "install_name": "SDLReader.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Helaas/SDLReader-brick/releases/download/v2.4.0/SDLReader.mlp1.pak.zip",
+            "name": "SDLReader.mlp1.pak.zip",
+            "archive": "zip",
+            "size": 13944658,
+            "installed_size": 26357367,
+            "sha256": "81e842d7fa1b53234438d3332a8a5660e63d2ad94ed0a83de6b07088e89769eb"
+          }
+        }
+      ]
+    }
+  ]
+}

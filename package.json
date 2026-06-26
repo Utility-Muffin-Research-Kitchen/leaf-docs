@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "validate:pakrat": "node scripts/validate-pakrat-catalog.mjs",
+    "validate:pakrat:remote": "node scripts/validate-pakrat-catalog.mjs --remote",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

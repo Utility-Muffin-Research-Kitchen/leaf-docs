@@ -14,13 +14,18 @@ There is nothing to set up. Nimbus uses [Open-Meteo](https://open-meteo.com) for
 weather, so it needs no account and no API key. Open it and it finds your location
 and shows the weather.
 
-## Download
+## Install
 
-Nimbus is a standalone app, not bundled with Leaf. Open the
+Nimbus is a standalone app, not bundled with Leaf. Install it on-device with
+**Pak Rat**: press the **Menu** button, open **Actions → Pak Rat**, choose
+**Nimbus**, and install it over Wi-Fi. It appears in your **Apps** tab when the
+install finishes.
+
+Manual fallback: open the
 **[latest release](https://github.com/Utility-Muffin-Research-Kitchen/Nimbus/releases/latest)**,
-download `Nimbus.pak.zip` from there, unzip it, and copy the `Nimbus.pak` folder into `Apps/mlp1/`
-on your SD card. It appears in your Apps list next boot. Nimbus is open source
-([MIT](https://github.com/Utility-Muffin-Research-Kitchen/Nimbus)).
+download `Nimbus.pak.zip`, unzip it, copy the `Nimbus.pak` folder into
+`Apps/mlp1/` on your SD card, then run **System → Rescan Library**. Nimbus is
+open source ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/Nimbus)).
 
 ## Features
 

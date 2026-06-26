@@ -8,9 +8,9 @@ alongside your library and launch from the **Apps** tab. They share the same loo
 themes, fonts, and controls as the rest of Leaf, so they feel like part of the
 firmware rather than something bolted on.
 
-These are the apps you **download and add yourself**. For the apps that come
-pre-installed with Leaf, see [Built-in apps](/apps/introduction/). This section is
-new and will grow over time.
+These are the apps you add with **Pak Rat**, Leaf's on-device app store. For the
+apps that come pre-installed with Leaf, see [Built-in apps](/apps/introduction/).
+This section is new and will grow over time.
 
 ## Available apps
 
@@ -20,13 +20,12 @@ new and will grow over time.
 
 ## Installing an app
 
-Apps ship as a `.pak` folder. Copy it into the **`Apps/mlp1/`** folder on the SD
-card, then run a rescan so Leaf picks it up: press the **MENU** button in the
-launcher, choose **System → Rescan Library**, and the app appears in the **Apps**
-tab. Launch it like any game.
+Open **System** with the **Menu** button, go to **Actions**, then choose
+**Pak Rat**. Pick the app and install it over Wi-Fi. When the install finishes,
+the app appears in the **Apps** tab and launches like any game.
 
-:::note[On-device installs are coming]
-Copying a `.pak` by hand is how it works for now. A later Leaf update will let you
-browse this app store and install apps right on the device, over Wi-Fi, with no
-computer or SD-card shuffling needed.
+:::note[Manual fallback]
+If you need to install without Wi-Fi, download the app's `.pak.zip` release asset
+on a computer, unzip it, copy the `.pak` folder into **`Apps/mlp1/`** on the SD
+card, then run **System → Rescan Library**.
 :::

@@ -1,9 +1,69 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260626T194839Z",
-  "generated_at": "2026-06-26T19:48:39Z",
+  "catalog_revision": "prod-20260626T202817Z",
+  "generated_at": "2026-06-26T20:28:17Z",
   "apps": [
+    {
+      "id": "org.umrk.discoboy",
+      "name": "Disco Boy",
+      "summary": "Play music from your SD card with cover art, queue controls, and Leaf audio routing.",
+      "description": "Disco Boy is a Catastrophe-native music player for Leaf on the Miniloong Pocket 1. Browse artists, albums, and folders, play common music formats, and keep audio routed through the same output Leaf is using.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy",
+      "categories": [
+        "music",
+        "media"
+      ],
+      "version": "0.1.1",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "0.1.1",
+          "install_name": "DiscoBoy.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/download/v0.1.1/DiscoBoy.pak.zip",
+            "name": "DiscoBoy.pak.zip",
+            "archive": "zip",
+            "size": 603698,
+            "installed_size": 874106,
+            "sha256": "03e6e4ea3f021219a8143d1a9e32d777ab18df1b4ac8587ba71ca74ade37bafd"
+          }
+        }
+      ]
+    },
+    {
+      "id": "org.umrk.nimbus",
+      "name": "Nimbus",
+      "summary": "Check current weather, forecasts, hourly conditions, and sun and moon details.",
+      "description": "Nimbus is a Catastrophe-native weather app for Leaf on the Miniloong Pocket 1. It uses Open-Meteo with no account or API key, caches the latest forecast, and renders weather details with Leaf's theme.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/Nimbus",
+      "categories": [
+        "weather",
+        "tools"
+      ],
+      "version": "0.1.0",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "0.1.0",
+          "install_name": "Nimbus.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Nimbus/releases/download/v0.1.0/Nimbus.pak.zip",
+            "name": "Nimbus.pak.zip",
+            "archive": "zip",
+            "size": 214071,
+            "installed_size": 380169,
+            "sha256": "7f46e8747abbee75b8b0ab757a10bb7761a91a8b38a5647772430f9237df2ad3"
+          }
+        }
+      ]
+    },
     {
       "id": "org.helaas.sdlreader",
       "name": "SDLReader",

@@ -44,6 +44,12 @@ Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than
 needing to be reimplemented.
 
+When a system has more than one emulator, you don't need a second ROM folder for
+it. Keep all of that console's games in its one folder and switch emulators with
+the **Core** option (press **X** on a game or system; see
+[Adding games](/guide/games/#options-menu)). For example, Game Boy Advance games
+all live in `Roms/GBA/` whichever core you pick.
+
 :::note
 The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Whether
 a given game runs at full speed varies by title; treat these as "best effort,"
@@ -86,7 +92,8 @@ Arcade emulation is the fussiest part of any handheld. Three things matter:
 
 1. **Match the ROM-set version.** Arcade cores only load ROM sets that match the
    core's expected version. A set from the wrong version silently fails to load
-   even when the game name looks right. Use a set that matches the core.
+   even when the game name looks right. Use `Roms/ARCADE/` for the normal FBNeo
+   arcade library, or `Roms/MAME/` if you intentionally maintain a MAME 03+ set.
 2. **Keep them zipped.** Arcade games load from their `.zip` by exact filename;
    do not unzip or rename them (the opposite of some other systems).
 3. **Parents & BIOS.** Clones reference their parent set (both must be present),

@@ -20,8 +20,11 @@ to add a pile of ROMs or fix up box art without pulling the SD card.
 
 From the browser you can:
 
-- **Upload ROMs** - single files or whole folders, including ZIP archives, into the
-  right system folders.
+- **Upload ROMs** - single files or whole folders, including ZIP archives. Each
+  console shows as a single library, and uploads land in that system's
+  recommended folder. If you have older alias folders (say both `Roms/NES` and
+  `Roms/FC`), Central Scrutinizer shows them as one console with a combined
+  count rather than duplicate cards.
 - **Manage files** - download, rename, delete, and make folders.
 - **Sort box art** - replace or tidy up game artwork.
 - **Browse logs** - read Leaf's app logs, with a live tail, which is handy when

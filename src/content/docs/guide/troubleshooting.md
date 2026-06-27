@@ -9,8 +9,18 @@ Common issues and how to resolve them. If something here doesn't help, please
 ## A system folder isn't showing up
 
 A system only appears in the launcher once its core is present. If you added
-games to, say, `Roms/PS/` but PlayStation isn't listed, the core for that system
+games to, say, `Roms/PSX/` but PlayStation isn't listed, the core for that system
 likely isn't installed. See [BIOS & cores](/guide/bios-and-cores/).
+
+## I have the same console in two folders
+
+Some consoles have older alias folder names (for example `Roms/FC` for NES,
+`Roms/MD` for Genesis, `Roms/PS` for PlayStation, `Roms/TG16` for PC Engine).
+Leaf still reads those, and combines them with the recommended folder into one
+console in the launcher and in Central Scrutinizer — you won't get duplicate
+entries. Going forward, add new games and box art to the recommended folder
+listed in [Adding games & ROMs](/guide/games/#system-folders); you can move the
+older folder's files there whenever you like, or just leave them.
 
 ## A game won't launch
 

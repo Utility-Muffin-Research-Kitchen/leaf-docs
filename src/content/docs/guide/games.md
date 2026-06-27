@@ -35,10 +35,14 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 
 ## System folders
 
-Each console has its own `Roms/` subfolder, grouped by maker below. Folder
-names are not case-sensitive, and most systems accept a few aliases (`Roms/NES`,
-`Roms/FC`, and `Roms/FAMICOM` all land in the same place), so the name shown is
-just the recommended one.
+Each console gets **one** `Roms/` subfolder, grouped by maker below — one folder
+per system, not one per emulator. Different emulators or compatibility modes for
+the same console are a **Core** choice (see Options below), not separate folders.
+
+Folder names are not case-sensitive, and most systems accept a few aliases
+(`Roms/NES`, `Roms/FC`, and `Roms/FAMICOM` all land in the same place), so the
+name shown is just the recommended one. Older alias folders keep working if you
+already have them, but new games and box art should go in the recommended folder.
 
 **Nintendo**
 
@@ -46,8 +50,7 @@ just the recommended one.
 |---|---|
 | `NES` | Nintendo Entertainment System |
 | `FDS` | Famicom Disk System |
-| `SNES` | Super Nintendo |
-| `SFC_JP` | Super Famicom (Japan) |
+| `SNES` | Super Nintendo / Super Famicom |
 | `N64` | Nintendo 64 |
 | `GB` / `GBC` / `GBA` | Game Boy / Color / Advance |
 | `NDS` | Nintendo DS |
@@ -70,8 +73,8 @@ just the recommended one.
 
 | Folder | System |
 |---|---|
-| `TG16` | TurboGrafx-16 / PC Engine |
-| `PCECD` | TurboGrafx-CD / PC Engine CD |
+| `PCE` | PC Engine / TurboGrafx-16 |
+| `PCECD` | PC Engine CD / TurboGrafx-CD |
 
 **SNK**
 
@@ -92,7 +95,7 @@ just the recommended one.
 | Folder | System |
 |---|---|
 | `ATARI2600` | Atari 2600 |
-| `ATARI7800` | Atari 7800 |
+| `A7800` | Atari 7800 |
 | `LYNX` | Atari Lynx |
 
 **Other**
@@ -105,8 +108,12 @@ just the recommended one.
 | `PICO8` | Pico-8 |
 | `DOS` | MS-DOS |
 | `EASYRPG` | EasyRPG (RPG Maker 2000/2003) |
-| `ARCADE` | Arcade (MAME / FBNeo, needs matching ROM sets) |
+| `ARCADE` | Arcade (FBNeo, recommended for most arcade sets) |
 | `PORTS` | Ports (native game ports) |
+
+Advanced arcade users can also use `Roms/MAME/` for MAME 03+ zipped ROM sets.
+Use that only when your set is built for that core; otherwise put arcade games
+in `Roms/ARCADE/`.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
@@ -162,4 +169,3 @@ disc.
 Some systems need a BIOS file you provide yourself (Neo Geo, for example, needs
 `neogeo.zip` in `BIOS/`). Arcade games are also picky about ROM-set versions.
 See [BIOS & cores](/guide/bios-and-cores/) for the details.
-

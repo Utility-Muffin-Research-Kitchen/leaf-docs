@@ -37,8 +37,12 @@ Under the hood:
   the transparent second screen - see
   [Nintendo DS controls](/guide/playing/#nintendo-ds-standalone-drastic) for the
   full list.
-- **Dreamcast and Nintendo 64** run through their RetroArch cores today
-  (Flycast and Mupen64Plus-Next); dedicated standalone builds are planned.
+- **Standalone N64** runs Nintendo 64 games from `Roms/N64/` through Leaf's
+  packaged Mupen64Plus build. The standard RetroArch N64 core is still available
+  as an alternate core, but standalone is the default because it gives Leaf more
+  direct control over the video plugins, performance settings, save-and-quit
+  handoff, and MLP1 display quirks.
+- **Dreamcast** runs through its RetroArch core today (Flycast).
 
 Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than
@@ -49,6 +53,24 @@ it. Keep all of that console's games in its one folder and switch emulators with
 the **Core** option (press **X** on a game or system; see
 [Adding games](/guide/games/#options-menu)). For example, Game Boy Advance games
 all live in `Roms/GBA/` whichever core you pick.
+
+### Nintendo 64: standard vs standalone
+
+Leaf lists Nintendo 64 as one system, with one ROM folder: `Roms/N64/`.
+The difference is the emulator selected by the **Core** option:
+
+- **Mupen64Plus Standalone** is Leaf's default. It is a native Mupen64Plus
+  package with Rice and GLideN64 video plugins, plus a Leaf-themed overlay for
+  save states, per-game settings, and save-and-quit resume.
+- **Mupen64Plus Next** is the standard RetroArch/libretro N64 core. Choose it if
+  a specific game behaves better there, or if you specifically need RetroArch's
+  own in-game menu, shaders, or RetroAchievements path for that title.
+
+We default to standalone because N64 is one of the hardest systems for the MLP1:
+the native package gives us tighter control over rendering, display rotation,
+and game-specific settings than the generic RetroArch core path. That makes it
+the better baseline for the device, while keeping the RetroArch core available
+as a compatibility fallback.
 
 :::note
 The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Whether

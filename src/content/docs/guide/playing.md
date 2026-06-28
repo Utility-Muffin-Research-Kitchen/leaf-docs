@@ -20,6 +20,10 @@ game and floats over a dimmed snapshot of where you were. The options are:
 - **RetroArch Settings** - open RetroArch's own menu for advanced options.
 - **Quit** - leave the game and return to the launcher.
 
+Standalone emulators may replace or adapt a few rows. For example, Nintendo 64
+standalone has Leaf save/load and settings pages, but not RetroArch Settings,
+because it is not running inside RetroArch.
+
 ## Save states
 
 Save states capture the exact moment you are in, separate from a game's own
@@ -40,8 +44,8 @@ as they always have. Save states are an extra layer on top.
 
 ## The game switcher
 
-Press **SELECT** during a game to bring up the game switcher: a carousel of your
-recent games laid over the current one.
+Press **SELECT** during a RetroArch game to bring up the game switcher: a carousel
+of your recent games laid over the current one.
 
 - **Left / Right** browse your recent games; the tile for the game you are in shows
   a live snapshot of it.
@@ -52,6 +56,10 @@ recent games laid over the current one.
 
 When you do return to the launcher, it reopens exactly where you left off, on the
 same tab and game.
+
+In standalone Nintendo 64, use **MENU + SELECT** instead. Leaf saves the current
+N64 state, returns to the launcher, and opens the same switcher/recents flow
+there. Press **A** on the selected game to resume from that saved state.
 
 ## Per-game performance
 
@@ -69,6 +77,26 @@ game you are playing. The choice is remembered per game.
 
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.
+
+## Nintendo 64 (standalone Mupen64Plus)
+
+Nintendo 64 games default to **Mupen64Plus Standalone** rather than the standard
+RetroArch N64 core. Both use the same `Roms/N64/` folder; switch between them
+with **Core** from a game or system's **Options** menu.
+
+Standalone is the default because it lets Leaf tune the MLP1-specific parts that
+matter most for N64: video plugin choice, display handling, performance options,
+and the save-and-quit handoff back to the launcher. The RetroArch core remains
+available as an alternate when a particular game behaves better there.
+
+Controls that differ from RetroArch:
+
+- **MENU** - open the Leaf N64 overlay.
+- **MENU + SELECT** - save the current state and hand off to Leaf's game
+  switcher/recents flow.
+- **A** from the game switcher or recents - resume the saved N64 state.
+- **RetroArch Settings** does not appear while using standalone N64; renderer and
+  N64-specific options live in the standalone overlay instead.
 
 ## Nintendo DS (standalone DraStic)
 

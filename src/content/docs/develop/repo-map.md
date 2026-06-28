@@ -16,6 +16,7 @@ organization. Each is an independent repo with its own build.
 | **mlp1-toolchain** | The Buildroot-based Docker image used to cross-compile for the device |
 | **retroarch-builds** | RetroArch fetch/build/packaging |
 | **Cores-spruce** | libretro core builder, forked from spruceOS's build lane (downstream of libretro-super) |
+| **leaf-n64-standalone** | Standalone Mupen64Plus package for Nintendo 64 on MLP1 |
 | **ssh-server** | The SSH Server app (a `.pak`) |
 | **Thing-File** | The file-manager app (a `.pak`) |
 | **Fugazi** | The Fugazi live CRT-shader tuner app (a `.pak`) |
@@ -29,8 +30,9 @@ organization. Each is an independent repo with its own build.
   and assembles the SD payload. You don't build product repos individually to ship -
   you stage from Leaf.
 - **Jawaka** depends on **Catastrophe** (header-only toolkit).
-- **retroarch-builds** + **Cores-spruce** produce the emulation stack that Leaf
-  stages alongside the launcher.
+- **retroarch-builds** + **Cores-spruce** produce the RetroArch emulation stack
+  that Leaf stages alongside the launcher.
+- **leaf-n64-standalone** produces the packaged standalone Nintendo 64 emulator
+  that Leaf uses by default on MLP1.
 - **miniloong-launcher-switcher** owns everything device-stock-specific (the boot
   swap and install/recovery flow).
-

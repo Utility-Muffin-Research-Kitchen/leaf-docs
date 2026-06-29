@@ -54,6 +54,13 @@
   }
   .nova-actions button.primary { background: var(--sl-color-accent); border-color: var(--sl-color-accent);
     color: var(--sl-color-black); }
+  .nova-share {
+    width: 100%; height: 36px; margin-top: .5rem; box-sizing: border-box;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px; cursor: pointer; font: inherit; font-weight: 600; font-size: .85rem;
+    border: 1px dashed var(--sl-color-gray-4); background: transparent; color: var(--sl-color-gray-2);
+  }
+  .nova-share:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
   .nova-summary { margin: .7rem 0 0; font-size: .82rem; color: var(--sl-color-gray-3); line-height: 1.5; }
 </style>
 
@@ -114,6 +121,22 @@
     drawStick('left', sel.stick_left);
     drawStick('right', sel.stick_right);
     updateSummary();
+    updateURL();
+  }
+
+  const SEL_KEYS = ['body','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right'];
+  function updateURL() {
+    const p = new URLSearchParams();
+    SEL_KEYS.forEach(k => p.set(k, sel[k]));
+    history.replaceState(null, '', location.pathname + '?' + p.toString());
+  }
+  function applyURL() {
+    const p = new URLSearchParams(location.search);
+    SEL_KEYS.forEach(k => {
+      const v = p.get(k); if (!v) return;
+      const ok = k.startsWith('stick_') ? STICK_COLORS.includes(v) : RENDERS.includes(v);
+      if (ok) sel[k] = v;
+    });
   }
 
   function updateSummary() {
@@ -167,12 +190,28 @@
     });
     actions.appendChild(rand); actions.appendChild(reset);
     c.appendChild(actions);
+
+    const share = document.createElement('button'); share.className = 'nova-share';
+    share.textContent = 'Copy share link';
+    share.addEventListener('click', async () => {
+      updateURL();
+      const url = location.href;
+      try { await navigator.clipboard.writeText(url); }
+      catch (e) {
+        const t = document.createElement('textarea'); t.value = url; document.body.appendChild(t);
+        t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove();
+      }
+      share.textContent = 'Link copied!';
+      clearTimeout(share._t); share._t = setTimeout(() => { share.textContent = 'Copy share link'; }, 1600);
+    });
+    c.appendChild(share);
   }
   function syncSelects() {
     document.querySelectorAll('.nova-controls select').forEach(s => { s.value = sel[s.dataset.key]; });
   }
 
   async function init() {
+    applyURL();
     buildControls();
     try {
       await Promise.all([

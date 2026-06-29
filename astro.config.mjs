@@ -28,11 +28,14 @@ export default defineConfig({
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/Utility-Muffin-Research-Kitchen',
+          href: 'https://github.com/Utility-Muffin-Research-Kitchen/Leaf',
         },
       ],
-      // Default to dark when the visitor has no saved preference (Leaf is a
-      // soft-green-on-dark identity). The theme toggle still works.
+      // Default to dark when the visitor has no saved preference - it suits the
+      // dark device UI and makes the green-glow hero and framed screenshots pop.
+      // This forces dark on a first visit regardless of the OS setting; the theme
+      // toggle (including Auto, which then follows the OS) still works and the
+      // choice is remembered.
       head: [
         {
           tag: 'script',
@@ -90,6 +93,7 @@ export default defineConfig({
             { label: 'Architecture', slug: 'develop/architecture' },
             { label: 'Repo map', slug: 'develop/repo-map' },
             { label: 'Building from source', slug: 'develop/building' },
+            { label: 'Building a Leaf app', slug: 'develop/building-an-app' },
             { label: 'Contributing', slug: 'develop/contributing' },
           ],
         },

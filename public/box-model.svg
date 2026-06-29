@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 488" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <marker id="bm-arr" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6.5,3 L0,6 Z" fill="#5577aa"/>
+    </marker>
+  </defs>
+
+  <!-- self-contained card so it reads on a light or dark docs background -->
+  <rect x="0" y="0" width="760" height="488" rx="14" fill="#f6f8f6"/>
+  <text x="380" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2a1f">The box model: one screen, carved</text>
+
+  <!-- screen / root box -->
+  <rect x="60" y="58" width="640" height="378" rx="10" fill="#ffffff" stroke="#2f3a2f" stroke-width="2"/>
+  <text x="68" y="52" font-size="13" fill="#5a6b5a">screen = root box</text>
+
+  <!-- edge padding (dashed inset) -->
+  <rect x="80" y="78" width="600" height="338" rx="6" fill="none" stroke="#c2ccc2" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="600" y="72" font-size="12" fill="#8a968a" text-anchor="end">edge pad (root padding)</text>
+
+  <!-- title band: carve_top -->
+  <rect x="80" y="78" width="600" height="50" rx="5" fill="#e3efe1" stroke="#5a9a5a" stroke-width="1.5"/>
+  <text x="96" y="109" font-size="16" font-weight="600" fill="#234a23">Title</text>
+  <text x="664" y="109" font-size="12.5" fill="#3f6b3f" text-anchor="end">cat_box_carve_top()</text>
+
+  <!-- content: two columns, filled down to the same gap above the footer as below the title -->
+  <rect x="80" y="140" width="380" height="230" rx="5" fill="#eef2f8" stroke="#5577aa" stroke-width="1.5"/>
+  <text x="96" y="166" font-size="16" font-weight="600" fill="#23406b">List</text>
+  <text x="96" y="186" font-size="12.5" fill="#4a6088">list_pct: 0 to 100% (58% shown)</text>
+  <text x="96" y="205" font-size="12.5" fill="#4a6088">cat_box_fit_rows()</text>
+
+  <rect x="476" y="140" width="204" height="230" rx="5" fill="#eef2f8" stroke="#5577aa" stroke-width="1.5"/>
+  <text x="492" y="166" font-size="16" font-weight="600" fill="#23406b">Detail</text>
+  <text x="492" y="186" font-size="12.5" fill="#4a6088">100 - list_pct (42% shown)</text>
+
+  <!-- the split function, arrow head landing in the gutter gap -->
+  <text x="96" y="334" font-size="12.5" fill="#5577aa">cat_box_split_cols(list_pct)</text>
+  <line x1="318" y1="330" x2="468" y2="288" stroke="#5577aa" stroke-width="1.5" marker-end="url(#bm-arr)"/>
+
+  <!-- footer band: carve_bottom -->
+  <rect x="80" y="382" width="600" height="34" rx="5" fill="#e3efe1" stroke="#5a9a5a" stroke-width="1.5"/>
+  <text x="96" y="404" font-size="14" font-weight="600" fill="#234a23">Footer hints</text>
+  <text x="664" y="404" font-size="12.5" fill="#3f6b3f" text-anchor="end">cat_box_carve_bottom()</text>
+
+  <!-- caption -->
+  <text x="380" y="452" text-anchor="middle" font-size="13" fill="#46524a">Spacing is a box's <tspan font-style="italic">internal padding</tspan>, never an outside margin.</text>
+  <text x="380" y="472" text-anchor="middle" font-size="13" fill="#46524a">Heights come from the live font, so it is correct at any size.</text>
+</svg>

@@ -7,6 +7,8 @@ Leaf includes a file manager for working with files directly on the device. It u
 a classic two-pane layout: two folders side by side, so you can copy and move things
 from one to the other.
 
+![Leaf's two-pane file manager: a folder of files on the left, a folder of NES box-art images with thumbnail previews on the right, and file sizes along the bottom](/file-manager.png)
+
 ## Getting around
 
 Open the file manager from the **Apps** tab. One pane is active at a time.

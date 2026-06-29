@@ -6,6 +6,8 @@ description: How Leaf is put together - the run-on-top-of-stock model and the la
 A high-level look at how Leaf is built. (Contributor docs are a work in progress -
 expect this to deepen over time.)
 
+![Leaf's architecture as a stack: the Leaf launcher (jawakad daemon spawning jawaka-launcher, jawaka-menu, jawaka-osd, and an LED helper, all built on Catastrophe) sits on top of a boot hook, which sits on top of intact stock LoongOS (Weston, kernel and drivers, audio, Wi-Fi/BT, power) running on the Miniloong Pocket 1 hardware](/architecture.svg)
+
 ## Run on top of stock
 
 Leaf's defining choice is that it does not replace the stock OS. A boot hook

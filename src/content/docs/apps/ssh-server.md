@@ -7,6 +7,8 @@ The SSH Server app starts a small SSH server (Dropbear) on the device so you can
 a terminal to it from a computer on the same network. It is aimed at tinkerers who
 want shell access; most people will never need it.
 
+![The SSH Server app showing the server toggled on, with its IP address and port, username, masked password, and start folder listed](/ssh-server.png)
+
 ## Starting it
 
 1. Connect the device to Wi-Fi (**Settings → Network**).

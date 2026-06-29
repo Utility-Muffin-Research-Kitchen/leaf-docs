@@ -7,6 +7,8 @@ Fugazi is a CRT-shader tuner. It shows a full-screen live preview, lets you adju
 the look in real time, and then applies it to every RetroArch game at once, so you
 do not have to fiddle with shader menus per game.
 
+![Fugazi tuning a CRT shader over a live game preview, adjusting the Phosphor Mask setting, with quit, clear, test-pattern, and apply hints along the bottom](/fugazi.png)
+
 ## How it works
 
 You tune eight settings against a live preview. When you press **A** to apply, Fugazi

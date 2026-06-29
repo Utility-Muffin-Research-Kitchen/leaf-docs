@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 512" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <!-- self-contained card so it reads on a light or dark docs background -->
+  <rect x="0" y="0" width="760" height="512" rx="14" fill="#f6f8f6"/>
+  <text x="380" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2a1f">Run on top of stock</text>
+
+  <!-- ================= LEAF LAYER (green, on top) ================= -->
+  <rect x="70" y="58" width="620" height="168" rx="9" fill="#e3efe1" stroke="#5a9a5a" stroke-width="1.5"/>
+  <text x="86" y="82" font-size="15" font-weight="700" fill="#234a23">Leaf</text>
+  <text x="674" y="82" font-size="12" fill="#3f6b3f" text-anchor="end">the launcher stack</text>
+
+  <!-- jawakad: the daemon, emphasized -->
+  <rect x="110" y="94" width="540" height="40" rx="6" fill="#dde8f7" stroke="#3f5f99" stroke-width="1.5"/>
+  <text x="380" y="112" font-size="14" font-weight="700" fill="#23406b" text-anchor="middle">jawakad</text>
+  <text x="380" y="127" font-size="11" fill="#4a6088" text-anchor="middle">the daemon: launch lifecycle, sleep/wake, platform actions</text>
+
+  <!-- IPC seam between daemon and UI -->
+  <text x="380" y="151" font-size="11" fill="#5a6b5a" text-anchor="middle">spawns + talks over IPC</text>
+
+  <!-- the UI helpers it spawns -->
+  <rect x="110" y="158" width="126" height="46" rx="6" fill="#eef2f8" stroke="#5577aa" stroke-width="1.5"/>
+  <text x="173" y="180" font-size="12" font-weight="600" fill="#23406b" text-anchor="middle">jawaka-launcher</text>
+  <text x="173" y="195" font-size="10" fill="#4a6088" text-anchor="middle">launcher UI</text>
+
+  <rect x="248" y="158" width="126" height="46" rx="6" fill="#eef2f8" stroke="#5577aa" stroke-width="1.5"/>
+  <text x="311" y="180" font-size="12" font-weight="600" fill="#23406b" text-anchor="middle">jawaka-menu</text>
+  <text x="311" y="195" font-size="10" fill="#4a6088" text-anchor="middle">main + in-game</text>
+
+  <rect x="386" y="158" width="126" height="46" rx="6" fill="#eef2f8" stroke="#5577aa" stroke-width="1.5"/>
+  <text x="449" y="180" font-size="12" font-weight="600" fill="#23406b" text-anchor="middle">jawaka-osd</text>
+  <text x="449" y="195" font-size="10" fill="#4a6088" text-anchor="middle">overlays</text>
+
+  <rect x="524" y="158" width="126" height="46" rx="6" fill="#eef2f8" stroke="#5577aa" stroke-width="1.5"/>
+  <text x="587" y="180" font-size="12" font-weight="600" fill="#23406b" text-anchor="middle">LED helper</text>
+  <text x="587" y="195" font-size="10" fill="#4a6088" text-anchor="middle">RGB ring</text>
+
+  <!-- seam labels: how Leaf draws and how it reaches the hardware -->
+  <text x="86" y="220" font-size="11" fill="#3f6b3f">Built on Catastrophe (C / SDL2 / GLES2)</text>
+  <text x="674" y="220" font-size="11" fill="#3f6b3f" text-anchor="end">Platform abstraction layer</text>
+
+  <!-- ================= BOOT HOOK (amber band, the takeover) ================= -->
+  <rect x="70" y="238" width="620" height="34" rx="6" fill="#f4ecd4" stroke="#c9a84a" stroke-width="1.5"/>
+  <text x="86" y="259" font-size="13" font-weight="700" fill="#6b5414">Boot hook</text>
+  <text x="674" y="259" font-size="12" fill="#7a6326" text-anchor="end">inserted into stock startup &#8212; runs Leaf instead of the stock home screen</text>
+
+  <!-- ================= STOCK LOONGOS (neutral, intact underneath) ================= -->
+  <rect x="70" y="284" width="620" height="92" rx="8" fill="#ececec" stroke="#8a968a" stroke-width="1.5"/>
+  <text x="86" y="308" font-size="14" font-weight="700" fill="#46524a">Stock LoongOS</text>
+  <text x="674" y="308" font-size="12" fill="#6a766a" text-anchor="end">left intact underneath &#183; reused, not replaced</text>
+
+  <!-- the stock services Leaf reuses -->
+  <rect x="86" y="322" width="142" height="38" rx="6" fill="#f6f8f6" stroke="#9aa69a" stroke-width="1.2"/>
+  <text x="157" y="340" font-size="11.5" font-weight="600" fill="#46524a" text-anchor="middle">Weston</text>
+  <text x="157" y="353" font-size="10" fill="#6a766a" text-anchor="middle">Wayland / DRM-KMS</text>
+
+  <rect x="236" y="322" width="120" height="38" rx="6" fill="#f6f8f6" stroke="#9aa69a" stroke-width="1.2"/>
+  <text x="296" y="340" font-size="11.5" font-weight="600" fill="#46524a" text-anchor="middle">kernel + drivers</text>
+  <text x="296" y="353" font-size="10" fill="#6a766a" text-anchor="middle">Linux 5.10</text>
+
+  <rect x="364" y="322" width="96" height="38" rx="6" fill="#f6f8f6" stroke="#9aa69a" stroke-width="1.2"/>
+  <text x="412" y="340" font-size="11.5" font-weight="600" fill="#46524a" text-anchor="middle">audio</text>
+  <text x="412" y="353" font-size="10" fill="#6a766a" text-anchor="middle">PulseAudio</text>
+
+  <rect x="468" y="322" width="96" height="38" rx="6" fill="#f6f8f6" stroke="#9aa69a" stroke-width="1.2"/>
+  <text x="516" y="340" font-size="11.5" font-weight="600" fill="#46524a" text-anchor="middle">Wi-Fi / BT</text>
+  <text x="516" y="353" font-size="10" fill="#6a766a" text-anchor="middle">net stack</text>
+
+  <rect x="572" y="322" width="102" height="38" rx="6" fill="#f6f8f6" stroke="#9aa69a" stroke-width="1.2"/>
+  <text x="623" y="340" font-size="11.5" font-weight="600" fill="#46524a" text-anchor="middle">power</text>
+  <text x="623" y="353" font-size="10" fill="#6a766a" text-anchor="middle">charge / sleep</text>
+
+  <!-- ================= HARDWARE ================= -->
+  <rect x="70" y="388" width="620" height="44" rx="8" fill="#e0e4e0" stroke="#6a766a" stroke-width="1.5"/>
+  <text x="380" y="415" font-size="13" font-weight="600" fill="#3a443a" text-anchor="middle">Miniloong Pocket 1 &#183; RK3566 &#183; Mali-G52 &#183; 4&#8243; 720&#215;960 panel &#183; speaker &#183; RGB LED &#183; Wi-Fi / BT radio</text>
+
+  <!-- caption -->
+  <text x="380" y="464" text-anchor="middle" font-size="13" fill="#46524a">A boot hook runs Leaf in place of the stock home screen; stock LoongOS stays intact underneath and Leaf reuses it.</text>
+  <text x="380" y="484" text-anchor="middle" font-size="13" fill="#46524a">If the launcher fails to start several times in a row, the device falls back to stock on its own.</text>
+</svg>

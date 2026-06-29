@@ -3,7 +3,7 @@ title: SDLReader
 description: 'A document reader for Leaf: PDFs, comics (CBZ/CBR), EPUB and MOBI ebooks, plain text, and standalone images, with zoom, rotation, themes, and a controller-friendly file browser.'
 ---
 
-![SDLReader on a Miniloong Pocket 1, showing its file browser with PDF, comic, EPUB, and MOBI files](/sdlreader.png)
+![SDLReader displaying a full-page comic, with a small page-navigator thumbnail tucked in the corner](/sdlreader.png)
 
 SDLReader is a lightweight reader for everything that isn't a game: PDFs, comic
 archives, ebooks, plain text, and loose image files. It's built on SDL2 and MuPDF,

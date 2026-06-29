@@ -42,7 +42,7 @@ BLOOM_W = 0.85                 # wide outer bloom.
 # Screen cycle (order shown in the loop). 8 frames, hints off.
 SCREENS = [
     "recents", "favorites", "games", "gamelist",
-    "apps", "switcher", "discoboy", "settings",
+    "apps", "switcher", "discoboy", "system-menu",
 ]
 HOLD_FRAMES = 9                # how long each screen sits still
 TRANS_FRAMES = 3              # fade-through-bg frames between screens

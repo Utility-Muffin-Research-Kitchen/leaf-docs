@@ -9,6 +9,8 @@ and per-game performance.
 
 ## The in-game menu
 
+![Leaf's in-game menu over a dimmed, paused game: Continue, Save State, Load State, Reset, Performance, RetroArch Settings, and Save & Quit, with the highlighted save slot showing a thumbnail of that saved moment](/screenshot-ingame-menu.png)
+
 Press **MENU** while a game is running to open Leaf's in-game menu. It pauses the
 game and floats over a dimmed snapshot of where you were. The options are:
 
@@ -46,6 +48,8 @@ as they always have. Save states are an extra layer on top.
 
 Press **SELECT** during a RetroArch game to bring up the game switcher: a carousel
 of your recent games laid over the current one.
+
+![The game switcher: a carousel of recent games shown as box art, the centered one named below, with remove, back, and resume hints along the bottom](/screenshot-switcher.png)
 
 - **Left / Right** browse your recent games; the tile for the game you are in shows
   a live snapshot of it.

@@ -7,6 +7,8 @@ Central Scrutinizer turns your handheld into a little web server so you can mana
 your library from a phone, tablet, or computer on the same Wi-Fi. It is the easy way
 to add a pile of ROMs or fix up box art without pulling the SD card.
 
+![The Central Scrutinizer web dashboard in a browser: a Library workspace with Library and Tools tabs, a platform search, and cards for each console showing ROM, save, state, BIOS, and cheat counts](/central-scrutinizer-web.png)
+
 ## Connecting
 
 1. Make sure the device is on Wi-Fi (**Settings → Network**).

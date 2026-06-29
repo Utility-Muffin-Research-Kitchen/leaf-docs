@@ -8,6 +8,8 @@ Leaf can remap it back to the full range games expect. If your stick feels like 
 will not push all the way (characters walk when they should run, or aiming feels
 clipped), this is the fix.
 
+![Joe's Calibrage on the Calibrate screen: a circular target with a live dot tracking the analog stick, the captured range and sample count below, and cancel, reset, and next hints](/joes-calibrage.png)
+
 ## Using it
 
 Open Joe's Calibrage from the **Apps** tab. It has a few screens:

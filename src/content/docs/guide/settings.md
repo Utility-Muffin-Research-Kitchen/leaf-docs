@@ -10,6 +10,8 @@ like System Update and a library rescan) and **Info** (read-only Device, Library
 and Playtime pages) - covered under [The System page](#the-system-page-menu-button)
 at the end.
 
+![The Settings tab of the System page, listing the sections: Appearance, Display & Sound, Lighting, Network, Bluetooth, Game Art, Accounts, and General](/settings-home.png)
+
 ## Appearance
 
 Theme and layout, under **Settings → Appearance**.
@@ -32,6 +34,8 @@ Theme and layout, under **Settings → Appearance**.
   **Volume**. With Button Hints off, content expands to fill the screen.
 
 ## Display & Sound
+
+![The Display & Sound settings page: Brightness and Volume sliders, Refresh Rate and Audio Output cyclers, Black Frame Insertion on, HDMI Output greyed out as Not connected, and a Test Sound row](/settings-display.png)
 
 - **Brightness** - screen backlight level.
 - **Refresh Rate** - display refresh: **60**, **90**, or **120 Hz**. Higher rates
@@ -179,6 +183,8 @@ in and never jumps across the two, so the Menu button is how you leave System.
 
 The System page is tab-driven, like the home strip; **L1 / R1** switch between its
 three tabs:
+
+![The System page on its Actions tab, with Settings, Actions, and Info tabs across the top, a list of actions like Search, Pak Rat, System Update, and Rescan Library, and a live count of games, systems, and apps](/screenshot-system-menu.png)
 
 - **Settings** - everything documented above (Appearance, Display & Sound, Network,
   Bluetooth, and so on). This tab opens first.

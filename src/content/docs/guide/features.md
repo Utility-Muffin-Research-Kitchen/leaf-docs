@@ -8,7 +8,7 @@ A quick tour of what Leaf adds on top of your games. Most of this lives in
 
 ## Appearance
 
-![The launcher in a light lavender color scheme](/screenshot-theme-light.png)
+![The launcher in the light Petal color scheme, showing the Favorites tab with pink accents](/screenshot-theme-light.png)
 
 Make the launcher yours from **Settings → Appearance**:
 

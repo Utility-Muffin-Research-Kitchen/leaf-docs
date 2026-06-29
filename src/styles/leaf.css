@@ -49,9 +49,9 @@ html {
 /* Frame in-content screenshots and diagrams so dark device captures don't bleed
    into the dark page. Excludes the full-bleed landing hero. */
 .sl-markdown-content img:not([src*='hero']) {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
 }
 
 /* On the dark theme a dark drop shadow disappears into the page, so swap the

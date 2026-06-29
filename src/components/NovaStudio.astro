@@ -1,0 +1,191 @@
+---
+// Retroid Pocket Nova colorway configurator. Composites pixel-aligned 2048 renders
+// on an offscreen canvas: full body render, then each element (ABXY set, D-pad, four
+// function buttons, two sticks) cut from the chosen colorway via its alpha mask.
+// All assets live in /public/nova/. Orphan page; not linked from the docs sidebar.
+---
+
+<div class="nova">
+  <div class="nova-stage">
+    <canvas id="nova-canvas" width="2048" height="2048" aria-label="Retroid Pocket Nova colorway preview"></canvas>
+    <p id="nova-loading" class="nova-loading">Loading renders…</p>
+    <p id="nova-summary" class="nova-summary"></p>
+  </div>
+  <div class="nova-controls" id="nova-controls"></div>
+</div>
+
+<style is:global>
+  .nova { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+  .nova-stage { flex: 1 1 300px; min-width: 300px; position: relative; }
+  .nova-stage canvas {
+    width: 100%; height: auto; border-radius: 14px;
+    box-shadow: 0 6px 28px rgba(0,0,0,.16);
+    background: #f3f4f6;
+  }
+  :global([data-theme='dark']) .nova-stage canvas {
+    box-shadow: 0 0 0 1px rgba(127,176,105,.18), 0 6px 28px rgba(127,176,105,.16);
+    background: #11150f;
+  }
+  .nova-loading {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    margin: 0; color: var(--sl-color-gray-3); font-size: .95rem;
+  }
+  .nova-controls {
+    flex: 0 0 226px; align-self: flex-start;
+    display: flex; flex-direction: column; gap: .55rem;
+  }
+  .nova-field { display: flex; align-items: center; gap: .6rem; }
+  .nova-field label { flex: 0 0 78px; height: 36px; display: inline-flex; align-items: center;
+    font-size: .85rem; font-weight: 600; color: var(--sl-color-gray-2);
+    text-align: left; white-space: nowrap; }
+  .nova-field select {
+    flex: 0 0 138px; height: 36px; box-sizing: border-box; margin: 0; padding: 0 .5rem; border-radius: 8px;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-bg);
+    color: var(--sl-color-white); font: inherit; font-size: .9rem;
+  }
+  .nova-actions { display: flex; gap: .6rem; margin-top: .3rem; }
+  .nova-actions button {
+    flex: 1 1 0; height: 40px; box-sizing: border-box; margin: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 .5rem; border-radius: 8px; cursor: pointer; font: inherit;
+    font-weight: 600; line-height: 1.2; white-space: nowrap;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-gray-6); color: var(--sl-color-white);
+  }
+  .nova-actions button.primary { background: var(--sl-color-accent); border-color: var(--sl-color-accent);
+    color: var(--sl-color-black); }
+  .nova-summary { margin: .7rem 0 0; font-size: .82rem; color: var(--sl-color-gray-3); line-height: 1.5; }
+</style>
+
+<script>
+  const BASE = '/nova/';
+  const RENDERS = ['16_bit','black','clear','clear_purple','game_cube','ice_blue','watermelon'];
+  const RLABEL = { '16_bit':'16 Bit', black:'Black', clear:'Clear', clear_purple:'Clear Purple',
+                   game_cube:'Game Cube', ice_blue:'Ice Blue', watermelon:'Watermelon' };
+  const ELEMENT_MASKS = ['abxy','dpad','func1','func2','func3','func4','stick_left','stick_right'];
+  const STICK_COLORS = ['gray','black','white','yellow'];
+  const STICK_LABEL = { gray:'Gray', black:'Black', white:'White', yellow:'Yellow' };
+  const STICK_BBOX = { left:{x:953,y:1368,w:105,h:94}, right:{x:1635,y:921,w:102,h:91} };
+  // where each stick colour is sourced from (render + which side's stick shows it)
+  const STICK_SRC = {
+    gray:   { render:'16_bit',    side:'same'  },
+    black:  { render:'black',     side:'right' },
+    white:  { render:'game_cube', side:'left'  },
+    yellow: { render:'game_cube', side:'right' },
+  };
+
+  const sel = { body:'16_bit', abxy:'16_bit', dpad:'16_bit',
+                func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
+                stick_left:'gray', stick_right:'gray' };
+
+  const R = {}, M = {};
+  const load = (src) => new Promise((res, rej) => {
+    const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src;
+  });
+
+  const canvas = document.getElementById('nova-canvas');
+  const ctx = canvas.getContext('2d');
+  const off = document.createElement('canvas'); off.width = off.height = 2048;
+  const octx = off.getContext('2d');
+
+  function drawMasked(maskImg, renderImg) {
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0,0,2048,2048);
+    octx.drawImage(maskImg, 0,0);
+    octx.globalCompositeOperation = 'source-in';
+    octx.drawImage(renderImg, 0,0);
+    ctx.drawImage(off, 0,0);
+  }
+  function drawStick(side, color) {
+    const s = STICK_SRC[color];
+    const src = s.side === 'same' ? STICK_BBOX[side] : STICK_BBOX[s.side];
+    const dst = STICK_BBOX[side];
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0,0,2048,2048);
+    octx.drawImage(M['stick_'+side], 0,0);                                       // mask first
+    octx.globalCompositeOperation = 'source-in';
+    octx.drawImage(R[s.render], src.x,src.y,src.w,src.h, dst.x,dst.y,dst.w,dst.h); // render kept where mask
+    ctx.drawImage(off, 0,0);
+  }
+  function compose() {
+    ctx.clearRect(0,0,2048,2048);
+    ctx.drawImage(R[sel.body], 0,0);
+    ['abxy','dpad','func1','func2','func3','func4'].forEach(el => drawMasked(M[el], R[sel[el]]));
+    drawStick('left', sel.stick_left);
+    drawStick('right', sel.stick_right);
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const el = document.getElementById('nova-summary');
+    if (el) el.innerHTML =
+      `Body <b>${RLABEL[sel.body]}</b> · D-pad <b>${RLABEL[sel.dpad]}</b> · A/B/X/Y <b>${RLABEL[sel.abxy]}</b>`
+      + ` · Select <b>${RLABEL[sel.func3]}</b> · Start <b>${RLABEL[sel.func1]}</b> · Home <b>${RLABEL[sel.func4]}</b> · Back <b>${RLABEL[sel.func2]}</b>`
+      + ` · Sticks <b>${STICK_LABEL[sel.stick_left]}</b> (L) / <b>${STICK_LABEL[sel.stick_right]}</b> (R)`;
+  }
+
+  function field(key, label, options, labelFn) {
+    const wrap = document.createElement('div'); wrap.className = 'nova-field';
+    const lab = document.createElement('label'); lab.textContent = label;
+    const s = document.createElement('select'); s.dataset.key = key;
+    options.forEach(o => { const op = document.createElement('option');
+      op.value = o; op.textContent = labelFn(o); if (o === sel[key]) op.selected = true; s.appendChild(op); });
+    s.addEventListener('change', () => { sel[key] = s.value; compose(); });
+    wrap.appendChild(lab); wrap.appendChild(s);
+    return wrap;
+  }
+
+  function buildControls() {
+    const c = document.getElementById('nova-controls');
+    const rl = (o) => RLABEL[o], sl = (o) => STICK_LABEL[o];
+    // order + labels per spec; func3=Select, func1=Start, func4=Home, func2=Back
+    c.appendChild(field('body', 'Body', RENDERS, rl));
+    c.appendChild(field('dpad', 'D-pad', RENDERS, rl));
+    c.appendChild(field('abxy', 'A/B/X/Y', RENDERS, rl));
+    c.appendChild(field('func3', 'Select', RENDERS, rl));
+    c.appendChild(field('func1', 'Start', RENDERS, rl));
+    c.appendChild(field('func4', 'Home', RENDERS, rl));
+    c.appendChild(field('func2', 'Back', RENDERS, rl));
+    c.appendChild(field('stick_left', 'Left stick', STICK_COLORS, sl));
+    c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
+
+    const actions = document.createElement('div'); actions.className = 'nova-actions';
+    const rand = document.createElement('button'); rand.textContent = 'Randomize'; rand.className = 'primary';
+    rand.addEventListener('click', () => {
+      const pick = (a) => a[Math.floor(Math.random()*a.length)];
+      sel.body = pick(RENDERS);
+      ['abxy','dpad','func1','func2','func3','func4'].forEach(k => sel[k] = pick(RENDERS));
+      sel.stick_left = pick(STICK_COLORS); sel.stick_right = pick(STICK_COLORS);
+      syncSelects(); compose();
+    });
+    const reset = document.createElement('button'); reset.textContent = 'Reset';
+    reset.addEventListener('click', () => {
+      Object.assign(sel, { body:'16_bit', abxy:'16_bit', dpad:'16_bit',
+        func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
+        stick_left:'gray', stick_right:'gray' });
+      syncSelects(); compose();
+    });
+    actions.appendChild(rand); actions.appendChild(reset);
+    c.appendChild(actions);
+  }
+  function syncSelects() {
+    document.querySelectorAll('.nova-controls select').forEach(s => { s.value = sel[s.dataset.key]; });
+  }
+
+  async function init() {
+    buildControls();
+    try {
+      await Promise.all([
+        ...RENDERS.map(async n => { R[n] = await load(`${BASE}${n}.jpg`); }),
+        ...ELEMENT_MASKS.map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
+      ]);
+      document.getElementById('nova-loading').remove();
+      compose();
+    } catch (e) {
+      const l = document.getElementById('nova-loading');
+      if (l) l.textContent = 'Could not load renders.';
+      console.error(e);
+    }
+  }
+  init();
+</script>

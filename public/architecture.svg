@@ -70,7 +70,7 @@
 
   <!-- ================= HARDWARE ================= -->
   <rect x="70" y="388" width="620" height="44" rx="8" fill="#e0e4e0" stroke="#6a766a" stroke-width="1.5"/>
-  <text x="380" y="415" font-size="13" font-weight="600" fill="#3a443a" text-anchor="middle">Miniloong Pocket 1 &#183; RK3566 &#183; Mali-G52 &#183; 4&#8243; 720&#215;960 panel &#183; speaker &#183; RGB LED &#183; Wi-Fi / BT radio</text>
+  <text x="380" y="415" font-size="12.5" font-weight="600" fill="#3a443a" text-anchor="middle">RK3566 &#183; Mali-G52 &#183; 4&#8243; 720&#215;960 panel &#183; speaker &#183; RGB LED &#183; Wi-Fi / BT radio</text>
 
   <!-- caption -->
   <text x="380" y="464" text-anchor="middle" font-size="13" fill="#46524a">A boot hook runs Leaf in place of the stock home screen; stock LoongOS stays intact underneath and Leaf reuses it.</text>

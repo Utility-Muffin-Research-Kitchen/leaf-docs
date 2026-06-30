@@ -68,7 +68,10 @@
   const BASE = '/nova/';
   const RENDERS = ['16_bit','black','clear','clear_purple','game_cube','ice_blue','watermelon'];
   const RLABEL = { '16_bit':'16 Bit', black:'Black', clear:'Clear', clear_purple:'Clear Purple',
-                   game_cube:'Game Cube', ice_blue:'Ice Blue', watermelon:'Watermelon' };
+                   game_cube:'Game Cube', ice_blue:'Ice Blue', watermelon:'Watermelon', retro:'Retro' };
+  // button elements (not body/back) can also be the synthetic Retro maroon
+  const BUTTON_OPTIONS = RENDERS.concat(['retro']);
+  const BUTTON_KEYS = ['dpad','abxy','func1','func2','func3','func4'];
   const ELEMENT_MASKS = ['back','abxy','dpad','func1','func2','func3','func4','stick_left','stick_right'];
   const STICK_COLORS = ['gray','black','white','yellow'];
   const STICK_LABEL = { gray:'Gray', black:'Black', white:'White', yellow:'Yellow' };
@@ -135,7 +138,9 @@
     const p = new URLSearchParams(location.search);
     SEL_KEYS.forEach(k => {
       const v = p.get(k); if (!v) return;
-      const ok = k.startsWith('stick_') ? STICK_COLORS.includes(v) : RENDERS.includes(v);
+      const ok = k.startsWith('stick_') ? STICK_COLORS.includes(v)
+               : BUTTON_KEYS.includes(k) ? BUTTON_OPTIONS.includes(v)
+               : RENDERS.includes(v);
       if (ok) sel[k] = v;
     });
   }
@@ -165,12 +170,12 @@
     // order + labels per spec; func3=Select, func1=Start, func4=Home, func2=Back
     c.appendChild(field('body', 'Body', RENDERS, rl));
     c.appendChild(field('back', 'Back shell', RENDERS, rl));
-    c.appendChild(field('dpad', 'D-pad', RENDERS, rl));
-    c.appendChild(field('abxy', 'A/B/X/Y', RENDERS, rl));
-    c.appendChild(field('func3', 'Select', RENDERS, rl));
-    c.appendChild(field('func1', 'Start', RENDERS, rl));
-    c.appendChild(field('func4', 'Home', RENDERS, rl));
-    c.appendChild(field('func2', 'Back', RENDERS, rl));
+    c.appendChild(field('dpad', 'D-pad', BUTTON_OPTIONS, rl));
+    c.appendChild(field('abxy', 'A/B/X/Y', BUTTON_OPTIONS, rl));
+    c.appendChild(field('func3', 'Select', BUTTON_OPTIONS, rl));
+    c.appendChild(field('func1', 'Start', BUTTON_OPTIONS, rl));
+    c.appendChild(field('func4', 'Home', BUTTON_OPTIONS, rl));
+    c.appendChild(field('func2', 'Back', BUTTON_OPTIONS, rl));
     c.appendChild(field('stick_left', 'Left stick', STICK_COLORS, sl));
     c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
 
@@ -178,8 +183,8 @@
     const rand = document.createElement('button'); rand.textContent = 'Randomize'; rand.className = 'primary';
     rand.addEventListener('click', () => {
       const pick = (a) => a[Math.floor(Math.random()*a.length)];
-      sel.body = pick(RENDERS);
-      ['back','abxy','dpad','func1','func2','func3','func4'].forEach(k => sel[k] = pick(RENDERS));
+      sel.body = pick(RENDERS); sel.back = pick(RENDERS);
+      BUTTON_KEYS.forEach(k => sel[k] = pick(BUTTON_OPTIONS));
       sel.stick_left = pick(STICK_COLORS); sel.stick_right = pick(STICK_COLORS);
       syncSelects(); compose();
     });
@@ -218,6 +223,7 @@
     try {
       await Promise.all([
         ...RENDERS.map(async n => { R[n] = await load(`${BASE}${n}.jpg`); }),
+        (async () => { R.retro = await load(`${BASE}retro.jpg`); })(),
         ...ELEMENT_MASKS.map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
       ]);
       document.getElementById('nova-loading').remove();

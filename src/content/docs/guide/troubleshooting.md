@@ -91,7 +91,7 @@ If characters walk when you push the stick all the way (or aiming feels clipped)
 stick's range needs calibrating. Open **Joe's Calibrage** from the **Apps** tab and run
 **Calibrate**. See [Joe's Calibrage](/apps/joes-calibrage/).
 
-## Black Frame Insertion is greyed out
+## Black Frame Insertion is grayed out
 
 Black Frame Insertion only works at 120Hz, so it shows "120 Hz only" until you raise
 the refresh rate. Set **Settings → Display & Sound → Refresh Rate** to **120**, then the

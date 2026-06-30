@@ -158,7 +158,7 @@ list rows, `CAT_FONT_SMALL` for metadata. Never load your own sizes.
 | **L1 / R1** | switch tabs, when you have them |
 
 Always draw the footer hint bar with `cat_draw_footer(...)` so the buttons are
-labelled, and respect the user's Show Hints setting.
+labeled, and respect the user's Show Hints setting.
 
 **Overflow scrolls, it does not shrink.** When content is taller than its box, put
 it in a `cat_draw_scroll_view` and let the user scroll (the detail page in the

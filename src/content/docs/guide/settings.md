@@ -35,7 +35,7 @@ Theme and layout, under **Settings → Appearance**.
 
 ## Display & Sound
 
-![The Display & Sound settings page: Brightness and Volume sliders, Refresh Rate and Audio Output cyclers, Black Frame Insertion on, HDMI Output greyed out as Not connected, and a Test Sound row](/settings-display.png)
+![The Display & Sound settings page: Brightness and Volume sliders, Refresh Rate and Audio Output cyclers, Black Frame Insertion on, HDMI Output grayed out as Not connected, and a Test Sound row](/settings-display.png)
 
 - **Brightness** - screen backlight level.
 - **Refresh Rate** - display refresh: **60**, **90**, or **120 Hz**. Higher rates
@@ -44,7 +44,7 @@ Theme and layout, under **Settings → Appearance**.
   smooth trade-off (see [How the TV picture works](#how-the-tv-picture-works)).
 - **Black Frame Insertion** - inserts a black frame between game frames to cut
   motion blur, for a sharper, more CRT-like image in fast-scrolling games. It only
-  works cleanly at **120 Hz**, so it is greyed out as "120 Hz only" at other refresh
+  works cleanly at **120 Hz**, so it is grayed out as "120 Hz only" at other refresh
   rates. It applies to RetroArch-based games, on the built-in screen or on a 120 Hz
   TV, and trades some brightness for the clarity, so turn Brightness up to compensate.
   Best for 60fps titles; leave it off for 50fps (PAL) games, where it does not strobe
@@ -54,7 +54,7 @@ Theme and layout, under **Settings → Appearance**.
   proportioned image (black bars on the sides, no stretching); **Stretch** fills a
   16:9 TV edge to edge. Leaf switches over on its own when you plug a cable in and
   drops back to the handheld when you unplug, and the sound follows the picture to
-  the TV. Greyed out as "Not connected" until a TV is plugged in. The Refresh Rate
+  the TV. Grayed out as "Not connected" until a TV is plugged in. The Refresh Rate
   setting controls how sharp versus smooth the TV image is (see below).
 - **Volume** - system volume (also adjustable with the hardware volume keys, which
   show an on-screen overlay).
@@ -79,7 +79,7 @@ supports:
 
 Leaf reads the TV's own list of supported modes over HDMI, so it only switches to
 120 Hz when the set genuinely handles it. If a TV tops out at 60 Hz, choosing 120
-simply stays on the sharp 720p picture and the Black Frame Insertion row stays greyed.
+simply stays on the sharp 720p picture and the Black Frame Insertion row stays grayed.
 A 1080p120 signal needs a high-speed (HDMI 2.0 or newer) cable. If your TV or cable
 can't carry it the picture goes black - so whenever Leaf switches to 1080p120 it shows
 a short prompt and, unless you confirm, drops back to the safe 720p picture after a few

@@ -70,4 +70,4 @@ back, **X** to toggle list / thumbnail view, and **Menu** to quit.
 | Menu | open the font & reading-style menu |
 
 The font and reading-style menu (the **Menu** button, or **L1 + R1**) is where the
-themes, font picker, page jump, minimap, and edge-turn behaviour live.
+themes, font picker, page jump, minimap, and edge-turn behavior live.

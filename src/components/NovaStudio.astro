@@ -77,14 +77,14 @@
   const STICK_COLORS = ['gray','black','white','yellow'];
   const STICK_LABEL = { gray:'Gray', black:'Black', white:'White', yellow:'Yellow' };
   const STICK_BBOX = { left:{x:953,y:1368,w:105,h:94}, right:{x:1635,y:921,w:102,h:91} };
-  // where each stick colour is sourced from (render + which side's stick shows it)
+  // where each stick color is sourced from (render + which side's stick shows it)
   const STICK_SRC = {
     gray:   { render:'16_bit',    side:'same'  },
     black:  { render:'black',     side:'right' },
     white:  { render:'game_cube', side:'left'  },
     yellow: { render:'game_cube', side:'right' },
   };
-  // shoulder triggers come in two colours, cut straight from a matching render
+  // shoulder triggers come in two colors, cut straight from a matching render
   const TRIGGER_COLORS = ['black','white'];
   const TRIGGER_LABEL = { black:'Black', white:'White' };
   const TRIGGER_SRC = { black:'black', white:'16_bit' };
@@ -92,10 +92,15 @@
   // assets lazy-loaded only when a valid code is present.
   const SCREEN_CODES = { f_the_p: 'rise.png', h_gonna_h: 'bleepbloop.png' };
   const SCREENS = {};
+  // per-stick RGB LED rings (masks/leds_left|right.png) — emissive ROYGBIV + Off, with a soft glow
+  const LED_COLORS = ['off','red','orange','yellow','green','blue','indigo','violet'];
+  const LED_LABEL = { off:'Off', red:'Red', orange:'Orange', yellow:'Yellow', green:'Green', blue:'Blue', indigo:'Indigo', violet:'Violet' };
+  const LED_HEX = { red:'#ff2d2d', orange:'#ff8c1a', yellow:'#ffe21a', green:'#2be85f', blue:'#2d7dff', indigo:'#5a3dff', violet:'#b44dff' };
+  const LED_GLOW = 26;  // outward glow radius (canvas px @ 2048)
 
   const sel = { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
                 func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
-                stick_left:'gray', stick_right:'gray', screen:null };
+                stick_left:'gray', stick_right:'gray', led_left:'off', led_right:'off', screen:null };
 
   const R = {}, M = {};
   const load = (src) => new Promise((res, rej) => {
@@ -126,6 +131,24 @@
     octx.drawImage(R[s.render], src.x,src.y,src.w,src.h, dst.x,dst.y,dst.w,dst.h); // render kept where mask
     ctx.drawImage(off, 0,0);
   }
+  function drawLED(side, color) {
+    if (color === 'off' || !M['leds_'+side]) return;
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0,0,2048,2048);
+    octx.drawImage(M['leds_'+side], 0,0);          // ring mask
+    octx.globalCompositeOperation = 'source-in';
+    octx.fillStyle = LED_HEX[color];
+    octx.fillRect(0,0,2048,2048);                  // ring filled with the LED color
+    // outward glow via canvas shadow — works in every browser (Safari lacks ctx.filter blur)
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';      // additive bloom
+    ctx.globalAlpha = 0.9;                          // glow strength
+    ctx.shadowColor = LED_HEX[color];
+    ctx.shadowBlur = LED_GLOW;
+    ctx.drawImage(off, 0,0);
+    ctx.restore();
+    ctx.drawImage(off, 0,0);                        // crisp ring on top, pure color
+  }
   function compose() {
     ctx.clearRect(0,0,2048,2048);
     ctx.drawImage(R[sel.body], 0,0);
@@ -135,11 +158,13 @@
     ['abxy','dpad','func1','func2','func3','func4'].forEach(el => drawMasked(M[el], R[sel[el]]));
     drawStick('left', sel.stick_left);
     drawStick('right', sel.stick_right);
+    drawLED('left', sel.led_left);
+    drawLED('right', sel.led_right);
     updateSummary();
     updateURL();
   }
 
-  const SEL_KEYS = ['body','back','triggers','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right'];
+  const SEL_KEYS = ['body','back','triggers','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right','led_left','led_right'];
   function updateURL() {
     const p = new URLSearchParams();
     SEL_KEYS.forEach(k => p.set(k, sel[k]));
@@ -150,7 +175,8 @@
     const p = new URLSearchParams(location.search);
     SEL_KEYS.forEach(k => {
       const v = p.get(k); if (!v) return;
-      const ok = k.startsWith('stick_') ? STICK_COLORS.includes(v)
+      const ok = k.startsWith('led_') ? LED_COLORS.includes(v)
+               : k.startsWith('stick_') ? STICK_COLORS.includes(v)
                : k === 'triggers' ? TRIGGER_COLORS.includes(v)
                : BUTTON_KEYS.includes(k) ? BUTTON_OPTIONS.includes(v)
                : RENDERS.includes(v);
@@ -172,6 +198,7 @@
       `Body <b>${RLABEL[sel.body]}</b> · Back shell <b>${RLABEL[sel.back]}</b> · D-pad <b>${RLABEL[sel.dpad]}</b> · A/B/X/Y <b>${RLABEL[sel.abxy]}</b>`
       + ` · Select <b>${RLABEL[sel.func3]}</b> · Start <b>${RLABEL[sel.func1]}</b> · Home <b>${RLABEL[sel.func4]}</b> · Back <b>${RLABEL[sel.func2]}</b>`
       + ` · Sticks <b>${STICK_LABEL[sel.stick_left]}</b> (L) / <b>${STICK_LABEL[sel.stick_right]}</b> (R)`
+      + ` · Stick LEDs <b>${LED_LABEL[sel.led_left]}</b> (L) / <b>${LED_LABEL[sel.led_right]}</b> (R)`
       + ` · Triggers <b>${TRIGGER_LABEL[sel.triggers]}</b>`;
   }
 
@@ -231,6 +258,8 @@
 
     c.appendChild(field('stick_left', 'Left stick', STICK_COLORS, sl));
     c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
+    c.appendChild(field('led_left', 'Left LED', LED_COLORS, (o) => LED_LABEL[o]));
+    c.appendChild(field('led_right', 'Right LED', LED_COLORS, (o) => LED_LABEL[o]));
     c.appendChild(field('triggers', 'Triggers', TRIGGER_COLORS, (o) => TRIGGER_LABEL[o]));
 
     const actions = document.createElement('div'); actions.className = 'nova-actions';
@@ -240,6 +269,7 @@
       sel.body = pick(RENDERS); sel.back = pick(RENDERS);
       BUTTON_KEYS.forEach(k => sel[k] = pick(BUTTON_OPTIONS));
       sel.stick_left = pick(STICK_COLORS); sel.stick_right = pick(STICK_COLORS);
+      sel.led_left = pick(LED_COLORS); sel.led_right = pick(LED_COLORS);
       sel.triggers = pick(TRIGGER_COLORS);
       syncSelects(); compose();
     });
@@ -247,7 +277,7 @@
     reset.addEventListener('click', () => {
       Object.assign(sel, { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
         func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
-        stick_left:'gray', stick_right:'gray' });
+        stick_left:'gray', stick_right:'gray', led_left:'off', led_right:'off' });
       syncSelects(); compose();
     });
     actions.appendChild(rand); actions.appendChild(reset);
@@ -280,6 +310,7 @@
         ...RENDERS.map(async n => { R[n] = await load(`${BASE}${n}.jpg`); }),
         (async () => { R.retro = await load(`${BASE}retro.jpg`); })(),
         ...ELEMENT_MASKS.map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
+        ...['leds_left','leds_right'].map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
       ]);
       document.getElementById('nova-loading').remove();
       compose();

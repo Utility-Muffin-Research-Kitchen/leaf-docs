@@ -72,7 +72,7 @@
   // button elements (not body/back) can also be the synthetic Retro maroon
   const BUTTON_OPTIONS = RENDERS.concat(['retro']);
   const BUTTON_KEYS = ['dpad','abxy','func1','func2','func3','func4'];
-  const ELEMENT_MASKS = ['back','abxy','dpad','func1','func2','func3','func4','stick_left','stick_right'];
+  const ELEMENT_MASKS = ['back','triggers','abxy','dpad','func1','func2','func3','func4','stick_left','stick_right'];
   const STICK_COLORS = ['gray','black','white','yellow'];
   const STICK_LABEL = { gray:'Gray', black:'Black', white:'White', yellow:'Yellow' };
   const STICK_BBOX = { left:{x:953,y:1368,w:105,h:94}, right:{x:1635,y:921,w:102,h:91} };
@@ -83,8 +83,12 @@
     white:  { render:'game_cube', side:'left'  },
     yellow: { render:'game_cube', side:'right' },
   };
+  // shoulder triggers come in two colours, cut straight from a matching render
+  const TRIGGER_COLORS = ['black','white'];
+  const TRIGGER_LABEL = { black:'Black', white:'White' };
+  const TRIGGER_SRC = { black:'black', white:'16_bit' };
 
-  const sel = { body:'16_bit', back:'16_bit', abxy:'16_bit', dpad:'16_bit',
+  const sel = { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
                 func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
                 stick_left:'gray', stick_right:'gray' };
 
@@ -121,6 +125,7 @@
     ctx.clearRect(0,0,2048,2048);
     ctx.drawImage(R[sel.body], 0,0);
     drawMasked(M.back, R[sel.back]);
+    drawMasked(M.triggers, R[TRIGGER_SRC[sel.triggers]]);
     ['abxy','dpad','func1','func2','func3','func4'].forEach(el => drawMasked(M[el], R[sel[el]]));
     drawStick('left', sel.stick_left);
     drawStick('right', sel.stick_right);
@@ -128,7 +133,7 @@
     updateURL();
   }
 
-  const SEL_KEYS = ['body','back','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right'];
+  const SEL_KEYS = ['body','back','triggers','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right'];
   function updateURL() {
     const p = new URLSearchParams();
     SEL_KEYS.forEach(k => p.set(k, sel[k]));
@@ -139,6 +144,7 @@
     SEL_KEYS.forEach(k => {
       const v = p.get(k); if (!v) return;
       const ok = k.startsWith('stick_') ? STICK_COLORS.includes(v)
+               : k === 'triggers' ? TRIGGER_COLORS.includes(v)
                : BUTTON_KEYS.includes(k) ? BUTTON_OPTIONS.includes(v)
                : RENDERS.includes(v);
       if (ok) sel[k] = v;
@@ -150,7 +156,8 @@
     if (el) el.innerHTML =
       `Body <b>${RLABEL[sel.body]}</b> · Back shell <b>${RLABEL[sel.back]}</b> · D-pad <b>${RLABEL[sel.dpad]}</b> · A/B/X/Y <b>${RLABEL[sel.abxy]}</b>`
       + ` · Select <b>${RLABEL[sel.func3]}</b> · Start <b>${RLABEL[sel.func1]}</b> · Home <b>${RLABEL[sel.func4]}</b> · Back <b>${RLABEL[sel.func2]}</b>`
-      + ` · Sticks <b>${STICK_LABEL[sel.stick_left]}</b> (L) / <b>${STICK_LABEL[sel.stick_right]}</b> (R)`;
+      + ` · Sticks <b>${STICK_LABEL[sel.stick_left]}</b> (L) / <b>${STICK_LABEL[sel.stick_right]}</b> (R)`
+      + ` · Triggers <b>${TRIGGER_LABEL[sel.triggers]}</b>`;
   }
 
   function field(key, label, options, labelFn) {
@@ -178,6 +185,7 @@
     c.appendChild(field('func2', 'Back', BUTTON_OPTIONS, rl));
     c.appendChild(field('stick_left', 'Left stick', STICK_COLORS, sl));
     c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
+    c.appendChild(field('triggers', 'Triggers', TRIGGER_COLORS, (o) => TRIGGER_LABEL[o]));
 
     const actions = document.createElement('div'); actions.className = 'nova-actions';
     const rand = document.createElement('button'); rand.textContent = 'Randomize'; rand.className = 'primary';
@@ -186,11 +194,12 @@
       sel.body = pick(RENDERS); sel.back = pick(RENDERS);
       BUTTON_KEYS.forEach(k => sel[k] = pick(BUTTON_OPTIONS));
       sel.stick_left = pick(STICK_COLORS); sel.stick_right = pick(STICK_COLORS);
+      sel.triggers = pick(TRIGGER_COLORS);
       syncSelects(); compose();
     });
     const reset = document.createElement('button'); reset.textContent = 'Reset';
     reset.addEventListener('click', () => {
-      Object.assign(sel, { body:'16_bit', back:'16_bit', abxy:'16_bit', dpad:'16_bit',
+      Object.assign(sel, { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
         func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
         stick_left:'gray', stick_right:'gray' });
       syncSelects(); compose();

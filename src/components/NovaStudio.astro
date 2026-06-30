@@ -62,6 +62,7 @@
   }
   .nova-share:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
   .nova-summary { margin: .7rem 0 0; font-size: .82rem; color: var(--sl-color-gray-3); line-height: 1.5; }
+  .nova-pack-cb { width: 18px; height: 18px; margin: 0; cursor: pointer; accent-color: var(--sl-color-accent); }
 </style>
 
 <script>
@@ -177,12 +178,43 @@
     // order + labels per spec; func3=Select, func1=Start, func4=Home, func2=Back
     c.appendChild(field('body', 'Body', RENDERS, rl));
     c.appendChild(field('back', 'Back shell', RENDERS, rl));
-    c.appendChild(field('dpad', 'D-pad', BUTTON_OPTIONS, rl));
-    c.appendChild(field('abxy', 'A/B/X/Y', BUTTON_OPTIONS, rl));
-    c.appendChild(field('func3', 'Select', BUTTON_OPTIONS, rl));
-    c.appendChild(field('func1', 'Start', BUTTON_OPTIONS, rl));
-    c.appendChild(field('func4', 'Home', BUTTON_OPTIONS, rl));
-    c.appendChild(field('func2', 'Back', BUTTON_OPTIONS, rl));
+
+    // The D-pad, A/B/X/Y and four function buttons normally ship as ONE pack -> a
+    // "Single pack" checkbox collapses their six dropdowns into one that sets them together.
+    const packRow = document.createElement('div'); packRow.className = 'nova-field';
+    const packCbLab = document.createElement('label'); packCbLab.textContent = 'Single pack';
+    const packCb = document.createElement('input'); packCb.type = 'checkbox'; packCb.className = 'nova-pack-cb';
+    packRow.appendChild(packCbLab); packRow.appendChild(packCb);
+    c.appendChild(packRow);
+
+    const members = [
+      field('dpad', 'D-pad', BUTTON_OPTIONS, rl),
+      field('abxy', 'A/B/X/Y', BUTTON_OPTIONS, rl),
+      field('func3', 'Select', BUTTON_OPTIONS, rl),
+      field('func1', 'Start', BUTTON_OPTIONS, rl),
+      field('func4', 'Home', BUTTON_OPTIONS, rl),
+      field('func2', 'Back', BUTTON_OPTIONS, rl),
+    ];
+    members.forEach(f => c.appendChild(f));
+
+    const packField = document.createElement('div'); packField.className = 'nova-field'; packField.style.display = 'none';
+    const packLab = document.createElement('label'); packLab.textContent = 'Single Pack';
+    const packSel = document.createElement('select'); packSel.dataset.key = 'abxy';
+    BUTTON_OPTIONS.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = rl(o); packSel.appendChild(op); });
+    packSel.addEventListener('change', () => { BUTTON_KEYS.forEach(k => sel[k] = packSel.value); syncSelects(); compose(); });
+    packField.appendChild(packLab); packField.appendChild(packSel);
+    c.appendChild(packField);
+
+    packCb.addEventListener('change', () => {
+      if (packCb.checked) {
+        BUTTON_KEYS.forEach(k => sel[k] = sel.abxy);
+        members.forEach(f => f.style.display = 'none'); packField.style.display = '';
+        syncSelects(); compose();
+      } else {
+        members.forEach(f => f.style.display = ''); packField.style.display = 'none';
+      }
+    });
+
     c.appendChild(field('stick_left', 'Left stick', STICK_COLORS, sl));
     c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
     c.appendChild(field('triggers', 'Triggers', TRIGGER_COLORS, (o) => TRIGGER_LABEL[o]));

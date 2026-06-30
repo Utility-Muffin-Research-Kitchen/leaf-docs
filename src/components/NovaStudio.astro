@@ -88,10 +88,14 @@
   const TRIGGER_COLORS = ['black','white'];
   const TRIGGER_LABEL = { black:'Black', white:'White' };
   const TRIGGER_SRC = { black:'black', white:'16_bit' };
+  // secret on-screen easter eggs: ?screen=<code> swaps the display. Not in the UI;
+  // assets lazy-loaded only when a valid code is present.
+  const SCREEN_CODES = { f_the_p: 'rise.png' };
+  const SCREENS = {};
 
   const sel = { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
                 func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
-                stick_left:'gray', stick_right:'gray' };
+                stick_left:'gray', stick_right:'gray', screen:null };
 
   const R = {}, M = {};
   const load = (src) => new Promise((res, rej) => {
@@ -127,6 +131,7 @@
     ctx.drawImage(R[sel.body], 0,0);
     drawMasked(M.back, R[sel.back]);
     drawMasked(M.triggers, R[TRIGGER_SRC[sel.triggers]]);
+    if (sel.screen && M.screen && SCREENS[SCREEN_CODES[sel.screen]]) drawMasked(M.screen, SCREENS[SCREEN_CODES[sel.screen]]);
     ['abxy','dpad','func1','func2','func3','func4'].forEach(el => drawMasked(M[el], R[sel[el]]));
     drawStick('left', sel.stick_left);
     drawStick('right', sel.stick_right);
@@ -138,6 +143,7 @@
   function updateURL() {
     const p = new URLSearchParams();
     SEL_KEYS.forEach(k => p.set(k, sel[k]));
+    if (sel.screen) p.set('screen', sel.screen);   // secret; only present once unlocked
     history.replaceState(null, '', location.pathname + '?' + p.toString());
   }
   function applyURL() {
@@ -150,6 +156,14 @@
                : RENDERS.includes(v);
       if (ok) sel[k] = v;
     });
+    const sc = p.get('screen'); if (sc && SCREEN_CODES[sc]) sel.screen = sc;
+  }
+  async function ensureScreen() {
+    if (!sel.screen) return;
+    if (!M.screen) M.screen = await load(`${BASE}masks/screen.png`);
+    const file = SCREEN_CODES[sel.screen];
+    if (!SCREENS[file]) SCREENS[file] = await load(`${BASE}${file}`);
+    compose();
   }
 
   function updateSummary() {
@@ -269,6 +283,7 @@
       ]);
       document.getElementById('nova-loading').remove();
       compose();
+      ensureScreen();
     } catch (e) {
       const l = document.getElementById('nova-loading');
       if (l) l.textContent = 'Could not load renders.';

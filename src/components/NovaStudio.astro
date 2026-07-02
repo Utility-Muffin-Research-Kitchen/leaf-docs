@@ -176,11 +176,20 @@
   // Compact share code: one base36 digit per axis (index into optsFor(k)), in
   // SEL_KEYS order — e.g. ?c=g30b12... The screen easter egg stays a separate,
   // readable param so it's still typeable-to-unlock and not guessable.
+  function shareCode() {
+    return SEL_KEYS.map(k => optsFor(k).indexOf(sel[k]).toString(36)).join('');
+  }
   function updateURL() {
-    const code = SEL_KEYS.map(k => optsFor(k).indexOf(sel[k]).toString(36)).join('');
-    let q = 'c=' + code;
+    let q = 'c=' + shareCode();
     if (sel.screen) q += '&screen=' + sel.screen;   // secret; only present once unlocked
     history.replaceState(null, '', location.pathname + '?' + q);
+  }
+  // Kick off the Open Graph render the moment a link is copied, so the image is
+  // cached by the time it's pasted. The first render of a config is a ~12s
+  // browser cold-start; warming it here front-loads that into the copy->paste
+  // gap. Fire-and-forget; no-ops in dev/preview.
+  function warmOg() {
+    try { fetch(`${BASE}nova-og?c=${shareCode()}`, { mode: 'no-cors', cache: 'no-store' }); } catch (_) {}
   }
   function applyURL() {
     const p = new URLSearchParams(location.search);
@@ -301,6 +310,7 @@
     share.textContent = 'Copy share link';
     share.addEventListener('click', async () => {
       updateURL();
+      warmOg();
       const url = location.href;
       try { await navigator.clipboard.writeText(url); }
       catch (e) {

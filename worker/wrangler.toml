@@ -1,0 +1,16 @@
+name = "leaf-nova-og"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+# @cloudflare/puppeteer imports Node builtins (node:buffer, node:stream).
+compatibility_flags = ["nodejs_compat"]
+
+# Headless browser (Browser Rendering) used to screenshot the studio canvas.
+# Included on the Workers Free plan with a monthly usage allowance.
+browser = { binding = "BROWSER" }
+
+# Run in front of the GitHub Pages origin. These routes only fire once the
+# leaf.game DNS record is Proxied (orange cloud) in Cloudflare.
+routes = [
+  { pattern = "leaf.game/nova-colorways*", zone_name = "leaf.game" },
+  { pattern = "leaf.game/nova-og*", zone_name = "leaf.game" },
+]

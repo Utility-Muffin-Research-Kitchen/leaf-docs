@@ -165,23 +165,37 @@
   }
 
   const SEL_KEYS = ['body','back','triggers','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right','led_left','led_right'];
+  // The option list backing each axis; shared by the compact URL code and validation.
+  function optsFor(k) {
+    return k.startsWith('led_')    ? LED_COLORS
+         : k.startsWith('stick_')  ? STICK_COLORS
+         : k === 'triggers'        ? TRIGGER_COLORS
+         : BUTTON_KEYS.includes(k) ? BUTTON_OPTIONS
+         : RENDERS;
+  }
+  // Compact share code: one base36 digit per axis (index into optsFor(k)), in
+  // SEL_KEYS order — e.g. ?c=g30b12... The screen easter egg stays a separate,
+  // readable param so it's still typeable-to-unlock and not guessable.
   function updateURL() {
-    const p = new URLSearchParams();
-    SEL_KEYS.forEach(k => p.set(k, sel[k]));
-    if (sel.screen) p.set('screen', sel.screen);   // secret; only present once unlocked
-    history.replaceState(null, '', location.pathname + '?' + p.toString());
+    const code = SEL_KEYS.map(k => optsFor(k).indexOf(sel[k]).toString(36)).join('');
+    let q = 'c=' + code;
+    if (sel.screen) q += '&screen=' + sel.screen;   // secret; only present once unlocked
+    history.replaceState(null, '', location.pathname + '?' + q);
   }
   function applyURL() {
     const p = new URLSearchParams(location.search);
-    SEL_KEYS.forEach(k => {
-      const v = p.get(k); if (!v) return;
-      const ok = k.startsWith('led_') ? LED_COLORS.includes(v)
-               : k.startsWith('stick_') ? STICK_COLORS.includes(v)
-               : k === 'triggers' ? TRIGGER_COLORS.includes(v)
-               : BUTTON_KEYS.includes(k) ? BUTTON_OPTIONS.includes(v)
-               : RENDERS.includes(v);
-      if (ok) sel[k] = v;
-    });
+    const code = p.get('c');
+    if (code) {                                      // new compact form
+      SEL_KEYS.forEach((k, i) => {
+        const opts = optsFor(k), idx = parseInt(code[i] ?? '', 36);
+        if (idx >= 0 && idx < opts.length) sel[k] = opts[idx];
+      });
+    } else {                                         // legacy long form: named params
+      SEL_KEYS.forEach(k => {
+        const v = p.get(k);
+        if (v && optsFor(k).includes(v)) sel[k] = v;
+      });
+    }
     const sc = p.get('screen'); if (sc && SCREEN_CODES[sc]) sel.screen = sc;
   }
   async function ensureScreen() {

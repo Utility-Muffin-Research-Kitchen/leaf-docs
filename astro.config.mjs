@@ -26,6 +26,11 @@ export default defineConfig({
       customCss: ['./src/styles/leaf.css'],
       social: [
         {
+          icon: 'discord',
+          label: 'Discord',
+          href: 'https://discord.gg/q5F7cZ7KRp',
+        },
+        {
           icon: 'github',
           label: 'GitHub',
           href: 'https://github.com/Utility-Muffin-Research-Kitchen/Leaf',

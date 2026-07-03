@@ -102,6 +102,7 @@ export default defineConfig({
             { label: 'Contributing', slug: 'develop/contributing' },
           ],
         },
+        { label: 'Credits', slug: 'credits' },
       ],
     }),
   ],

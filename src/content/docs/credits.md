@@ -8,13 +8,6 @@ projects, fonts, and artwork that make it possible. The same list lives on your
 device under **Menu > Info > Device**, and the full license text for every
 bundled component ships in the install under `licenses/`.
 
-## Artwork
-
-The console renders in the Cover Flow layout are by Evan Amos, who releases his
-video-game hardware photography into the public domain. No attribution is
-required; we credit him here because his work has quietly become the retro
-community's shared reference, and that generosity is worth naming.
-
 ## Software and assets
 
 | Component | License |

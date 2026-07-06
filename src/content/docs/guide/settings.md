@@ -25,10 +25,12 @@ Theme and layout, under **Settings → Appearance**.
 - **Colors** - fine-tune individual color roles (accent, background, text,
   selection, hints, button label, button background) with a color picker. Editing
   any color switches the scheme to "Custom."
-- **Layout** - **List Style** (Rounded, Soft, Square, or the directional Leaf
-  pill), **Font** family (Nunito by default, with eight more to choose from),
-  **Font Size**, and **Tab Switching** (Glide for a sliding page transition, or
-  Snap for an instant cut).
+- **Layout** - **Home Layout** switches the home screen between **Tabs** (the
+  default list-and-tabs view) and **Coverflow** (a box-art carousel with console
+  icons; press **X** on a game for search and its Options). Also here: **List
+  Style** (Rounded, Soft, Square, or the directional Leaf pill), **Font** family
+  (Nunito by default, with eight more to choose from), **Font Size**, and **Tab
+  Switching** (Glide for a sliding page transition, or Snap for an instant cut).
 - **Status Bar** - toggle the **Button Hints** footer and each status indicator:
   **Clock** (with style options), **Battery**, **Wi-Fi**, **Bluetooth**, and
   **Volume**. With Button Hints off, content expands to fill the screen.

@@ -19,6 +19,14 @@ Make the launcher yours from **Settings → Appearance**:
   or the directional **Leaf** pill).
 - **Fonts** - pick a font family (Nunito by default, with eight more) and adjust
   the font size.
+- **Home layout** - keep the classic **Tabs** view or switch to **Coverflow**, a
+  box-art carousel with console icons where **X** opens search and a game's Options.
+
+![The Coverflow home layout: a carousel of NES box art with Super Mario Bros. 3 centered and its neighbors angled back with glossy reflections](/screenshot-coverflow.png)
+
+![The Coverflow layout browsing by console: a Game Boy centered among 3D system renders, with an arcade cabinet, Atari 2600, Game Boy Advance, and Game Boy Color angled back and reflected](/screenshot-coverflow-systems.png)
+
+*Cover Flow browses your games as a box-art carousel and your systems as glossy 3D consoles.*
 
 ## Status bar
 

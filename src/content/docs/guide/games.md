@@ -26,7 +26,10 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 ```
 
 - **`Roms/<SYSTEM>/`** - put each game in the folder for its system, e.g.
-  `Roms/SNES/Chrono Trigger.sfc` or `Roms/GBA/Metroid Fusion.gba`.
+  `Roms/SNES/Chrono Trigger.sfc` or `Roms/GBA/Metroid Fusion.gba`. Games can sit
+  loose in the system folder or tucked into subfolders (a folder per game, or your
+  own grouping) - Leaf scans down into them, so
+  `Roms/PSX/Final Fantasy VII/Final Fantasy VII.cue` works just as well.
 - **`Images/<SYSTEM>/`** - put box art next to the matching system folder, named
   to match the game. For `Roms/SNES/Chrono Trigger.sfc`, use
   `Images/SNES/Chrono Trigger.png`.
@@ -159,10 +162,27 @@ even play a game while art downloads.
 
 ## Multi-disc games
 
-For multi-disc games (e.g. PlayStation/Sega CD titles), use an `.m3u`
-playlist that lists the disc files, and place it in the system's `Roms/` folder.
-Leaf shows the `.m3u` as a single entry so the game appears once, not once per
-disc.
+Leaf handles multi-disc games (PlayStation, Sega CD, and the like) for you. Name
+the disc files with the usual `(Disc 1)`, `(Disc 2)` tags, drop them in the system
+folder - loose or in a subfolder of their own - and Leaf groups them into a single
+`.m3u` playlist automatically. The game then shows up once instead of once per
+disc, and RetroArch reads that playlist to swap discs from its in-game menu.
+
+Prefer to manage it yourself? Add your own `.m3u` listing the disc files and Leaf
+uses it as-is - it never overwrites a playlist you made by hand.
+
+## Arcade names
+
+Arcade ROMs are named by their short internal ID (`mslug`, `1942`, `sf2ce`)
+rather than the full title. Leaf recognizes these for arcade and Neo Geo sets and
+shows the friendly name instead, so `mslug` reads as **Metal Slug** and your
+arcade list looks like the rest of your library. There's nothing to switch on; it
+happens as your games are scanned.
+
+To override a name, drop a `map.txt` in that system's folder (for example
+`Roms/ARCADE/map.txt`) with one `romname = Your Title` line per game - the
+`romname` is the zip's name without its extension. Your entries win over the
+built-in list.
 
 ## BIOS-dependent systems
 

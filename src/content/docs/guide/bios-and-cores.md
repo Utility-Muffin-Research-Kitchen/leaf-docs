@@ -121,6 +121,10 @@ Arcade emulation is the fussiest part of any handheld. Three things matter:
 3. **Parents & BIOS.** Clones reference their parent set (both must be present),
    and `neogeo.zip` acts as the shared BIOS for the whole Neo Geo library.
 
+Once they load, Leaf shows arcade games under their real titles rather than the
+cryptic ROM-set names - see
+[Arcade names](/guide/games/#arcade-names) for how that works and how to override it.
+
 ## A note on the hardware
 
 The Miniloong Pocket 1's CPU comfortably handles 8- and 16-bit systems and

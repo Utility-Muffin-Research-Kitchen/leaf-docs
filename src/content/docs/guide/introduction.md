@@ -39,9 +39,9 @@ This has two practical benefits:
 
 ![The Leaf launcher browsing a Sega Genesis game list, with box art shown alongside](/screenshot-games.png)
 
-- **A themeable launcher** - color schemes, list styles, fonts, an animated
-  status bar (clock, battery, Wi-Fi, Bluetooth, volume), and a configurable RGB
-  stick-ring.
+- **A themeable launcher** - two home layouts (classic Tabs or a Coverflow box-art
+  carousel), color schemes, list styles, fonts, an animated status bar (clock,
+  battery, Wi-Fi, Bluetooth, volume), and a configurable RGB stick-ring.
 - **Emulation** - RetroArch with per-system folders for ROMs, box art, saves,
   and states. You provide the games and any required BIOS files.
 - **Apps** - Central Scrutinizer (manage games and files over Wi-Fi from your

@@ -102,6 +102,10 @@ BIOS/
 - **Arcade (FinalBurn Neo / FBNeo)** - many arcade games depend on a BIOS or a
   parent ROM set (for example, CPS systems need their BIOS). These also live in
   `BIOS/` or alongside the game set.
+- **Saturn** - requires the Sega Saturn BIOS in `BIOS/`; the YabaSanshiro core
+  will not boot without it. Provide the standard Saturn BIOS, for example
+  `sega_101.bin` (Japanese) or `mpr-17933.bin` (US / European). Without one,
+  Saturn games appear in the launcher but won't launch.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
 

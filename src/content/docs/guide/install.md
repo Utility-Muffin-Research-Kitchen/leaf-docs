@@ -23,11 +23,20 @@ just extract the release to a card and let the device install it.
 ## Steps
 
 1. **Prepare the card.** Format the SD card as FAT32 (or ext4) if it isn't
-   already.
+   already. On macOS, open **Disk Utility**, select the card, and choose
+   **MS-DOS (FAT)** as the format (that is FAT32) with **Master Boot Record** as
+   the scheme. Do not pick **ExFAT** - the device can't read an ExFAT card, so
+   the install won't start. (Terminal equivalent:
+   `diskutil eraseDisk FAT32 LEAF MBRFormat /dev/diskN`.)
 2. **Extract the ZIP to the card root.** Unzip `leaf-mlp1-sd-<release_id>.zip`
    directly to the top level of the SD card, not into a subfolder. You
    should see the install files and folders sitting at the card's root.
 3. **Insert and boot.** Put the card in the powered-off device and turn it on.
+   The Miniloong Pocket 1 has two microSD slots: use the **main slot** for the
+   install card. (The second slot is optional extra game storage that Leaf
+   auto-detects once you're up and running.) If the stock update screen never
+   appears, the card may be in the second slot - move it to the other one and
+   try again.
 4. **Let it install.** The device's stock update screen detects the
    installer and runs it. Wait for it to finish; don't power off mid-install.
 5. **Power off** when the installer reports it's done.

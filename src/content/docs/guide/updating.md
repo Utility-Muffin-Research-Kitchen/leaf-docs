@@ -30,6 +30,23 @@ all from inside the launcher. You don't need to swap SD cards or touch a PC.
 
 No account or credentials are required; updates use the public releases feed.
 
+## Update channel (Stable or Beta)
+
+At the top of the **System Update** page is an **Update Channel** cycler. Press
+**Left / Right** (or **A**) to switch it.
+
+- **Stable** (the default) tracks the normal Leaf releases. This is what you want
+  unless you are actively helping test.
+- **Beta** tracks tester preview builds. They land earlier so you can try new
+  features before they are finalized, but they may be unstable or change quickly.
+  Back up anything you care about before running one.
+
+Switching **to Beta** asks you to confirm, and the channel then shows **Beta** in
+an amber tint so it is clear which track you are on. Switching back to **Stable**
+is immediate. Beta builds also carry a `-beta` version number, so you can always
+tell what you are running on the **Info -> Device** page. Changing the channel
+re-checks for updates against that channel right away.
+
 ## Manual update (from an SD card)
 
 If you would rather not update over Wi-Fi, or you are moving between dev builds,
@@ -59,8 +76,9 @@ the `.userdata/` and `.umrk/` folders) and are left exactly as they were.
 
 ## Troubleshooting
 
-- **"Up to date" but you expected a release?** Make sure you're not on a
-  dev/test channel and that the release was actually published.
+- **"Up to date" but you expected a release?** Check the **Update Channel** at
+  the top of the page (Stable vs Beta) and make sure the release was actually
+  published on that channel.
 - **Download fails or network error?** Re-check Wi-Fi connectivity
   (**Settings → Network**) and try again.
 - **A bad release?** You can always reinstall a known-good version from an

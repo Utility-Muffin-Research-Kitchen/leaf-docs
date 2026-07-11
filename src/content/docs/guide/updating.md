@@ -18,8 +18,8 @@ all from inside the launcher. You don't need to swap SD cards or touch a PC.
 
 1. Press the **Menu** button to open the System page, switch to the **Actions** tab
    (**L1 / R1**), and choose **System Update**.
-2. Leaf checks the [Leaf releases feed](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases)
-   and tells you whether a newer version is available.
+2. Leaf checks the releases feed for your selected [Update channel](#update-channel-stable-or-beta)
+   (Stable or Beta) and tells you whether a newer version is available.
 3. If there is one, choose to download it. Leaf fetches the release over a
    secure (HTTPS) connection and verifies its SHA-256 checksum before doing
    anything with it.
@@ -65,8 +65,9 @@ the `.userdata/` and `.umrk/` folders) and are left exactly as they were.
 
 ## How it works (briefly)
 
-- **Discovery:** Leaf reads the public GitHub Releases feed for the Leaf repo and
-  parses the release's update manifest.
+- **Discovery:** Leaf reads the public GitHub Releases feed for your selected
+  channel (the Leaf repo for Stable, the Leaf-beta repo for Beta) and parses the
+  release's update manifest.
 - **Verified download:** the artifact is downloaded over HTTPS and checked
   against a published SHA-256 sum. Leaf ships its own trusted-certificate bundle,
   so secure downloads work even though it's running on top of stock.

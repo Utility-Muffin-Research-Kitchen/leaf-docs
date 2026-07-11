@@ -17,6 +17,8 @@ This section is new and will grow over time.
 - **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
 - **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.
+- **[PortMaster](/app-store/portmaster/)** - an unofficial PortMaster integration
+  for installing compatible native game ports.
 - **[SDLReader](/app-store/sdlreader/)** - a reader for PDFs, comics, ebooks,
   and text.
 

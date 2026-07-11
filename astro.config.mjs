@@ -89,6 +89,7 @@ export default defineConfig({
             { label: 'Overview', slug: 'app-store/introduction' },
             { label: 'Disco Boy', slug: 'app-store/disco-boy' },
             { label: 'Nimbus', slug: 'app-store/nimbus' },
+            { label: 'PortMaster', slug: 'app-store/portmaster' },
             { label: 'SDLReader', slug: 'app-store/sdlreader' },
           ],
         },

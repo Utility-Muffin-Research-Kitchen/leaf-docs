@@ -45,7 +45,8 @@ const STUDIOS = [
       const bd = p.get('bd'), fp = p.get('fp'), sc = p.get('sc');
       const out = [];
       if (['white', 'black', 'retro'].includes(bd)) out.push(`bd=${bd}`);
-      if (fp && /^[0-9a-fA-F]{6}$/.test(fp)) out.push(`fp=${fp.toLowerCase()}`);
+      if (fp === 'siwelk') out.push('fp=siwelk');                    // hidden easter egg
+      else if (fp && /^[0-9a-fA-F]{6}$/.test(fp)) out.push(`fp=${fp.toLowerCase()}`);
       if (['off', 'aurknix', 'bloom', 'darkos', 'leaf'].includes(sc)) out.push(`sc=${sc}`);
       return out.length ? out.join('&') : null;
     },

@@ -219,10 +219,11 @@
     hex('fp', 'faceplate');
     const sc = p.get('sc'); if (sc && SCREEN_OPTIONS.includes(sc)) sel.screen = sc;
   }
-  // Warm the OG render into cache on copy (no-ops until an mlp1-og worker exists).
+  // Warm the OG render into cache on copy so the image is ready by the time the
+  // link is pasted (front-loads the ~1-2s render into the copy->paste gap).
   function warmOg() {
     const q = new URLSearchParams(location.search).toString();
-    try { fetch(`${BASE}mlp1-og?${q}`, { mode: 'no-cors', cache: 'no-store' }); } catch (_) {}
+    try { fetch(`/mlp1-og?${q}`, { mode: 'no-cors', cache: 'no-store' }); } catch (_) {}
   }
 
   // ---- controls ----

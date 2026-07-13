@@ -1,13 +1,17 @@
-# leaf-nova-og — dynamic Open Graph for the Nova colorway studio
+# leaf-nova-og — dynamic Open Graph for the colorway studios
 
-leaf.game is static (GitHub Pages) and the Nova colorway is drawn client-side
-from the `?c=` share code, so link crawlers (Discord, Slack, iMessage) only see
-the generic Leaf banner. This Cloudflare Worker sits in front of the GitHub
-Pages origin and, for `/nova-colorways` links that carry a `?c=` code, rewrites
-`og:image` to a rendered picture of that exact build.
+leaf.game is static (GitHub Pages) and each colorway studio draws client-side
+from its share link, so link crawlers (Discord, Slack, iMessage) only see the
+generic Leaf banner. This Cloudflare Worker sits in front of the GitHub Pages
+origin and, for a studio link that carries a valid config, rewrites `og:image`
+to a rendered picture of that exact build. It serves two studios:
 
-Everything else — the rest of the site, and a bare `/nova-colorways/` link with
-no `?c=` — passes through untouched and keeps the Leaf banner.
+- **Nova** — `/nova-colorways?c=<code>` → `/nova-og?c=<code>`
+- **MLP1** — `/mlp1-colorways?bd=&fp=&sc=` → `/mlp1-og?bd=&fp=&sc=`
+
+Everything else — the rest of the site, and a bare studio link with no config —
+passes through untouched and keeps the Leaf banner. Add another studio by
+appending an entry to the `STUDIOS` array in `src/index.js`.
 
 ## Cloudflare dashboard changes (done once, DONE)
 
@@ -39,10 +43,12 @@ The routes and the `browser` binding attach automatically from `wrangler.toml`.
 ```sh
 curl -sI "https://leaf.game/nova-og?c=0015555550000"          # -> content-type: image/png
 curl -s  "https://leaf.game/nova-colorways/?c=0015555550000" | grep og:image
+curl -sI "https://leaf.game/mlp1-og?bd=white&fp=22c3a6&sc=leaf"        # -> content-type: image/png
+curl -s  "https://leaf.game/mlp1-colorways/?bd=white&fp=22c3a6&sc=leaf" | grep og:image
 ```
 
-Then paste a `?c=` link in Discord — the embed shows the built device. Each
-unique code is a unique URL, so Discord scrapes it fresh (no stale-cache issue).
+Then paste a share link in Discord — the embed shows the built device. Each
+unique config is a unique URL, so Discord scrapes it fresh (no stale-cache issue).
 
 ## How it works
 

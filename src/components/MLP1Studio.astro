@@ -54,6 +54,9 @@
   .mlp1-swatch::-webkit-color-swatch-wrapper { padding: 0; }
   .mlp1-swatch::-webkit-color-swatch { border: none; border-radius: 6px; }
   .mlp1-swatch::-moz-color-swatch { border: none; border-radius: 6px; }
+  .mlp1-range { flex: 0 0 138px; height: 36px; box-sizing: border-box; margin: 0;
+    accent-color: var(--sl-color-accent); cursor: pointer; }
+  .mlp1-range:disabled { opacity: .4; cursor: default; }
   .mlp1-actions { display: flex; gap: .6rem; margin-top: .3rem; }
   .mlp1-actions button {
     flex: 1 1 0; height: 40px; box-sizing: border-box; margin: 0;
@@ -102,7 +105,7 @@
   const SCREEN_LABEL = { off: 'Off', aurknix: 'AURKNIX', bloom: 'Bloom', darkos: 'dArkOS', leaf: 'Leaf' };
   const SCREEN_FILE  = { aurknix: 'AURKNIX.png', bloom: 'Bloom.png', darkos: 'dArkOS.png', leaf: 'Leaf.png' };
 
-  const DEFAULTS = { body: 'white', faceplate: '#3aa0ff', screen: 'leaf' };
+  const DEFAULTS = { body: 'white', faceplate: '#3aa0ff', transparency: 40, screen: 'leaf' };
   const sel = { ...DEFAULTS };
 
   // Hidden easter egg: ?fp=siwelk renders the marbled orange faceplate texture +
@@ -149,8 +152,9 @@
   }
 
   // Recolor a masked region of the current render to `color`, keeping the render's
-  // shading (multiply), clipped back to the mask. translucent = the clear faceplate.
-  function tintRegion(mask, color, translucent) {
+  // shading (multiply), clipped back to the mask, and composited at `alpha` (0-1)
+  // so the faceplate can be dialed from a faint tint to a rich one.
+  function tintRegion(mask, color, alpha) {
     if (!mask) return;
     octx.globalCompositeOperation = 'source-over';
     octx.clearRect(0, 0, W, H);
@@ -163,7 +167,7 @@
     octx.globalCompositeOperation = 'destination-in';
     octx.drawImage(mask, 0, 0);                 // clip flood back to the region
     ctx.save();
-    ctx.globalAlpha = translucent ? 0.62 : 1;
+    ctx.globalAlpha = alpha;
     ctx.drawImage(off, 0, 0);
     ctx.restore();
   }
@@ -216,10 +220,12 @@
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(baseImg, 0, 0);            // selected body render
     if (isSplotch()) paintTexture(faceNet, splotchTex, true);
-    else tintRegion(faceNet, sel.faceplate, true);
+    else tintRegion(faceNet, sel.faceplate, 1 - sel.transparency / 100);
     drawScreen(isSplotch() ? 'kek' : sel.screen);   // the egg brings its own screen
     const scSel = document.querySelector('.mlp1-controls select[data-key="screen"]');
     if (scSel) scSel.disabled = isSplotch();          // screen is locked to kek during the egg
+    const trRange = document.querySelector('.mlp1-controls input[data-key="transparency"]');
+    if (trRange) trRange.disabled = isSplotch();      // egg has its own fixed look
     updateSummary();
     updateURL();
   }
@@ -229,6 +235,7 @@
     if (!el) return;
     el.innerHTML =
       `Body <b>${BODY_LABEL[sel.body]}</b> · Faceplate <b>${isSplotch() ? 'Siwelk 🍊' : sel.faceplate.toUpperCase()}</b>`
+      + (isSplotch() ? '' : ` · Transparency <b>${sel.transparency}%</b>`)
       + ` · Screen <b>${isSplotch() ? 'Kek 😹' : SCREEN_LABEL[sel.screen]}</b>`;
   }
 
@@ -237,6 +244,7 @@
     const q = new URLSearchParams();
     q.set('bd', sel.body);
     q.set('fp', isSplotch() ? sel.faceplate : sel.faceplate.slice(1));
+    if (!isSplotch()) q.set('ft', sel.transparency);
     if (sel.screen !== 'off') q.set('sc', sel.screen);
     history.replaceState(null, '', location.pathname + '?' + q.toString());
   }
@@ -245,6 +253,7 @@
     const hex = (name, key) => { const v = p.get(name); if (v && isHex(v)) sel[key] = '#' + v.toLowerCase(); };
     const bd = p.get('bd'); if (bd && RENDERS.includes(bd)) sel.body = bd;
     if (SPLOTCH_CODES.includes(p.get('fp'))) sel.faceplate = p.get('fp'); else hex('fp', 'faceplate');
+    const ft = p.get('ft'); if (ft !== null && /^\d+$/.test(ft)) sel.transparency = Math.max(0, Math.min(100, +ft));
     const sc = p.get('sc'); if (sc && SCREEN_OPTIONS.includes(sc)) sel.screen = sc;
   }
   // Warm the OG render into cache on copy so the image is ready by the time the
@@ -261,6 +270,15 @@
     const inp = document.createElement('input'); inp.type = 'color'; inp.className = 'mlp1-swatch';
     inp.dataset.key = key; inp.value = isSplotch() && key === 'faceplate' ? '#ee7810' : sel[key];
     inp.addEventListener('input', () => { sel[key] = inp.value; compose(); }); // picking a color exits the egg
+    wrap.appendChild(lab); wrap.appendChild(inp);
+    return wrap;
+  }
+  function rangeField(key, label, min, max) {
+    const wrap = document.createElement('div'); wrap.className = 'mlp1-field';
+    const lab = document.createElement('label'); lab.textContent = label;
+    const inp = document.createElement('input'); inp.type = 'range'; inp.className = 'mlp1-range';
+    inp.min = min; inp.max = max; inp.dataset.key = key; inp.value = sel[key];
+    inp.addEventListener('input', () => { sel[key] = +inp.value; compose(); });
     wrap.appendChild(lab); wrap.appendChild(inp);
     return wrap;
   }
@@ -286,6 +304,7 @@
     const c = document.getElementById('mlp1-controls');
     c.appendChild(selectField('body', 'Body', RENDERS, (o) => BODY_LABEL[o], setBody));
     c.appendChild(colorField('faceplate', 'Faceplate'));
+    c.appendChild(rangeField('transparency', 'Transparency', 0, 100));
     c.appendChild(selectField('screen', 'Screen logo', SCREEN_OPTIONS, (o) => SCREEN_LABEL[o]));
 
     const actions = document.createElement('div'); actions.className = 'mlp1-actions';
@@ -294,6 +313,7 @@
       const rc = () => '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
       const pick = (a) => a[Math.floor(Math.random() * a.length)];
       sel.body = pick(RENDERS); sel.faceplate = rc();
+      sel.transparency = 15 + Math.floor(Math.random() * 55);
       sel.screen = pick(SCREEN_OPTIONS);
       setBody(); syncControls(); compose();
     });

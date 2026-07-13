@@ -38,7 +38,7 @@ const STUDIOS = [
     ogPath: '/mlp1-og',
     canvasId: 'mlp1-canvas',
     loadingId: 'mlp1-loading',
-    ver: 1,
+    ver: 2,
     altName: 'Miniloong Pocket 1',
     card: { title: 'MLP1<br>Colorway<br>Studio', sub: 'Design your<br>Miniloong Pocket 1' },
     buildConfig(p) {

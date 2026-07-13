@@ -1,0 +1,314 @@
+---
+// Miniloong Pocket 1 colorway configurator. The body is a discrete render swap
+// (white / black / retro); on top of the chosen render the studio live-tints the
+// translucent faceplate, the d-pad, and the single analog stick to any picked
+// color, and composites a selectable CFW boot logo (AurkNix / Bloom / dArkOS /
+// Leaf) onto the screen. The faceplate paint region is faceplate_mask with the
+// buttons, screen, d-pad and stick punched out, so the tint flows around them.
+// Assets live in /public/mlp1/. Orphan page; not linked from the docs sidebar.
+---
+
+<div class="mlp1">
+  <div class="mlp1-stage">
+    <canvas id="mlp1-canvas" width="1100" height="1100" aria-label="Miniloong Pocket 1 colorway preview"></canvas>
+    <p id="mlp1-loading" class="mlp1-loading">Loading render…</p>
+    <p id="mlp1-summary" class="mlp1-summary"></p>
+  </div>
+  <div class="mlp1-controls" id="mlp1-controls"></div>
+</div>
+
+<style is:global>
+  .mlp1 { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+  .mlp1-stage { flex: 1 1 300px; min-width: 300px; position: relative; }
+  .mlp1-stage canvas {
+    width: 100%; height: auto; border-radius: 14px;
+    box-shadow: 0 6px 28px rgba(0,0,0,.16);
+    background: #f3f4f6;
+  }
+  :global([data-theme='dark']) .mlp1-stage canvas {
+    box-shadow: 0 0 0 1px rgba(127,176,105,.18), 0 6px 28px rgba(127,176,105,.16);
+    background: #11150f;
+  }
+  .mlp1-loading {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    margin: 0; color: var(--sl-color-gray-3); font-size: .95rem;
+  }
+  .mlp1-controls {
+    flex: 0 0 240px; align-self: flex-start;
+    display: flex; flex-direction: column; gap: .55rem;
+  }
+  .mlp1-field { display: flex; align-items: center; gap: .6rem; }
+  .mlp1-field label { flex: 0 0 90px; height: 36px; display: inline-flex; align-items: center;
+    font-size: .85rem; font-weight: 600; color: var(--sl-color-gray-2);
+    text-align: left; white-space: nowrap; }
+  .mlp1-field select {
+    flex: 0 0 138px; height: 36px; box-sizing: border-box; margin: 0; padding: 0 .5rem; border-radius: 8px;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-bg);
+    color: var(--sl-color-white); font: inherit; font-size: .9rem;
+  }
+  .mlp1-swatch {
+    flex: 0 0 138px; height: 36px; box-sizing: border-box; margin: 0; padding: 2px;
+    border-radius: 8px; border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg); cursor: pointer;
+  }
+  .mlp1-swatch::-webkit-color-swatch-wrapper { padding: 0; }
+  .mlp1-swatch::-webkit-color-swatch { border: none; border-radius: 6px; }
+  .mlp1-swatch::-moz-color-swatch { border: none; border-radius: 6px; }
+  .mlp1-actions { display: flex; gap: .6rem; margin-top: .3rem; }
+  .mlp1-actions button {
+    flex: 1 1 0; height: 40px; box-sizing: border-box; margin: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 .5rem; border-radius: 8px; cursor: pointer; font: inherit;
+    font-weight: 600; line-height: 1.2; white-space: nowrap;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-gray-6); color: var(--sl-color-white);
+  }
+  .mlp1-actions button.primary { background: var(--sl-color-accent); border-color: var(--sl-color-accent);
+    color: var(--sl-color-black); }
+  .mlp1-share {
+    width: 100%; height: 36px; margin-top: .5rem; box-sizing: border-box;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px; cursor: pointer; font: inherit; font-weight: 600; font-size: .85rem;
+    border: 1px dashed var(--sl-color-gray-4); background: transparent; color: var(--sl-color-gray-2);
+  }
+  .mlp1-share:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
+  .mlp1-summary { margin: .7rem 0 0; font-size: .82rem; color: var(--sl-color-gray-3); line-height: 1.5; }
+</style>
+
+<script>
+  const BASE = '/mlp1/';
+  // Canvas is sized to the real render at load; these are the placeholder defaults.
+  let W = 1100, H = 1100;
+
+  // Body = discrete render swap.
+  const RENDERS = ['white', 'black', 'retro'];
+  const RENDER_FILE = { white: 'mlp1_white.png', black: 'mlp1_black.png', retro: 'mlp1_retro.png' };
+  const BODY_LABEL  = { white: 'White', black: 'Black', retro: 'Retro' };
+
+  // Masks (aligned to the renders). The faceplate paint region is faceplate minus
+  // the buttons/screen/d-pad/stick so the tint flows around every control.
+  const MASK_FILE = {
+    faceplate: 'faceplate_mask.png',
+    dpad:      'dpad_mask.png',
+    stick:     'stick_mask.png',
+    screen:    'screen_mask.png',
+    abxy:      'abxy_mask.png',
+    other:     'other_button_speaker_mask.png',
+  };
+  const FACE_SUBTRACT = ['abxy', 'other', 'screen', 'dpad', 'stick'];
+
+  // CFW boot logo shown on the screen. 'off' = dark screen, no logo.
+  const SCREEN_OPTIONS = ['off', 'aurknix', 'bloom', 'darkos', 'leaf'];
+  const SCREEN_LABEL = { off: 'Off', aurknix: 'AurkNix', bloom: 'Bloom', darkos: 'dArkOS', leaf: 'Leaf' };
+  const SCREEN_FILE  = { aurknix: 'AURKNIX.png', bloom: 'Bloom.png', darkos: 'dArkOS.png', leaf: 'Leaf.png' };
+
+  const DEFAULTS = { body: 'white', faceplate: '#3aa0ff', screen: 'leaf' };
+  const sel = { ...DEFAULTS };
+
+  const R = {}, M = {}, LOGO = {};
+  let baseImg = null, faceNet = null, screenBox = { x: 0, y: 0, w: W, h: H };
+  const load = (src) => new Promise((res, rej) => {
+    const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src;
+  });
+
+  const canvas = document.getElementById('mlp1-canvas');
+  const ctx = canvas.getContext('2d');
+  const off = document.createElement('canvas'); off.width = W; off.height = H;
+  const octx = off.getContext('2d');
+
+  const isHex = (v) => /^[0-9a-fA-F]{6}$/.test(v);
+
+  // faceplate_mask with the buttons/screen/d-pad/stick punched out — built once.
+  function buildFaceNet() {
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    const x = c.getContext('2d');
+    x.drawImage(M.faceplate, 0, 0);
+    x.globalCompositeOperation = 'destination-out';
+    FACE_SUBTRACT.forEach(k => { if (M[k]) x.drawImage(M[k], 0, 0); });
+    faceNet = c;
+  }
+
+  // Bounding box of a mask's opaque pixels, for placing the screen logo.
+  function maskBBox(img) {
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    const x = c.getContext('2d'); x.drawImage(img, 0, 0);
+    const d = x.getImageData(0, 0, W, H).data;
+    let minx = W, miny = H, maxx = 0, maxy = 0, found = false;
+    for (let y = 0; y < H; y++) for (let xx = 0; xx < W; xx++) {
+      if (d[(y * W + xx) * 4 + 3] > 12) { found = true;
+        if (xx < minx) minx = xx; if (xx > maxx) maxx = xx;
+        if (y < miny) miny = y; if (y > maxy) maxy = y; }
+    }
+    return found ? { x: minx, y: miny, w: maxx - minx, h: maxy - miny } : { x: 0, y: 0, w: W, h: H };
+  }
+
+  // Recolor a masked region of the current render to `color`, keeping the render's
+  // shading (multiply), clipped back to the mask. translucent = the clear faceplate.
+  function tintRegion(mask, color, translucent) {
+    if (!mask) return;
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0, 0, W, H);
+    octx.drawImage(mask, 0, 0);                 // region alpha
+    octx.globalCompositeOperation = 'source-in';
+    octx.drawImage(baseImg, 0, 0);              // render shading within region
+    octx.globalCompositeOperation = 'multiply';
+    octx.fillStyle = color;
+    octx.fillRect(0, 0, W, H);                  // multiply tint (floods; clipped next)
+    octx.globalCompositeOperation = 'destination-in';
+    octx.drawImage(mask, 0, 0);                 // clip flood back to the region
+    ctx.save();
+    ctx.globalAlpha = translucent ? 0.62 : 1;
+    ctx.drawImage(off, 0, 0);
+    ctx.restore();
+  }
+
+  function drawScreen(key) {
+    if (!M.screen) return;
+    // dark display fill, clipped to the screen region
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0, 0, W, H);
+    octx.drawImage(M.screen, 0, 0);
+    octx.globalCompositeOperation = 'source-in';
+    octx.fillStyle = '#0c0d10';
+    octx.fillRect(0, 0, W, H);
+    ctx.drawImage(off, 0, 0);
+    // centered CFW logo, clipped so it can't spill past the display
+    if (key !== 'off' && LOGO[key]) {
+      const img = LOGO[key], b = screenBox, pad = 0.14;
+      const s = Math.min((b.w * (1 - pad * 2)) / img.width, (b.h * (1 - pad * 2)) / img.height);
+      const w = img.width * s, h = img.height * s;
+      const x = b.x + (b.w - w) / 2, y = b.y + (b.h - h) / 2;
+      octx.globalCompositeOperation = 'source-over';
+      octx.clearRect(0, 0, W, H);
+      octx.drawImage(img, x, y, w, h);
+      octx.globalCompositeOperation = 'destination-in';
+      octx.drawImage(M.screen, 0, 0);
+      ctx.drawImage(off, 0, 0);
+    }
+  }
+
+  function compose() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(baseImg, 0, 0);            // selected body render
+    tintRegion(faceNet, sel.faceplate, true);
+    drawScreen(sel.screen);
+    updateSummary();
+    updateURL();
+  }
+
+  function updateSummary() {
+    const el = document.getElementById('mlp1-summary');
+    if (!el) return;
+    el.innerHTML =
+      `Body <b>${BODY_LABEL[sel.body]}</b> · Faceplate <b>${sel.faceplate.toUpperCase()}</b>`
+      + ` · Screen <b>${SCREEN_LABEL[sel.screen]}</b>`;
+  }
+
+  // ---- share links: readable named params (bd/fp/dp/st/sc) ----
+  function updateURL() {
+    const q = new URLSearchParams();
+    q.set('bd', sel.body);
+    q.set('fp', sel.faceplate.slice(1));
+    if (sel.screen !== 'off') q.set('sc', sel.screen);
+    history.replaceState(null, '', location.pathname + '?' + q.toString());
+  }
+  function applyURL() {
+    const p = new URLSearchParams(location.search);
+    const hex = (name, key) => { const v = p.get(name); if (v && isHex(v)) sel[key] = '#' + v.toLowerCase(); };
+    const bd = p.get('bd'); if (bd && RENDERS.includes(bd)) sel.body = bd;
+    hex('fp', 'faceplate');
+    const sc = p.get('sc'); if (sc && SCREEN_OPTIONS.includes(sc)) sel.screen = sc;
+  }
+  // Warm the OG render into cache on copy (no-ops until an mlp1-og worker exists).
+  function warmOg() {
+    const q = new URLSearchParams(location.search).toString();
+    try { fetch(`${BASE}mlp1-og?${q}`, { mode: 'no-cors', cache: 'no-store' }); } catch (_) {}
+  }
+
+  // ---- controls ----
+  function colorField(key, label) {
+    const wrap = document.createElement('div'); wrap.className = 'mlp1-field';
+    const lab = document.createElement('label'); lab.textContent = label;
+    const inp = document.createElement('input'); inp.type = 'color'; inp.className = 'mlp1-swatch';
+    inp.dataset.key = key; inp.value = sel[key];
+    inp.addEventListener('input', () => { sel[key] = inp.value; compose(); });
+    wrap.appendChild(lab); wrap.appendChild(inp);
+    return wrap;
+  }
+  function selectField(key, label, options, labelFn, onChange) {
+    const wrap = document.createElement('div'); wrap.className = 'mlp1-field';
+    const lab = document.createElement('label'); lab.textContent = label;
+    const s = document.createElement('select'); s.dataset.key = key;
+    options.forEach(o => { const op = document.createElement('option');
+      op.value = o; op.textContent = labelFn(o); if (o === sel[key]) op.selected = true; s.appendChild(op); });
+    s.addEventListener('change', () => { sel[key] = s.value; if (onChange) onChange(); compose(); });
+    wrap.appendChild(lab); wrap.appendChild(s);
+    return wrap;
+  }
+  function syncControls() {
+    document.querySelectorAll('.mlp1-controls [data-key]').forEach(el => { el.value = sel[el.dataset.key]; });
+  }
+  function setBody() { baseImg = R[sel.body]; }
+
+  function buildControls() {
+    const c = document.getElementById('mlp1-controls');
+    c.appendChild(selectField('body', 'Body', RENDERS, (o) => BODY_LABEL[o], setBody));
+    c.appendChild(colorField('faceplate', 'Faceplate'));
+    c.appendChild(selectField('screen', 'Screen logo', SCREEN_OPTIONS, (o) => SCREEN_LABEL[o]));
+
+    const actions = document.createElement('div'); actions.className = 'mlp1-actions';
+    const rand = document.createElement('button'); rand.textContent = 'Randomize'; rand.className = 'primary';
+    rand.addEventListener('click', () => {
+      const rc = () => '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+      const pick = (a) => a[Math.floor(Math.random() * a.length)];
+      sel.body = pick(RENDERS); sel.faceplate = rc();
+      sel.screen = pick(SCREEN_OPTIONS);
+      setBody(); syncControls(); compose();
+    });
+    const reset = document.createElement('button'); reset.textContent = 'Reset';
+    reset.addEventListener('click', () => { Object.assign(sel, DEFAULTS); setBody(); syncControls(); compose(); });
+    actions.appendChild(rand); actions.appendChild(reset);
+    c.appendChild(actions);
+
+    const share = document.createElement('button'); share.className = 'mlp1-share';
+    share.textContent = 'Copy share link';
+    share.addEventListener('click', async () => {
+      updateURL(); warmOg();
+      const url = location.href;
+      try { await navigator.clipboard.writeText(url); }
+      catch (e) {
+        const t = document.createElement('textarea'); t.value = url; document.body.appendChild(t);
+        t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove();
+      }
+      share.textContent = 'Link copied!';
+      clearTimeout(share._t); share._t = setTimeout(() => { share.textContent = 'Copy share link'; }, 1600);
+    });
+    c.appendChild(share);
+  }
+
+  async function init() {
+    applyURL();
+    buildControls();
+    try {
+      await Promise.all([
+        ...RENDERS.map(async n => { R[n] = await load(`${BASE}${RENDER_FILE[n]}`); }),
+        ...Object.entries(MASK_FILE).map(async ([k, f]) => { M[k] = await load(`${BASE}masks/${f}`); }),
+        ...Object.entries(SCREEN_FILE).map(async ([k, f]) => { LOGO[k] = await load(`${BASE}logos/${f}`); }),
+      ]);
+      // Size everything to the real render.
+      const r0 = R[RENDERS[0]];
+      W = r0.naturalWidth || W; H = r0.naturalHeight || H;
+      canvas.width = W; canvas.height = H; off.width = W; off.height = H;
+      screenBox = maskBBox(M.screen);
+      buildFaceNet();
+      setBody();
+      document.getElementById('mlp1-loading').remove();
+      compose();
+    } catch (e) {
+      const l = document.getElementById('mlp1-loading');
+      if (l) l.textContent = 'Could not load render.';
+      console.error(e);
+    }
+  }
+  init();
+</script>

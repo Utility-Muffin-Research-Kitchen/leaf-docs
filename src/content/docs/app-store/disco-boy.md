@@ -60,6 +60,11 @@ Albums views are built from each track's tags, and Folders shows it exactly as i
 sits on the card. For album artwork, drop a `cover.png` or `folder.jpg` in a folder,
 or just leave the art embedded in the files.
 
+If you run **two SD cards**, Disco Boy scans the `Music` folder on both and merges
+them into one library, so it does not matter which card a track lives on. The Folders
+view keeps each card separate so you can still browse them individually. With a single
+card it just reads that one - nothing to configure either way.
+
 ## Controls
 
 | Button | Action |

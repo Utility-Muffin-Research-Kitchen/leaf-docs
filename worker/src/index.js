@@ -49,7 +49,7 @@ const STUDIOS = [
       else if (fp && /^[0-9a-fA-F]{6}$/.test(fp)) out.push(`fp=${fp.toLowerCase()}`);
       const ft = p.get('ft');
       if (ft !== null && /^\d+$/.test(ft) && +ft >= 0 && +ft <= 100) out.push(`ft=${+ft}`);
-      if (['off', 'aurknix', 'bloom', 'darkos', 'leaf'].includes(sc)) out.push(`sc=${sc}`);
+      if (['off', 'aurknix', 'bloom', 'darkos', 'knulli', 'leaf'].includes(sc)) out.push(`sc=${sc}`);
       return out.length ? out.join('&') : null;
     },
   },

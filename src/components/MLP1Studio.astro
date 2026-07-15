@@ -3,7 +3,7 @@
 // (white / black / retro); on top of the chosen render the studio live-tints the
 // translucent faceplate, the d-pad, and the single analog stick to any picked
 // color, and composites a selectable CFW boot logo (AurkNix / Bloom / dArkOS /
-// Leaf) onto the screen. The faceplate paint region is faceplate_mask with the
+// Knulli / Leaf) onto the screen. The faceplate paint region is faceplate_mask with the
 // buttons, screen, d-pad and stick punched out, so the tint flows around them.
 // Assets live in /public/mlp1/. Orphan page; not linked from the docs sidebar.
 ---
@@ -101,9 +101,9 @@
   const FACE_SUBTRACT = ['abxy', 'other', 'screen', 'dpad', 'stick'];
 
   // CFW boot logo shown on the screen. 'off' = dark screen, no logo.
-  const SCREEN_OPTIONS = ['off', 'aurknix', 'bloom', 'darkos', 'leaf'];
-  const SCREEN_LABEL = { off: 'Off', aurknix: 'AURKNIX', bloom: 'Bloom', darkos: 'dArkOS', leaf: 'Leaf' };
-  const SCREEN_FILE  = { aurknix: 'AURKNIX.png', bloom: 'Bloom.png', darkos: 'dArkOS.png', leaf: 'Leaf.png' };
+  const SCREEN_OPTIONS = ['off', 'aurknix', 'bloom', 'darkos', 'knulli', 'leaf'];
+  const SCREEN_LABEL = { off: 'Off', aurknix: 'AURKNIX', bloom: 'Bloom', darkos: 'dArkOS', knulli: 'Knulli', leaf: 'Leaf' };
+  const SCREEN_FILE  = { aurknix: 'AURKNIX.png', bloom: 'Bloom.png', darkos: 'dArkOS.png', knulli: 'Knulli.png', leaf: 'Leaf.png' };
 
   const DEFAULTS = { body: 'white', faceplate: '#3aa0ff', transparency: 40, screen: 'leaf' };
   const sel = { ...DEFAULTS };

@@ -58,7 +58,7 @@ all live in `Roms/GBA/` whichever core you pick.
 
 Leaf keeps **mGBA** as the default because it has the broader compatibility and
 accuracy. **gpSP** is available as a faster alternate: on the MLP1 it delivered
-about 1.86 times mGBA's fast-forward rate in a matched Wario Land 4 test scene.
+about 1.86 times mGBA's fast-forward rate in a matched reference test scene.
 Normal-speed play, zipped games, in-game saves, and save states all work through
 the gpSP path.
 
@@ -72,11 +72,11 @@ Do not copy or move save states between mGBA and gpSP; switch back to the core
 that created the state instead.
 
 Use mGBA when a title fails under gpSP. For example, the homebrew game *Glory
-Hunters* exits under the current gpSP build but works in mGBA. Pokémon Emerald's
-in-game clock works with gpSP's default automatic RTC setting, but a strict RTC
-test ROM fails there and passes in mGBA, so mGBA is also the safer choice for RTC
-homebrew, test software, and ROM hacks. No manual gpSP RTC setting is normally
-needed.
+Hunters* exits under the current gpSP build but works in mGBA. A commercial game
+with an in-game clock works with gpSP's default automatic RTC setting, but a
+strict RTC test ROM fails there and passes in mGBA, so mGBA is also the safer
+choice for RTC homebrew, test software, and ROM hacks. No manual gpSP RTC setting
+is normally needed.
 
 ### Nintendo 64: standard vs standalone
 

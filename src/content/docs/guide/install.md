@@ -11,9 +11,19 @@ just extract the release to a card and let the device install it.
 **[Get the latest release →](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest)** and grab `leaf-mlp1-sd-<release_id>.zip`. Leaf is pre-1.0, so skim the release notes on that page first, then follow the steps below.
 :::
 
+:::caution[Update stock at least once first]
+Leaf installs through the Miniloong Pocket 1's built-in stock updater, which
+needs a recent stock firmware (**1.3.0.32 or newer**). A brand-new device can
+ship on an older stock OS, so before installing Leaf, boot the stock OS and run
+its **system update** at least once. Let it finish and report it's up to date,
+then come back here.
+:::
+
 ## What you need
 
-- A Miniloong Pocket 1.
+- A Miniloong Pocket 1 that's had its **stock system update run at least once**
+  (see the note above). A factory-fresh unit may be on a stock OS too old to
+  start the installer.
 - An SD card, FAT32 (or ext4). A backup of anything already on it; installing
   works on the card you boot from.
 - The Leaf install ZIP from the

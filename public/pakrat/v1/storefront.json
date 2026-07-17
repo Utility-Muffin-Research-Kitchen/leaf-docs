@@ -1,9 +1,40 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260709T215923Z",
-  "generated_at": "2026-07-09T21:59:23Z",
+  "catalog_revision": "prod-20260717T183416Z",
+  "generated_at": "2026-07-17T18:34:16Z",
   "apps": [
+    {
+      "id": "org.umrk.itchio",
+      "name": "Itch.io",
+      "summary": "Browse itch.io and add compatible games and soundtracks to Leaf.",
+      "description": "An unofficial Leaf client for browsing itch.io, downloading compatible ROMs and soundtracks, and managing the resulting library on the Miniloong Pocket 1. Not affiliated with or endorsed by itch.io.",
+      "author": "Carroarmato0 & Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak",
+      "categories": [
+        "games",
+        "homebrew",
+        "downloads"
+      ],
+      "version": "0.1.0",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "0.1.0",
+          "install_name": "Itch-io.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/releases/download/v0.1.0/Itch-io.mlp1.pak.zip",
+            "name": "Itch-io.mlp1.pak.zip",
+            "archive": "zip",
+            "size": 8550639,
+            "installed_size": 15688794,
+            "sha256": "defcf3dde1722e049996c45743bddcceada201bf9cedb4b5f146d76f39e06ef5"
+          }
+        }
+      ]
+    },
     {
       "id": "org.umrk.discoboy",
       "name": "Disco Boy",

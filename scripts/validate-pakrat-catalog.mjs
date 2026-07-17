@@ -4,8 +4,15 @@ import { readFile } from 'node:fs/promises';
 import { get } from 'node:https';
 import { URL } from 'node:url';
 
-const catalogPath = new URL('../public/pakrat/v1/storefront.json', import.meta.url);
 const checkRemote = process.argv.includes('--remote');
+const catalogArg = process.argv.indexOf('--catalog');
+if (catalogArg >= 0 && !process.argv[catalogArg + 1]) {
+  console.error('usage: validate-pakrat-catalog.mjs [--remote] [--catalog <path>]');
+  process.exit(2);
+}
+const catalogPath = catalogArg >= 0
+  ? process.argv[catalogArg + 1]
+  : new URL('../public/pakrat/v1/storefront.json', import.meta.url);
 const errors = [];
 
 function fail(path, message) {
@@ -150,7 +157,9 @@ function validateCatalog(catalog) {
       if (!requireObject(pkg, pkgPath)) {
         return;
       }
-      requireString(pkg.platform, `${pkgPath}.platform`);
+      if (requireString(pkg.platform, `${pkgPath}.platform`) && pkg.platform !== 'mlp1') {
+        fail(`${pkgPath}.platform`, 'must be "mlp1"');
+      }
       if (pkg.runtime !== 'leaf') {
         fail(`${pkgPath}.runtime`, 'must be "leaf"');
       }
@@ -158,7 +167,8 @@ function validateCatalog(catalog) {
       if (pkg.version !== app.version) {
         fail(`${pkgPath}.version`, 'must match app version in v1');
       }
-      if (requireString(pkg.install_name, `${pkgPath}.install_name`) && !pkg.install_name.endsWith('.pak')) {
+      if (requireSafeRelativePath(pkg.install_name, `${pkgPath}.install_name`) &&
+          !pkg.install_name.endsWith('.pak')) {
         fail(`${pkgPath}.install_name`, 'must end with .pak');
       }
       requireSafeRelativePath(pkg.runtime_manifest_path, `${pkgPath}.runtime_manifest_path`);

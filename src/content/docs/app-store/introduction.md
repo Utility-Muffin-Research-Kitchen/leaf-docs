@@ -1,6 +1,6 @@
 ---
 title: App store
-description: 'Native apps you can add to Leaf, starting with the Disco Boy music player.'
+description: 'Optional native apps you can add to Leaf with Pak Rat.'
 ---
 
 Leaf runs your games, but it also runs **apps**: small native programs that live
@@ -14,6 +14,8 @@ This section is new and will grow over time.
 
 ## Available apps
 
+- **[Itch.io](/app-store/itchio/)** - browse compatible homebrew and add
+  games or soundtracks directly to Leaf.
 - **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
 - **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.

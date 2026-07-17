@@ -87,6 +87,7 @@ export default defineConfig({
           label: 'App store',
           items: [
             { label: 'Overview', slug: 'app-store/introduction' },
+            { label: 'Itch.io', slug: 'app-store/itchio' },
             { label: 'Disco Boy', slug: 'app-store/disco-boy' },
             { label: 'Nimbus', slug: 'app-store/nimbus' },
             { label: 'PortMaster', slug: 'app-store/portmaster' },

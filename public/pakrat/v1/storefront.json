@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260717T183416Z",
-  "generated_at": "2026-07-17T18:34:16Z",
+  "catalog_revision": "prod-20260717T185254Z",
+  "generated_at": "2026-07-17T18:52:54Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -38,29 +38,29 @@
     {
       "id": "org.umrk.discoboy",
       "name": "Disco Boy",
-      "summary": "Play music from your SD card with cover art, queue controls, and Leaf audio routing.",
-      "description": "Disco Boy is a Catastrophe-native music player for Leaf on the Miniloong Pocket 1. Browse artists, albums, and folders, play common music formats, and keep audio routed through the same output Leaf is using.",
+      "summary": "Play music from either SD card with cover art, queue controls, and Leaf audio routing.",
+      "description": "Disco Boy is a Catastrophe-native music player for Leaf on the Miniloong Pocket 1. Browse artists, albums, and folders across both SD cards, play common music formats, and keep audio routed through the same output Leaf is using.",
       "author": "Utility Muffin Research Kitchen",
       "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy",
       "categories": [
         "music",
         "media"
       ],
-      "version": "0.1.1",
+      "version": "0.2.1",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.1.1",
+          "version": "0.2.1",
           "install_name": "DiscoBoy.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/download/v0.1.1/DiscoBoy.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/download/v0.2.1/DiscoBoy.pak.zip",
             "name": "DiscoBoy.pak.zip",
             "archive": "zip",
-            "size": 603698,
-            "installed_size": 874106,
-            "sha256": "03e6e4ea3f021219a8143d1a9e32d777ab18df1b4ac8587ba71ca74ade37bafd"
+            "size": 608885,
+            "installed_size": 883138,
+            "sha256": "34d49f807520de088f56c19770ca53e7ecc5652ed80ebf2cea5b472037c5bd1e"
           }
         }
       ]

@@ -80,3 +80,9 @@ for [recovery](/guide/recovery/).
 - **Removing Leaf.** Going back to stock for good is covered in
   [Recovery](/guide/recovery/).
 
+:::tip[Need help?]
+If the install won't start or the device doesn't boot into Leaf, ask in the
+**[Leaf Discord](https://discord.gg/q5F7cZ7KRp)**. Someone can usually help you
+sort it out.
+:::
+

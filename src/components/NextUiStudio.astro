@@ -70,23 +70,34 @@
   .nu-stage { flex: 1 1 340px; min-width: 300px; }
   /* device photo with the live screen perspective-warped onto the masked quad */
   .nu-photo { width: 100%; max-width: 640px; margin: 0 auto; position: relative; aspect-ratio: 1496 / 1126; }
-  .nu-photo-inner { position: absolute; top: 0; left: 0; width: 1496px; height: 1126px; transform-origin: top left; }
-  .nu-photo-img { display: block; width: 1496px; height: 1126px; margin: 0; }
-  .nu-screen-clip { position: absolute; inset: 0; margin: 0;
-    -webkit-mask: url(/nextui/screen-mask.png) 0 0 / 1496px 1126px no-repeat;
-    mask: url(/nextui/screen-mask.png) 0 0 / 1496px 1126px no-repeat; }
-  /* glow lives on the wrapper (drop-shadow follows the masked LED shape); mask on the child.
-     Each wrapper is clamped to its LED bbox + a 40px blur margin (mask offset back to photo
-     coords) so the drop-shadow filter buffer stays tiny — a full-photo buffer OOM-crashes
-     iOS Safari on pinch-zoom. LED bboxes: left (738,658)-(784,680), right (802,651)-(849,674). */
+  /* Composite authored at HALF the photo's native pixels (748x563, not 1496x1126): every
+     transformed/masked/filtered layer gets its own GPU buffer sized to CSS px x DPR x pinch-zoom,
+     and iOS Safari OOM-crashes ("A problem repeatedly occurred") when those buffers balloon on
+     pinch. Half the coordinate space = quarter the buffer per layer, with no visible change
+     (the photo still displays <=640px). The screen-mask source stays high-res, downsampled here. */
+  .nu-photo-inner { position: absolute; top: 0; left: 0; width: 748px; height: 563px; transform-origin: top left; }
+  .nu-photo-img { display: block; width: 748px; height: 563px; margin: 0; }
+  /* screen-clip box + mask-position are set in JS (placeClip) from the QUAD, so its masked layer
+     is only screen-sized, not full-photo — the single biggest re-rastered buffer otherwise. */
+  .nu-screen-clip { position: absolute; margin: 0;
+    -webkit-mask-image: url(/nextui/screen-mask.png); mask-image: url(/nextui/screen-mask.png);
+    -webkit-mask-size: 748px 563px; mask-size: 748px 563px;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+  /* LED glow as a cheap radial gradient (::before) with the crisp masked bar (.nu-led) on top.
+     No filter/drop-shadow: CSS filters allocate a per-layer buffer that iOS Safari re-rasterizes
+     on pinch-zoom until the tab OOM-crashes, and (with an oversized mask-size on the child) also
+     bled a full-photo halo. A gradient is bounded to the element box and re-rasters cheaply.
+     Wrappers are centered on each LED bbox (748-space: left (369,329)-(392,340),
+     right (401,326)-(424,337)); .nu-led's mask is offset back to photo coordinates. */
   .nu-glow { position: absolute; margin: 0; pointer-events: none; }
-  #nu-glow-l { left: 698px; top: 618px; width: 126px; height: 102px;
-    filter: drop-shadow(0 0 calc(var(--glow-l,1) * 5px) var(--led-l)) drop-shadow(0 0 calc(var(--glow-l,1) * 13px) var(--led-l)); }
-  #nu-glow-r { left: 762px; top: 611px; width: 127px; height: 103px;
-    filter: drop-shadow(0 0 calc(var(--glow-r,1) * 5px) var(--led-r)) drop-shadow(0 0 calc(var(--glow-r,1) * 13px) var(--led-r)); }
+  .nu-glow::before { content: ''; position: absolute; inset: 0; border-radius: 50%; }
+  #nu-glow-l { left: 348px; top: 308px; width: 64px; height: 52px; }
+  #nu-glow-l::before { background: radial-gradient(closest-side, var(--led-l), transparent); opacity: var(--glow-l, 1); }
+  #nu-glow-r { left: 380px; top: 305px; width: 64px; height: 52px; }
+  #nu-glow-r::before { background: radial-gradient(closest-side, var(--led-r), transparent); opacity: var(--glow-r, 1); }
   .nu-glow .nu-led { position: absolute; inset: 0; margin: 0; }
-  #nu-glow-l .nu-led { background: var(--led-l); -webkit-mask: url(/nextui/leftfunc-mask.png) -698px -618px / 1496px 1126px no-repeat; mask: url(/nextui/leftfunc-mask.png) -698px -618px / 1496px 1126px no-repeat; }
-  #nu-glow-r .nu-led { background: var(--led-r); -webkit-mask: url(/nextui/rightfunc-mask.png) -762px -611px / 1496px 1126px no-repeat; mask: url(/nextui/rightfunc-mask.png) -762px -611px / 1496px 1126px no-repeat; }
+  #nu-glow-l .nu-led { background: var(--led-l); -webkit-mask: url(/nextui/leftfunc-mask.png) -348px -308px / 748px 563px no-repeat; mask: url(/nextui/leftfunc-mask.png) -348px -308px / 748px 563px no-repeat; }
+  #nu-glow-r .nu-led { background: var(--led-r); -webkit-mask: url(/nextui/rightfunc-mask.png) -380px -305px / 748px 563px no-repeat; mask: url(/nextui/rightfunc-mask.png) -380px -305px / 748px 563px no-repeat; }
   .nu-divider { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
     color: var(--sl-color-gray-3); margin: .5rem 0 .05rem; }
   .nu-screen {
@@ -434,8 +445,26 @@
 
   // ---- device photo: perspective-warp the 800x600 screen onto the masked quad ----
   const SCREEN_W = 800, SCREEN_H = 600;
-  // Screen-quad corners (TL,TR,BR,BL) read from screen-mask.png, in the 1496x1126 photo.
-  const QUAD = [{x:582,y:288},{x:995,y:271},{x:981,y:576},{x:589,y:611}];
+  // Native photo space (half the 1496x1126 source — see the .nu-photo-inner note).
+  const NW = 748;
+  // Screen-quad corners (TL,TR,BR,BL) read from screen-mask.png, halved into the 748x563 space.
+  const QUAD = [{x:291,y:144},{x:497.5,y:135.5},{x:490.5,y:288},{x:294.5,y:305.5}];
+  // Screen-clip box origin (set by placeClip), subtracted from the warp so the clip layer is
+  // only screen-sized instead of full-photo.
+  let clipOrigin = { x0: 0, y0: 0 };
+  function placeClip() {
+    const clip = document.querySelector('.nu-screen-clip');
+    if (!clip) return;
+    const xs = QUAD.map(p => p.x), ys = QUAD.map(p => p.y);
+    const M = 14; // margin covering the warp overscan so nothing is clipped
+    const x0 = Math.floor(Math.min(...xs) - M), y0 = Math.floor(Math.min(...ys) - M);
+    const w = Math.ceil(Math.max(...xs) - Math.min(...xs) + 2*M);
+    const hgt = Math.ceil(Math.max(...ys) - Math.min(...ys) + 2*M);
+    clip.style.left = x0 + 'px'; clip.style.top = y0 + 'px';
+    clip.style.width = w + 'px'; clip.style.height = hgt + 'px';
+    clip.style.webkitMaskPosition = clip.style.maskPosition = (-x0) + 'px ' + (-y0) + 'px';
+    clipOrigin = { x0, y0 };
+  }
   function solve8(A, b) {
     const n = 8, M = A.map((r,i) => r.concat(b[i]));
     for (let c=0; c<n; c++) {
@@ -459,12 +488,14 @@
       A.push([0,0,0,src[i].x,src[i].y,1,-src[i].x*dst[i].y,-src[i].y*dst[i].y]); b.push(dst[i].y);
     }
     const h = solve8(A, b);
-    const H = [h[0],h[3],0,h[6], h[1],h[4],0,h[7], 0,0,1,0, h[2],h[5],0,1];
+    // Translation is shifted by the clip origin so the screen lands correctly inside the
+    // small screen-clip box (whose own origin is at clipOrigin in photo coords).
+    const H = [h[0],h[3],0,h[6], h[1],h[4],0,h[7], 0,0,1,0, h[2]-clipOrigin.x0, h[5]-clipOrigin.y0, 0, 1];
     screen.style.transform = 'matrix3d(' + H.join(',') + ')';
   }
   function fitPhoto() {
     const ph = document.getElementById('nu-photo'), inner = document.getElementById('nu-photo-inner');
-    if (ph && inner) inner.style.transform = 'scale(' + (ph.clientWidth / 1496) + ')';
+    if (ph && inner) inner.style.transform = 'scale(' + (ph.clientWidth / NW) + ')';
   }
 
   // ---- init ----
@@ -475,6 +506,7 @@
   paintScreen();
   loadPicker();
   updateCode();
+  placeClip();
   warpScreen();
   fitPhoto();
   window.addEventListener('resize', fitPhoto);

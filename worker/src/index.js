@@ -25,12 +25,24 @@ const STUDIOS = [
     ogPath: '/nova-og',
     canvasId: 'nova-canvas',
     loadingId: 'nova-loading',
-    ver: 6,
+    ver: 7,
     altName: 'Retroid Pocket Nova',
     card: { title: 'Nova<br>Colorway<br>Studio', sub: 'Design your<br>Retroid Pocket Nova' },
     buildConfig(p) {
+      // Real photo mode uses ?m=real&rc=<base36 digits>; illustrated uses ?c=<code>.
+      if (p.get('m') === 'real') {
+        const rc = p.get('rc') || '';
+        return /^[0-9a-z]{1,16}$/.test(rc) ? `m=real&rc=${rc}` : null;
+      }
       const c = p.get('c') || '';
       return /^[0-9a-z]{1,24}$/.test(c) ? `c=${c}` : null;
+    },
+    // Real mode composites the landscape front photo (nova-front); illustrated
+    // draws the square nova-canvas. Pick the right canvas + loading node per config.
+    ogTarget(cfg) {
+      return cfg.startsWith('m=real')
+        ? { canvasId: 'nova-front', loadingId: 'nova-real-loading', landscape: true }
+        : { canvasId: this.canvasId, loadingId: this.loadingId, landscape: false };
     },
   },
   {
@@ -90,6 +102,9 @@ export default {
 async function renderOg(studio, url, env, ctx) {
   const cfg = studio.buildConfig(url.searchParams);
   if (!cfg) return new Response('bad config', { status: 400 });
+  const target = studio.ogTarget
+    ? studio.ogTarget(cfg)
+    : { canvasId: studio.canvasId, loadingId: studio.loadingId, landscape: false };
 
   // Each config renders once, then serves from cache forever (config is immutable).
   const cache = caches.default;
@@ -104,7 +119,7 @@ async function renderOg(studio, url, env, ctx) {
     await page.setViewport({ width: 1280, height: 1400, deviceScaleFactor: 1 });
     await page.goto(`${url.origin}${studio.prefix}/?${cfg}`, { waitUntil: 'networkidle0', timeout: 25000 });
     // init() removes the loading node immediately before it composes the canvas.
-    await page.waitForFunction(`!document.getElementById('${studio.loadingId}')`, { timeout: 25000 });
+    await page.waitForFunction(`!document.getElementById('${target.loadingId}')`, { timeout: 25000 });
     // Build a 1200x900 branded card around the composed canvas: the device as a
     // rounded photo on the Leaf dark-green background, with the Leaf wordmark +
     // title alongside. Discord shows a full summary_large_image card (title +
@@ -121,8 +136,10 @@ async function renderOg(studio, url, env, ctx) {
         'display:flex;align-items:center;overflow:hidden;z-index:99999;' +
         "font-family:'Nunito',system-ui,-apple-system,sans-serif";
       // Transparent so a landscape device sits on the card bg, not a canvas fill.
-      cv.style.cssText =
-        'width:812px;height:812px;max-width:none;border-radius:30px;margin-left:44px;flex:0 0 auto;background:transparent';
+      // Real mode's front canvas is landscape (3:2), so let its height be intrinsic.
+      cv.style.cssText = opts.landscape
+        ? 'width:760px;height:auto;max-width:none;border-radius:24px;margin-left:44px;flex:0 0 auto;background:transparent'
+        : 'width:812px;height:812px;max-width:none;border-radius:30px;margin-left:44px;flex:0 0 auto;background:transparent';
       const panel = document.createElement('div');
       panel.style.cssText = 'margin-left:46px;display:flex;flex-direction:column';
       panel.innerHTML =
@@ -140,7 +157,7 @@ async function renderOg(studio, url, env, ctx) {
       const img = panel.querySelector('img');
       try { if (img && img.decode) await img.decode(); } catch (_) {}
       try { await document.fonts.ready; } catch (_) {}
-    }, { canvasId: studio.canvasId, origin: url.origin, title: studio.card.title, sub: studio.card.sub });
+    }, { canvasId: target.canvasId, landscape: target.landscape, origin: url.origin, title: studio.card.title, sub: studio.card.sub });
     const el = await page.$('#og-card');
     if (!el) throw new Error('card not built');
     const png = await el.screenshot({ type: 'png' }); // binary Uint8Array, no base64

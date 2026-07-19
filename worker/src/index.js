@@ -1,7 +1,7 @@
 import puppeteer from '@cloudflare/puppeteer';
 
-// Dynamic Open Graph for the colorway studios (Retroid Pocket Nova + TrimUI
-// Brick NextUI palettes).
+// Dynamic Open Graph for the colorway studios (Retroid Pocket Nova, Miniloong
+// Pocket 1, and TrimUI Brick NextUI palettes).
 //
 // leaf.game is static (GitHub Pages) and each colorway is drawn client-side from
 // the share link, so crawlers (Discord/Slack/iMessage) only see the generic Leaf
@@ -43,6 +43,26 @@ const STUDIOS = [
       return cfg.startsWith('m=real')
         ? { canvasId: 'nova-front', loadingId: 'nova-real-loading', landscape: true }
         : { canvasId: this.canvasId, loadingId: this.loadingId, landscape: false };
+    },
+  },
+  {
+    prefix: '/mlp1-colorways',
+    ogPath: '/mlp1-og',
+    canvasId: 'mlp1-canvas',
+    loadingId: 'mlp1-loading',
+    ver: 2,
+    altName: 'Miniloong Pocket 1',
+    card: { title: 'MLP1<br>Colorway<br>Studio', sub: 'Design your<br>Miniloong Pocket 1' },
+    buildConfig(p) {
+      const bd = p.get('bd'), fp = p.get('fp'), sc = p.get('sc');
+      const out = [];
+      if (['white', 'black', 'retro'].includes(bd)) out.push(`bd=${bd}`);
+      if (fp === 'siwelk') out.push('fp=siwelk');                    // hidden easter egg
+      else if (fp && /^[0-9a-fA-F]{6}$/.test(fp)) out.push(`fp=${fp.toLowerCase()}`);
+      const ft = p.get('ft');
+      if (ft !== null && /^\d+$/.test(ft) && +ft >= 0 && +ft <= 100) out.push(`ft=${+ft}`);
+      if (['off', 'aurknix', 'bloom', 'darkos', 'knulli', 'leaf'].includes(sc)) out.push(`sc=${sc}`);
+      return out.length ? out.join('&') : null;
     },
   },
   {

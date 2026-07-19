@@ -5,7 +5,12 @@
 // All assets live in /public/nova/. Orphan page; not linked from the docs sidebar.
 ---
 
-<div class="nova">
+<div class="nova-modebar" role="tablist" aria-label="Studio mode">
+  <button type="button" data-mode="real" role="tab">Real</button>
+  <button type="button" data-mode="illustrated" class="active" role="tab">Rendered</button>
+</div>
+
+<div class="nova" id="nova-illustrated">
   <div class="nova-stage">
     <canvas id="nova-canvas" width="2048" height="2048" aria-label="Retroid Pocket Nova colorway preview"></canvas>
     <p id="nova-loading" class="nova-loading">Loading renders…</p>
@@ -14,17 +19,63 @@
   <div class="nova-controls" id="nova-controls"></div>
 </div>
 
+<div class="nova" id="nova-real" hidden>
+  <div class="nova-stage nova-stage-real">
+    <div class="nova-view">
+      <p class="nova-viewlabel">Front</p>
+      <canvas id="nova-front" width="1500" height="1000" aria-label="Retroid Pocket Nova front photo preview"></canvas>
+    </div>
+    <div class="nova-view">
+      <p class="nova-viewlabel">Back</p>
+      <canvas id="nova-back" width="1500" height="1000" aria-label="Retroid Pocket Nova back photo preview"></canvas>
+    </div>
+    <div class="nova-view nova-view-3d" hidden>
+      <p class="nova-viewlabel">3D — drag to flip</p>
+      <canvas id="nova-3d" width="1500" height="1000" aria-label="Retroid Pocket Nova 3D flip preview"></canvas>
+    </div>
+    <p id="nova-real-loading" class="nova-loading">Loading photos…</p>
+    <p id="nova-real-summary" class="nova-summary"></p>
+  </div>
+  <div class="nova-controls" id="nova-real-controls"></div>
+</div>
+
 <style is:global>
+  .nova-modebar { display: grid; grid-template-columns: repeat(2, 7rem); gap: .6rem; width: max-content; margin: 1.25rem 0 1rem; }
+  .nova-modebar button {
+    width: 100%; height: 40px; box-sizing: border-box; margin: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 .5rem; border-radius: 8px; cursor: pointer; font: inherit;
+    font-weight: 600; line-height: 1.2; white-space: nowrap;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-gray-6); color: var(--sl-color-white);
+  }
+  .nova-modebar button.active { background: var(--sl-color-accent); border-color: var(--sl-color-accent); color: var(--sl-color-black); }
   .nova { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+  .nova[hidden] { display: none; }
+  .nova-stage-real { display: flex; flex-direction: column; gap: 1rem; }
+  .nova-view { display: flex; flex-direction: column; gap: .3rem; }
+  .nova-view[hidden] { display: none; }
+  .nova-view-3d canvas { touch-action: none; cursor: grab; }
+  .nova-view-3d canvas:active { cursor: grabbing; }
+  .nova-viewlabel { margin: 0; font-size: .72rem; letter-spacing: .09em; text-transform: uppercase;
+    font-weight: 700; color: var(--sl-color-gray-3); }
   .nova-stage { flex: 1 1 300px; min-width: 300px; position: relative; }
   .nova-stage canvas {
     width: 100%; height: auto; border-radius: 14px;
     box-shadow: 0 6px 28px rgba(0,0,0,.16);
     background: #f3f4f6;
   }
-  :global([data-theme='dark']) .nova-stage canvas {
+  [data-theme='dark'] .nova-stage canvas {
     box-shadow: 0 0 0 1px rgba(127,176,105,.18), 0 6px 28px rgba(127,176,105,.16);
     background: #11150f;
+  }
+  /* Real mode: a neutral studio spotlight behind the cut-out photos — brighter
+     behind the device, fading to a deeper edge. Kept color-neutral so it doesn't
+     bias how the colorway reads. */
+  .nova-stage-real canvas {
+    background: radial-gradient(115% 85% at 50% 38%, #ffffff 0%, #eef0f3 52%, #d9dde3 100%);
+  }
+  [data-theme='dark'] .nova-stage-real canvas {
+    background: radial-gradient(115% 85% at 50% 38%, #1b2117 0%, #131810 52%, #0b0e08 100%);
   }
   .nova-loading {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -67,6 +118,8 @@
 
 <script>
   const BASE = '/nova/';
+  let MODE = 'illustrated';   // 'illustrated' (stylized renders) | 'real' (product photos)
+  let illReady = false;       // illustrated assets loaded + first compose done
   const RENDERS = ['16_bit','black','clear','clear_purple','game_cube','ice_blue','watermelon'];
   const RLABEL = { '16_bit':'16 Bit', black:'Black', clear:'Clear', clear_purple:'Clear Purple',
                    game_cube:'Game Cube', ice_blue:'Ice Blue', watermelon:'Watermelon', retro:'Retro' };
@@ -180,6 +233,7 @@
     return SEL_KEYS.map(k => optsFor(k).indexOf(sel[k]).toString(36)).join('');
   }
   function updateURL() {
+    if (MODE !== 'illustrated') return;
     let q = 'c=' + shareCode();
     if (sel.screen) q += '&screen=' + sel.screen;   // secret; only present once unlocked
     history.replaceState(null, '', location.pathname + '?' + q);
@@ -193,6 +247,14 @@
   }
   function applyURL() {
     const p = new URLSearchParams(location.search);
+    if (p.get('m') === 'real') {
+      MODE = 'real';
+      const rc = p.get('rc');
+      if (rc) REAL_KEYS.forEach((k, i) => {
+        const opts = realOptsFor(k), idx = parseInt(rc[i] ?? '', 36);
+        if (idx >= 0 && idx < opts.length) rsel[k] = opts[idx];
+      });
+    }
     const code = p.get('c');
     if (code) {                                      // new compact form
       SEL_KEYS.forEach((k, i) => {
@@ -221,8 +283,7 @@
       `Body <b>${RLABEL[sel.body]}</b> · Back shell <b>${RLABEL[sel.back]}</b> · D-pad <b>${RLABEL[sel.dpad]}</b> · A/B/X/Y <b>${RLABEL[sel.abxy]}</b>`
       + ` · Select <b>${RLABEL[sel.func3]}</b> · Start <b>${RLABEL[sel.func1]}</b> · Home <b>${RLABEL[sel.func4]}</b> · Back <b>${RLABEL[sel.func2]}</b>`
       + ` · Sticks <b>${STICK_LABEL[sel.stick_left]}</b> (L) / <b>${STICK_LABEL[sel.stick_right]}</b> (R)`
-      + ` · Stick LEDs <b>${LED_LABEL[sel.led_left]}</b> (L) / <b>${LED_LABEL[sel.led_right]}</b> (R)`
-      + ` · Triggers <b>${TRIGGER_LABEL[sel.triggers]}</b>`;
+      + ` · Stick LEDs <b>${LED_LABEL[sel.led_left]}</b> (L) / <b>${LED_LABEL[sel.led_right]}</b> (R)`;
   }
 
   function field(key, label, options, labelFn) {
@@ -283,7 +344,6 @@
     c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
     c.appendChild(field('led_left', 'Left LED', LED_COLORS, (o) => LED_LABEL[o]));
     c.appendChild(field('led_right', 'Right LED', LED_COLORS, (o) => LED_LABEL[o]));
-    c.appendChild(field('triggers', 'Triggers', TRIGGER_COLORS, (o) => TRIGGER_LABEL[o]));
 
     const actions = document.createElement('div'); actions.className = 'nova-actions';
     const rand = document.createElement('button'); rand.textContent = 'Randomize'; rand.className = 'primary';
@@ -293,7 +353,6 @@
       BUTTON_KEYS.forEach(k => sel[k] = pick(BUTTON_OPTIONS));
       sel.stick_left = pick(STICK_COLORS); sel.stick_right = pick(STICK_COLORS);
       sel.led_left = pick(LED_COLORS); sel.led_right = pick(LED_COLORS);
-      sel.triggers = pick(TRIGGER_COLORS);
       syncSelects(); compose();
     });
     const reset = document.createElement('button'); reset.textContent = 'Reset';
@@ -326,9 +385,442 @@
     document.querySelectorAll('.nova-controls select').forEach(s => { s.value = sel[s.dataset.key]; });
   }
 
+  // ---- Realistic mode: composites the real product photos (1500x1000) ----
+  // Photos are camera-registered across all 7 colorways, so element masks cut from
+  // any colorway land in the same place on any body. Front on top, back below.
+  const REAL_BASE = BASE + 'real/';
+  const REAL_KEYS = ['body','back','dpad','abxy','func','stick_left','stick_right','led_left','led_right','screen'];
+  const REAL_OPTS = ['16','black','clear','purple','gc','blue','watermelon'];
+  const REAL_LABEL = { '16':'16 Bit', black:'Black', clear:'Clear', purple:'Clear Purple',
+                       gc:'Game Cube', blue:'Ice Blue', watermelon:'Watermelon' };
+  // front-face element masks: axis -> mask filename (four function buttons ship as one)
+  const REAL_MASK = { dpad:'dpadpng', abxy:'abxy', func:'fourbutton' };  // front elements cut per colorway
+  const REAL_BUTTON_KEYS = ['dpad','abxy','func'];  // the axes a "Single pack" collapses
+  // Sticks are a fixed 4-color set, not colorway-based: each color is cut from a
+  // specific photo + side, then translated to the target stick's position.
+  const STICK_MASK = { left:'leftstick', right:'rightstick' };
+  // STICK_COLORS / STICK_LABEL are shared with the illustrated studio (identical).
+  // Only the source photo/side map differs (real photo keys vs render keys).
+  const REAL_STICK_SRC = {
+    gray:   { render:'16',    side:'same'  },
+    black:  { render:'black', side:'right' },
+    white:  { render:'gc',    side:'left'  },
+    yellow: { render:'gc',    side:'right' },
+  };
+  const STICK_CENTER = { left:{ x:333, y:586 }, right:{ x:1161, y:583 } };
+  // Per-stick RGB LED ring accents (masks/leftled|rightled.png). Reuses the
+  // illustrated LED_COLORS/LED_LABEL/LED_HEX palette; filled + soft additive glow.
+  const LED_MASK = { left:'leftled', right:'rightled' };
+  const REAL_LED_GLOW = 18;   // outward glow radius at 1500px
+  // Optional on-screen branding (retroid_leaf.png) fitted into the screen area.
+  const SCREEN_OPTS = ['off','leaf'];
+  const SCREEN_LABEL = { off:'Off', leaf:'Retroid Leaf' };
+  const SCREEN_BBOX = { x:449, y:288, w:598, h:447 };
+  const SCREEN_FILL = '#2b2d31';   // slightly-dark gray so the panel reads vs black bezel
+  const rsel = { body:'16', back:'16', dpad:'16', abxy:'16', func:'16',
+                 stick_left:'gray', stick_right:'gray',
+                 led_left:'off', led_right:'off', screen:'leaf' };
+  const RF = {}, RB = {}, RM = {};   // front photos, back photos, element masks
+  let RLEAF = null;                  // on-screen Retroid-leaf logo
+  let realReady = false, realLoading = false;
+  const rfront = document.getElementById('nova-front');
+  const rback  = document.getElementById('nova-back');
+  const rfctx = rfront.getContext('2d');
+  const rbctx = rback.getContext('2d');
+  const roff = document.createElement('canvas'); roff.width = 1500; roff.height = 1000;
+  const roctx = roff.getContext('2d');
+  // 3D flip view: a custom canvas renderer that turns the composited front/back
+  // canvases into a drag-to-rotate card with a rim-sampled two-tone edge.
+  const c3d = document.getElementById('nova-3d');
+  const c3dctx = c3d ? c3d.getContext('2d') : null;
+  const scr3 = document.createElement('canvas'); scr3.width = 1500; scr3.height = 1000;
+  const sc3 = scr3.getContext('2d');
+  const scr4 = document.createElement('canvas'); scr4.width = 1500; scr4.height = 1000;
+  const sc4 = scr4.getContext('2d');
+  const REAL_3D_THICKNESS = 90;                  // fake slab thickness in canvas px
+  const RIM_FRONT = {}, RIM_BACK = {};           // cached rim colors per colorway
+  let real3d = false, rot3d = 0, drag3d = false, dragX0 = 0, dragR0 = 0, raf3d = 0;
+
+  function rDrawMasked(tctx, maskImg, photoImg) {
+    if (!maskImg || !photoImg) return;
+    roctx.globalCompositeOperation = 'source-over';
+    roctx.clearRect(0,0,1500,1000);
+    roctx.drawImage(maskImg, 0,0);
+    roctx.globalCompositeOperation = 'source-in';
+    roctx.drawImage(photoImg, 0,0);
+    tctx.drawImage(roff, 0,0);
+  }
+  // Cut a stick cap from its source photo/side and place it under the target
+  // side's mask, translating when source and target sides differ.
+  function rDrawStick(side, color) {
+    const s = REAL_STICK_SRC[color];
+    if (!RM[STICK_MASK[side]] || !RF[s.render]) return;
+    const srcSide = s.side === 'same' ? side : s.side;
+    const dc = STICK_CENTER[side], sc = STICK_CENTER[srcSide];
+    roctx.globalCompositeOperation = 'source-over';
+    roctx.clearRect(0,0,1500,1000);
+    roctx.drawImage(RM[STICK_MASK[side]], 0,0);
+    roctx.globalCompositeOperation = 'source-in';
+    roctx.drawImage(RF[s.render], dc.x - sc.x, dc.y - sc.y);
+    rfctx.drawImage(roff, 0,0);
+  }
+  // Fill a stick's LED ring accent with the chosen color plus a soft additive glow.
+  function rDrawLED(side, color) {
+    if (color === 'off' || !RM[LED_MASK[side]]) return;
+    roctx.globalCompositeOperation = 'source-over';
+    roctx.clearRect(0,0,1500,1000);
+    roctx.drawImage(RM[LED_MASK[side]], 0,0);      // ring mask
+    roctx.globalCompositeOperation = 'source-in';
+    roctx.fillStyle = LED_HEX[color];
+    roctx.fillRect(0,0,1500,1000);                 // ring filled with LED color
+    rfctx.save();
+    rfctx.globalCompositeOperation = 'lighter';    // additive bloom
+    rfctx.globalAlpha = 0.9;
+    rfctx.shadowColor = LED_HEX[color];
+    rfctx.shadowBlur = REAL_LED_GLOW;
+    rfctx.drawImage(roff, 0,0);
+    rfctx.restore();
+    rfctx.drawImage(roff, 0,0);                     // crisp ring on top
+  }
+  // Fit the Retroid-leaf logo into the screen area (contain, 80%), clipped to the
+  // screen mask so it can't spill onto the bezel.
+  function rDrawScreen() {
+    if (!RM.screen) return;
+    // Fill the panel with a slightly-dark gray (not pure black) so the screen's
+    // real dimensions read against the bezel.
+    roctx.globalCompositeOperation = 'source-over';
+    roctx.clearRect(0,0,1500,1000);
+    roctx.drawImage(RM.screen, 0,0);
+    roctx.globalCompositeOperation = 'source-in';
+    roctx.fillStyle = SCREEN_FILL;
+    roctx.fillRect(0,0,1500,1000);
+    rfctx.drawImage(roff, 0,0);
+    // Optional Retroid-leaf logo on top, fitted + centered, clipped to the screen.
+    if (rsel.screen === 'leaf' && RLEAF) {
+      const b = SCREEN_BBOX;
+      const scale = Math.min(b.w / RLEAF.width, b.h / RLEAF.height) * 0.8;
+      const w = RLEAF.width * scale, h = RLEAF.height * scale;
+      const x = b.x + (b.w - w) / 2, y = b.y + (b.h - h) / 2;
+      roctx.globalCompositeOperation = 'source-over';
+      roctx.clearRect(0,0,1500,1000);
+      roctx.drawImage(RM.screen, 0,0);
+      roctx.globalCompositeOperation = 'source-in';
+      roctx.drawImage(RLEAF, x, y, w, h);
+      rfctx.drawImage(roff, 0,0);
+    }
+  }
+  function realCompose() {
+    if (!realReady || !RF[rsel.body] || !RB[rsel.back]) return;
+    rfctx.clearRect(0,0,1500,1000);
+    rfctx.drawImage(RF[rsel.body], 0,0);
+    rDrawScreen();
+    Object.keys(REAL_MASK).forEach(axis => rDrawMasked(rfctx, RM[REAL_MASK[axis]], RF[rsel[axis]]));
+    rDrawStick('left', rsel.stick_left);
+    rDrawStick('right', rsel.stick_right);
+    rDrawLED('left', rsel.led_left);
+    rDrawLED('right', rsel.led_right);
+    rbctx.clearRect(0,0,1500,1000);
+    rbctx.drawImage(RB[rsel.back], 0,0);
+    realSummary();
+    writeRealURL();
+    if (real3d) render3d();
+  }
+  function realSummary() {
+    const el = document.getElementById('nova-real-summary');
+    if (el) el.innerHTML =
+      `Body <b>${REAL_LABEL[rsel.body]}</b> · Back shell <b>${REAL_LABEL[rsel.back]}</b>`
+      + ` · D-pad <b>${REAL_LABEL[rsel.dpad]}</b> · A/B/X/Y <b>${REAL_LABEL[rsel.abxy]}</b>`
+      + ` · Function buttons <b>${REAL_LABEL[rsel.func]}</b>`
+      + ` · Sticks <b>${STICK_LABEL[rsel.stick_left]}</b> (L) / <b>${STICK_LABEL[rsel.stick_right]}</b> (R)`
+      + ` · LEDs <b>${LED_LABEL[rsel.led_left]}</b> (L) / <b>${LED_LABEL[rsel.led_right]}</b> (R)`
+      + ` · Screen <b>${SCREEN_LABEL[rsel.screen]}</b>`;
+  }
+  function realOptsFor(k) {
+    return k.startsWith('stick_') ? STICK_COLORS
+         : k.startsWith('led_')   ? LED_COLORS
+         : k === 'screen'         ? SCREEN_OPTS
+         : REAL_OPTS;
+  }
+  function realShareCode() {
+    return REAL_KEYS.map(k => realOptsFor(k).indexOf(rsel[k]).toString(36)).join('');
+  }
+  function writeRealURL() {
+    if (MODE !== 'real') return;
+    history.replaceState(null, '', location.pathname + '?m=real&rc=' + realShareCode());
+  }
+  function realField(key, label, options = REAL_OPTS, labelFn = (o) => REAL_LABEL[o]) {
+    const wrap = document.createElement('div'); wrap.className = 'nova-field';
+    const lab = document.createElement('label'); lab.textContent = label;
+    const s = document.createElement('select'); s.dataset.rkey = key;
+    options.forEach(o => { const op = document.createElement('option');
+      op.value = o; op.textContent = labelFn(o); if (o === rsel[key]) op.selected = true; s.appendChild(op); });
+    s.addEventListener('change', () => { rsel[key] = s.value; realCompose(); });
+    wrap.appendChild(lab); wrap.appendChild(s);
+    return wrap;
+  }
+  function realSyncSelects() {
+    document.querySelectorAll('#nova-real-controls select').forEach(s => { s.value = rsel[s.dataset.rkey]; });
+  }
+  function realBuildControls() {
+    const c = document.getElementById('nova-real-controls');
+
+    // 3D flip toggle — combines front + back into one drag-to-rotate view.
+    const d3Row = document.createElement('div'); d3Row.className = 'nova-field';
+    const d3Lab = document.createElement('label'); d3Lab.textContent = '3D view';
+    const d3Cb = document.createElement('input'); d3Cb.type = 'checkbox'; d3Cb.className = 'nova-pack-cb';
+    d3Cb.addEventListener('change', () => set3d(d3Cb.checked));
+    d3Row.appendChild(d3Lab); d3Row.appendChild(d3Cb);
+    c.appendChild(d3Row);
+
+    c.appendChild(realField('body', 'Body'));
+    c.appendChild(realField('back', 'Back shell'));
+
+    // D-pad / A/B/X/Y / Function normally ship as ONE pack -> a "Single pack"
+    // checkbox collapses their three dropdowns into one that sets them together.
+    const packRow = document.createElement('div'); packRow.className = 'nova-field';
+    const packCbLab = document.createElement('label'); packCbLab.textContent = 'Single pack';
+    const packCb = document.createElement('input'); packCb.type = 'checkbox'; packCb.className = 'nova-pack-cb';
+    packRow.appendChild(packCbLab); packRow.appendChild(packCb);
+    c.appendChild(packRow);
+
+    const members = [
+      realField('dpad', 'D-pad'),
+      realField('abxy', 'A/B/X/Y'),
+      realField('func', 'Function'),
+    ];
+    members.forEach(f => c.appendChild(f));
+
+    const packField = document.createElement('div'); packField.className = 'nova-field'; packField.style.display = 'none';
+    const packLab = document.createElement('label'); packLab.textContent = 'Single Pack';
+    const packSel = document.createElement('select'); packSel.dataset.rkey = 'abxy';
+    REAL_OPTS.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = REAL_LABEL[o]; packSel.appendChild(op); });
+    packSel.addEventListener('change', () => { REAL_BUTTON_KEYS.forEach(k => rsel[k] = packSel.value); realSyncSelects(); realCompose(); });
+    packField.appendChild(packLab); packField.appendChild(packSel);
+    c.appendChild(packField);
+
+    packCb.addEventListener('change', () => {
+      if (packCb.checked) {
+        REAL_BUTTON_KEYS.forEach(k => rsel[k] = rsel.abxy);
+        members.forEach(f => f.style.display = 'none'); packField.style.display = '';
+        realSyncSelects(); realCompose();
+      } else {
+        members.forEach(f => f.style.display = ''); packField.style.display = 'none';
+      }
+    });
+
+    c.appendChild(realField('stick_left', 'Left stick', STICK_COLORS, (o) => STICK_LABEL[o]));
+    c.appendChild(realField('stick_right', 'Right stick', STICK_COLORS, (o) => STICK_LABEL[o]));
+    c.appendChild(realField('led_left', 'Left LED', LED_COLORS, (o) => LED_LABEL[o]));
+    c.appendChild(realField('led_right', 'Right LED', LED_COLORS, (o) => LED_LABEL[o]));
+    c.appendChild(realField('screen', 'Screen', SCREEN_OPTS, (o) => SCREEN_LABEL[o]));
+
+    const actions = document.createElement('div'); actions.className = 'nova-actions';
+    const rand = document.createElement('button'); rand.type = 'button'; rand.textContent = 'Randomize'; rand.className = 'primary';
+    rand.addEventListener('click', () => {
+      const pick = (a) => a[Math.floor(Math.random()*a.length)];
+      REAL_KEYS.forEach(k => rsel[k] = pick(realOptsFor(k)));
+      realSyncSelects(); realCompose();
+    });
+    const reset = document.createElement('button'); reset.type = 'button'; reset.textContent = 'Reset';
+    reset.addEventListener('click', () => {
+      REAL_KEYS.forEach(k => rsel[k] =
+        k.startsWith('stick_') ? 'gray'
+        : k.startsWith('led_') ? 'off'
+        : k === 'screen'       ? 'leaf'
+        : '16');
+      realSyncSelects(); realCompose();
+    });
+    actions.appendChild(rand); actions.appendChild(reset);
+    c.appendChild(actions);
+
+    const share = document.createElement('button'); share.type = 'button'; share.className = 'nova-share';
+    share.textContent = 'Copy share link';
+    share.addEventListener('click', async () => {
+      writeRealURL();
+      const url = location.href;
+      try { await navigator.clipboard.writeText(url); }
+      catch (e) {
+        const t = document.createElement('textarea'); t.value = url; document.body.appendChild(t);
+        t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove();
+      }
+      share.textContent = 'Link copied!';
+      clearTimeout(share._t); share._t = setTimeout(() => { share.textContent = 'Copy share link'; }, 1600);
+    });
+    c.appendChild(share);
+  }
+  async function realEnsure() {
+    if (realReady || realLoading) return;
+    realLoading = true;
+    try {
+      await Promise.all([
+        ...REAL_OPTS.map(async n => { RF[n] = await load(`${REAL_BASE}front/${n}.png`); }),
+        ...REAL_OPTS.map(async n => { RB[n] = await load(`${REAL_BASE}back/${n}.png`); }),
+        ...Object.values(REAL_MASK).concat(Object.values(STICK_MASK), Object.values(LED_MASK), ['screen'])
+            .map(async m => { RM[m] = await load(`${REAL_BASE}masks/${m}.png`); }),
+        (async () => { RLEAF = await load(`${REAL_BASE}retroid_leaf.png`); })(),
+      ]);
+      realReady = true;
+      const l = document.getElementById('nova-real-loading'); if (l) l.remove();
+      realSyncSelects();
+      realCompose();
+    } catch (e) {
+      const l = document.getElementById('nova-real-loading'); if (l) l.textContent = 'Could not load photos.';
+      console.error(e);
+    } finally { realLoading = false; }
+  }
+
+  // Average the shell color just inside a composited face's outline (both sides,
+  // every other row) to get a representative rim color for the two-tone edge.
+  const clamp3 = (v,a,b) => Math.max(a, Math.min(b, v));
+  function computeRim(faceCanvas) {
+    sc3.clearRect(0,0,1500,1000); sc3.drawImage(faceCanvas, 0,0);
+    const d = sc3.getImageData(0,0,1500,1000).data;
+    let r=0,g=0,b=0,n=0; const INSET = 6;
+    for (let y=0; y<1000; y+=2) {
+      let lx=-1, rx=-1;
+      for (let x=0; x<1500; x++) { if (d[(y*1500+x)*4+3] > 128) { lx=x; break; } }
+      if (lx < 0) continue;
+      for (let x=1499; x>=0; x--) { if (d[(y*1500+x)*4+3] > 128) { rx=x; break; } }
+      for (const sx of [Math.min(lx+INSET,1499), Math.max(rx-INSET,0)]) {
+        const i=(y*1500+sx)*4; if (d[i+3] > 128) { r+=d[i]; g+=d[i+1]; b+=d[i+2]; n++; }
+      }
+    }
+    if (!n) return { r:40, g:40, b:44 };
+    return { r:Math.round(r/n), g:Math.round(g/n), b:Math.round(b/n) };
+  }
+  function rimFront() { return RIM_FRONT[rsel.body] || (RIM_FRONT[rsel.body] = computeRim(rfront)); }
+  function rimBack()  { return RIM_BACK[rsel.back]  || (RIM_BACK[rsel.back]  = computeRim(rback)); }
+
+  // Device silhouette horizontal bounds within the 1500-wide face frame.
+  const DEV_L = 205, DEV_R = 1291;
+  const DEV_HALF = (DEV_R - DEV_L)/2, DEV_CX = (DEV_L + DEV_R)/2;
+  const DEV_T = 244, DEV_B = 782;   // device vertical bounds (for the edge corner-taper)
+  const DCAM = 2400;             // camera distance in px — smaller = stronger perspective
+  const FACE_STRIPS = 36;
+  const proj3 = (xw, zw, cx) => { const s = DCAM/(DCAM - zw); return { X: cx + xw*s, s }; };
+  // Draw a source image as the device plane at depth `zPlane`, in Y-axis perspective:
+  // each vertical strip is scaled in width AND height by its depth (near = larger).
+  // shiftX offsets the whole plane horizontally (used to smear the side wall).
+  function faceStrips(src, zPlane, C, S, frontVis, cx, shiftX) {
+    const H = 1000; shiftX = shiftX || 0;
+    for (let i=0; i<FACE_STRIPS; i++) {
+      const lx0 = -DEV_HALF + 2*DEV_HALF*i/FACE_STRIPS, lx1 = -DEV_HALF + 2*DEV_HALF*(i+1)/FACE_STRIPS;
+      const srcSign = frontVis ? 1 : -1;                 // mirror source for the back
+      const sx0 = DEV_CX + srcSign*lx0, sx1 = DEV_CX + srcSign*lx1;
+      const P0 = proj3(lx0*C + zPlane*S, -lx0*S + zPlane*C, cx);
+      const P1 = proj3(lx1*C + zPlane*S, -lx1*S + zPlane*C, cx);
+      const a = Math.min(P0.X, P1.X), b = Math.max(P0.X, P1.X);
+      const pm = (P0.s + P1.s)/2, dh = H*pm, dy = (H - dh)/2;
+      if (b - a < 0.01) continue;
+      // widen each strip by ~1px so neighbors overlap — hides sub-pixel seams
+      c3dctx.drawImage(src, Math.min(sx0,sx1), 0, Math.abs(sx1-sx0), H, a+shiftX-0.5, dy, (b-a)+1, dh);
+    }
+  }
+  // Paint a solid, corner-tapered silhouette of the device in one rim color.
+  function buildTint(ctx, face, rim) {
+    const W=1500, H=1000;
+    ctx.clearRect(0,0,W,H); ctx.drawImage(face, 0,0);
+    ctx.globalCompositeOperation = 'source-in';
+    ctx.fillStyle = `rgb(${rim.r},${rim.g},${rim.b})`; ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'destination-in';    // taper into the rounded corners
+    const g = ctx.createLinearGradient(0, DEV_T, 0, DEV_B);
+    g.addColorStop(0, 'rgba(0,0,0,0)');   g.addColorStop(0.15, 'rgba(0,0,0,1)');
+    g.addColorStop(0.85, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, DEV_T, W, DEV_B - DEV_T);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  // Perspective render of a Y-axis flip. The side wall is a SOLID two-tone band —
+  // the tinted silhouette smeared from the near face outward on the near side — so
+  // the thickness reads boldly at any angle. Outer half = far shell, inner = near.
+  function render3d() {
+    if (!c3dctx || !realReady) return;
+    const W=1500, H=1000, cx=W/2;
+    const rad = rot3d*Math.PI/180, C = Math.cos(rad), S = Math.sin(rad), s = Math.abs(S);
+    const frontVis = C >= 0, face = frontVis ? rfront : rback;
+    const zf = frontVis ? REAL_3D_THICKNESS/2 : -REAL_3D_THICKNESS/2;
+    c3dctx.clearRect(0,0,W,H);
+    if (s > 0.01) {
+      const adj = frontVis ? rimFront() : rimBack();     // touches the visible face
+      const out = frontVis ? rimBack()  : rimFront();    // far shell
+      buildTint(sc4, face, adj);
+      buildTint(sc3, face, out);
+      const STEPS = 18;                                   // solid wall smeared through depth
+      for (let k=STEPS; k>=0; k--) {                      // far plane first, near last
+        const t = k/STEPS;                               // 1 = far (-zf), 0 = near (zf)
+        const z = zf - t*2*zf;
+        faceStrips(t > 0.5 ? scr3 : scr4, z, C, S, frontVis, cx, 0);
+      }
+    }
+    faceStrips(face, zf, C, S, frontVis, cx, 0);         // real near face on top
+    if (s > 0.02) {
+      c3dctx.save();
+      c3dctx.globalCompositeOperation = 'source-atop';
+      c3dctx.fillStyle = `rgba(0,0,0,${0.24*s})`;
+      c3dctx.fillRect(0,0,W,H);
+      c3dctx.restore();
+    }
+  }
+  function animate3d(goal, onDone) {
+    const start = rot3d, t0 = performance.now(), dur = 300;
+    const step = (now) => {
+      const k = Math.min(1, (now - t0)/dur), e = 1 - Math.pow(1-k, 3);
+      rot3d = start + (goal - start)*e; render3d();
+      if (k < 1) raf3d = requestAnimationFrame(step); else if (onDone) onDone();
+    };
+    cancelAnimationFrame(raf3d); raf3d = requestAnimationFrame(step);
+  }
+  const REST3D = 20;             // resting tilt so the thickness stays visible at rest
+  function snap3d() {
+    const m = ((rot3d % 360) + 360) % 360;   // 0..360
+    const target = m < 90 ? REST3D : m < 180 ? 180 - REST3D : m < 270 ? 180 + REST3D : 360 - REST3D;
+    animate3d(target);
+  }
+  function nudge3d() { animate3d(40, () => animate3d(REST3D)); }   // bounce out, then settle
+  function set3d(on) {
+    real3d = on;
+    document.querySelectorAll('#nova-real .nova-view').forEach(v => {
+      const is3d = v.classList.contains('nova-view-3d');
+      v.hidden = on ? !is3d : is3d;
+    });
+    if (on) { rot3d = 0; render3d(); nudge3d(); }   // flat, then bounce to the resting tilt
+  }
+  function d3Down(e) {
+    if (!real3d) return;
+    drag3d = true; dragX0 = e.clientX; dragR0 = rot3d;
+    cancelAnimationFrame(raf3d);
+    try { c3d.setPointerCapture(e.pointerId); } catch (_) {}
+  }
+  function d3Move(e) {
+    if (!drag3d) return;
+    const rw = c3d.getBoundingClientRect().width || 1;
+    rot3d = clamp3(dragR0 + (e.clientX - dragX0)/rw*180, -200, 200);
+    render3d();
+  }
+  function d3Up() { if (!drag3d) { return; } drag3d = false; snap3d(); }
+
+  function setMode(m) {
+    MODE = m;
+    document.getElementById('nova-illustrated').hidden = (m !== 'illustrated');
+    document.getElementById('nova-real').hidden = (m !== 'real');
+    document.querySelectorAll('.nova-modebar button').forEach(b =>
+      b.classList.toggle('active', b.dataset.mode === m));
+    if (m === 'real') { writeRealURL(); realEnsure(); if (realReady) { realSyncSelects(); realCompose(); } }
+    else if (illReady) compose();
+    else updateURL();
+  }
+
   async function init() {
     applyURL();
     buildControls();
+    realBuildControls();
+    document.querySelectorAll('.nova-modebar button').forEach(b =>
+      b.addEventListener('click', () => setMode(b.dataset.mode)));
+    if (c3d) {
+      c3d.addEventListener('pointerdown', d3Down);
+      window.addEventListener('pointermove', d3Move);
+      window.addEventListener('pointerup', d3Up);
+    }
+    setMode(MODE);
     try {
       await Promise.all([
         ...RENDERS.map(async n => { R[n] = await load(`${BASE}${n}.jpg`); }),
@@ -336,6 +828,7 @@
         ...ELEMENT_MASKS.map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
         ...['leds_left','leds_right'].map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
       ]);
+      illReady = true;
       document.getElementById('nova-loading').remove();
       compose();
       ensureScreen();

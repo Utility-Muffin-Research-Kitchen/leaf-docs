@@ -13,6 +13,6 @@ browser = { binding = "BROWSER" }
 routes = [
   { pattern = "leaf.game/nova-colorways*", zone_name = "leaf.game" },
   { pattern = "leaf.game/nova-og*", zone_name = "leaf.game" },
-  { pattern = "leaf.game/mlp1-colorways*", zone_name = "leaf.game" },
-  { pattern = "leaf.game/mlp1-og*", zone_name = "leaf.game" },
+  { pattern = "leaf.game/nextui-palettes*", zone_name = "leaf.game" },
+  { pattern = "leaf.game/nextui-og*", zone_name = "leaf.game" },
 ]

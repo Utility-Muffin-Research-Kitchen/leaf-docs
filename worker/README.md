@@ -7,7 +7,7 @@ origin and, for a studio link that carries a valid config, rewrites `og:image`
 to a rendered picture of that exact build. It serves two studios:
 
 - **Nova** — `/nova-colorways?c=<code>` → `/nova-og?c=<code>`
-- **MLP1** — `/mlp1-colorways?bd=&fp=&sc=` → `/mlp1-og?bd=&fp=&sc=`
+- **NextUI** — `/nextui-palettes?t=<hex>` → `/nextui-og?t=<hex>`
 
 Everything else — the rest of the site, and a bare studio link with no config —
 passes through untouched and keeps the Leaf banner. Add another studio by
@@ -43,8 +43,8 @@ The routes and the `browser` binding attach automatically from `wrangler.toml`.
 ```sh
 curl -sI "https://leaf.game/nova-og?c=0015555550000"          # -> content-type: image/png
 curl -s  "https://leaf.game/nova-colorways/?c=0015555550000" | grep og:image
-curl -sI "https://leaf.game/mlp1-og?bd=white&fp=22c3a6&sc=leaf"        # -> content-type: image/png
-curl -s  "https://leaf.game/mlp1-colorways/?bd=white&fp=22c3a6&sc=leaf" | grep og:image
+curl -sI "https://leaf.game/nextui-og?t=ffffffff9b2257ff1e2329ffffffffff000000ffffffffff14315eff31d0ffff31d0ffff"  # -> content-type: image/png
+curl -s  "https://leaf.game/nextui-palettes/?t=ffffffff9b2257ff1e2329ffffffffff000000ffffffffff14315eff31d0ffff31d0ffff" | grep og:image
 ```
 
 Then paste a share link in Discord — the embed shows the built device. Each

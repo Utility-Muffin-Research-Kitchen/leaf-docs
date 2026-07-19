@@ -1,7 +1,7 @@
 import puppeteer from '@cloudflare/puppeteer';
 
-// Dynamic Open Graph for the colorway studios (Retroid Pocket Nova + Miniloong
-// Pocket 1).
+// Dynamic Open Graph for the colorway studios (Retroid Pocket Nova + TrimUI
+// Brick NextUI palettes).
 //
 // leaf.game is static (GitHub Pages) and each colorway is drawn client-side from
 // the share link, so crawlers (Discord/Slack/iMessage) only see the generic Leaf
@@ -46,23 +46,37 @@ const STUDIOS = [
     },
   },
   {
-    prefix: '/mlp1-colorways',
-    ogPath: '/mlp1-og',
-    canvasId: 'mlp1-canvas',
-    loadingId: 'mlp1-loading',
-    ver: 2,
-    altName: 'Miniloong Pocket 1',
-    card: { title: 'MLP1<br>Colorway<br>Studio', sub: 'Design your<br>Miniloong Pocket 1' },
+    prefix: '/nextui-palettes',
+    ogPath: '/nextui-og',
+    ver: 1,
+    altName: 'TrimUI Brick NextUI',
+    ogAlt: 'A NextUI color palette on the TrimUI Brick',
+    card: { title: 'NextUI<br>Palette<br>Studio', sub: 'Design your<br>TrimUI Brick theme' },
     buildConfig(p) {
-      const bd = p.get('bd'), fp = p.get('fp'), sc = p.get('sc');
-      const out = [];
-      if (['white', 'black', 'retro'].includes(bd)) out.push(`bd=${bd}`);
-      if (fp === 'siwelk') out.push('fp=siwelk');                    // hidden easter egg
-      else if (fp && /^[0-9a-fA-F]{6}$/.test(fp)) out.push(`fp=${fp.toLowerCase()}`);
-      const ft = p.get('ft');
-      if (ft !== null && /^\d+$/.test(ft) && +ft >= 0 && +ft <= 100) out.push(`ft=${+ft}`);
-      if (['off', 'aurknix', 'bloom', 'darkos', 'knulli', 'leaf'].includes(sc)) out.push(`sc=${sc}`);
-      return out.length ? out.join('&') : null;
+      // Share links carry ?t=<56..72 hex> (7 theme colors + 2 cosmetic LEDs) and
+      // an optional ?n=<name>. Validate against the studio's own applyURL rules.
+      const t = (p.get('t') || '').toLowerCase();
+      if (!/^([0-9a-f]{8}){7,9}$/.test(t)) return null;
+      let out = `t=${t}`;
+      const n = p.get('n');
+      if (n) out += `&n=${encodeURIComponent(n.slice(0, 40))}`;
+      return out;
+    },
+    // The studio composites the live screen onto the device photo (an HTML tree,
+    // not a canvas). Screenshot the whole photo element; wait for the brick photo
+    // to load and fitPhoto() to place the inner layer; size it for the card and
+    // fire a resize so fitPhoto() rescales to the card width.
+    ogTarget() {
+      return {
+        canvasId: 'nu-photo',
+        landscape: true,
+        readyExpr:
+          "!!(()=>{const i=document.querySelector('.nu-photo-img'),n=document.getElementById('nu-photo-inner');" +
+          'return i&&i.complete&&i.naturalWidth>0&&n&&n.style.transform})()',
+        cvStyle:
+          'width:760px;height:572px;max-width:none;position:relative;overflow:hidden;' +
+          'border-radius:24px;margin-left:44px;flex:0 0 auto;background:transparent',
+      };
     },
   },
 ];
@@ -89,7 +103,7 @@ export default {
       return new HTMLRewriter()
         .on('meta[property="og:image"]', new SetContent(img))
         .on('meta[name="twitter:image"]', new SetContent(img))
-        .on('meta[property="og:image:alt"]', new SetContent(`${pageStudio.altName} colorway`))
+        .on('meta[property="og:image:alt"]', new SetContent(pageStudio.ogAlt || `${pageStudio.altName} colorway`))
         .on('meta[property="og:image:width"]', new SetContent('1200'))
         .on('meta[property="og:image:height"]', new SetContent('900'))
         .transform(res);
@@ -118,8 +132,10 @@ async function renderOg(studio, url, env, ctx) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 1400, deviceScaleFactor: 1 });
     await page.goto(`${url.origin}${studio.prefix}/?${cfg}`, { waitUntil: 'networkidle0', timeout: 25000 });
-    // init() removes the loading node immediately before it composes the canvas.
-    await page.waitForFunction(`!document.getElementById('${target.loadingId}')`, { timeout: 25000 });
+    // Wait for the studio to finish composing: a custom readiness expression when
+    // the target defines one, else the loading node being removed by init().
+    const ready = target.readyExpr || `!document.getElementById('${target.loadingId}')`;
+    await page.waitForFunction(ready, { timeout: 25000 });
     // Build a 1200x900 branded card around the composed canvas: the device as a
     // rounded photo on the Leaf dark-green background, with the Leaf wordmark +
     // title alongside. Discord shows a full summary_large_image card (title +
@@ -136,8 +152,11 @@ async function renderOg(studio, url, env, ctx) {
         'display:flex;align-items:center;overflow:hidden;z-index:99999;' +
         "font-family:'Nunito',system-ui,-apple-system,sans-serif";
       // Transparent so a landscape device sits on the card bg, not a canvas fill.
-      // Real mode's front canvas is landscape (3:2), so let its height be intrinsic.
-      cv.style.cssText = opts.landscape
+      // A target may supply its own sizing (e.g. an HTML photo tree that needs an
+      // explicit height); otherwise fall back to the canvas landscape/square sizes.
+      cv.style.cssText = opts.cvStyle
+        ? opts.cvStyle
+        : opts.landscape
         ? 'width:760px;height:auto;max-width:none;border-radius:24px;margin-left:44px;flex:0 0 auto;background:transparent'
         : 'width:812px;height:812px;max-width:none;border-radius:30px;margin-left:44px;flex:0 0 auto;background:transparent';
       const panel = document.createElement('div');
@@ -154,10 +173,16 @@ async function renderOg(studio, url, env, ctx) {
       wrap.appendChild(cv);
       wrap.appendChild(panel);
       document.body.appendChild(wrap);
+      // If the target sized itself, the studio's resize handler (fitPhoto) must
+      // rescale the composited layer to the new width before we screenshot.
+      if (opts.cvStyle) {
+        window.dispatchEvent(new Event('resize'));
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      }
       const img = panel.querySelector('img');
       try { if (img && img.decode) await img.decode(); } catch (_) {}
       try { await document.fonts.ready; } catch (_) {}
-    }, { canvasId: target.canvasId, landscape: target.landscape, origin: url.origin, title: studio.card.title, sub: studio.card.sub });
+    }, { canvasId: target.canvasId, landscape: target.landscape, cvStyle: target.cvStyle, origin: url.origin, title: studio.card.title, sub: studio.card.sub });
     const el = await page.$('#og-card');
     if (!el) throw new Error('card not built');
     const png = await el.screenshot({ type: 'png' }); // binary Uint8Array, no base64

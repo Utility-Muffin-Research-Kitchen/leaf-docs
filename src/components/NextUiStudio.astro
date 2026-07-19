@@ -366,9 +366,18 @@
   }
   function updateCode() { codeEl.textContent = themeText(); }
   function shareCode() { return ALL.map(e => packHex(state[e.key])).join(''); }
+  function shareQuery() {
+    return 't=' + shareCode() + (name && name !== 'Custom' ? '&n=' + encodeURIComponent(name) : '');
+  }
   function updateURL() {
-    const q = 't=' + shareCode() + (name && name !== 'Custom' ? '&n=' + encodeURIComponent(name) : '');
-    history.replaceState(null, '', location.pathname + '?' + q);
+    history.replaceState(null, '', location.pathname + '?' + shareQuery());
+  }
+  // Kick off the Open Graph render the moment a link is copied, so the image is
+  // cached by the time it's pasted. A config's first render is a ~12s browser
+  // cold-start; warming it here front-loads that into the copy->paste gap.
+  // Fire-and-forget; no-ops in dev/preview where the worker route doesn't exist.
+  function warmOg() {
+    try { fetch('/nextui-og?' + shareQuery(), { mode: 'no-cors', cache: 'no-store' }); } catch (_) {}
   }
   function applyURL() {
     const p = new URLSearchParams(location.search);
@@ -393,7 +402,7 @@
     clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = old; }, 1500);
   }
   document.getElementById('nu-copy').addEventListener('click', (e) => copyText(themeText(), e.target, 'Copied!'));
-  document.getElementById('nu-share').addEventListener('click', (e) => { updateURL(); copyText(location.href, e.target, 'Link copied!'); });
+  document.getElementById('nu-share').addEventListener('click', (e) => { updateURL(); warmOg(); copyText(location.href, e.target, 'Link copied!'); });
   document.getElementById('nu-dl').addEventListener('click', () => {
     const blob = new Blob([themeText()], { type: 'text/plain' });
     const a = document.createElement('a');

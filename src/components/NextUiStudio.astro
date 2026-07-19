@@ -75,13 +75,18 @@
   .nu-screen-clip { position: absolute; inset: 0; margin: 0;
     -webkit-mask: url(/nextui/screen-mask.png) 0 0 / 1496px 1126px no-repeat;
     mask: url(/nextui/screen-mask.png) 0 0 / 1496px 1126px no-repeat; }
-  /* glow lives on the wrapper (drop-shadow follows the masked LED shape); mask on the child */
-  .nu-glow { position: absolute; inset: 0; margin: 0; pointer-events: none; }
-  #nu-glow-l { filter: drop-shadow(0 0 calc(var(--glow-l,1) * 5px) var(--led-l)) drop-shadow(0 0 calc(var(--glow-l,1) * 13px) var(--led-l)); }
-  #nu-glow-r { filter: drop-shadow(0 0 calc(var(--glow-r,1) * 5px) var(--led-r)) drop-shadow(0 0 calc(var(--glow-r,1) * 13px) var(--led-r)); }
+  /* glow lives on the wrapper (drop-shadow follows the masked LED shape); mask on the child.
+     Each wrapper is clamped to its LED bbox + a 40px blur margin (mask offset back to photo
+     coords) so the drop-shadow filter buffer stays tiny — a full-photo buffer OOM-crashes
+     iOS Safari on pinch-zoom. LED bboxes: left (738,658)-(784,680), right (802,651)-(849,674). */
+  .nu-glow { position: absolute; margin: 0; pointer-events: none; }
+  #nu-glow-l { left: 698px; top: 618px; width: 126px; height: 102px;
+    filter: drop-shadow(0 0 calc(var(--glow-l,1) * 5px) var(--led-l)) drop-shadow(0 0 calc(var(--glow-l,1) * 13px) var(--led-l)); }
+  #nu-glow-r { left: 762px; top: 611px; width: 127px; height: 103px;
+    filter: drop-shadow(0 0 calc(var(--glow-r,1) * 5px) var(--led-r)) drop-shadow(0 0 calc(var(--glow-r,1) * 13px) var(--led-r)); }
   .nu-glow .nu-led { position: absolute; inset: 0; margin: 0; }
-  #nu-glow-l .nu-led { background: var(--led-l); -webkit-mask: url(/nextui/leftfunc-mask.png) 0 0 / 1496px 1126px no-repeat; mask: url(/nextui/leftfunc-mask.png) 0 0 / 1496px 1126px no-repeat; }
-  #nu-glow-r .nu-led { background: var(--led-r); -webkit-mask: url(/nextui/rightfunc-mask.png) 0 0 / 1496px 1126px no-repeat; mask: url(/nextui/rightfunc-mask.png) 0 0 / 1496px 1126px no-repeat; }
+  #nu-glow-l .nu-led { background: var(--led-l); -webkit-mask: url(/nextui/leftfunc-mask.png) -698px -618px / 1496px 1126px no-repeat; mask: url(/nextui/leftfunc-mask.png) -698px -618px / 1496px 1126px no-repeat; }
+  #nu-glow-r .nu-led { background: var(--led-r); -webkit-mask: url(/nextui/rightfunc-mask.png) -762px -611px / 1496px 1126px no-repeat; mask: url(/nextui/rightfunc-mask.png) -762px -611px / 1496px 1126px no-repeat; }
   .nu-divider { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
     color: var(--sl-color-gray-3); margin: .5rem 0 .05rem; }
   .nu-screen {

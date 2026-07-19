@@ -1,0 +1,466 @@
+---
+// NextUI palette studio for the TrimUI Brick. Seven colors (color1..color7, RGBA)
+// drive a live mock-up of the NextUI list screen; each is edited with an HSV wheel +
+// value + alpha. Exports the NextUI Palettes .txt format and a share link. The device
+// photo + screen mask (perspective-warped live screen) get wired once assets land.
+---
+
+<div class="nu">
+  <div class="nu-stage">
+    <div class="nu-photo" id="nu-photo">
+      <div class="nu-photo-inner" id="nu-photo-inner">
+        <img class="nu-photo-img" src="/nextui/brick.png" width="1496" height="1126" alt="TrimUI Brick running NextUI" />
+        <div class="nu-screen-clip">
+          <div class="nu-screen" id="nu-screen">
+            <span class="nu-status">
+              <svg class="nu-wifi" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 10.5a12 12 0 0117 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M7.3 14.3a6.7 6.7 0 019.4 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="18.6" r="1.7" fill="currentColor"/></svg>
+              <span class="nu-batt"><span class="nu-batt-pct">93</span></span>
+              <span class="nu-clock">13:35</span>
+            </span>
+            <ul class="nu-list" id="nu-list"></ul>
+            <div class="nu-hints">
+              <span class="nu-hint"><b class="nu-pill">POWER</b> SLEEP</span>
+              <span class="nu-hint"><b class="nu-glyph">A</b> OPEN</span>
+            </div>
+          </div>
+        </div>
+        <div class="nu-glow" id="nu-glow-l"><div class="nu-led"></div></div>
+        <div class="nu-glow" id="nu-glow-r"><div class="nu-led"></div></div>
+      </div>
+    </div>
+    <div class="nu-picker">
+      <canvas id="nu-wheel" width="200" height="200" class="nu-wheel" aria-label="Color wheel"></canvas>
+      <div class="nu-sliders">
+        <label class="nu-slabel">Brightness <span id="nu-vval"></span></label>
+        <input type="range" id="nu-value" class="nu-range" min="0" max="100" value="100" />
+        <label class="nu-slabel">Alpha <span id="nu-aval"></span></label>
+        <input type="range" id="nu-alpha" class="nu-range nu-range-alpha" min="0" max="100" value="100" />
+        <div class="nu-hexrow">
+          <span class="nu-swatch-lg" id="nu-swatch-lg"></span>
+          <input type="text" id="nu-hex" class="nu-hexin" spellcheck="false" maxlength="9" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nu-controls">
+    <div class="nu-elements" id="nu-elements"></div>
+
+    <div class="nu-actions">
+      <button type="button" id="nu-rand" class="primary">Randomize</button>
+      <button type="button" id="nu-reset">Reset</button>
+    </div>
+
+    <input type="text" id="nu-name" class="nu-namein" placeholder="Theme name" maxlength="40" />
+    <button type="button" id="nu-copy" class="nu-export">Copy theme code</button>
+    <button type="button" id="nu-dl" class="nu-export">Download .txt</button>
+    <pre id="nu-code" class="nu-code"></pre>
+    <button type="button" id="nu-share" class="nu-share">Copy share link</button>
+  </div>
+</div>
+
+<style is:global>
+  /* NextUI's default UI font (Rounded Mplus 1c Bold), subset to Latin */
+  @font-face {
+    font-family: 'NextUI Rounded';
+    src: url('/nextui/nextui.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  .nu { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-start; margin-top: 1.25rem; }
+  .nu-stage { flex: 1 1 340px; min-width: 300px; }
+  /* device photo with the live screen perspective-warped onto the masked quad */
+  .nu-photo { width: 100%; max-width: 640px; margin: 0 auto; position: relative; aspect-ratio: 1496 / 1126; }
+  .nu-photo-inner { position: absolute; top: 0; left: 0; width: 1496px; height: 1126px; transform-origin: top left; }
+  .nu-photo-img { display: block; width: 1496px; height: 1126px; margin: 0; }
+  .nu-screen-clip { position: absolute; inset: 0; margin: 0;
+    -webkit-mask: url(/nextui/screen-mask.png) 0 0 / 1496px 1126px no-repeat;
+    mask: url(/nextui/screen-mask.png) 0 0 / 1496px 1126px no-repeat; }
+  /* glow lives on the wrapper (drop-shadow follows the masked LED shape); mask on the child */
+  .nu-glow { position: absolute; inset: 0; margin: 0; pointer-events: none; }
+  #nu-glow-l { filter: drop-shadow(0 0 calc(var(--glow-l,1) * 5px) var(--led-l)) drop-shadow(0 0 calc(var(--glow-l,1) * 13px) var(--led-l)); }
+  #nu-glow-r { filter: drop-shadow(0 0 calc(var(--glow-r,1) * 5px) var(--led-r)) drop-shadow(0 0 calc(var(--glow-r,1) * 13px) var(--led-r)); }
+  .nu-glow .nu-led { position: absolute; inset: 0; margin: 0; }
+  #nu-glow-l .nu-led { background: var(--led-l); -webkit-mask: url(/nextui/leftfunc-mask.png) 0 0 / 1496px 1126px no-repeat; mask: url(/nextui/leftfunc-mask.png) 0 0 / 1496px 1126px no-repeat; }
+  #nu-glow-r .nu-led { background: var(--led-r); -webkit-mask: url(/nextui/rightfunc-mask.png) 0 0 / 1496px 1126px no-repeat; mask: url(/nextui/rightfunc-mask.png) 0 0 / 1496px 1126px no-repeat; }
+  .nu-divider { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
+    color: var(--sl-color-gray-3); margin: .5rem 0 .05rem; }
+  .nu-screen {
+    position: absolute; top: 0; left: 0; width: 800px; height: 600px; transform-origin: 0 0;
+    background: var(--c7); color: var(--c4); overflow: hidden;
+    font: 800 34px/1.2 'NextUI Rounded', system-ui, -apple-system, sans-serif;
+    display: flex; flex-direction: column;
+  }
+  /* status cluster: accent (color2) pill (wifi + battery + clock in color6), floats top-right */
+  .nu-status { position: absolute; top: 14px; right: 16px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 11px;
+    background: var(--c2); color: var(--c6); border-radius: 999px; height: 64px; padding: 0 21px; font-size: 29px; }
+  .nu-wifi { width: 36px; height: 36px; display: block; color: var(--c6); }
+  .nu-batt { position: relative; box-sizing: border-box; width: 56px; height: 30px;
+    border: 2.5px solid var(--c6); border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; }
+  .nu-batt::after { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%);
+    width: 4px; height: 14px; background: var(--c6); border-radius: 2px 0 0 2px; }
+  .nu-batt-pct { font-size: 20px; line-height: 1; color: var(--c6); }
+  .nu-clock { color: var(--c6); }
+  .nu-list { list-style: none; margin: 0; padding: .45em .55em .1em; flex: 1 1 auto; min-height: 0; overflow: hidden;
+    display: flex; flex-direction: column; gap: .08em; font-size: 1.08em; letter-spacing: -.015em; }
+  .nu-row { padding: .44em .8em; border-radius: 999px; color: var(--c4);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -webkit-text-stroke: .3px currentColor; }
+  .nu-row.sel { background: var(--c2); color: var(--c5); }
+  .nu-hints { display: flex; justify-content: space-between; gap: 1em; padding: 16px 20px; color: var(--c6); font-size: 30px; align-items: center; }
+  /* each hint group sits in its own accent (color2) backing pill — same height as a list pill */
+  .nu-hint { display: inline-flex; align-items: center; gap: 10px; background: var(--c2); border-radius: 999px; height: 64px; padding: 0 20px; }
+  /* multi-char button (e.g. POWER) — a color1 pill nested concentrically in the group pill */
+  .nu-pill { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 16px;
+    border-radius: 999px; background: var(--c1); color: var(--c3); font-size: 28px; font-weight: 800; }
+  /* button glyph: color1 circle with the letter in color3 (ALT_BUTTON_TEXT_COLOR = accent2) */
+  .nu-glyph { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+    border-radius: 50%; background: var(--c1); color: var(--c3); font-size: 30px; font-weight: 800; }
+  .nu-note { text-align: center; margin: .7rem 0 0; font-size: .78rem; color: var(--sl-color-gray-3); }
+
+  .nu-controls { flex: 0 0 300px; display: flex; flex-direction: column; gap: .7rem; }
+  .nu-elements { display: flex; flex-direction: column; gap: .3rem; }
+  .nu-el { display: flex; align-items: center; gap: .6rem; padding: .35rem .5rem; border-radius: 8px; cursor: pointer;
+    border: 1px solid transparent; background: var(--sl-color-gray-6); }
+  .nu-el.active { border-color: var(--sl-color-accent); }
+  .nu-el-sw { width: 22px; height: 22px; border-radius: 5px; flex: 0 0 auto;
+    box-shadow: inset 0 0 0 1px rgba(128,128,128,.4);
+    background-image: linear-gradient(45deg,#888 25%,transparent 25%,transparent 75%,#888 75%),linear-gradient(45deg,#888 25%,#bbb 25%,#bbb 75%,#888 75%);
+    background-size: 10px 10px; background-position: 0 0, 5px 5px; }
+  .nu-el-sw span { display: block; width: 100%; height: 100%; border-radius: 5px; }
+  .nu-el-name { flex: 1 1 auto; font-size: .82rem; font-weight: 600; color: var(--sl-color-white); }
+  .nu-el-hex { font-size: .72rem; font-family: ui-monospace, monospace; color: var(--sl-color-gray-3); }
+
+  .nu-picker { display: flex; gap: 1rem; align-items: flex-start; margin: 1rem auto 0; max-width: 640px; }
+  .nu-wheel { width: 168px; height: 168px; touch-action: none; cursor: crosshair; flex: 0 0 auto; }
+  .nu-sliders { flex: 1 1 auto; display: flex; flex-direction: column; gap: .25rem; }
+  .nu-slabel { font-size: .72rem; font-weight: 700; color: var(--sl-color-gray-2); display: flex; justify-content: space-between; }
+  .nu-range { width: 100%; margin: 0 0 .3rem; accent-color: var(--sl-color-accent); }
+  .nu-hexrow { display: flex; align-items: center; gap: .5rem; margin-top: .2rem; }
+  .nu-swatch-lg { width: 30px; height: 30px; border-radius: 6px; flex: 0 0 auto; box-shadow: inset 0 0 0 1px rgba(128,128,128,.4);
+    background-image: linear-gradient(45deg,#888 25%,transparent 25%,transparent 75%,#888 75%),linear-gradient(45deg,#888 25%,#bbb 25%,#bbb 75%,#888 75%);
+    background-size: 12px 12px; background-position: 0 0, 6px 6px; }
+  .nu-swatch-lg span { display: block; width: 100%; height: 100%; border-radius: 6px; }
+  .nu-hexin, .nu-namein { flex: 1 1 auto; height: 32px; box-sizing: border-box; padding: 0 .5rem; border-radius: 8px;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-bg); color: var(--sl-color-white);
+    font: inherit; font-size: .85rem; font-family: ui-monospace, monospace; }
+  .nu-namein { font-family: inherit; }
+
+  .nu-actions { display: flex; gap: .6rem; }
+  .nu-actions button { flex: 1 1 0; height: 38px; margin: 0; border-radius: 8px; cursor: pointer; font: inherit; font-weight: 600;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-gray-6); color: var(--sl-color-white); }
+  .nu-actions button.primary { background: var(--sl-color-accent); border-color: var(--sl-color-accent); color: var(--sl-color-black); }
+  .nu-export, .nu-share { width: 100%; height: 36px; margin: 0; box-sizing: border-box; border-radius: 8px; cursor: pointer; font: inherit; font-weight: 600; font-size: .85rem;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-gray-6); color: var(--sl-color-white); }
+  .nu-share { border-style: dashed; background: transparent; color: var(--sl-color-gray-2); }
+  .nu-code { margin: 0; padding: .6rem .7rem; border-radius: 8px; background: var(--sl-color-gray-6);
+    font-size: .72rem; line-height: 1.5; white-space: pre; overflow-x: auto; color: var(--sl-color-gray-2); }
+</style>
+
+<script>
+  // 7 palette slots — NextUI color1..color7 with their default packed RGBA.
+  const ELS = [
+    { key: 'c1', name: 'Main',                def: 0xffffffff },
+    { key: 'c2', name: 'Primary Accent',      def: 0x9b2257ff },
+    { key: 'c3', name: 'Secondary Accent',    def: 0x1e2329ff },
+    { key: 'c4', name: 'List Text',           def: 0xffffffff },
+    { key: 'c5', name: 'List Text Selected',  def: 0x000000ff },
+    { key: 'c6', name: 'Hint / Info',         def: 0xffffffff },
+    { key: 'c7', name: 'Background',          def: 0x000000ff },
+  ];
+  // Cosmetic device-photo accents (function-button LEDs). Editable + shareable, but
+  // NOT part of the NextUI palette, so they're excluded from the exported .txt.
+  const COSM = [
+    { key: 'ledL', name: 'Left Function LED',  def: 0x3fd0ffff, cvar: '--led-l' },
+    { key: 'ledR', name: 'Right Function LED', def: 0x3fd0ffff, cvar: '--led-r' },
+  ];
+  const ALL = ELS.concat(COSM);
+  const LIST_ROWS = ['Recently Played', 'Super Nintendo', 'Nintendo 64', 'PlayStation',
+                     'Sega Genesis', 'Tools'];
+  const SEL_ROW = 3;
+
+  const state = {};   // key -> {r,g,b,a}  (a 0-255)
+  let active = 'c2';
+  let name = 'Custom';
+
+  // ---- color math ----
+  const unpack = (v) => ({ r: (v>>>24)&255, g: (v>>>16)&255, b: (v>>>8)&255, a: v&255 });
+  const clamp = (n,a,b) => Math.max(a, Math.min(b, n));
+  const hex2 = (n) => n.toString(16).padStart(2,'0');
+  const packHex = (c) => (hex2(c.r)+hex2(c.g)+hex2(c.b)+hex2(c.a)).toUpperCase();
+  const cssRgba = (c) => `rgba(${c.r},${c.g},${c.b},${(c.a/255).toFixed(3)})`;
+  function rgb2hsv(c) {
+    const r=c.r/255, g=c.g/255, b=c.b/255, mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
+    let h=0; if (d) { if (mx===r) h=((g-b)/d)%6; else if (mx===g) h=(b-r)/d+2; else h=(r-g)/d+4; h*=60; if (h<0) h+=360; }
+    return { h, s: mx? d/mx : 0, v: mx };
+  }
+  function hsv2rgb(h,s,v) {
+    const c=v*s, x=c*(1-Math.abs((h/60)%2-1)), m=v-c; let r=0,g=0,b=0;
+    if (h<60){r=c;g=x;} else if (h<120){r=x;g=c;} else if (h<180){g=c;b=x;}
+    else if (h<240){g=x;b=c;} else if (h<300){r=x;b=c;} else {r=c;b=x;}
+    return { r: Math.round((r+m)*255), g: Math.round((g+m)*255), b: Math.round((b+m)*255) };
+  }
+
+  // ---- DOM refs ----
+  const screen = document.getElementById('nu-screen');
+  const listEl = document.getElementById('nu-list');
+  const elsEl = document.getElementById('nu-elements');
+  const wheel = document.getElementById('nu-wheel');
+  const wctx = wheel.getContext('2d');
+  const valueR = document.getElementById('nu-value');
+  const alphaR = document.getElementById('nu-alpha');
+  const hexIn = document.getElementById('nu-hex');
+  const nameIn = document.getElementById('nu-name');
+  const codeEl = document.getElementById('nu-code');
+
+  // ---- render the live screen ----
+  // Glow only for bright LEDs — a dark LED wouldn't glow. Ramps from 0 below ~20%
+  // brightness to full, scaled by alpha.
+  function glowStrength(c) {
+    const v = Math.max(c.r, c.g, c.b) / 255;
+    return (Math.max(0, (v - 0.2) / 0.8) * (c.a / 255)).toFixed(3);
+  }
+  function paintScreen() {
+    for (const e of ELS) screen.style.setProperty('--' + e.key, cssRgba(state[e.key]));
+    const inner = document.getElementById('nu-photo-inner');
+    if (inner) {
+      for (const e of COSM) inner.style.setProperty(e.cvar, cssRgba(state[e.key]));
+      inner.style.setProperty('--glow-l', glowStrength(state.ledL));
+      inner.style.setProperty('--glow-r', glowStrength(state.ledR));
+    }
+  }
+  function buildList() {
+    listEl.innerHTML = '';
+    LIST_ROWS.forEach((t,i) => {
+      const li = document.createElement('li');
+      li.className = 'nu-row' + (i === SEL_ROW ? ' sel' : '');
+      li.textContent = t;
+      listEl.appendChild(li);
+    });
+  }
+
+  // ---- element list ----
+  function buildElements() {
+    elsEl.innerHTML = '';
+    ALL.forEach((e, idx) => {
+      if (idx === ELS.length) {
+        const d = document.createElement('div'); d.className = 'nu-divider';
+        d.textContent = 'On the device · not saved to the theme';
+        elsEl.appendChild(d);
+      }
+      const row = document.createElement('div');
+      row.className = 'nu-el' + (e.key === active ? ' active' : '');
+      row.dataset.key = e.key;
+      row.innerHTML = `<span class="nu-el-sw"><span data-sw="${e.key}"></span></span>`
+        + `<span class="nu-el-name">${e.name}</span><span class="nu-el-hex" data-hx="${e.key}"></span>`;
+      row.addEventListener('click', () => { active = e.key; syncElements(); loadPicker(); });
+      elsEl.appendChild(row);
+    });
+    refreshSwatches();
+  }
+  function syncElements() {
+    elsEl.querySelectorAll('.nu-el').forEach(r => r.classList.toggle('active', r.dataset.key === active));
+  }
+  function refreshSwatches() {
+    ALL.forEach(e => {
+      const sw = elsEl.querySelector(`[data-sw="${e.key}"]`);
+      const hx = elsEl.querySelector(`[data-hx="${e.key}"]`);
+      if (sw) sw.style.background = cssRgba(state[e.key]);
+      if (hx) hx.textContent = '#' + packHex(state[e.key]);
+    });
+  }
+
+  // ---- color wheel (hue=angle, sat=radius) at the active value ----
+  const WR = 100;      // wheel canvas radius (canvas is 200x200)
+  let wheelV = 1;      // value the cached wheel was drawn at
+  function drawWheel(v) {
+    wheelV = v;
+    const img = wctx.createImageData(200, 200), d = img.data;
+    for (let y=0; y<200; y++) for (let x=0; x<200; x++) {
+      const dx=x-WR, dy=y-WR, r=Math.sqrt(dx*dx+dy*dy), i=(y*200+x)*4;
+      if (r > WR) { d[i+3]=0; continue; }
+      let h = Math.atan2(dy,dx)*180/Math.PI; if (h<0) h+=360;
+      const c = hsv2rgb(h, Math.min(r/WR,1), v);
+      d[i]=c.r; d[i+1]=c.g; d[i+2]=c.b; d[i+3]=255;
+    }
+    wctx.putImageData(img, 0, 0);
+    drawWheelMarker();
+  }
+  function drawWheelMarker() {
+    const c = state[active], hsv = rgb2hsv(c);
+    const ang = hsv.h*Math.PI/180, rr = hsv.s*WR;
+    const x = WR + Math.cos(ang)*rr, y = WR + Math.sin(ang)*rr;
+    wctx.save();
+    wctx.beginPath(); wctx.arc(x, y, 7, 0, Math.PI*2);
+    wctx.lineWidth = 2; wctx.strokeStyle = '#000'; wctx.stroke();
+    wctx.beginPath(); wctx.arc(x, y, 6, 0, Math.PI*2);
+    wctx.lineWidth = 2; wctx.strokeStyle = '#fff'; wctx.stroke();
+    wctx.restore();
+  }
+
+  function loadPicker() {
+    const c = state[active], hsv = rgb2hsv(c);
+    valueR.value = Math.round(hsv.v*100);
+    alphaR.value = Math.round(c.a/255*100);
+    hexIn.value = '#' + packHex(c);
+    document.getElementById('nu-vval').textContent = valueR.value + '%';
+    document.getElementById('nu-aval').textContent = alphaR.value + '%';
+    document.getElementById('nu-swatch-lg').style.background = cssRgba(c);
+    drawWheel(hsv.v);
+    styleAlpha();
+  }
+  function styleAlpha() {
+    const c = state[active];
+    alphaR.style.background = `linear-gradient(90deg, rgba(${c.r},${c.g},${c.b},0), rgb(${c.r},${c.g},${c.b}))`;
+  }
+
+  // Apply an HSVA change to the active element and refresh everything.
+  function setActive(h, s, v, a) {
+    const rgb = hsv2rgb(h, s, v);
+    state[active] = { ...rgb, a };
+    paintScreen(); refreshSwatches();
+    document.getElementById('nu-swatch-lg').style.background = cssRgba(state[active]);
+    hexIn.value = '#' + packHex(state[active]);
+    styleAlpha(); updateCode(); updateURL();
+  }
+
+  // ---- wheel interaction ----
+  function wheelPick(e) {
+    const rect = wheel.getBoundingClientRect();
+    const x = (e.clientX-rect.left)/rect.width*200 - WR, y = (e.clientY-rect.top)/rect.height*200 - WR;
+    let h = Math.atan2(y,x)*180/Math.PI; if (h<0) h+=360;
+    const s = clamp(Math.sqrt(x*x+y*y)/WR, 0, 1);
+    setActive(h, s, +valueR.value/100, +alphaR.value/100*255|0);
+    drawWheel(wheelV); // redraw marker (value unchanged)
+  }
+  let wheelDrag = false;
+  wheel.addEventListener('pointerdown', (e) => { wheelDrag = true; wheel.setPointerCapture(e.pointerId); wheelPick(e); });
+  wheel.addEventListener('pointermove', (e) => { if (wheelDrag) wheelPick(e); });
+  wheel.addEventListener('pointerup', () => { wheelDrag = false; });
+
+  valueR.addEventListener('input', () => {
+    const hsv = rgb2hsv(state[active]);
+    document.getElementById('nu-vval').textContent = valueR.value + '%';
+    setActive(hsv.h, hsv.s, +valueR.value/100, state[active].a);
+    drawWheel(+valueR.value/100);
+  });
+  alphaR.addEventListener('input', () => {
+    document.getElementById('nu-aval').textContent = alphaR.value + '%';
+    state[active] = { ...state[active], a: Math.round(+alphaR.value/100*255) };
+    paintScreen(); refreshSwatches(); styleAlpha();
+    document.getElementById('nu-swatch-lg').style.background = cssRgba(state[active]);
+    hexIn.value = '#' + packHex(state[active]); updateCode(); updateURL();
+  });
+  hexIn.addEventListener('change', () => {
+    const m = /^#?([0-9a-fA-F]{6}([0-9a-fA-F]{2})?)$/.exec(hexIn.value.trim());
+    if (!m) { hexIn.value = '#' + packHex(state[active]); return; }
+    let h = m[1]; if (h.length === 6) h += 'ff';
+    state[active] = { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) };
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
+  });
+
+  // ---- export / share ----
+  function themeText() {
+    const lines = ['version=1', 'name=' + (name || 'Custom')];
+    ELS.forEach((e,i) => lines.push(`color${i+1}=0x${packHex(state[e.key])}`));
+    return lines.join('\n') + '\n';
+  }
+  function updateCode() { codeEl.textContent = themeText(); }
+  function shareCode() { return ALL.map(e => packHex(state[e.key])).join(''); }
+  function updateURL() {
+    const q = 't=' + shareCode() + (name && name !== 'Custom' ? '&n=' + encodeURIComponent(name) : '');
+    history.replaceState(null, '', location.pathname + '?' + q);
+  }
+  function applyURL() {
+    const p = new URLSearchParams(location.search);
+    const t = p.get('t');
+    if (t && /^([0-9a-fA-F]{8})+$/.test(t) && t.length >= 56 && t.length <= ALL.length*8) {
+      ALL.forEach((e,i) => {
+        const h = t.slice(i*8, i*8+8);   // legacy 56-char links omit the cosmetic LEDs
+        state[e.key] = h.length === 8
+          ? { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) }
+          : unpack(e.def);
+      });
+    } else {
+      ALL.forEach(e => { state[e.key] = unpack(e.def); });
+    }
+    const n = p.get('n'); if (n) name = n.slice(0,40);
+  }
+
+  async function copyText(t, btn, label) {
+    try { await navigator.clipboard.writeText(t); }
+    catch (_) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+    const old = btn.textContent; btn.textContent = label;
+    clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = old; }, 1500);
+  }
+  document.getElementById('nu-copy').addEventListener('click', (e) => copyText(themeText(), e.target, 'Copied!'));
+  document.getElementById('nu-share').addEventListener('click', (e) => { updateURL(); copyText(location.href, e.target, 'Link copied!'); });
+  document.getElementById('nu-dl').addEventListener('click', () => {
+    const blob = new Blob([themeText()], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (name || 'Custom').replace(/[^\w.-]+/g, '_') + '.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  });
+  nameIn.addEventListener('input', () => { name = nameIn.value.trim() || 'Custom'; updateCode(); updateURL(); });
+
+  document.getElementById('nu-reset').addEventListener('click', () => {
+    ALL.forEach(e => { state[e.key] = unpack(e.def); });
+    name = 'Custom'; nameIn.value = '';
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
+  });
+  document.getElementById('nu-rand').addEventListener('click', () => {
+    ALL.forEach(e => {
+      const rgb = hsv2rgb(Math.random()*360, Math.random(), Math.random());
+      state[e.key] = { ...rgb, a: 255 };
+    });
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
+  });
+
+  // ---- device photo: perspective-warp the 800x600 screen onto the masked quad ----
+  const SCREEN_W = 800, SCREEN_H = 600;
+  // Screen-quad corners (TL,TR,BR,BL) read from screen-mask.png, in the 1496x1126 photo.
+  const QUAD = [{x:582,y:288},{x:995,y:271},{x:981,y:576},{x:589,y:611}];
+  function solve8(A, b) {
+    const n = 8, M = A.map((r,i) => r.concat(b[i]));
+    for (let c=0; c<n; c++) {
+      let p = c; for (let r=c+1; r<n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+      [M[c],M[p]] = [M[p],M[c]];
+      const d = M[c][c]; for (let j=c; j<=n; j++) M[c][j] /= d;
+      for (let r=0; r<n; r++) { if (r===c) continue; const f = M[r][c]; for (let j=c; j<=n; j++) M[r][j] -= f*M[c][j]; }
+    }
+    return M.map(r => r[n]);
+  }
+  function warpScreen() {
+    // Overscan: push the target corners slightly outward so the screen bleeds past
+    // the mask edges (which then trim it cleanly) — no gap along the rounded border.
+    const OVER = 0.035;
+    const cx = (QUAD[0].x+QUAD[1].x+QUAD[2].x+QUAD[3].x)/4, cy = (QUAD[0].y+QUAD[1].y+QUAD[2].y+QUAD[3].y)/4;
+    const dst = QUAD.map(p => ({ x: cx + (p.x-cx)*(1+OVER), y: cy + (p.y-cy)*(1+OVER) }));
+    const src = [{x:0,y:0},{x:SCREEN_W,y:0},{x:SCREEN_W,y:SCREEN_H},{x:0,y:SCREEN_H}];
+    const A = [], b = [];
+    for (let i=0; i<4; i++) {
+      A.push([src[i].x,src[i].y,1,0,0,0,-src[i].x*dst[i].x,-src[i].y*dst[i].x]); b.push(dst[i].x);
+      A.push([0,0,0,src[i].x,src[i].y,1,-src[i].x*dst[i].y,-src[i].y*dst[i].y]); b.push(dst[i].y);
+    }
+    const h = solve8(A, b);
+    const H = [h[0],h[3],0,h[6], h[1],h[4],0,h[7], 0,0,1,0, h[2],h[5],0,1];
+    screen.style.transform = 'matrix3d(' + H.join(',') + ')';
+  }
+  function fitPhoto() {
+    const ph = document.getElementById('nu-photo'), inner = document.getElementById('nu-photo-inner');
+    if (ph && inner) inner.style.transform = 'scale(' + (ph.clientWidth / 1496) + ')';
+  }
+
+  // ---- init ----
+  applyURL();
+  buildList();
+  buildElements();
+  nameIn.value = name === 'Custom' ? '' : name;
+  paintScreen();
+  loadPicker();
+  updateCode();
+  warpScreen();
+  fitPhoto();
+  window.addEventListener('resize', fitPhoto);
+</script>

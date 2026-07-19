@@ -77,12 +77,9 @@
      (the photo still displays <=640px). The screen-mask source stays high-res, downsampled here. */
   .nu-photo-inner { position: absolute; top: 0; left: 0; width: 748px; height: 563px; transform-origin: top left; }
   .nu-photo-img { display: block; width: 748px; height: 563px; margin: 0; }
-  /* screen-clip box + mask-position are set in JS (placeClip) from the QUAD, so its masked layer
-     is only screen-sized, not full-photo — the single biggest re-rastered buffer otherwise. */
-  .nu-screen-clip { position: absolute; margin: 0;
-    -webkit-mask-image: url(/nextui/screen-mask.png); mask-image: url(/nextui/screen-mask.png);
-    -webkit-mask-size: 748px 563px; mask-size: 748px 563px;
-    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+  .nu-screen-clip { position: absolute; inset: 0; margin: 0;
+    -webkit-mask: url(/nextui/screen-mask.png) 0 0 / 748px 563px no-repeat;
+    mask: url(/nextui/screen-mask.png) 0 0 / 748px 563px no-repeat; }
   /* LED glow as a cheap radial gradient (::before) with the crisp masked bar (.nu-led) on top.
      No filter/drop-shadow: CSS filters allocate a per-layer buffer that iOS Safari re-rasterizes
      on pinch-zoom until the tab OOM-crashes, and (with an oversized mask-size on the child) also
@@ -449,22 +446,6 @@
   const NW = 748;
   // Screen-quad corners (TL,TR,BR,BL) read from screen-mask.png, halved into the 748x563 space.
   const QUAD = [{x:291,y:144},{x:497.5,y:135.5},{x:490.5,y:288},{x:294.5,y:305.5}];
-  // Screen-clip box origin (set by placeClip), subtracted from the warp so the clip layer is
-  // only screen-sized instead of full-photo.
-  let clipOrigin = { x0: 0, y0: 0 };
-  function placeClip() {
-    const clip = document.querySelector('.nu-screen-clip');
-    if (!clip) return;
-    const xs = QUAD.map(p => p.x), ys = QUAD.map(p => p.y);
-    const M = 14; // margin covering the warp overscan so nothing is clipped
-    const x0 = Math.floor(Math.min(...xs) - M), y0 = Math.floor(Math.min(...ys) - M);
-    const w = Math.ceil(Math.max(...xs) - Math.min(...xs) + 2*M);
-    const hgt = Math.ceil(Math.max(...ys) - Math.min(...ys) + 2*M);
-    clip.style.left = x0 + 'px'; clip.style.top = y0 + 'px';
-    clip.style.width = w + 'px'; clip.style.height = hgt + 'px';
-    clip.style.webkitMaskPosition = clip.style.maskPosition = (-x0) + 'px ' + (-y0) + 'px';
-    clipOrigin = { x0, y0 };
-  }
   function solve8(A, b) {
     const n = 8, M = A.map((r,i) => r.concat(b[i]));
     for (let c=0; c<n; c++) {
@@ -488,9 +469,7 @@
       A.push([0,0,0,src[i].x,src[i].y,1,-src[i].x*dst[i].y,-src[i].y*dst[i].y]); b.push(dst[i].y);
     }
     const h = solve8(A, b);
-    // Translation is shifted by the clip origin so the screen lands correctly inside the
-    // small screen-clip box (whose own origin is at clipOrigin in photo coords).
-    const H = [h[0],h[3],0,h[6], h[1],h[4],0,h[7], 0,0,1,0, h[2]-clipOrigin.x0, h[5]-clipOrigin.y0, 0, 1];
+    const H = [h[0],h[3],0,h[6], h[1],h[4],0,h[7], 0,0,1,0, h[2],h[5],0,1];
     screen.style.transform = 'matrix3d(' + H.join(',') + ')';
   }
   function fitPhoto() {
@@ -506,7 +485,6 @@
   paintScreen();
   loadPicker();
   updateCode();
-  placeClip();
   warpScreen();
   fitPhoto();
   window.addEventListener('resize', fitPhoto);

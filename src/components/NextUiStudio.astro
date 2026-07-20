@@ -24,8 +24,8 @@
             </div>
           </div>
         </div>
-        <div class="nu-glow" id="nu-glow-l"><div class="nu-led"></div></div>
-        <div class="nu-glow" id="nu-glow-r"><div class="nu-led"></div></div>
+        <div class="nu-glow" id="nu-glow-l"></div>
+        <div class="nu-glow" id="nu-glow-r"></div>
       </div>
     </div>
     <div class="nu-picker">
@@ -80,21 +80,18 @@
   .nu-screen-clip { position: absolute; inset: 0; margin: 0;
     -webkit-mask: url(/nextui/screen-mask.png) 0 0 / 748px 563px no-repeat;
     mask: url(/nextui/screen-mask.png) 0 0 / 748px 563px no-repeat; }
-  /* LED glow as a cheap radial gradient (::before) with the crisp masked bar (.nu-led) on top.
-     No filter/drop-shadow: CSS filters allocate a per-layer buffer that iOS Safari re-rasterizes
-     on pinch-zoom until the tab OOM-crashes, and (with an oversized mask-size on the child) also
-     bled a full-photo halo. A gradient is bounded to the element box and re-rasters cheaply.
-     Wrappers are centered on each LED bbox (748-space: left (369,329)-(392,340),
-     right (401,326)-(424,337)); .nu-led's mask is offset back to photo coordinates. */
-  .nu-glow { position: absolute; margin: 0; pointer-events: none; }
-  .nu-glow::before { content: ''; position: absolute; inset: 0; border-radius: 50%; }
-  #nu-glow-l { left: 348px; top: 308px; width: 64px; height: 52px; }
-  #nu-glow-l::before { background: radial-gradient(closest-side, var(--led-l), transparent); opacity: var(--glow-l, 1); }
-  #nu-glow-r { left: 380px; top: 305px; width: 64px; height: 52px; }
-  #nu-glow-r::before { background: radial-gradient(closest-side, var(--led-r), transparent); opacity: var(--glow-r, 1); }
-  .nu-glow .nu-led { position: absolute; inset: 0; margin: 0; }
-  #nu-glow-l .nu-led { background: var(--led-l); -webkit-mask: url(/nextui/leftfunc-mask.png) -348px -308px / 748px 563px no-repeat; mask: url(/nextui/leftfunc-mask.png) -348px -308px / 748px 563px no-repeat; }
-  #nu-glow-r .nu-led { background: var(--led-r); -webkit-mask: url(/nextui/rightfunc-mask.png) -380px -305px / 748px 563px no-repeat; mask: url(/nextui/rightfunc-mask.png) -380px -305px / 748px 563px no-repeat; }
+  /* LED glow: a soft radial bloom, no crisp core — matches the diffuse light the real device
+     LEDs cast through the plastic. No filter/drop-shadow: CSS filters allocate a per-layer buffer
+     that iOS Safari re-rasterizes on pinch-zoom until the tab OOM-crashes. A gradient is bounded
+     to the element box and re-rasters cheaply. Wrappers are centered on each LED (748-space
+     centers: left (380,335), right (412,332)). The mid-stop keeps the core soft, not solid. */
+  .nu-glow { position: absolute; margin: 0; pointer-events: none; border-radius: 50%; }
+  #nu-glow-l { left: 336px; top: 296px; width: 88px; height: 76px;
+    background: radial-gradient(closest-side, var(--led-l), transparent);
+    opacity: var(--glow-l, 1); }
+  #nu-glow-r { left: 368px; top: 293px; width: 88px; height: 76px;
+    background: radial-gradient(closest-side, var(--led-r), transparent);
+    opacity: var(--glow-r, 1); }
   .nu-divider { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
     color: var(--sl-color-gray-3); margin: .5rem 0 .05rem; }
   .nu-screen {

@@ -391,8 +391,12 @@
   const REAL_BASE = BASE + 'real/';
   const REAL_KEYS = ['body','back','dpad','abxy','func','stick_left','stick_right','led_left','led_right','screen'];
   const REAL_OPTS = ['16','black','clear','purple','gc','blue','watermelon'];
+  // Button axes (D-pad / A/B/X/Y / Function) can also be the synthetic Retro maroon — a
+  // front-only recolor of the black buttons (front/retro.png). Appended last so existing
+  // share codes (indices 0-6) still decode.
+  const REAL_BUTTON_OPTS = REAL_OPTS.concat(['retro']);
   const REAL_LABEL = { '16':'16 Bit', black:'Black', clear:'Clear', purple:'Clear Purple',
-                       gc:'Game Cube', blue:'Ice Blue', watermelon:'Watermelon' };
+                       gc:'Game Cube', blue:'Ice Blue', watermelon:'Watermelon', retro:'Retro' };
   // front-face element masks: axis -> mask filename (four function buttons ship as one)
   const REAL_MASK = { dpad:'dpadpng', abxy:'abxy', func:'fourbutton' };  // front elements cut per colorway
   const REAL_BUTTON_KEYS = ['dpad','abxy','func'];  // the axes a "Single pack" collapses
@@ -539,6 +543,7 @@
     return k.startsWith('stick_') ? STICK_COLORS
          : k.startsWith('led_')   ? LED_COLORS
          : k === 'screen'         ? SCREEN_OPTS
+         : REAL_BUTTON_KEYS.includes(k) ? REAL_BUTTON_OPTS
          : REAL_OPTS;
   }
   function realShareCode() {
@@ -548,7 +553,7 @@
     if (MODE !== 'real') return;
     history.replaceState(null, '', location.pathname + '?m=real&rc=' + realShareCode());
   }
-  function realField(key, label, options = REAL_OPTS, labelFn = (o) => REAL_LABEL[o]) {
+  function realField(key, label, options = realOptsFor(key), labelFn = (o) => REAL_LABEL[o]) {
     const wrap = document.createElement('div'); wrap.className = 'nova-field';
     const lab = document.createElement('label'); lab.textContent = label;
     const s = document.createElement('select'); s.dataset.rkey = key;
@@ -593,7 +598,7 @@
     const packField = document.createElement('div'); packField.className = 'nova-field'; packField.style.display = 'none';
     const packLab = document.createElement('label'); packLab.textContent = 'Single Pack';
     const packSel = document.createElement('select'); packSel.dataset.rkey = 'abxy';
-    REAL_OPTS.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = REAL_LABEL[o]; packSel.appendChild(op); });
+    REAL_BUTTON_OPTS.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = REAL_LABEL[o]; packSel.appendChild(op); });
     packSel.addEventListener('change', () => { REAL_BUTTON_KEYS.forEach(k => rsel[k] = packSel.value); realSyncSelects(); realCompose(); });
     packField.appendChild(packLab); packField.appendChild(packSel);
     c.appendChild(packField);
@@ -655,6 +660,7 @@
       await Promise.all([
         ...REAL_OPTS.map(async n => { RF[n] = await load(`${REAL_BASE}front/${n}.png`); }),
         ...REAL_OPTS.map(async n => { RB[n] = await load(`${REAL_BASE}back/${n}.png`); }),
+        (async () => { RF['retro'] = await load(`${REAL_BASE}front/retro.png`); })(),  // button-only; no back photo
         ...Object.values(REAL_MASK).concat(Object.values(STICK_MASK), Object.values(LED_MASK), ['screen'])
             .map(async m => { RM[m] = await load(`${REAL_BASE}masks/${m}.png`); }),
         (async () => { RLEAF = await load(`${REAL_BASE}retroid_leaf.png`); })(),

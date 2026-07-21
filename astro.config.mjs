@@ -68,6 +68,7 @@ export default defineConfig({
             { label: 'BIOS & cores', slug: 'guide/bios-and-cores' },
             { label: 'Playing games', slug: 'guide/playing' },
             { label: 'Features tour', slug: 'guide/features' },
+            { label: '5-Game Mode', slug: 'guide/five-game-mode', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Settings reference', slug: 'guide/settings' },
             { label: 'Troubleshooting', slug: 'guide/troubleshooting' },
           ],

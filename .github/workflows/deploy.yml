@@ -21,8 +21,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Validate Pak Rat catalog
-        run: node scripts/validate-pakrat-catalog.mjs
+        run: |
+          git show HEAD^:public/pakrat/v1/storefront.json > /tmp/previous-storefront.json
+          args=(--previous-catalog /tmp/previous-storefront.json)
+          if ! git diff --quiet HEAD^ HEAD -- public/pakrat/v1/storefront.json; then
+            args+=(--remote)
+          fi
+          node scripts/validate-pakrat-catalog.mjs "${args[@]}"
+          node scripts/validate-pakrat-catalog-test.mjs
       - name: Build with Astro
         uses: withastro/action@v3
         with:

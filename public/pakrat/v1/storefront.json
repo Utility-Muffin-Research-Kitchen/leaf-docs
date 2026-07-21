@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260717T185254Z",
-  "generated_at": "2026-07-17T18:52:54Z",
+  "catalog_revision": "prod-20260721T193740Z",
+  "generated_at": "2026-07-21T19:37:40Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -121,7 +121,32 @@
             "size": 58224259,
             "installed_size": 128325801,
             "sha256": "a46f8f56a9cb01bb9c5888d88cd0e4efdba05e8c495d2b7c9228d7eb004a710a"
-          }
+          },
+          "versions": [
+            {
+              "version": "0.2.0",
+              "min_leaf_version": "0.7.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/PortMaster-mlp1/releases/download/v0.2.0/PortMaster.mlp1.pak.zip",
+                "name": "PortMaster.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 58279537,
+                "installed_size": 128444055,
+                "sha256": "b585e638de44be8089facc4d35b603d2b0066369c3938c087d6aadc23a03854e"
+              }
+            },
+            {
+              "version": "0.1.2",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/PortMaster-mlp1/releases/download/v0.1.2/PortMaster.mlp1.pak.zip",
+                "name": "PortMaster.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 58224259,
+                "installed_size": 128325801,
+                "sha256": "a46f8f56a9cb01bb9c5888d88cd0e4efdba05e8c495d2b7c9228d7eb004a710a"
+              }
+            }
+          ]
         }
       ]
     },

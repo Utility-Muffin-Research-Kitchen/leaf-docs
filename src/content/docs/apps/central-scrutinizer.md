@@ -37,4 +37,23 @@ From the browser you can:
 After uploading games, run **Rescan Library** from the launcher's **MENU** (or just
 reboot) so the new games appear.
 
+## Supported file formats
+
+Central Scrutinizer knows what each system can actually play, so it only uploads
+files that will show up as games. When you open a console's **ROMs**, it lists the
+accepted formats under the toolbar, for example:
+
+> Supported: .chd, .cso, .iso, .pbp
+
+If you pick a file a system cannot use (say a `.zip` for PSP, which wants a disc
+image), it tells you **before** anything transfers, names the formats that system
+accepts, and leaves the file out rather than dropping it somewhere it would never
+be scanned as a game.
+
+Most cartridge consoles, arcade, and Neo Geo read `.zip` files directly, so their
+format list includes `.zip`. For systems that do not (mostly disc based ones), use
+**Upload ZIP** to extract a supported file from the archive instead. Either way,
+only files a rescan can turn into real games get copied to the card, so it stays
+tidy.
+
 Central Scrutinizer is open source (MIT).

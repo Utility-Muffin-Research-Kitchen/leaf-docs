@@ -19,10 +19,13 @@ small curated set without distractions.
 Press **MENU** to open the system menu, switch to the **Actions** tab, and choose
 **Start 5-Game Mode**. A short setup runs:
 
-1. **Pick** - browse your systems and games and mark up to five. A counter in the
-   corner shows how many you have chosen so far.
+1. **Pick** - the familiar games browser opens, titled **Pick 5 Games**. Browse
+   your systems and mark up to five games; a checkmark shows which are chosen and
+   the header counts your picks (for example, 3 / 5). Press **Y** at any time to
+   clear the whole set and start over.
 2. **Arrange** - put the chosen games in the order you want them on screen. Press
    **X** to grab a tile, move it with the D-pad, and press **X** again to drop it.
+   Press **Y** to remove a tile you no longer want.
 3. **Lock** - choose **No lock** or a **PIN**. A PIN is a four-digit code you set
    and then re-enter to confirm.
 4. **Style** - pick **Theme colors** (your current color scheme) or **Black &
@@ -58,8 +61,8 @@ off helps battery life and keeps Bluetooth audio stable. Your previous Wi-Fi sta
 is restored automatically when you exit.
 
 If you use a **Bluetooth headset**, pair it in the normal launcher first. In focus
-mode, a small **BT** mark appears when the headset is paired but not connected.
-Open the unlock prompt and press **Y** to reconnect it.
+mode, a small **Bluetooth icon** appears next to the battery when the headset is
+paired but not connected. Open the unlock prompt and press **Y** to reconnect it.
 
 ## Forgot the PIN?
 

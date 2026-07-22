@@ -40,6 +40,3 @@ folder full of captures is easy to sort.
   what the game drew - crisp, at the game's own resolution.
 - **In the launcher, a menu, or 5-Game Mode**, the whole screen is captured as you
   see it.
-
-Because the capture happens entirely on the device, it works with **Wi-Fi off**,
-which is why it is the way to grab a shot while you are in 5-Game Mode.

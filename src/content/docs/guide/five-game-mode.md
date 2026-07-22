@@ -42,6 +42,8 @@ The focus screen shows your games as box-art tiles and nothing else, apart from 
 small battery indicator in the corner. Move with the D-pad and press **A** to
 play. When you quit a game, you come straight back to the focus screen.
 
+![The 5-Game Mode focus screen: five Game Boy Advance box-art tiles laid out two on top and three below, the top-left tile highlighted with a brighter accent border, and a small battery and Bluetooth icon in the top corner](/5_game_view.png)
+
 ## Getting out
 
 Press **MENU** to open the unlock prompt:
@@ -53,6 +55,8 @@ The same prompt also offers **L1** to reboot and **R1** to power off. Those do n
 need the PIN, since powering off or rebooting just brings the device back into
 focus mode rather than unlocking it. You can also sleep the device with a tap of
 the power button, or power it off with a long press, at any time.
+
+![The unlock prompt over the dimmed game grid: an "Enter PIN to exit" panel with four PIN digit boxes and a button legend - Up/Down changes a digit, Left/Right moves the slot, B cancels, A confirms, L1 reboots, R1 shuts down, and Y reconnects Bluetooth](/5_game_lock.png)
 
 ## Wi-Fi and Bluetooth
 

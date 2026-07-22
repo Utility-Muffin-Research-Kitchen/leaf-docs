@@ -68,10 +68,10 @@ paired but not connected. Open the unlock prompt and press **Y** to reconnect it
 
 There are two ways back in if you forget your code:
 
-- **The failsafe button hold.** On the focus screen, hold **Menu + Select + Start
-  + L2 + R2** together for about two seconds. This always exits, whatever the lock
-  is set to. It takes five buttons on purpose, so a child will not trigger it by
-  accident.
+- **The failsafe button hold.** On the focus screen, hold
+  **Menu + Select + Start + L2 + R2** together for about two seconds. This always
+  exits, whatever the lock is set to. It takes five buttons on purpose, so a child
+  will not trigger it by accident.
 - **Delete the lock file.** Power the device off, remove the microSD card, put it
   in a computer, and delete the file named `.leaf-focus-lock` at the top level of
   the card. The device comes up unlocked on the next boot. Your games and saves

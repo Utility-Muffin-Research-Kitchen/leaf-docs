@@ -39,8 +39,9 @@ starting the mode again begins right where you left off.
 ## Using the focus screen
 
 The focus screen shows your games as box-art tiles and nothing else, apart from a
-small battery indicator in the corner. Move with the D-pad and press **A** to
-play. When you quit a game, you come straight back to the focus screen.
+small battery indicator in the corner (and a **Bluetooth icon** beside it when a
+paired headset is disconnected). Move with the D-pad and press **A** to play. When
+you quit a game, you come straight back to the focus screen.
 
 ![The 5-Game Mode focus screen: five Game Boy Advance box-art tiles laid out two on top and three below, the top-left tile highlighted with a brighter accent border, and a small battery and Bluetooth icon in the top corner](/5_game_view.png)
 

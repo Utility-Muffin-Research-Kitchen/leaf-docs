@@ -102,10 +102,14 @@
 
   /* Render mode: flat SVG device art, so the screen is a plain scale/translate onto
      the artwork's screen rect — none of the photo's perspective warp or PNG mask. */
-  .nu-render { width: 100%; max-width: 640px; margin: 0 auto; position: relative; }
+  .nu-render { width: 100%; max-width: 640px; margin: 0 auto; position: relative;
+    border-radius: 12px; box-sizing: border-box; transition: background .15s linear; }
   .nu-render-inner { position: relative; width: 100%; }
-  .nu-render-img { display: block; width: 100%; height: auto; margin: 0; }
-  .nu-render-screen { position: absolute; overflow: hidden; }
+  /* The site frames content images with a border + glow; the device art is a
+     cut-out, so strip that or it reads as a photo in a box. */
+  .nu-render-inner img.nu-render-img { display: block; width: 100%; height: auto; margin: 0;
+    border: 0; border-radius: 0; box-shadow: none !important; background: none; }
+  .nu-render-screen { position: absolute; overflow: hidden; margin: 0; }
   .nu-render[hidden], .nu-photo[hidden], .nu-device[hidden] { display: none; }
   /* device photo with the live screen perspective-warped onto the masked quad */
   .nu-photo { width: 100%; max-width: 640px; margin: 0 auto; position: relative; aspect-ratio: 1496 / 1126; }
@@ -277,6 +281,21 @@
   // ---- render the live screen ----
   function paintScreen() {
     for (const e of ELS) screen.style.setProperty('--' + e.key, cssRgba(state[e.key]));
+    paintRenderBackdrop();
+  }
+  // The device art is a flat cut-out, so a black Brick on the page's near-black
+  // background loses its edges entirely. Tint the stage from Main (c1) at a muted
+  // mid-tone, flipping light/dark with the theme so the hardware always has contrast.
+  function paintRenderBackdrop() {
+    if (!renderEl) return;
+    // Main carries the hue when it has one; a white/grey Main would give a dead
+    // neutral stage, so fall back to the primary accent for the tint in that case.
+    const m = rgb2hsv(state.c1);
+    const a = rgb2hsv(state.c2);
+    const src = m.s >= 0.15 ? m : (a.s >= 0.15 ? a : m);
+    const light = relLum(state.c7) > 0.35;
+    const c = hsv2rgb(src.h, Math.min(src.s, 0.30), light ? 0.88 : 0.26);
+    renderEl.style.background = cssRgba({ ...c, a: 255 });
   }
   function buildList() {
     listEl.innerHTML = '';
@@ -659,9 +678,13 @@
   // ---- render mode: flat device SVGs ----
   // Two geometries cover all the artwork: every Brick / Brick Hammer colorway shares
   // one screen rect, every Smart Pro / Pro S shares another.
+  // x/y/w/h is the dark glass panel in the artwork. The live screen is inset inside
+  // it so that panel reads as a bezel band, and nudged up (dy) because sitting dead
+  // centre in the glass looks low against the hardware. padY adds breathing room
+  // above/below the device in the stage (as a % of stage width).
   const FAM = {
-    brick:    { vw:1280, vh:1280, x:334, y:194, w:602,  h:426, r:6 },
-    smartpro: { vw:2200, vh:960,  x:460, y:105, w:1280, h:760, r:0 },
+    brick:    { vw:1280, vh:1280, x:334, y:194, w:602,  h:426, r:6, inset:16, dy:-5,  padY:1 },
+    smartpro: { vw:2200, vh:960,  x:460, y:105, w:1280, h:760, r:0, inset:34, dy:-12, padY:7 },
   };
   const DEVICES = [
     { id:'brick_black',         name:'Brick · Black',         fam:'brick' },
@@ -714,18 +737,24 @@
   function layoutRender() {
     const d = DEVICES.find(x => x.id === device) || DEVICES[0];
     const f = FAM[d.fam];
-    const cssW = renderEl.clientWidth;
+    renderEl.style.padding = f.padY + '% 4%';
+    const cssW = renderImg.clientWidth;       // measure the art, not the padded box
     if (!cssW) return;
     const k = cssW / f.vw;                    // artwork units -> css px
-    renderScreen.style.left = (f.x * k) + 'px';
-    renderScreen.style.top = (f.y * k) + 'px';
-    renderScreen.style.width = (f.w * k) + 'px';
-    renderScreen.style.height = (f.h * k) + 'px';
-    renderScreen.style.borderRadius = (f.r * k) + 'px';
-    const sw = Math.round(SCREEN_H * (f.w / f.h));
+    // Inset the same amount on both axes so the bezel band reads as even width;
+    // the UI reflows to whatever aspect that leaves rather than being stretched.
+    const ix = f.inset, iy = f.inset;
+    const x = f.x + ix, y = f.y + iy + f.dy;
+    const w = f.w - ix * 2, h = f.h - iy * 2;
+    renderScreen.style.left = (renderImg.offsetLeft + x * k) + 'px';
+    renderScreen.style.top = (renderImg.offsetTop + y * k) + 'px';
+    renderScreen.style.width = (w * k) + 'px';
+    renderScreen.style.height = (h * k) + 'px';
+    renderScreen.style.borderRadius = (Math.max(f.r - ix * 0.5, 0) * k) + 'px';
+    const sw = Math.round(SCREEN_H * (w / h));
     screen.style.width = sw + 'px';
     screen.style.height = SCREEN_H + 'px';
-    screen.style.transform = 'scale(' + ((f.w * k) / sw) + ')';
+    screen.style.transform = 'scale(' + ((w * k) / sw) + ')';
   }
 
   function setMode(next) {

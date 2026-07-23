@@ -45,9 +45,19 @@
     <div class="nu-elements" id="nu-elements"></div>
 
     <div class="nu-actions">
+      <select id="nu-scheme" class="nu-scheme" aria-label="Color harmony">
+        <option value="auto">Auto harmony</option>
+        <option value="analogous">Analogous</option>
+        <option value="complementary">Complementary</option>
+        <option value="split">Split complementary</option>
+        <option value="triadic">Triadic</option>
+        <option value="mono">Monochromatic</option>
+      </select>
       <button type="button" id="nu-rand" class="primary">Randomize</button>
       <button type="button" id="nu-reset">Reset</button>
     </div>
+
+    <div class="nu-contrast" id="nu-contrast"></div>
 
     <input type="text" id="nu-name" class="nu-namein" placeholder="Theme name" maxlength="40" />
     <button type="button" id="nu-copy" class="nu-export">Copy theme code</button>
@@ -126,6 +136,29 @@
   .nu-el-sw span { display: block; width: 100%; height: 100%; border-radius: 5px; }
   .nu-el-name { flex: 1 1 auto; font-size: .82rem; font-weight: 600; color: var(--sl-color-white); }
   .nu-el-hex { font-size: .72rem; font-family: ui-monospace, monospace; color: var(--sl-color-gray-3); }
+  /* Lock: keeps a swatch out of Randomize. Dim until engaged so a row of unlocked
+     padlocks doesn't read as noise. */
+  .nu-lock { flex: 0 0 auto; width: 26px; height: 26px; margin: 0; padding: 0; border: 0; border-radius: 6px;
+    background: transparent; cursor: pointer; line-height: 1; font-size: .82rem; opacity: .35;
+    color: var(--sl-color-gray-2); }
+  .nu-lock:hover { opacity: .75; background: var(--sl-color-gray-5); }
+  .nu-el.locked .nu-lock { opacity: 1; color: var(--sl-color-accent); }
+  .nu-el.locked { border-color: var(--sl-color-gray-4); }
+
+  .nu-scheme { flex: 1 1 0; height: 38px; margin: 0; border-radius: 8px; font: inherit; font-weight: 600;
+    font-size: .8rem; padding: 0 .5rem; background: var(--sl-color-gray-6);
+    color: var(--sl-color-white); border: 1px solid var(--sl-color-gray-5); }
+
+  /* Contrast readout: the pairs the theme is actually judged on, live. */
+  .nu-contrast { margin-top: .6rem; display: flex; flex-direction: column; gap: .18rem; }
+  .nu-ct { display: flex; align-items: center; gap: .5rem; font-size: .72rem;
+    padding: .18rem .4rem; border-radius: 6px; background: var(--sl-color-gray-6); }
+  .nu-ct-label { flex: 1 1 auto; color: var(--sl-color-gray-2); }
+  .nu-ct-val { font-family: ui-monospace, monospace; color: var(--sl-color-gray-3); }
+  .nu-ct-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+  .nu-ct.pass .nu-ct-dot { background: #3fb950; }
+  .nu-ct.warn .nu-ct-dot { background: #d29922; }
+  .nu-ct.fail .nu-ct-dot { background: #f85149; }
 
   .nu-picker { display: flex; gap: 1rem; align-items: flex-start; margin: 1rem auto 0; max-width: 640px; }
   .nu-wheel { width: 168px; height: 168px; touch-action: none; cursor: crosshair; flex: 0 0 auto; }
@@ -169,6 +202,7 @@
   const SEL_ROW = 3;
 
   const state = {};   // key -> {r,g,b,a}  (a 0-255)
+  const locked = {};  // key -> true when Randomize must leave the swatch alone
   let active = 'c2';
   let name = 'Custom';
   // Authoritative hue/sat for the active swatch. Re-deriving these from the packed
@@ -207,6 +241,7 @@
   const hexIn = document.getElementById('nu-hex');
   const nameIn = document.getElementById('nu-name');
   const codeEl = document.getElementById('nu-code');
+  const ctEl = document.getElementById('nu-contrast');
 
   // ---- render the live screen ----
   function paintScreen() {
@@ -225,24 +260,31 @@
   // ---- element list ----
   function buildElements() {
     elsEl.innerHTML = '';
-    ELS.forEach((e, idx) => {
-      if (idx === ELS.length) {
-        const d = document.createElement('div'); d.className = 'nu-divider';
-        d.textContent = 'On the device · not saved to the theme';
-        elsEl.appendChild(d);
-      }
+    ELS.forEach((e) => {
       const row = document.createElement('div');
-      row.className = 'nu-el' + (e.key === active ? ' active' : '');
+      row.className = 'nu-el' + (e.key === active ? ' active' : '') + (locked[e.key] ? ' locked' : '');
       row.dataset.key = e.key;
       row.innerHTML = `<span class="nu-el-sw"><span data-sw="${e.key}"></span></span>`
-        + `<span class="nu-el-name">${e.name}</span><span class="nu-el-hex" data-hx="${e.key}"></span>`;
+        + `<span class="nu-el-name">${e.name}</span><span class="nu-el-hex" data-hx="${e.key}"></span>`
+        + `<button type="button" class="nu-lock" data-lock="${e.key}" aria-pressed="${!!locked[e.key]}"`
+        + ` title="Lock this color so Randomize leaves it alone">${locked[e.key] ? '🔒' : '🔓'}</button>`;
       row.addEventListener('click', () => { active = e.key; syncElements(); loadPicker(); });
+      row.querySelector('.nu-lock').addEventListener('click', (ev) => {
+        ev.stopPropagation();          // toggling a lock shouldn't also select the row
+        locked[e.key] = !locked[e.key];
+        syncElements();
+      });
       elsEl.appendChild(row);
     });
     refreshSwatches();
   }
   function syncElements() {
-    elsEl.querySelectorAll('.nu-el').forEach(r => r.classList.toggle('active', r.dataset.key === active));
+    elsEl.querySelectorAll('.nu-el').forEach(r => {
+      r.classList.toggle('active', r.dataset.key === active);
+      r.classList.toggle('locked', !!locked[r.dataset.key]);
+      const b = r.querySelector('.nu-lock');
+      if (b) { b.textContent = locked[r.dataset.key] ? '🔒' : '🔓'; b.setAttribute('aria-pressed', !!locked[r.dataset.key]); }
+    });
   }
   function refreshSwatches() {
     ELS.forEach(e => {
@@ -306,7 +348,7 @@
     paintScreen(); refreshSwatches();
     document.getElementById('nu-swatch-lg').style.background = cssRgba(state[active]);
     hexIn.value = '#' + packHex(state[active]);
-    styleAlpha(); updateCode(); updateURL();
+    styleAlpha(); updateCode(); updateURL(); renderContrast();
   }
 
   // ---- wheel interaction ----
@@ -333,14 +375,14 @@
     state[active] = { ...state[active], a: Math.round(+alphaR.value/100*255) };
     paintScreen(); refreshSwatches(); styleAlpha();
     document.getElementById('nu-swatch-lg').style.background = cssRgba(state[active]);
-    hexIn.value = '#' + packHex(state[active]); updateCode(); updateURL();
+    hexIn.value = '#' + packHex(state[active]); updateCode(); updateURL(); renderContrast();
   });
   hexIn.addEventListener('change', () => {
     const m = /^#?([0-9a-fA-F]{6}([0-9a-fA-F]{2})?)$/.exec(hexIn.value.trim());
     if (!m) { hexIn.value = '#' + packHex(state[active]); return; }
     let h = m[1]; if (h.length === 6) h += 'ff';
     state[active] = { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) };
-    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL(); renderContrast();
   });
 
   // ---- export / share ----
@@ -404,14 +446,146 @@
   document.getElementById('nu-reset').addEventListener('click', () => {
     ELS.forEach(e => { state[e.key] = unpack(e.def); });
     name = 'Custom'; nameIn.value = '';
-    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL(); renderContrast();
   });
-  document.getElementById('nu-rand').addEventListener('click', () => {
-    ELS.forEach(e => {
-      const rgb = hsv2rgb(Math.random()*360, Math.random(), Math.random());
-      state[e.key] = { ...rgb, a: 255 };
+  // ---- contrast (WCAG) ----
+  // The pairs the rendered UI actually stacks (see the .nu-screen CSS) — those are
+  // what a theme lives or dies by, so they're what we report and what Randomize
+  // repairs. Note the selected row sits on c1 (Main), not on the accent.
+  const PAIRS = [
+    { fg:'c4', bg:'c7', label:'List text on background',    min:4.5 },
+    { fg:'c6', bg:'c7', label:'Status text on background',  min:4.5 },
+    { fg:'c5', bg:'c1', label:'Selected text on selection', min:4.5 },
+    { fg:'c6', bg:'c2', label:'Hint text on accent',        min:4.5 },
+    { fg:'c3', bg:'c1', label:'Button glyph on button',     min:3.0 },
+  ];
+  const srgbLin = (n) => { const c = n/255; return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); };
+  const relLum = (c) => 0.2126*srgbLin(c.r) + 0.7152*srgbLin(c.g) + 0.0722*srgbLin(c.b);
+  function contrast(a, b) {
+    const l1 = relLum(a), l2 = relLum(b);
+    return (Math.max(l1,l2) + 0.05) / (Math.min(l1,l2) + 0.05);
+  }
+  function renderContrast() {
+    ctEl.innerHTML = '';
+    PAIRS.forEach(p => {
+      const ratio = contrast(state[p.fg], state[p.bg]);
+      const cls = ratio >= p.min ? 'pass' : (ratio >= p.min - 1.5 ? 'warn' : 'fail');
+      const row = document.createElement('div');
+      row.className = 'nu-ct ' + cls;
+      row.innerHTML = `<span class="nu-ct-dot"></span><span class="nu-ct-label"></span>`
+        + `<span class="nu-ct-val"></span>`;
+      row.querySelector('.nu-ct-label').textContent = p.label;
+      row.querySelector('.nu-ct-val').textContent = ratio.toFixed(1) + ':1';
+      ctEl.appendChild(row);
     });
-    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
+  }
+
+  // ---- harmony-aware randomize ----
+  const SCHEMES = {
+    analogous:     h => [h, (h+30)%360, (h+330)%360],
+    complementary: h => [h, (h+180)%360],
+    split:         h => [h, (h+150)%360, (h+210)%360],
+    triadic:       h => [h, (h+120)%360, (h+240)%360],
+    mono:          h => [h],
+  };
+  const SCHEME_KEYS = Object.keys(SCHEMES);
+  const rnd = (a,b) => a + Math.random()*(b-a);
+  const put = (key, h, s, v) => { if (!locked[key]) state[key] = { ...hsv2rgb(h,s,v), a: 255 }; };
+
+  // Constraints grouped BY COLOR, not by pair. c6 is the awkward one: it's the status
+  // text on the background AND the hint text on the accent pill, so it has to clear
+  // both at once. Fixing pair-by-pair let the second fix quietly undo the first.
+  const FIXES = [
+    { fg:'c4', against:[['c7',4.5]] },
+    { fg:'c5', against:[['c1',4.5]] },
+    { fg:'c3', against:[['c1',3.0]] },
+    { fg:'c6', against:[['c7',4.5], ['c2',4.5]] },
+  ];
+  // Move a foreground as little as possible until it clears every background it sits
+  // on. Brightness first (keeps the hue), then desaturating, which opens up range a
+  // saturated hue simply cannot reach. Never touches a locked swatch.
+  function fixContrast(fgKey, against) {
+    if (locked[fgKey]) return;
+    // How much headroom the worst constraint has; >= 0 means everything passes.
+    const score = (c) => Math.min(...against.map(([bg,min]) => contrast(c, state[bg]) - min));
+    if (score(state[fgKey]) >= 0) return;
+    const cur = rgb2hsv(state[fgKey]);
+    let best = null, bestScore = -Infinity;
+    const consider = (cand) => {
+      const sc = score(cand);
+      if (sc > bestScore) { bestScore = sc; best = cand; }
+      return sc >= 0;
+    };
+    for (let d = 0; d <= 1.0001; d += 0.02) {
+      for (const v of [cur.v + d, cur.v - d]) {
+        if (v < 0 || v > 1) continue;
+        const cand = { ...hsv2rgb(cur.h, cur.s, v), a: 255 };
+        if (consider(cand)) { state[fgKey] = cand; return; }
+      }
+    }
+    for (let s = cur.s - 0.1; s >= -0.0001; s -= 0.1) {
+      for (let v = 0; v <= 1.0001; v += 0.02) {
+        const cand = { ...hsv2rgb(cur.h, Math.max(s,0), v), a: 255 };
+        if (consider(cand)) { state[fgKey] = cand; return; }
+      }
+    }
+    if (best) state[fgKey] = best;   // unsatisfiable: keep the least-bad, readout warns
+  }
+
+  // The accent carries hint text whose polarity is dictated by the background, so the
+  // accent needs to leave room for it. Constraining its HSV *value* isn't enough — a
+  // yellow at v=.6 is far brighter than a blue at v=.6 — so pull its actual relative
+  // luminance into the feasible band instead.
+  function fitAccentLuminance(dark) {
+    if (locked.c2) return;
+    const want = (c) => dark ? relLum(c) <= 0.16 : relLum(c) >= 0.45;
+    if (want(state.c2)) return;
+    const cur = rgb2hsv(state.c2);
+    const step = dark ? -0.02 : 0.02;
+    for (let v = cur.v; v >= -0.0001 && v <= 1.0001; v += step) {
+      const cand = { ...hsv2rgb(cur.h, cur.s, Math.min(Math.max(v,0),1)), a: 255 };
+      if (want(cand)) { state.c2 = cand; return; }
+    }
+    // Very bright hues (yellows) can't get dark enough while fully saturated.
+    for (let s = cur.s; s >= -0.0001; s -= 0.08) {
+      for (let v = 0; v <= 1.0001; v += 0.02) {
+        const cand = { ...hsv2rgb(cur.h, Math.max(s,0), v), a: 255 };
+        if (want(cand)) { state.c2 = cand; return; }
+      }
+    }
+  }
+
+  function randomize() {
+    const pick = document.getElementById('nu-scheme').value;
+    const scheme = pick === 'auto'
+      ? SCHEME_KEYS[Math.floor(Math.random()*SCHEME_KEYS.length)] : pick;
+    // Seed from a locked color when there is one, so a lock steers the whole palette
+    // instead of merely surviving it.
+    const seedKey = ['c2','c1','c3','c6','c4','c7'].find(k => locked[k]);
+    const baseH = seedKey ? rgb2hsv(state[seedKey]).h : Math.random()*360;
+    const hues = SCHEMES[scheme](baseH);
+    const hue = (i) => hues[i % hues.length];
+    // Dark themes are the norm; honor a locked background's polarity if there is one.
+    const dark = locked.c7 ? relLum(state.c7) < 0.25 : Math.random() < 0.75;
+
+    put('c7', hue(0), rnd(0.10, 0.35), dark ? rnd(0.05, 0.14) : rnd(0.90, 0.99));  // background
+    // The accent carries hint text, and that text follows the background's polarity —
+    // so on a dark theme the accent has to stay deep enough for light text, and on a
+    // light theme light enough for dark text. Otherwise the pair is unsatisfiable.
+    put('c2', hue(1), rnd(0.55, 0.90), dark ? rnd(0.32, 0.60) : rnd(0.62, 0.88));  // accent pill
+    put('c1', hue(0), rnd(0.03, 0.16), dark ? rnd(0.88, 1.00) : rnd(0.10, 0.26));  // selection / button
+    put('c3', hue(2), rnd(0.45, 0.85), dark ? rnd(0.12, 0.30) : rnd(0.70, 0.95));  // glyph on c1
+    put('c4', hue(0), rnd(0.02, 0.12), dark ? rnd(0.92, 1.00) : rnd(0.04, 0.14));  // list text
+    put('c5', hue(0), rnd(0.02, 0.12), dark ? rnd(0.04, 0.14) : rnd(0.92, 1.00));  // selected text
+    put('c6', hue(1), rnd(0.05, 0.20), dark ? rnd(0.72, 0.92) : rnd(0.16, 0.34));  // hint / status
+
+    fitAccentLuminance(dark);
+    FIXES.forEach(f => fixContrast(f.fg, f.against));
+  }
+
+  document.getElementById('nu-rand').addEventListener('click', () => {
+    randomize();
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL(); renderContrast();
   });
 
   // ---- device photo: perspective-warp the 800x600 screen onto the masked quad ----
@@ -459,6 +633,7 @@
   paintScreen();
   loadPicker();
   updateCode();
+  renderContrast();
   warpScreen();
   fitPhoto();
   window.addEventListener('resize', fitPhoto);

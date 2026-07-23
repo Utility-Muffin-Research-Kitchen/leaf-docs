@@ -73,10 +73,16 @@ const STUDIOS = [
     ogAlt: 'A NextUI color palette on the TrimUI Brick',
     card: { title: 'NextUI<br>Palette<br>Studio', sub: 'Design your<br>TrimUI Brick theme' },
     buildConfig(p) {
-      // Share links carry ?t=<56..72 hex> (7 theme colors + 2 cosmetic LEDs) and
-      // an optional ?n=<name>. Validate against the studio's own applyURL rules.
-      const t = (p.get('t') || '').toLowerCase();
-      if (!/^([0-9a-f]{8}){7,9}$/.test(t)) return null;
+      // Share links carry ?t= and an optional ?n=<name>. Two forms, matching the
+      // studio's own readShareCode: base64url over the palette bytes (28 chars for
+      // the usual all-opaque theme, up to 40 with alphas), or the older RGBA hex
+      // (56, or 72 from when the studio still had the two cosmetic LED slots).
+      // Hex is lowercased; base64url must be passed through as-is, it is case
+      // sensitive. The cap is what keeps this from forwarding arbitrary junk.
+      const raw = p.get('t') || '';
+      const hex = /^([0-9a-fA-F]{8}){7,9}$/.test(raw);
+      if (!hex && !/^[A-Za-z0-9_-]{24,44}$/.test(raw)) return null;
+      const t = hex ? raw.toLowerCase() : raw;
       let out = `t=${t}`;
       const n = p.get('n');
       if (n) out += `&n=${encodeURIComponent(n.slice(0, 40))}`;

@@ -421,7 +421,57 @@
     return lines.join('\n') + '\n';
   }
   function updateCode() { codeEl.textContent = themeText(); }
-  function shareCode() { return ELS.map(e => packHex(state[e.key])).join(''); }
+
+  // Share code: base64url over the raw bytes rather than 56 hex characters. Alpha is
+  // 255 on every color in almost every theme, so it is left out entirely unless some
+  // color needs it, in which case a leading bitmask says which ones carry one at the
+  // end. 21 bytes -> 28 characters for the usual case, half the old length.
+  const b64u = {
+    enc(bytes) {
+      let s = ''; for (const b of bytes) s += String.fromCharCode(b);
+      return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    },
+    dec(t) {
+      const s = atob(t.replace(/-/g,'+').replace(/_/g,'/'));
+      const b = new Uint8Array(s.length);
+      for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
+      return b;
+    },
+  };
+  function shareCode() {
+    const cs = ELS.map(e => state[e.key]);
+    let mask = 0;
+    cs.forEach((c,i) => { if (c.a !== 255) mask |= 1 << i; });
+    const bytes = [];
+    if (mask) bytes.push(mask);
+    cs.forEach(c => bytes.push(c.r, c.g, c.b));
+    if (mask) cs.forEach(c => { if (c.a !== 255) bytes.push(c.a); });
+    return b64u.enc(bytes);
+  }
+  // Decode a share code in either form. Returns null if it isn't one.
+  function readShareCode(t) {
+    // Legacy: 7 colors (or 9, from when the studio still had the two cosmetic LED
+    // slots) as RGBA hex. The trailing LED bytes are read and dropped.
+    if (/^([0-9a-fA-F]{8})+$/.test(t) && t.length >= ELS.length*8) {
+      return ELS.map((e,i) => {
+        const h = t.slice(i*8, i*8+8);
+        return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16),
+                 b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) };
+      });
+    }
+    if (!/^[A-Za-z0-9_-]+$/.test(t)) return null;
+    let b; try { b = b64u.dec(t); } catch (_) { return null; }
+    const n = ELS.length, rgb = n*3;
+    if (b.length === rgb) {
+      return ELS.map((e,i) => ({ r: b[i*3], g: b[i*3+1], b: b[i*3+2], a: 255 }));
+    }
+    if (b.length < rgb + 1) return null;
+    const mask = b[0];
+    let ai = rgb + 1;                       // alphas follow the RGB run, in order
+    const out = ELS.map((e,i) => ({ r: b[1+i*3], g: b[2+i*3], b: b[3+i*3],
+                                    a: (mask >> i) & 1 ? b[ai++] : 255 }));
+    return ai === b.length ? out : null;    // trailing or missing alpha bytes: reject
+  }
   function shareQuery() {
     return 't=' + shareCode() + (name && name !== 'Custom' ? '&n=' + encodeURIComponent(name) : '');
   }
@@ -438,19 +488,9 @@
   function applyURL() {
     const p = new URLSearchParams(location.search);
     const t = p.get('t');
-    // No upper bound on length: links shared while the studio still had the two
-    // cosmetic LED slots carry 72 chars. Decoding just the first ELS.length*8 keeps
-    // those old links working — the trailing LED bytes are simply ignored.
-    if (t && /^([0-9a-fA-F]{8})+$/.test(t) && t.length >= ELS.length*8) {
-      ELS.forEach((e,i) => {
-        const h = t.slice(i*8, i*8+8);
-        state[e.key] = h.length === 8
-          ? { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) }
-          : unpack(e.def);
-      });
-    } else {
-      ELS.forEach(e => { state[e.key] = unpack(e.def); });
-    }
+    const cs = t ? readShareCode(t) : null;
+    if (cs) ELS.forEach((e,i) => { state[e.key] = cs[i]; });
+    else ELS.forEach(e => { state[e.key] = unpack(e.def); });
     const n = p.get('n'); if (n) name = n.slice(0,40);
   }
 

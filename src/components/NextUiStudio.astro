@@ -72,8 +72,6 @@
       <button type="button" id="nu-reset">Reset</button>
     </div>
 
-    <div class="nu-contrast" id="nu-contrast"></div>
-
     <input type="text" id="nu-name" class="nu-namein" placeholder="Theme name" maxlength="40" />
     <button type="button" id="nu-copy" class="nu-export">Copy theme code</button>
     <button type="button" id="nu-dl" class="nu-export">Download .txt</button>
@@ -184,16 +182,6 @@
     font-size: .8rem; padding: 0 .5rem; background: var(--sl-color-gray-6);
     color: var(--sl-color-white); border: 1px solid var(--sl-color-gray-5); }
 
-  /* Contrast readout: the pairs the theme is actually judged on, live. */
-  .nu-contrast { margin-top: .6rem; display: flex; flex-direction: column; gap: .18rem; }
-  .nu-ct { display: flex; align-items: center; gap: .5rem; font-size: .72rem;
-    padding: .18rem .4rem; border-radius: 6px; background: var(--sl-color-gray-6); }
-  .nu-ct-label { flex: 1 1 auto; color: var(--sl-color-gray-2); }
-  .nu-ct-val { font-family: ui-monospace, monospace; color: var(--sl-color-gray-3); }
-  .nu-ct-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
-  .nu-ct.pass .nu-ct-dot { background: #3fb950; }
-  .nu-ct.warn .nu-ct-dot { background: #d29922; }
-  .nu-ct.fail .nu-ct-dot { background: #f85149; }
 
   .nu-picker { display: flex; gap: 1rem; align-items: flex-start; margin: 1rem auto 0; max-width: 640px; }
   .nu-wheel { width: 168px; height: 168px; touch-action: none; cursor: crosshair; flex: 0 0 auto; }
@@ -276,7 +264,6 @@
   const hexIn = document.getElementById('nu-hex');
   const nameIn = document.getElementById('nu-name');
   const codeEl = document.getElementById('nu-code');
-  const ctEl = document.getElementById('nu-contrast');
 
   // ---- render the live screen ----
   function paintScreen() {
@@ -398,7 +385,7 @@
     paintScreen(); refreshSwatches();
     document.getElementById('nu-swatch-lg').style.background = cssRgba(state[active]);
     hexIn.value = '#' + packHex(state[active]);
-    styleAlpha(); updateCode(); updateURL(); renderContrast();
+    styleAlpha(); updateCode(); updateURL();
   }
 
   // ---- wheel interaction ----
@@ -425,14 +412,14 @@
     state[active] = { ...state[active], a: Math.round(+alphaR.value/100*255) };
     paintScreen(); refreshSwatches(); styleAlpha();
     document.getElementById('nu-swatch-lg').style.background = cssRgba(state[active]);
-    hexIn.value = '#' + packHex(state[active]); updateCode(); updateURL(); renderContrast();
+    hexIn.value = '#' + packHex(state[active]); updateCode(); updateURL();
   });
   hexIn.addEventListener('change', () => {
     const m = /^#?([0-9a-fA-F]{6}([0-9a-fA-F]{2})?)$/.exec(hexIn.value.trim());
     if (!m) { hexIn.value = '#' + packHex(state[active]); return; }
     let h = m[1]; if (h.length === 6) h += 'ff';
     state[active] = { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) };
-    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL(); renderContrast();
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
   });
 
   // ---- export / share ----
@@ -496,38 +483,16 @@
   document.getElementById('nu-reset').addEventListener('click', () => {
     ELS.forEach(e => { state[e.key] = unpack(e.def); });
     name = 'Custom'; nameIn.value = '';
-    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL(); renderContrast();
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
   });
   // ---- contrast (WCAG) ----
-  // The pairs the rendered UI actually stacks (see the .nu-screen CSS) — those are
-  // what a theme lives or dies by, so they're what we report and what Randomize
-  // repairs. Note the selected row sits on c1 (Main), not on the accent.
-  const PAIRS = [
-    { fg:'c4', bg:'c7', label:'List text on background',    min:4.5 },
-    { fg:'c6', bg:'c7', label:'Status text on background',  min:4.5 },
-    { fg:'c5', bg:'c1', label:'Selected text on selection', min:4.5 },
-    { fg:'c6', bg:'c2', label:'Hint text on accent',        min:4.5 },
-    { fg:'c3', bg:'c1', label:'Button glyph on button',     min:3.0 },
-  ];
+  // Not surfaced anywhere: the ratios only exist so Randomize can keep the pairs the
+  // rendered UI actually stacks legible (see FIXES below).
   const srgbLin = (n) => { const c = n/255; return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); };
   const relLum = (c) => 0.2126*srgbLin(c.r) + 0.7152*srgbLin(c.g) + 0.0722*srgbLin(c.b);
   function contrast(a, b) {
     const l1 = relLum(a), l2 = relLum(b);
     return (Math.max(l1,l2) + 0.05) / (Math.min(l1,l2) + 0.05);
-  }
-  function renderContrast() {
-    ctEl.innerHTML = '';
-    PAIRS.forEach(p => {
-      const ratio = contrast(state[p.fg], state[p.bg]);
-      const cls = ratio >= p.min ? 'pass' : (ratio >= p.min - 1.5 ? 'warn' : 'fail');
-      const row = document.createElement('div');
-      row.className = 'nu-ct ' + cls;
-      row.innerHTML = `<span class="nu-ct-dot"></span><span class="nu-ct-label"></span>`
-        + `<span class="nu-ct-val"></span>`;
-      row.querySelector('.nu-ct-label').textContent = p.label;
-      row.querySelector('.nu-ct-val').textContent = ratio.toFixed(1) + ':1';
-      ctEl.appendChild(row);
-    });
   }
 
   // ---- harmony-aware randomize ----
@@ -635,7 +600,7 @@
 
   document.getElementById('nu-rand').addEventListener('click', () => {
     randomize();
-    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL(); renderContrast();
+    paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
   });
 
   // ---- device photo: perspective-warp the 800x600 screen onto the masked quad ----
@@ -799,7 +764,6 @@
   paintScreen();
   loadPicker();
   updateCode();
-  renderContrast();
   warpScreen();
   fitPhoto();
   setMode(mode);   // applies the remembered preview mode

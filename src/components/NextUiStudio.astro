@@ -103,8 +103,12 @@
   /* Deliberately a fixed neutral, not palette-derived: a stage that shifts with the
      colors throws off how those colors read on the screen next to it. This mid grey
      holds its own against both a black and a white colorway. */
+  /* Fixed box, sized for the tallest artwork (the square Brick canvas, plus a hair
+     of margin). The wide Smart Pro art just centres inside it, so switching colorway
+     no longer resizes the stage and shoves the page around. */
   .nu-render { width: 100%; max-width: 640px; margin: 0 auto; position: relative;
-    border-radius: 12px; box-sizing: border-box; background: #73777d; }
+    aspect-ratio: 100 / 102; display: flex; align-items: center;
+    border-radius: 12px; box-sizing: border-box; background: #73777d; overflow: hidden; }
   .nu-render-inner { position: relative; width: 100%; }
   /* The site frames content images with a border + glow; the device art is a
      cut-out, so strip that or it reads as a photo in a box. */
@@ -633,11 +637,11 @@
   // one screen rect, every Smart Pro / Pro S shares another.
   // x/y/w/h is the dark glass panel in the artwork. The live screen is inset inside
   // it so that panel reads as a bezel band, and nudged up (dy) because sitting dead
-  // centre in the glass looks low against the hardware. padY adds breathing room
-  // above/below the device in the stage (as a % of stage width).
+  // centre in the glass looks low against the hardware. The stage itself is a fixed
+  // box in CSS, so nothing here sizes it.
   const FAM = {
-    brick:    { vw:1280, vh:1280, x:334, y:194, w:602,  h:426, r:6, inset:16, dy:-5,  padY:1 },
-    smartpro: { vw:2200, vh:960,  x:460, y:105, w:1280, h:760, r:0, inset:34, dy:-12, padY:7 },
+    brick:    { vw:1280, vh:1280, x:334, y:194, w:602,  h:426, r:6, inset:16, dy:-5  },
+    smartpro: { vw:2200, vh:960,  x:460, y:105, w:1280, h:760, r:0, inset:34, dy:-12 },
   };
   const DEVICES = [
     { id:'brick_black',         name:'Brick · Black',         fam:'brick' },
@@ -690,8 +694,7 @@
   function layoutRender() {
     const d = DEVICES.find(x => x.id === device) || DEVICES[0];
     const f = FAM[d.fam];
-    renderEl.style.padding = f.padY + '% 4%';
-    const cssW = renderImg.clientWidth;       // measure the art, not the padded box
+    const cssW = renderImg.clientWidth;       // measure the art itself
     if (!cssW) return;
     const k = cssW / f.vw;                    // artwork units -> css px
     // Inset the same amount on both axes so the bezel band reads as even width;

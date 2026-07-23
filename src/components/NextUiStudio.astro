@@ -7,6 +7,21 @@
 
 <div class="nu">
   <div class="nu-stage">
+    <div class="nu-stagebar">
+      <div class="nu-modes" role="group" aria-label="Preview mode">
+        <button type="button" id="nu-mode-photo" class="nu-mode on" aria-pressed="true">Photo</button>
+        <button type="button" id="nu-mode-render" class="nu-mode" aria-pressed="false">Render</button>
+      </div>
+      <select id="nu-device" class="nu-device" aria-label="Device" hidden></select>
+    </div>
+
+    <div class="nu-render" id="nu-render" hidden>
+      <div class="nu-render-inner" id="nu-render-inner">
+        <img class="nu-render-img" id="nu-render-img" alt="" />
+        <div class="nu-render-screen" id="nu-render-screen"></div>
+      </div>
+    </div>
+
     <div class="nu-photo" id="nu-photo">
       <div class="nu-photo-inner" id="nu-photo-inner">
         <img class="nu-photo-img" src="/nextui/brick.png" width="1496" height="1126" alt="TrimUI Brick running NextUI" />
@@ -76,6 +91,22 @@
   }
   .nu { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-start; margin-top: 1.25rem; }
   .nu-stage { flex: 1 1 340px; min-width: 300px; }
+  .nu-stagebar { display: flex; gap: .5rem; align-items: center; max-width: 640px; margin: 0 auto .5rem; }
+  .nu-modes { display: inline-flex; border-radius: 8px; overflow: hidden; border: 1px solid var(--sl-color-gray-5); }
+  .nu-mode { margin: 0; padding: 0 .7rem; height: 30px; border: 0; background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-2); font: inherit; font-size: .76rem; font-weight: 600; cursor: pointer; }
+  .nu-mode.on { background: var(--sl-color-accent); color: var(--sl-color-black); }
+  .nu-device { flex: 1 1 0; height: 30px; margin: 0; border-radius: 8px; font: inherit; font-size: .76rem;
+    font-weight: 600; padding: 0 .4rem; background: var(--sl-color-gray-6); color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-gray-5); }
+
+  /* Render mode: flat SVG device art, so the screen is a plain scale/translate onto
+     the artwork's screen rect — none of the photo's perspective warp or PNG mask. */
+  .nu-render { width: 100%; max-width: 640px; margin: 0 auto; position: relative; }
+  .nu-render-inner { position: relative; width: 100%; }
+  .nu-render-img { display: block; width: 100%; height: auto; margin: 0; }
+  .nu-render-screen { position: absolute; overflow: hidden; }
+  .nu-render[hidden], .nu-photo[hidden], .nu-device[hidden] { display: none; }
   /* device photo with the live screen perspective-warped onto the masked quad */
   .nu-photo { width: 100%; max-width: 640px; margin: 0 auto; position: relative; aspect-ratio: 1496 / 1126; }
   /* Composite authored at HALF the photo's native pixels (748x563, not 1496x1126): every
@@ -625,6 +656,112 @@
     if (ph && inner) inner.style.transform = 'scale(' + (ph.clientWidth / NW) + ')';
   }
 
+  // ---- render mode: flat device SVGs ----
+  // Two geometries cover all the artwork: every Brick / Brick Hammer colorway shares
+  // one screen rect, every Smart Pro / Pro S shares another.
+  const FAM = {
+    brick:    { vw:1280, vh:1280, x:334, y:194, w:602,  h:426, r:6 },
+    smartpro: { vw:2200, vh:960,  x:460, y:105, w:1280, h:760, r:0 },
+  };
+  const DEVICES = [
+    { id:'brick_black',         name:'Brick · Black',         fam:'brick' },
+    { id:'brick_white',         name:'Brick · White',         fam:'brick' },
+    { id:'brick_purple',        name:'Brick · Purple',        fam:'brick' },
+    { id:'brick_red',           name:'Brick · Red',           fam:'brick' },
+    { id:'brick_hammer_black',  name:'Brick Hammer · Black',  fam:'brick' },
+    { id:'brick_hammer_gray',   name:'Brick Hammer · Gray',   fam:'brick' },
+    { id:'brick_hammer_green',  name:'Brick Hammer · Green',  fam:'brick' },
+    { id:'brick_hammer_pink',   name:'Brick Hammer · Pink',   fam:'brick' },
+    { id:'brick_hammer_silver', name:'Brick Hammer · Silver', fam:'brick' },
+    { id:'smart_pro_black',     name:'Smart Pro · Black',     fam:'smartpro' },
+    { id:'smart_pro_white',     name:'Smart Pro · White',     fam:'smartpro' },
+    { id:'smart_pro_retro',     name:'Smart Pro · Retro',     fam:'smartpro' },
+    { id:'smart_pro_s_black',   name:'Smart Pro S · Black',   fam:'smartpro' },
+    { id:'smart_pro_s_white',   name:'Smart Pro S · White',   fam:'smartpro' },
+    { id:'smart_pro_s_green',   name:'Smart Pro S · Green',   fam:'smartpro' },
+    { id:'smart_pro_s_red',     name:'Smart Pro S · Red',     fam:'smartpro' },
+    { id:'smart_pro_s_yellow',  name:'Smart Pro S · Yellow',  fam:'smartpro' },
+    { id:'smart_pro_s_retro',   name:'Smart Pro S · Retro',   fam:'smartpro' },
+  ];
+  const renderEl = document.getElementById('nu-render');
+  const renderImg = document.getElementById('nu-render-img');
+  const renderScreen = document.getElementById('nu-render-screen');
+  const photoEl = document.getElementById('nu-photo');
+  const deviceSel = document.getElementById('nu-device');
+  const modePhotoBtn = document.getElementById('nu-mode-photo');
+  const modeRenderBtn = document.getElementById('nu-mode-render');
+  const screenClip = document.querySelector('.nu-screen-clip');
+
+  // Which device you preview on is a viewing preference, not part of the theme, so it
+  // stays out of the share link (and out of the OG worker's cache key) and lives here.
+  let mode = 'photo', device = DEVICES[0].id;
+  try {
+    if (localStorage.getItem('nu-mode') === 'render') mode = 'render';
+    const d = localStorage.getItem('nu-device');
+    if (d && DEVICES.some(x => x.id === d)) device = d;
+  } catch (_) {}
+
+  DEVICES.forEach(d => {
+    const o = document.createElement('option');
+    o.value = d.id; o.textContent = d.name;
+    deviceSel.appendChild(o);
+  });
+  deviceSel.value = device;
+
+  // Size the screen to the device's own aspect rather than a fixed 4:3, so the UI
+  // reflows the way it does on real hardware instead of being stretched, then place
+  // it on the artwork's screen rect with a single uniform scale.
+  function layoutRender() {
+    const d = DEVICES.find(x => x.id === device) || DEVICES[0];
+    const f = FAM[d.fam];
+    const cssW = renderEl.clientWidth;
+    if (!cssW) return;
+    const k = cssW / f.vw;                    // artwork units -> css px
+    renderScreen.style.left = (f.x * k) + 'px';
+    renderScreen.style.top = (f.y * k) + 'px';
+    renderScreen.style.width = (f.w * k) + 'px';
+    renderScreen.style.height = (f.h * k) + 'px';
+    renderScreen.style.borderRadius = (f.r * k) + 'px';
+    const sw = Math.round(SCREEN_H * (f.w / f.h));
+    screen.style.width = sw + 'px';
+    screen.style.height = SCREEN_H + 'px';
+    screen.style.transform = 'scale(' + ((f.w * k) / sw) + ')';
+  }
+
+  function setMode(next) {
+    mode = next === 'render' ? 'render' : 'photo';
+    const isR = mode === 'render';
+    renderEl.hidden = !isR; photoEl.hidden = isR; deviceSel.hidden = !isR;
+    modePhotoBtn.classList.toggle('on', !isR);
+    modeRenderBtn.classList.toggle('on', isR);
+    modePhotoBtn.setAttribute('aria-pressed', String(!isR));
+    modeRenderBtn.setAttribute('aria-pressed', String(isR));
+    if (isR) {
+      const d = DEVICES.find(x => x.id === device) || DEVICES[0];
+      renderImg.src = '/nextui/devices/' + d.id + '.svg';
+      renderImg.alt = d.name + ' running NextUI';
+      renderScreen.appendChild(screen);      // one screen element, re-parented per mode
+      layoutRender();
+    } else {
+      screenClip.appendChild(screen);
+      screen.style.width = SCREEN_W + 'px';
+      screen.style.height = SCREEN_H + 'px';
+      warpScreen();
+      fitPhoto();
+    }
+    try { localStorage.setItem('nu-mode', mode); } catch (_) {}
+  }
+
+  modePhotoBtn.addEventListener('click', () => setMode('photo'));
+  modeRenderBtn.addEventListener('click', () => setMode('render'));
+  deviceSel.addEventListener('change', () => {
+    device = deviceSel.value;
+    try { localStorage.setItem('nu-device', device); } catch (_) {}
+    if (mode === 'render') setMode('render');
+  });
+  // The SVG can finish decoding after layout; re-place the screen once it has.
+  renderImg.addEventListener('load', () => { if (mode === 'render') layoutRender(); });
+
   // ---- init ----
   applyURL();
   buildList();
@@ -636,5 +773,6 @@
   renderContrast();
   warpScreen();
   fitPhoto();
-  window.addEventListener('resize', fitPhoto);
+  setMode(mode);   // applies the remembered preview mode
+  window.addEventListener('resize', () => { fitPhoto(); if (mode === 'render') layoutRender(); });
 </script>

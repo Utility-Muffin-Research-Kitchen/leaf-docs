@@ -24,8 +24,6 @@
             </div>
           </div>
         </div>
-        <div class="nu-glow" id="nu-glow-l"></div>
-        <div class="nu-glow" id="nu-glow-r"></div>
       </div>
     </div>
     <div class="nu-picker">
@@ -80,18 +78,6 @@
   .nu-screen-clip { position: absolute; inset: 0; margin: 0;
     -webkit-mask: url(/nextui/screen-mask.png) 0 0 / 748px 563px no-repeat;
     mask: url(/nextui/screen-mask.png) 0 0 / 748px 563px no-repeat; }
-  /* LED glow: a soft radial bloom, no crisp core — matches the diffuse light the real device
-     LEDs cast through the plastic. No filter/drop-shadow: CSS filters allocate a per-layer buffer
-     that iOS Safari re-rasterizes on pinch-zoom until the tab OOM-crashes. A gradient is bounded
-     to the element box and re-rasters cheaply. Wrappers are centered on each LED (748-space
-     centers: left (380,335), right (412,332)). The mid-stop keeps the core soft, not solid. */
-  .nu-glow { position: absolute; margin: 0; pointer-events: none; border-radius: 50%; }
-  #nu-glow-l { left: 354px; top: 312px; width: 52px; height: 44px;
-    background: radial-gradient(closest-side, var(--led-l), transparent);
-    opacity: var(--glow-l, 1); }
-  #nu-glow-r { left: 386px; top: 309px; width: 52px; height: 44px;
-    background: radial-gradient(closest-side, var(--led-r), transparent);
-    opacity: var(--glow-r, 1); }
   .nu-divider { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
     color: var(--sl-color-gray-3); margin: .5rem 0 .05rem; }
   .nu-screen {
@@ -178,13 +164,6 @@
     { key: 'c6', name: 'Hint / Info',         def: 0xffffffff },
     { key: 'c7', name: 'Background',          def: 0x000000ff },
   ];
-  // Cosmetic device-photo accents (function-button LEDs). Editable + shareable, but
-  // NOT part of the NextUI palette, so they're excluded from the exported .txt.
-  const COSM = [
-    { key: 'ledL', name: 'Left Function LED',  def: 0x2987a6ff, cvar: '--led-l' },   // cyan at 65% brightness
-    { key: 'ledR', name: 'Right Function LED', def: 0x2987a6ff, cvar: '--led-r' },   // cyan at 65% brightness
-  ];
-  const ALL = ELS.concat(COSM);
   const LIST_ROWS = ['Recently Played', 'Super Nintendo', 'Nintendo 64', 'PlayStation',
                      'Sega Genesis', 'Tools'];
   const SEL_ROW = 3;
@@ -192,6 +171,12 @@
   const state = {};   // key -> {r,g,b,a}  (a 0-255)
   let active = 'c2';
   let name = 'Custom';
+  // Authoritative hue/sat for the active swatch. Re-deriving these from the packed
+  // RGB on every edit round-trips through 8-bit quantization, so dragging Brightness
+  // made the wheel marker drift — and at 0 the color is pure black, where hue/sat no
+  // longer exist at all (the marker snapped to the center and the hue was lost for
+  // good). Keeping them here means Brightness only ever changes V.
+  let curH = 0, curS = 0;
 
   // ---- color math ----
   const unpack = (v) => ({ r: (v>>>24)&255, g: (v>>>16)&255, b: (v>>>8)&255, a: v&255 });
@@ -224,20 +209,8 @@
   const codeEl = document.getElementById('nu-code');
 
   // ---- render the live screen ----
-  // Glow only for bright LEDs — a dark LED wouldn't glow. Ramps from 0 below ~20%
-  // brightness to full, scaled by alpha.
-  function glowStrength(c) {
-    const v = Math.max(c.r, c.g, c.b) / 255;
-    return (Math.max(0, (v - 0.2) / 0.8) * (c.a / 255)).toFixed(3);
-  }
   function paintScreen() {
     for (const e of ELS) screen.style.setProperty('--' + e.key, cssRgba(state[e.key]));
-    const inner = document.getElementById('nu-photo-inner');
-    if (inner) {
-      for (const e of COSM) inner.style.setProperty(e.cvar, cssRgba(state[e.key]));
-      inner.style.setProperty('--glow-l', glowStrength(state.ledL));
-      inner.style.setProperty('--glow-r', glowStrength(state.ledR));
-    }
   }
   function buildList() {
     listEl.innerHTML = '';
@@ -252,7 +225,7 @@
   // ---- element list ----
   function buildElements() {
     elsEl.innerHTML = '';
-    ALL.forEach((e, idx) => {
+    ELS.forEach((e, idx) => {
       if (idx === ELS.length) {
         const d = document.createElement('div'); d.className = 'nu-divider';
         d.textContent = 'On the device · not saved to the theme';
@@ -272,7 +245,7 @@
     elsEl.querySelectorAll('.nu-el').forEach(r => r.classList.toggle('active', r.dataset.key === active));
   }
   function refreshSwatches() {
-    ALL.forEach(e => {
+    ELS.forEach(e => {
       const sw = elsEl.querySelector(`[data-sw="${e.key}"]`);
       const hx = elsEl.querySelector(`[data-hx="${e.key}"]`);
       if (sw) sw.style.background = cssRgba(state[e.key]);
@@ -297,8 +270,7 @@
     drawWheelMarker();
   }
   function drawWheelMarker() {
-    const c = state[active], hsv = rgb2hsv(c);
-    const ang = hsv.h*Math.PI/180, rr = hsv.s*WR;
+    const ang = curH*Math.PI/180, rr = curS*WR;
     const x = WR + Math.cos(ang)*rr, y = WR + Math.sin(ang)*rr;
     wctx.save();
     wctx.beginPath(); wctx.arc(x, y, 7, 0, Math.PI*2);
@@ -310,6 +282,9 @@
 
   function loadPicker() {
     const c = state[active], hsv = rgb2hsv(c);
+    // The one place hue/sat are (re)derived: switching swatch, or a color set from
+    // outside the wheel (hex entry, randomize, reset, shared link).
+    curH = hsv.h; curS = hsv.s;
     valueR.value = Math.round(hsv.v*100);
     alphaR.value = Math.round(c.a/255*100);
     hexIn.value = '#' + packHex(c);
@@ -339,8 +314,8 @@
     const rect = wheel.getBoundingClientRect();
     const x = (e.clientX-rect.left)/rect.width*200 - WR, y = (e.clientY-rect.top)/rect.height*200 - WR;
     let h = Math.atan2(y,x)*180/Math.PI; if (h<0) h+=360;
-    const s = clamp(Math.sqrt(x*x+y*y)/WR, 0, 1);
-    setActive(h, s, +valueR.value/100, +alphaR.value/100*255|0);
+    curH = h; curS = clamp(Math.sqrt(x*x+y*y)/WR, 0, 1);
+    setActive(curH, curS, +valueR.value/100, +alphaR.value/100*255|0);
     drawWheel(wheelV); // redraw marker (value unchanged)
   }
   let wheelDrag = false;
@@ -349,9 +324,8 @@
   wheel.addEventListener('pointerup', () => { wheelDrag = false; });
 
   valueR.addEventListener('input', () => {
-    const hsv = rgb2hsv(state[active]);
     document.getElementById('nu-vval').textContent = valueR.value + '%';
-    setActive(hsv.h, hsv.s, +valueR.value/100, state[active].a);
+    setActive(curH, curS, +valueR.value/100, state[active].a);
     drawWheel(+valueR.value/100);
   });
   alphaR.addEventListener('input', () => {
@@ -376,7 +350,7 @@
     return lines.join('\n') + '\n';
   }
   function updateCode() { codeEl.textContent = themeText(); }
-  function shareCode() { return ALL.map(e => packHex(state[e.key])).join(''); }
+  function shareCode() { return ELS.map(e => packHex(state[e.key])).join(''); }
   function shareQuery() {
     return 't=' + shareCode() + (name && name !== 'Custom' ? '&n=' + encodeURIComponent(name) : '');
   }
@@ -393,15 +367,18 @@
   function applyURL() {
     const p = new URLSearchParams(location.search);
     const t = p.get('t');
-    if (t && /^([0-9a-fA-F]{8})+$/.test(t) && t.length >= 56 && t.length <= ALL.length*8) {
-      ALL.forEach((e,i) => {
-        const h = t.slice(i*8, i*8+8);   // legacy 56-char links omit the cosmetic LEDs
+    // No upper bound on length: links shared while the studio still had the two
+    // cosmetic LED slots carry 72 chars. Decoding just the first ELS.length*8 keeps
+    // those old links working — the trailing LED bytes are simply ignored.
+    if (t && /^([0-9a-fA-F]{8})+$/.test(t) && t.length >= ELS.length*8) {
+      ELS.forEach((e,i) => {
+        const h = t.slice(i*8, i*8+8);
         state[e.key] = h.length === 8
           ? { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16), a: parseInt(h.slice(6,8),16) }
           : unpack(e.def);
       });
     } else {
-      ALL.forEach(e => { state[e.key] = unpack(e.def); });
+      ELS.forEach(e => { state[e.key] = unpack(e.def); });
     }
     const n = p.get('n'); if (n) name = n.slice(0,40);
   }
@@ -425,12 +402,12 @@
   nameIn.addEventListener('input', () => { name = nameIn.value.trim() || 'Custom'; updateCode(); updateURL(); });
 
   document.getElementById('nu-reset').addEventListener('click', () => {
-    ALL.forEach(e => { state[e.key] = unpack(e.def); });
+    ELS.forEach(e => { state[e.key] = unpack(e.def); });
     name = 'Custom'; nameIn.value = '';
     paintScreen(); refreshSwatches(); loadPicker(); updateCode(); updateURL();
   });
   document.getElementById('nu-rand').addEventListener('click', () => {
-    ALL.forEach(e => {
+    ELS.forEach(e => {
       const rgb = hsv2rgb(Math.random()*360, Math.random(), Math.random());
       state[e.key] = { ...rgb, a: 255 };
     });

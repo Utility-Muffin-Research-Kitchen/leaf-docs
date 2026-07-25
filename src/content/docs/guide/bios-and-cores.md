@@ -26,9 +26,12 @@ Under the hood:
   hand-maintained forks.
 - **Standalone PPSSPP** runs PSP games; a dedicated build outperforms the
   RetroArch core on this hardware. PSP ROMs can be `.chd`, `.iso`, `.cso`, or
-  `.pbp`, and PSP needs no BIOS. Standalone sessions work a little differently:
-  the Menu button opens PPSSPP's pause menu, and the RetroArch in-game menu and
-  save states don't apply. Volume keys work as usual.
+  `.pbp`, and PSP needs no BIOS. It comes in two flavors, **PPSSPP (Vulkan)** as
+  the default and **PPSSPP (GLES)** as a fallback, switchable with **Core**.
+  Standalone sessions work a little differently: the Menu button opens PPSSPP's
+  pause menu, and the RetroArch in-game menu and save states don't apply. Volume
+  keys work as usual - see
+  [PSP controls](/guide/playing/#psp-standalone-ppsspp) for the details.
 - **Standalone DraStic** runs Nintendo DS games (`.nds`) from `Roms/NDS/`, and
   needs no BIOS of your own. Like PPSSPP it's a standalone session: the Menu
   button opens DraStic's own menu (save states, options, and the second-screen
@@ -48,7 +51,8 @@ Under the hood:
   standalone emulators it runs its own session: the Menu button opens Flycast's
   native menu, correctly oriented for the portrait-mounted screen, and the
   RetroArch in-game menu doesn't apply. VMU data and your Flycast settings are
-  kept across Leaf updates.
+  kept across Leaf updates - see
+  [Dreamcast controls](/guide/playing/#dreamcast-standalone-flycast).
 
 Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than

@@ -171,3 +171,37 @@ menu, save states, and switcher above don't apply:
 - Your VMU memory-card data and Flycast settings survive Leaf updates. VMU data
   and saves are kept under `Saves/Flycast/`, and Flycast's own save states under
   `States/Flycast/`.
+
+## PSP (standalone PPSSPP)
+
+PSP games run in **PPSSPP**, standalone rather than through RetroArch, because a
+dedicated build is much faster on this hardware. There are two versions to pick
+from with **Core** in a game or system's **Options** menu:
+
+- **PPSSPP (Vulkan)** - the default, and the faster of the two.
+- **PPSSPP (GLES)** - a fallback for anything that misbehaves on Vulkan.
+
+Both read the same `Roms/PSP/` folder, and PSP needs no BIOS.
+
+This is PPSSPP's own session, so Leaf's in-game menu, Leaf's save states, and the
+game switcher don't apply:
+
+- **MENU** - open PPSSPP's own pause menu. Save states, its graphics and control
+  settings, and exiting the game all live in there.
+- Volume keys work as usual.
+
+The analog stick uses the calibration from
+[Joe's Calibrage](/apps/joes-calibrage/), so if the stick drifts or doesn't reach
+full tilt in PSP games, calibrate it there rather than inside PPSSPP.
+
+### If your face buttons or stick were wrong
+
+Early Leaf releases shipped a default mapping with **Square** and **Triangle**
+swapped, and with analog **Up** mapped to a button instead of the stick. Both are
+fixed.
+
+If you have been playing PSP games since before that fix, Leaf corrects the two
+mappings once, on the next PSP launch. It only touches them if they still hold
+those exact original values, so a mapping you set yourself is left alone. If you
+had already worked around the swap with your own remap, that remap survives and
+you may want to undo your workaround in PPSSPP's control settings.

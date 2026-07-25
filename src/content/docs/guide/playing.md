@@ -155,3 +155,19 @@ is switched off here until it can be wired up safely.
 
 Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
 **Left / Right** to change a value, **A** to confirm, and **B** to go back or close.
+
+## Dreamcast (standalone Flycast)
+
+Dreamcast games default to **standalone Flycast** rather than the RetroArch
+Flycast core, because it performs noticeably better on this hardware. Both use
+the same `Roms/DC/` folder; switch between them with **Core** from a game or
+system's **Options** menu.
+
+Like the other standalone emulators, it runs its own session, so the in-game
+menu, save states, and switcher above don't apply:
+
+- **MENU** - open Flycast's own menu, rotated to match the screen. Save states,
+  video and controller settings, and exiting all live there.
+- Your VMU memory-card data and Flycast settings survive Leaf updates. VMU data
+  and saves are kept under `Saves/Flycast/`, and Flycast's own save states under
+  `States/Flycast/`.

@@ -32,6 +32,22 @@ the instructions for each one.
 Some ports have additional requirements, such as game data you must provide.
 PortMaster shows those requirements before you install them.
 
+## Using two SD cards
+
+If you run a [second SD card](/guide/games/#a-second-sd-card), the manager can
+work across both.
+
+- **Default Install Card** - choose which card new ports install to. Ports are
+  large, so this is the setting to change when the boot card is filling up.
+- **Manage Ports** - see what's installed on each card and move a package from
+  one to the other. A move is verified with checksums, and if it's interrupted
+  the manager picks it back up: the menu shows a pending-recovery count until
+  it's finished.
+
+Not every package can move. Ones that share files with another installed port,
+or that the manager can't relocate safely, are marked as such and it tells you
+why rather than attempting it.
+
 ## Updates and repairs
 
 Open the PortMaster manager from the **Apps** tab to check for a compatible

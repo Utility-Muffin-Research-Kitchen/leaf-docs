@@ -3,12 +3,6 @@ title: Screenshots
 description: Capture whatever is on screen on the Miniloong Pocket 1 with a button combo, saved straight to the SD card. Works in menus, in games, and in 5-Game Mode.
 ---
 
-:::caution[Coming soon]
-On-device screenshots are not in the current release yet. This page previews a
-feature that is on the way. Join the [Discord](https://discord.gg/q5F7cZ7KRp) to
-hear when it lands.
-:::
-
 Screenshots let you capture whatever is on screen with a single button combo,
 saved straight to the SD card as a PNG. It works everywhere - the launcher, any
 menu, in a game, and even in the locked 5-Game Mode - and it needs no Wi-Fi and no

@@ -42,7 +42,13 @@ Under the hood:
   as an alternate core, but standalone is the default because it gives Leaf more
   direct control over the video plugins, performance settings, save-and-quit
   handoff, and MLP1 display quirks.
-- **Dreamcast** runs through its RetroArch core today (Flycast).
+- **Standalone Flycast** runs Dreamcast games from `Roms/DC/`. The RetroArch
+  Flycast core is still available as an alternate core, but standalone is the
+  default because it performs noticeably better on this hardware. Like the other
+  standalone emulators it runs its own session: the Menu button opens Flycast's
+  native menu, correctly oriented for the portrait-mounted screen, and the
+  RetroArch in-game menu doesn't apply. VMU data and your Flycast settings are
+  kept across Leaf updates.
 
 Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than

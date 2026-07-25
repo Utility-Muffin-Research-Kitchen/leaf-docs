@@ -122,6 +122,35 @@ A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
 see [BIOS & cores](/guide/bios-and-cores/).
 
+## A second SD card
+
+The Pocket 1 has **two** microSD slots. The card Leaf boots from is the
+**Primary**; a card in the second slot is picked up automatically as an extra
+**Secondary** source of games.
+
+Give the second card the same folder layout as the first - `Roms/<SYSTEM>/`,
+`Images/<SYSTEM>/`, and so on at its root. Leaf merges both cards into one
+library, so a system's games from either card appear together under that one
+system, and you don't need to browse per card.
+
+:::caution[Format it FAT32]
+The second card must be partitioned and formatted **FAT32**. Leaf mounts it as a
+`vfat` volume, so an exFAT card (which is how most cards over 32 GB come
+formatted out of the box) will not mount at all. Reformat it as FAT32 first.
+:::
+
+You can add or remove the second card while the device is running: Leaf notices
+the change and rescans on its own. Before pulling it out, use
+**Settings → General → Unmount Secondary SD** so nothing is mid-write.
+
+Removing the second card doesn't throw away anything Leaf knows about its games.
+Those games become temporarily unavailable and disappear from the lists, but
+their favorites, recents, playtime, artwork, and per-game settings are kept.
+Put the card back and the same entries return. That also holds if the two cards
+change places or content moves between them, because Leaf identifies a game by
+its card and its path within that card rather than by wherever it happened to be
+mounted.
+
 ## Box art
 
 You can add box art two ways: drop it in yourself, or let Leaf fetch it.

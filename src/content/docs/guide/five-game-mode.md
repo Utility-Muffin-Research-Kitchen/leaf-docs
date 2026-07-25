@@ -3,12 +3,6 @@ title: 5-Game Mode
 description: A locked, minimal focus mode for the Miniloong Pocket 1. Curate up to five games, hide everything else, and lock the device behind a PIN.
 ---
 
-:::caution[Coming soon]
-5-Game Mode is not in the current release yet. This page previews a feature that
-is on the way. Join the [Discord](https://discord.gg/q5F7cZ7KRp) to hear when it
-lands.
-:::
-
 5-Game Mode turns your handheld into a stripped-down, focused device. You pick up
 to five games, and everything else disappears behind a lock. It is handy for
 handing the device to a kid, cutting out the endless scrolling, or just enjoying a

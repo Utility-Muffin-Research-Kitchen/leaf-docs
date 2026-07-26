@@ -55,11 +55,15 @@ Put custom shader files on the primary SD card under:
 .umrk/mlp1/retroarch/.config/retroarch/shaders/
 ```
 
-The full device path is:
+On a normal single-card boot, the full device path is:
 
 ```text
 /mnt/sdcard/.umrk/mlp1/retroarch/.config/retroarch/shaders/
 ```
+
+With two cards inserted, Linux may mount the Leaf card at `/media/sdcard1`
+instead. Treat the relative `.umrk/.../shaders/` path on the Leaf card as
+canonical rather than hardcoding its current mount point.
 
 Keep each preset's relative folder structure intact: a `.glslp` file may refer
 to `.glsl` passes, LUT images, or other presets beside it. After copying the
@@ -103,6 +107,8 @@ shader bundle. Update Leaf, or install compatible GLSL files in the durable
 custom directory above.
 
 If the browser is still empty after updating, check **Settings → Directory →
-Video Shaders**. As a last resort, use **Settings → System → Reset RetroArch
-Config** to restore Leaf's default shader directory. This resets other
-RetroArch settings too, so try correcting the directory first.
+Video Shaders**. Completely exit and relaunch the game after an update so Leaf
+can refresh that directory if two SD cards changed mount points. As a last
+resort, use **Settings → System → Reset RetroArch Config** to restore Leaf's
+default shader directory. This resets other RetroArch settings too, so try
+correcting the directory first.

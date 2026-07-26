@@ -54,7 +54,12 @@ you can update the same way you [install](/guide/install/):
 
 1. Download `leaf-mlp1-sd-<release_id>.zip` from the
    [latest release](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest).
-2. Extract it to the **root** of an SD card (not into a subfolder).
+2. Extract it to the **root** of an SD card (not into a subfolder). Unzip onto
+   the card itself rather than unzipping on your computer and copying the files
+   across: the update lives in a hidden `.system` folder, so a drag-and-drop in
+   **Finder** or **File Explorer** silently leaves it behind. There is more on
+   this, including how to check the card, in
+   [Install](/guide/install/#steps).
 3. Boot the device with that card inserted. The stock update screen applies it
    and reboots into the new version.
 

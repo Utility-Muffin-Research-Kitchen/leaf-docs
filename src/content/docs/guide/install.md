@@ -32,6 +32,28 @@ then come back here.
 
 ## Steps
 
+:::caution[Unzip onto the card itself, not onto your computer]
+This is the most common reason an install never starts, and it is worth knowing
+before you begin rather than after.
+
+Almost everything in the release is inside a single folder named `.system`. That
+leading dot means **Finder** hides it outright, and Windows **File Explorer**
+hides it by default. So if you unzip to your desktop and then drag the contents
+across, you copy the one visible file, `LEAF-INSTALL.txt`, and leave the entire
+installer behind. The card looks like it has something on it, the device finds
+nothing to install, and there is no error message to explain why.
+
+Extract straight to the card and the problem cannot happen: drag the ZIP onto
+the SD card first, then unzip it there. On macOS you can also press
+**Command-Shift-Period** in Finder to show hidden files, which is worth doing
+either way so you can confirm the result.
+
+**To check before you eject:** with hidden files showing, the card's top level
+should contain a `.system` folder next to `LEAF-INSTALL.txt`. If you see only
+the text file, nothing was copied. From a terminal, `ls -a /Volumes/YOURCARD`
+should list `.system`.
+:::
+
 1. **Prepare the card.** Format the SD card as FAT32 (or ext4) if it isn't
    already. On macOS, open **Disk Utility**, select the card, and choose
    **MS-DOS (FAT)** as the format (that is FAT32) with **Master Boot Record** as
@@ -39,8 +61,12 @@ then come back here.
    the install won't start. (Terminal equivalent:
    `diskutil eraseDisk FAT32 LEAF MBRFormat /dev/diskN`.)
 2. **Extract the ZIP to the card root.** Unzip `leaf-mlp1-sd-<release_id>.zip`
-   directly to the top level of the SD card, not into a subfolder. You
-   should see the install files and folders sitting at the card's root.
+   directly to the top level of the SD card, not into a subfolder, and not to
+   your desktop to copy across afterwards (see the note below if you are on a
+   Mac). Nearly all of the installer lives in a folder named `.system`, and the
+   leading dot makes it invisible in **Finder** and hidden by default in
+   Windows **File Explorer**, so the one thing you can see is not the thing that
+   matters.
 3. **Insert and boot.** Put the card in the powered-off device and turn it on.
    The Miniloong Pocket 1 has two microSD slots: use the **main slot** for the
    install card. (The second slot is optional extra game storage that Leaf

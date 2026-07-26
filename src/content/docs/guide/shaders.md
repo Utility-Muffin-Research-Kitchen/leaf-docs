@@ -26,7 +26,7 @@ video settings.
 5. Open **`leaf-recommended/`** and select a `.glslp` preset.
 6. Use **Apply Changes** to preview it.
 
-Leaf's four recommended presets are:
+Leaf's nine recommended presets are:
 
 - **Sharp Pixels** — a broadly useful scaling filter that keeps pixel art crisp
   without adding a CRT effect.
@@ -36,16 +36,40 @@ Leaf's four recommended presets are:
   screen. Use it only for GBA games.
 - **GBC Color** — approximates the softer color response of a Game Boy Color
   screen. Use it only for GBC games.
+- **Game Boy LCD**, **Game Boy Color LCD**, and **Game Boy Advance LCD** — fuller
+  PT SkyWalker541 display simulations with a subtle backing texture, low-cost
+  pixel grid, and system-specific tuning.
+- **Sharp Shimmerless** — a sharper alternative for awkward non-integer scales
+  where scrolling shimmer is visible.
+- **CRT Lite** — a mild aperture mask and softened scanlines for 8-bit, 16-bit,
+  and PlayStation-era games.
 
 These presets passed Leaf's visual checks and 60-second MLP1 performance tests.
 GBA Color is qualified at 60 Hz and at 120 Hz with Black Frame Insertion off.
 Do not combine mGBA with 120 Hz BFI: the core falls below full speed in that
-mode even with no shader active. Scanlines and BFI both reduce brightness.
+mode even with no shader active. Keep BFI off with CRT Lite; its PS1 test
+measured 50.282 FPS with BFI, versus full speed at 60 and 120 Hz with BFI off.
+Scanlines and BFI both reduce brightness.
 
 The **`shaders_glsl/`** folder contains the underlying advanced presets. Each
-one passed Leaf's load and render checks, but it is not necessarily a
-performance recommendation for every core or game. Test demanding content
-before saving an advanced or multipass preset globally.
+qualified preset passed Leaf's load and render checks, but it is not
+necessarily a performance recommendation for every core or game. The upcoming
+bundle also carries a small candidate set traced directly to its original
+upstreams:
+
+- **[PT SkyWalker541](https://github.com/SkyWalker541/PT-SkyWalker541)** — a
+  low-power handheld LCD and pixel-transparency shader with modes for Game Boy,
+  Game Boy Color, and Game Boy Advance.
+- **[Sharp Shimmerless](https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader)** —
+  sharp non-integer scaling designed to avoid shimmer on low-resolution
+  handheld screens.
+- **CRT Hyllian Fast** and **CRT Lottes Fast** — lightweight CRT candidates.
+
+PT SkyWalker541, Sharp Shimmerless, and CRT Hyllian Fast passed the full
+game-content gates and back the recommended presets above. CRT Lottes Fast
+loads safely but remains advanced-only: it measured 34.017 FPS even on Leaf's
+lightweight visual fixture. Test demanding content before saving any other
+advanced preset globally.
 
 ## Add your own shaders
 

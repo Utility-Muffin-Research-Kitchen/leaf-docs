@@ -67,6 +67,7 @@ export default defineConfig({
             { label: 'Adding games & ROMs', slug: 'guide/games' },
             { label: 'BIOS & cores', slug: 'guide/bios-and-cores' },
             { label: 'Playing games', slug: 'guide/playing' },
+            { label: 'RetroArch shaders', slug: 'guide/shaders', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Features tour', slug: 'guide/features' },
             { label: '5-Game Mode', slug: 'guide/five-game-mode' },
             { label: 'Screenshots', slug: 'guide/screenshots' },

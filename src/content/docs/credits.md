@@ -14,6 +14,7 @@ bundled component ships in the install under `licenses/`.
 | --- | --- |
 | Jawaka + Catastrophe (the Leaf launcher and UI toolkit) | MIT |
 | RetroArch | GPLv3 |
+| Selected libretro GLSL shaders | Public Domain (per-file notices) |
 | Libretro cores | GPL / per-core |
 | SDL2, SDL2_image, SDL2_ttf | Zlib |
 | FreeType | FreeType License |

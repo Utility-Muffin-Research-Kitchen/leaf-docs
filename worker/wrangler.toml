@@ -17,4 +17,6 @@ routes = [
   { pattern = "leaf.game/mlp1-og*", zone_name = "leaf.game" },
   { pattern = "leaf.game/nextui-palettes*", zone_name = "leaf.game" },
   { pattern = "leaf.game/nextui-og*", zone_name = "leaf.game" },
+  { pattern = "leaf.game/mangmi-colorways*", zone_name = "leaf.game" },
+  { pattern = "leaf.game/mangmi-og*", zone_name = "leaf.game" },
 ]

@@ -9,10 +9,16 @@ to a rendered picture of that exact build. It serves two studios:
 - **Nova** — `/nova-colorways?c=<code>` → `/nova-og?c=<code>`
 - **MLP1** — `/mlp1-colorways?bd=&fp=&sc=` → `/mlp1-og?bd=&fp=&sc=`
 - **NextUI** — `/nextui-palettes?t=<hex>` → `/nextui-og?t=<hex>`
+- **Mangmi** — `/mangmi-colorways?c=<code>[&d=max][&v=back]` → `/mangmi-og?…`
 
 Everything else — the rest of the site, and a bare studio link with no config —
 passes through untouched and keeps the Leaf banner. Add another studio by
-appending an entry to the `STUDIOS` array in `src/index.js`.
+appending an entry to the `STUDIOS` array in `src/index.js` **and adding its two
+routes to `wrangler.toml`** — without the routes the Worker deploys fine and
+simply never runs for that path.
+
+A studio that covers more than one device can give `card` as a function of the
+config instead of an object, so the card names the device the link opens.
 
 ## Cloudflare dashboard changes (done once, DONE)
 

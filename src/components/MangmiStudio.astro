@@ -129,12 +129,12 @@
       crop: { x: 30, y: 516, w: 1940, h: 966 },
       views: {
         front: { label: 'Front',
-                 render: (c) => `air/air_${c}_front.png`, mask: 'air_mask/air_front_mask.png',
+                 render: (c) => `air/air_${c}_front.webp`, mask: 'air_mask/air_front_mask.png',
                  bg: 'air_mask/background_front_mask.png',
                  parts: ['screen', 'dpad', 'abxy', 'start', 'home', 'stick_left', 'stick_right',
                          'bumper_left', 'bumper_right', 'power', 'volume'] },
         back:  { label: 'Back',
-                 render: (c) => `air/air_${c}_back.png`, mask: 'air_mask/air_back_mask.png',
+                 render: (c) => `air/air_${c}_back.webp`, mask: 'air_mask/air_back_mask.png',
                  bg: 'air_mask/background_back_mask.png',
                  parts: ['trigger_left', 'trigger_right', 'power', 'volume'] },
       },
@@ -144,7 +144,7 @@
       crop: { x: 80, y: 507, w: 1861, h: 946 },
       views: {
         front: { label: 'Front',
-                 render: (c) => `max/max_${c}.png`, mask: 'max_mask/max_front_mask.png',
+                 render: (c) => `max/max_${c}.webp`, mask: 'max_mask/max_front_mask.png',
                  // Optional: paints the BACKGROUND (not the device), punched out with
                  // destination-out so the stage styling shows through. Angles without
                  // one keep the render's baked-in backdrop.
@@ -536,7 +536,7 @@
     try {
       await Promise.all([
         loadView(DEV, VIEW),
-        (async () => { leafLogo = await load(`${BASE}leaf.png`); })(),
+        (async () => { leafLogo = await load(`${BASE}leaf.webp`); })(),
       ]);
       document.getElementById('mangmi-loading').remove();
       setPlace(DEV, VIEW);

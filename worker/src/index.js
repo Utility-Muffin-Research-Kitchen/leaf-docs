@@ -1,7 +1,7 @@
 import puppeteer from '@cloudflare/puppeteer';
 
 // Dynamic Open Graph for the colorway studios (Retroid Pocket Nova, Miniloong
-// Pocket 1, and TrimUI Brick NextUI palettes).
+// Pocket 1, Mangmi, and TrimUI Brick NextUI palettes).
 //
 // leaf.game is static (GitHub Pages) and each colorway is drawn client-side from
 // the share link, so crawlers (Discord/Slack/iMessage) only see the generic Leaf
@@ -63,6 +63,38 @@ const STUDIOS = [
       if (ft !== null && /^\d+$/.test(ft) && +ft >= 0 && +ft <= 100) out.push(`ft=${+ft}`);
       if (['off', 'aurknix', 'bloom', 'darkos', 'knulli', 'leaf'].includes(sc)) out.push(`sc=${sc}`);
       return out.length ? out.join('&') : null;
+    },
+  },
+  {
+    prefix: '/mangmi-colorways',
+    ogPath: '/mangmi-og',
+    canvasId: 'mangmi-canvas',
+    loadingId: 'mangmi-loading',
+    ver: 1,
+    altName: 'Mangmi',
+    ogAlt: 'A Mangmi handheld colorway',
+    // Two devices share the page, so the card names whichever one the link opens.
+    card(cfg) {
+      const max = cfg.includes('d=max');
+      return {
+        title: 'Mangmi<br>Colorway<br>Studio',
+        sub: `Design your<br>Mangmi ${max ? 'Pocket Max' : 'Air X'}`,
+      };
+    },
+    buildConfig(p) {
+      // ?c=<base36 digit per axis>, plus the device and angle when they aren't the
+      // defaults (Air X / front). Order is fixed so one build has one cache key.
+      const c = p.get('c') || '';
+      if (!/^[0-9a-z]{1,24}$/.test(c)) return null;
+      let out = `c=${c}`;
+      if (p.get('d') === 'max') out += '&d=max';
+      if (p.get('v') === 'back') out += '&v=back';
+      return out;
+    },
+    // The canvas is ~2:1 and its background is masked out, so it sits directly on
+    // the card rather than in a filled box.
+    ogTarget() {
+      return { canvasId: this.canvasId, loadingId: this.loadingId, landscape: true };
     },
   },
   {
@@ -145,6 +177,8 @@ async function renderOg(studio, url, env, ctx) {
   const target = studio.ogTarget
     ? studio.ogTarget(cfg)
     : { canvasId: studio.canvasId, loadingId: studio.loadingId, landscape: false };
+  // A studio serving more than one device varies its card copy by config.
+  const card = typeof studio.card === 'function' ? studio.card(cfg) : studio.card;
 
   // Each config renders once, then serves from cache forever (config is immutable).
   const cache = caches.default;
@@ -208,7 +242,7 @@ async function renderOg(studio, url, env, ctx) {
       const img = panel.querySelector('img');
       try { if (img && img.decode) await img.decode(); } catch (_) {}
       try { await document.fonts.ready; } catch (_) {}
-    }, { canvasId: target.canvasId, landscape: target.landscape, cvStyle: target.cvStyle, origin: url.origin, title: studio.card.title, sub: studio.card.sub });
+    }, { canvasId: target.canvasId, landscape: target.landscape, cvStyle: target.cvStyle, origin: url.origin, title: card.title, sub: card.sub });
     const el = await page.$('#og-card');
     if (!el) throw new Error('card not built');
     const png = await el.screenshot({ type: 'png' }); // binary Uint8Array, no base64

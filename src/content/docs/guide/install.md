@@ -33,25 +33,15 @@ then come back here.
 ## Steps
 
 :::caution[Unzip onto the card itself, not onto your computer]
-This is the most common reason an install never starts, and it is worth knowing
-before you begin rather than after.
+Nearly everything in the release sits in a folder named `.system`, and the
+leading dot hides it in **Finder** and, by default, in Windows **File Explorer**.
+Unzip somewhere else and drag the contents over, and only the visible files make
+the trip. The card looks like it has the release on it, the device finds nothing
+to install, and no error explains why.
 
-Almost everything in the release is inside a single folder named `.system`. That
-leading dot means **Finder** hides it outright, and Windows **File Explorer**
-hides it by default. So if you unzip to your desktop and then drag the contents
-across, you copy the one visible file, `LEAF-INSTALL.txt`, and leave the entire
-installer behind. The card looks like it has something on it, the device finds
-nothing to install, and there is no error message to explain why.
-
-Extract straight to the card and the problem cannot happen: drag the ZIP onto
-the SD card first, then unzip it there. On macOS you can also press
-**Command-Shift-Period** in Finder to show hidden files, which is worth doing
-either way so you can confirm the result.
-
-**To check before you eject:** with hidden files showing, the card's top level
-should contain a `.system` folder next to `LEAF-INSTALL.txt`. If you see only
-the text file, nothing was copied. From a terminal, `ls -a /Volumes/YOURCARD`
-should list `.system`.
+Drag the ZIP onto the card first, then unzip it there. Before ejecting, show
+hidden files (**Command-Shift-Period** in Finder) and check that `.system` is at
+the card's top level, or run `ls -a /Volumes/YOURCARD`.
 :::
 
 1. **Prepare the card.** Format the SD card as FAT32 (or ext4) if it isn't

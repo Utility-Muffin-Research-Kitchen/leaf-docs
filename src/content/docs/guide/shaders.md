@@ -59,10 +59,10 @@ and using both costs more.
 
 ## Going further
 
-The **`shaders_glsl/`** folder holds the advanced presets the recommended ones
-are built from. Everything there loads and renders correctly, but that is a
-lower bar than the recommended set clears, and it says nothing about how a given
-preset performs on a particular core or game.
+The **`leaf-bundled/`** folder holds the qualified advanced presets the
+recommended ones are built from. Everything there loads and renders correctly,
+but that is a lower bar than the recommended set clears, and it says nothing
+about how a given preset performs on a particular core or game.
 
 The bundle also carries a few candidates kept traceable to where they came from:
 
@@ -80,37 +80,55 @@ scene, so it stays in the advanced folder. Treat that as a warning about the
 folder in general: try a preset on demanding content before you save it
 globally.
 
+## Download the full RetroArch collection
+
+RetroArch's **Online Updater → Update GLSL Shaders** downloads the complete
+official libretro GLSL collection. It appears under **`shaders_glsl/`** beside
+Leaf's two folders. The download is much larger and changes independently of
+Leaf, so those presets have not passed Leaf's MLP1 performance or visual
+checks.
+
+The folders have separate owners:
+
+- **`leaf-recommended/`** and **`leaf-bundled/`** are refreshed by Leaf updates.
+- **`shaders_glsl/`** is refreshed by RetroArch's updater.
+- **`custom/`** is yours.
+
+Leaf updates preserve the updater and custom folders. Updating GLSL shaders
+does not overwrite Leaf's pinned, tested dependencies.
+
 ## Add your own shaders
 
 Custom shader files go on the primary SD card, under:
 
 ```text
-.umrk/mlp1/retroarch/.config/retroarch/shaders/
+.umrk/mlp1/retroarch/.config/retroarch/shaders/custom/
 ```
 
 Booting from a single card, that is:
 
 ```text
-/mnt/sdcard/.umrk/mlp1/retroarch/.config/retroarch/shaders/
+/mnt/sdcard/.umrk/mlp1/retroarch/.config/retroarch/shaders/custom/
 ```
 
 With two cards in, Linux may mount the Leaf card at `/media/sdcard1` instead, so
-treat the relative `.umrk/.../shaders/` path as the real answer and do not
-hardcode a mount point.
+treat the relative `.umrk/.../shaders/custom/` path as the real answer and do
+not hardcode a mount point.
 
 Keep each preset's folder structure as you found it. A `.glslp` file often
-points at `.glsl` passes, LUT images, or other presets sitting next to it. Once
-the files are in place, point **Settings → Directory → Video Shaders** at your
-custom directory, then go back to **Quick Menu → Shaders → Load Preset**.
+points at `.glsl` passes, LUT images, or other presets sitting next to it. Leaf
+already points **Settings → Directory → Video Shaders** at the parent
+`shaders/` directory, so normally you only need to return to **Quick Menu →
+Shaders → Load Preset** and open **`custom/`**.
 
 Leaf's RetroArch build reads GLSL: `.glslp` presets and `.glsl` passes.
 Slang/Vulkan (`.slangp`, `.slang`) and Cg (`.cgp`, `.cg`) packs will not work.
 And because `.umrk` starts with a dot, macOS and Linux file managers hide it by
 default, so turn on hidden files before going looking for it.
 
-One directory to leave alone: `.system/leaf/platforms/mlp1/shaders/` belongs to
-the installed release and is replaced on every update, so anything personal you
-put there is gone next time. `.umrk/` is durable user state and survives.
+One directory to leave alone: `.system/leaf/platforms/mlp1/shaders/` is Leaf's
+manifest-validated source bundle and is replaced on every update. The browser,
+updater collection, and personal shaders all live in durable `.umrk/` state.
 
 ## Saving and removing a shader
 
@@ -139,8 +157,10 @@ probably has a global look applied. Clear it there first.
 bundle. Update Leaf, or put your own GLSL files in the custom directory above.
 
 If it is still empty after updating, check **Settings → Directory → Video
-Shaders**. Fully exit and relaunch the game as well, which gives Leaf a chance
-to refresh that directory if two SD cards have swapped mount points. Failing
-all that, **Settings → System → Reset RetroArch Config** restores the default
-shader directory, but it resets your other RetroArch settings too, so try
-fixing the directory by hand first.
+Shaders**. It should point to the durable
+`.umrk/mlp1/retroarch/.config/retroarch/shaders/` root, not directly to one of
+its child folders. Fully exit and relaunch the game as well, which gives Leaf a
+chance to refresh that directory if two SD cards have swapped mount points.
+Failing all that, **Settings → System → Reset RetroArch Config** restores the
+default shader directory, but it resets your other RetroArch settings too, so
+try fixing the directory by hand first.

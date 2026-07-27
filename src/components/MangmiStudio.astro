@@ -1,0 +1,553 @@
+---
+// Mangmi colorway configurator — the Air X (front + back) and the Pocket Max (front).
+// Each angle ships three renders (black / white / retro) camera-registered at
+// 2000x2000, so every part mask cuts the same region out of any colorway: pick a body,
+// then source each control from whichever colorway you like. Composited on an offscreen
+// frame and blitted through a per-device crop so the preview isn't mostly whitespace;
+// an Air's two angles share one crop so the device holds its size when you flip.
+//
+// Every part mask for an angle lives in ONE hand-painted file in /public/mangmi/
+// air_mask/ — each region painted a flat ID color (see MASK_ID) with the alpha channel
+// carrying the shape, no two regions overlapping. splitMask() cuts it into bbox-cropped
+// stencils at load. Check one with scripts/check-mangmi-mask.py before wiring it up.
+// Assets live in /public/mangmi/. Orphan page; not linked from the docs sidebar.
+---
+
+<div class="mangmi-bars">
+  <div class="mangmi-pillbar" id="mangmi-devicebar" role="tablist" aria-label="Device">
+    <button type="button" data-device="air" class="active" role="tab">Air X</button>
+    <button type="button" data-device="max" role="tab">Pocket Max</button>
+  </div>
+  <div class="mangmi-pillbar" id="mangmi-viewbar" role="tablist" aria-label="View">
+    <button type="button" data-view="front" class="active" role="tab">Front</button>
+    <button type="button" data-view="back" role="tab">Back</button>
+  </div>
+</div>
+
+<div class="mangmi">
+  <div class="mangmi-stage">
+    <canvas id="mangmi-canvas" width="1940" height="966" aria-label="Mangmi colorway preview"></canvas>
+    <p id="mangmi-loading" class="mangmi-loading">Loading renders…</p>
+    <p id="mangmi-summary" class="mangmi-summary"></p>
+  </div>
+  <div class="mangmi-controls" id="mangmi-controls"></div>
+</div>
+
+<style is:global>
+  /* align-items:center, not the default stretch — otherwise a bar inherits Starlight's
+     sibling top margin and stretches its neighbour to match. */
+  .mangmi-bars { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin: 1.25rem 0 1rem; }
+  /* One pill, split by a hairline — a segmented control, not separate buttons.
+     Equal-width columns (1fr against a max-content track sizes both to the longer
+     label) so the halves stay symmetric, and line-height:0 kills the inherited text
+     strut that would otherwise leave dead space below the segments. */
+  .mangmi-pillbar {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(7rem, 1fr);
+    width: max-content; padding: 0; margin: 0; overflow: hidden; line-height: 0;
+    border: 1px solid var(--sl-color-gray-5); border-radius: 999px; background: var(--sl-color-gray-6);
+  }
+  .mangmi-pillbar[hidden] { display: none; }
+  .mangmi-pillbar button {
+    width: 100%; height: 40px; box-sizing: border-box; margin: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 1.1rem; cursor: pointer; font: inherit;
+    font-weight: 600; line-height: 1.2; white-space: nowrap;
+    border: 0; border-radius: 0; background: transparent; color: var(--sl-color-white);
+  }
+  .mangmi-pillbar button + button { border-left: 1px solid var(--sl-color-gray-5); }
+  .mangmi-pillbar button.active { background: var(--sl-color-accent); color: var(--sl-color-black); }
+  .mangmi { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+  .mangmi-stage { flex: 1 1 320px; min-width: 320px; position: relative; }
+  /* A neutral studio spotlight — brighter behind the device, deeper at the edge. Only
+     visible where an angle has a background mask cut out; otherwise the render's own
+     backdrop covers it. Kept color-neutral so it doesn't bias how a colorway reads. */
+  .mangmi-stage canvas {
+    width: 100%; height: auto; border-radius: 14px;
+    box-shadow: 0 6px 28px rgba(0,0,0,.16);
+    background: radial-gradient(115% 85% at 50% 42%, #ffffff 0%, #eef0f3 52%, #d9dde3 100%);
+  }
+  [data-theme='dark'] .mangmi-stage canvas {
+    box-shadow: 0 0 0 1px rgba(127,176,105,.18), 0 6px 28px rgba(127,176,105,.16);
+    background: radial-gradient(115% 85% at 50% 42%, #1b2117 0%, #131810 52%, #0b0e08 100%);
+  }
+  .mangmi-loading {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    margin: 0; color: var(--sl-color-gray-3); font-size: .95rem;
+  }
+  .mangmi-controls {
+    flex: 0 0 250px; align-self: flex-start;
+    display: flex; flex-direction: column; gap: .55rem;
+  }
+  .mangmi-field { display: flex; align-items: center; gap: .6rem; }
+  .mangmi-field label { flex: 0 0 100px; height: 36px; display: inline-flex; align-items: center;
+    font-size: .85rem; font-weight: 600; color: var(--sl-color-gray-2);
+    text-align: left; white-space: nowrap; }
+  .mangmi-field select {
+    flex: 0 0 138px; height: 36px; box-sizing: border-box; margin: 0; padding: 0 .5rem; border-radius: 8px;
+    border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-bg);
+    color: var(--sl-color-white); font: inherit; font-size: .9rem;
+  }
+  .mangmi-pack-cb { width: 18px; height: 18px; margin: 0; cursor: pointer; accent-color: var(--sl-color-accent); }
+  /* Two independent reasons a row drops out: the angle can't show that part, or the
+     single-pack toggle has collapsed it. Either one hides it. */
+  .mangmi-field.hide-view, .mangmi-field.hide-pack { display: none; }
+  .mangmi-actions { display: flex; gap: .6rem; margin-top: .3rem; }
+  .mangmi-actions button {
+    flex: 1 1 0; height: 40px; box-sizing: border-box; margin: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 .5rem; border-radius: 8px; cursor: pointer; font: inherit;
+    font-weight: 600; line-height: 1.2; white-space: nowrap;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-gray-6); color: var(--sl-color-white);
+  }
+  .mangmi-actions button.primary { background: var(--sl-color-accent); border-color: var(--sl-color-accent);
+    color: var(--sl-color-black); }
+  .mangmi-share {
+    width: 100%; height: 36px; margin-top: .5rem; box-sizing: border-box;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px; cursor: pointer; font: inherit; font-weight: 600; font-size: .85rem;
+    border: 1px dashed var(--sl-color-gray-4); background: transparent; color: var(--sl-color-gray-2);
+  }
+  .mangmi-share:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
+  .mangmi-summary { margin: .7rem 0 0; font-size: .82rem; color: var(--sl-color-gray-3); line-height: 1.5; }
+</style>
+
+<script>
+  const BASE = '/mangmi/';
+  const SIZE = 2000;                                   // renders + masks are square 2000px
+
+  const COLORWAYS = ['black', 'white', 'retro'];
+  const CLABEL = { black: 'Black', white: 'White', retro: 'Retro' };
+
+  // Devices, each with its angles. `crop` frames the device inside the square render so
+  // the preview isn't mostly background — one per device, shared by its angles so the
+  // device holds its size when you flip. `parts` lists the axes an angle's mask paints,
+  // in draw order; `render`/`mask` are paths under /public/mangmi/.
+  const DEVICES = {
+    air: {
+      label: 'Air X',
+      crop: { x: 30, y: 516, w: 1940, h: 966 },
+      views: {
+        front: { label: 'Front',
+                 render: (c) => `air/air_${c}_front.png`, mask: 'air_mask/air_front_mask.png',
+                 bg: 'air_mask/background_front_mask.png',
+                 parts: ['screen', 'dpad', 'abxy', 'start', 'home', 'stick_left', 'stick_right',
+                         'bumper_left', 'bumper_right', 'power', 'volume'] },
+        back:  { label: 'Back',
+                 render: (c) => `air/air_${c}_back.png`, mask: 'air_mask/air_back_mask.png',
+                 bg: 'air_mask/background_back_mask.png',
+                 parts: ['trigger_left', 'trigger_right', 'power', 'volume'] },
+      },
+    },
+    max: {
+      label: 'Pocket Max',
+      crop: { x: 80, y: 507, w: 1861, h: 946 },
+      views: {
+        front: { label: 'Front',
+                 render: (c) => `max/max_${c}.png`, mask: 'max_mask/max_front_mask.png',
+                 // Optional: paints the BACKGROUND (not the device), punched out with
+                 // destination-out so the stage styling shows through. Angles without
+                 // one keep the render's baked-in backdrop.
+                 bg: 'max_mask/background_mask.png',
+                 parts: ['screen', 'dpad', 'abxy'] },
+      },
+    },
+  };
+  let DEV = 'air', VIEW = 'front';
+  const dev = () => DEVICES[DEV];
+  const view = () => dev().views[VIEW];
+  const KEY = () => `${DEV}/${VIEW}`;      // how loaded renders + stencils are cached
+
+  // ONE mask image holds every part: paint each region a flat ID color, let the
+  // alpha channel carry the shape (anti-aliased edges keep their coverage — the RGB
+  // of a partly-transparent pixel is still the pure ID color, so nothing smears).
+  // Regions must not overlap. splitMask() cuts it back into per-part stencils at load.
+  const MASK_ID = {
+    dpad:         [255,   0,   0],   // red
+    abxy:         [  0, 255,   0],   // green
+    start:        [  0,   0, 255],   // blue      — the Start/Select pair (right)
+    home:         [255, 255,   0],   // yellow    — the Back/Home pair (left)
+    stick_left:   [255,   0, 255],   // magenta
+    stick_right:  [  0, 255, 255],   // cyan
+    bumper_left:  [255, 128,   0],   // orange
+    bumper_right: [128,   0, 255],   // purple
+    power:        [  0, 255, 128],   // spring green
+    volume:       [255,   0, 128],   // pink
+    screen:       [128, 128, 128],   // gray
+    trigger_left: [128, 255,   0],   // lime      — back view
+    trigger_right:[  0, 128, 255],   // azure     — back view
+  };
+  // Every part that isn't the body or the screen. A colorway normally ships as one
+  // pack, so a checkbox collapses all of these into a single dropdown. Power and volume
+  // are one physical key each, shared by both views.
+  const PACK_KEYS = ['dpad', 'abxy', 'start', 'home', 'stick_left', 'stick_right',
+                     'bumper_left', 'bumper_right', 'trigger_left', 'trigger_right',
+                     'power', 'volume'];
+  // Control-row order and wording; also what the summary line reads from.
+  const PART_LABEL = {
+    dpad: 'D-pad', abxy: 'A/B/X/Y', start: 'Start/Select', home: 'Back/Home',
+    stick_left: 'Left stick', stick_right: 'Right stick',
+    bumper_left: 'Left bumper', bumper_right: 'Right bumper',
+    trigger_left: 'Left trigger', trigger_right: 'Right trigger',
+    power: 'Power', volume: 'Volume', screen: 'Screen',
+  };
+  // The stick caps only come in two colors — Retro ships the black ones.
+  const STICK_OPTS = ['black', 'white'];
+  const packValue = (k, v) => (k.startsWith('stick_') && !STICK_OPTS.includes(v) ? 'black' : v);
+
+  // Display: 'off' is a dark panel, 'leaf' draws the Leaf mark, and every other option
+  // lifts a wallpaper straight out of one colorway's render. Which wallpapers exist is
+  // per-device — the Air's black and white ship the same eclipse, while the Max's lens
+  // art comes in three colorways — so each device declares its own list.
+  const SCREENS = {
+    air: { opts: ['eclipse', 'city', 'leaf', 'off'],
+           label: { eclipse: 'Eclipse', city: 'Pixel City', leaf: 'Leaf', off: 'Off' },
+           src:   { eclipse: 'black', city: 'retro' } },
+    max: { opts: ['violet', 'mono', 'ember', 'leaf', 'off'],
+           label: { violet: 'Violet', mono: 'Mono', ember: 'Ember', leaf: 'Leaf', off: 'Off' },
+           src:   { violet: 'black', mono: 'white', ember: 'retro' } },
+  };
+  const screens = () => SCREENS[DEV];
+  const SCREEN_FILL = '#0c0d10';
+
+  const SEL_KEYS = ['body', ...PACK_KEYS, 'screen'];
+  const DEFAULTS = Object.fromEntries(SEL_KEYS.map(k => [k, k === 'screen' ? 'eclipse' : 'black']));
+  const sel = { ...DEFAULTS };
+
+  // Keyed by `${device}/${angle}`: R = renders per colorway, M = part stencils,
+  // BG = the optional background mask to punch out.
+  const R = {}, M = {}, BG = {};
+  let leafLogo = null;
+  const load = (src) => new Promise((res, rej) => {
+    const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src;
+  });
+
+  const canvas = document.getElementById('mangmi-canvas');
+  const ctx = canvas.getContext('2d');
+  const frame = document.createElement('canvas'); frame.width = frame.height = SIZE;
+  const fctx = frame.getContext('2d');
+  const off = document.createElement('canvas'); off.width = off.height = SIZE;
+  const octx = off.getContext('2d');
+
+  // Cut `renderImg` to stencil `m`'s alpha and stamp it onto the frame. Every step is
+  // confined to the stencil's own rect, so a 64x6 power key costs 64x6 of work.
+  function drawMasked(m, renderImg) {
+    if (!m || !renderImg) return;
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(m.x, m.y, m.w, m.h);
+    octx.drawImage(m.c, m.x, m.y);
+    octx.globalCompositeOperation = 'source-in';
+    octx.drawImage(renderImg, m.x, m.y, m.w, m.h, m.x, m.y, m.w, m.h);
+    fctx.drawImage(off, m.x, m.y, m.w, m.h, m.x, m.y, m.w, m.h);
+  }
+
+  function drawScreen() {
+    const m = M[KEY()].screen;
+    if (!m) return;
+    const src = screens().src[sel.screen];
+    if (src) { drawMasked(m, R[KEY()][src]); return; }
+    // dark panel, clipped to the display
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(m.x, m.y, m.w, m.h);
+    octx.drawImage(m.c, m.x, m.y);
+    octx.globalCompositeOperation = 'source-in';
+    octx.fillStyle = SCREEN_FILL;
+    octx.fillRect(m.x, m.y, m.w, m.h);
+    fctx.drawImage(off, m.x, m.y, m.w, m.h, m.x, m.y, m.w, m.h);
+    // centered Leaf mark on top, clipped so it can't spill onto the bezel
+    if (sel.screen === 'leaf' && leafLogo) {
+      const pad = 0.16;
+      const s = Math.min((m.w * (1 - pad * 2)) / leafLogo.width, (m.h * (1 - pad * 2)) / leafLogo.height);
+      const w = leafLogo.width * s, h = leafLogo.height * s;
+      octx.globalCompositeOperation = 'source-over';
+      octx.clearRect(m.x, m.y, m.w, m.h);
+      octx.drawImage(leafLogo, m.x + (m.w - w) / 2, m.y + (m.h - h) / 2, w, h);
+      octx.globalCompositeOperation = 'destination-in';
+      octx.drawImage(m.c, m.x, m.y);
+      fctx.drawImage(off, m.x, m.y, m.w, m.h, m.x, m.y, m.w, m.h);
+    }
+  }
+
+  function compose() {
+    const k = KEY();
+    if (!R[k] || !M[k]) return;
+    fctx.clearRect(0, 0, SIZE, SIZE);
+    fctx.drawImage(R[k][sel.body], 0, 0);
+    view().parts.forEach(p => {
+      if (p === 'screen') drawScreen();
+      else drawMasked(M[k][p], R[k][sel[p]]);
+    });
+    // Punch the render's baked-in backdrop out last, so the stage shows through and the
+    // device reads on both themes. The mask paints the background, so destination-out
+    // erases exactly where it's opaque and keeps its soft edge on the silhouette.
+    if (BG[k]) {
+      fctx.globalCompositeOperation = 'destination-out';
+      fctx.drawImage(BG[k], 0, 0);
+      fctx.globalCompositeOperation = 'source-over';
+    }
+    const CROP = dev().crop;
+    if (canvas.width !== CROP.w || canvas.height !== CROP.h) {
+      canvas.width = CROP.w; canvas.height = CROP.h;     // devices frame at different sizes
+    }
+    ctx.clearRect(0, 0, CROP.w, CROP.h);
+    ctx.drawImage(frame, CROP.x, CROP.y, CROP.w, CROP.h, 0, 0, CROP.w, CROP.h);
+    updateSummary();
+    updateURL();
+  }
+
+  // Cut the one ID-colored mask into a stencil per part: every non-transparent pixel
+  // goes to whichever ID color it sits nearest, keeping its alpha. Only the RGB is
+  // classified, so an anti-aliased edge lands on the right part at the right coverage.
+  // One pass over the ~0.6M painted pixels; the empty 3.4M are skipped.
+  //
+  // Each stencil is then stored CROPPED to its own bounding box with the offset kept
+  // alongside, so eleven parts cost a few MB instead of eleven full 2000x2000 frames
+  // — and every later composite only touches the rect it actually covers.
+  function splitMask(atlas, keys) {
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0, 0, SIZE, SIZE);
+    octx.drawImage(atlas, 0, 0);
+    const src = octx.getImageData(0, 0, SIZE, SIZE).data;
+    const ids = keys.map(k => MASK_ID[k]);
+    const out = {};
+    const owner = new Int8Array(SIZE * SIZE).fill(-1);
+    const box = keys.map(() => ({ x0: SIZE, y0: SIZE, x1: -1, y1: -1 }));
+    for (let p = 0; p < SIZE * SIZE; p++) {
+      if (!src[p * 4 + 3]) continue;
+      const r = src[p * 4], g = src[p * 4 + 1], b = src[p * 4 + 2];
+      let hit = 0, bestD = Infinity;
+      for (let i = 0; i < ids.length; i++) {
+        const d = Math.abs(r - ids[i][0]) + Math.abs(g - ids[i][1]) + Math.abs(b - ids[i][2]);
+        if (d < bestD) { bestD = d; hit = i; }
+      }
+      owner[p] = hit;
+      const bb = box[hit], x = p % SIZE, y = (p / SIZE) | 0;
+      if (x < bb.x0) bb.x0 = x; if (x > bb.x1) bb.x1 = x;
+      if (y < bb.y0) bb.y0 = y; if (y > bb.y1) bb.y1 = y;
+    }
+    keys.forEach((k, i) => {
+      const bb = box[i];
+      if (bb.x1 < 0) { out[k] = null; return; }
+      const x = bb.x0, y = bb.y0, w = bb.x1 - bb.x0 + 1, h = bb.y1 - bb.y0 + 1;
+      const buf = new Uint8ClampedArray(w * h * 4);
+      for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) {
+        const p = (y + yy) * SIZE + (x + xx);
+        if (owner[p] !== i) continue;
+        const q = (yy * w + xx) * 4;
+        buf[q] = buf[q + 1] = buf[q + 2] = 255;   // stencil color is unused; alpha is the mask
+        buf[q + 3] = src[p * 4 + 3];
+      }
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').putImageData(new ImageData(buf, w, h), 0, 0);
+      out[k] = { c, x, y, w, h };
+    });
+    return out;
+  }
+
+  // Every part this device has, across all its angles, in control order.
+  function devParts() {
+    const all = Object.values(dev().views).flatMap(v => v.parts);
+    return SEL_KEYS.filter(k => all.includes(k));
+  }
+  function updateSummary() {
+    const el = document.getElementById('mangmi-summary');
+    if (!el) return;
+    const bits = [`Body <b>${CLABEL[sel.body]}</b>`];
+    devParts().forEach(k => {
+      bits.push(k === 'screen' ? `Screen <b>${screens().label[sel.screen]}</b>`
+                               : `${PART_LABEL[k]} <b>${CLABEL[sel[k]]}</b>`);
+    });
+    el.innerHTML = bits.join(' · ');
+  }
+
+  // ---- share links: one base36 digit per axis, in SEL_KEYS order (?c=0002...) ----
+  const optsFor = (k) => k === 'screen'         ? screens().opts
+                       : k.startsWith('stick_') ? STICK_OPTS
+                       : COLORWAYS;
+  function shareCode() {
+    return SEL_KEYS.map(k => optsFor(k).indexOf(sel[k]).toString(36)).join('');
+  }
+  function updateURL() {
+    const q = 'c=' + shareCode()
+            + (DEV === 'air' ? '' : '&d=' + DEV)
+            + (VIEW === 'front' ? '' : '&v=' + VIEW);
+    history.replaceState(null, '', location.pathname + '?' + q);
+  }
+  function applyURL() {
+    const p = new URLSearchParams(location.search);
+    const d = p.get('d'); if (d && DEVICES[d]) DEV = d;
+    const v = p.get('v'); if (v && dev().views[v]) VIEW = v;
+    const code = p.get('c');
+    if (!code) return;
+    SEL_KEYS.forEach((k, i) => {
+      const opts = optsFor(k), idx = parseInt(code[i] ?? '', 36);
+      if (idx >= 0 && idx < opts.length) sel[k] = opts[idx];
+    });
+  }
+
+  // ---- controls ----
+  function field(key, label, options = COLORWAYS, labelFn = (o) => CLABEL[o]) {
+    const wrap = document.createElement('div'); wrap.className = 'mangmi-field';
+    if (MASK_ID[key]) wrap.dataset.part = key;   // so setView can dim what this angle can't show
+    const lab = document.createElement('label'); lab.textContent = label;
+    const s = document.createElement('select'); s.dataset.key = key;
+    options.forEach(o => { const op = document.createElement('option');
+      op.value = o; op.textContent = labelFn(o); if (o === sel[key]) op.selected = true; s.appendChild(op); });
+    s.addEventListener('change', () => { sel[key] = s.value; compose(); });
+    wrap.appendChild(lab); wrap.appendChild(s);
+    return wrap;
+  }
+  function syncSelects() {
+    document.querySelectorAll('.mangmi-controls select').forEach(s => { s.value = sel[s.dataset.key]; });
+  }
+  // Set every part to one colorway (what actually ships in a box), falling back to
+  // black sticks for colorways that don't have their own caps.
+  function setPack(v) { PACK_KEYS.forEach(k => sel[k] = packValue(k, v)); }
+
+  function buildControls() {
+    const c = document.getElementById('mangmi-controls');
+    c.appendChild(field('body', 'Body'));
+
+    // Every part outside the body ships as ONE pack -> a "Single pack" checkbox
+    // collapses all ten dropdowns into one that sets them together.
+    const packRow = document.createElement('div'); packRow.className = 'mangmi-field';
+    const packCbLab = document.createElement('label'); packCbLab.textContent = 'Single pack';
+    const packCb = document.createElement('input'); packCb.type = 'checkbox'; packCb.className = 'mangmi-pack-cb';
+    packRow.appendChild(packCbLab); packRow.appendChild(packCb);
+    c.appendChild(packRow);
+
+    const members = PACK_KEYS.map(k =>
+      field(k, PART_LABEL[k], k.startsWith('stick_') ? STICK_OPTS : COLORWAYS));
+    members.forEach(f => c.appendChild(f));
+
+    const packField = document.createElement('div'); packField.className = 'mangmi-field hide-pack';
+    const packLab = document.createElement('label'); packLab.textContent = 'Single Pack';
+    const packSel = document.createElement('select'); packSel.dataset.key = 'abxy';
+    COLORWAYS.forEach(o => { const op = document.createElement('option');
+      op.value = o; op.textContent = CLABEL[o]; packSel.appendChild(op); });
+    packSel.addEventListener('change', () => { setPack(packSel.value); syncSelects(); compose(); });
+    packField.appendChild(packLab); packField.appendChild(packSel);
+    c.appendChild(packField);
+
+    packCb.addEventListener('change', () => {
+      const on = packCb.checked;
+      members.forEach(f => f.classList.toggle('hide-pack', on));
+      packField.classList.toggle('hide-pack', !on);
+      if (on) { setPack(sel.abxy); syncSelects(); compose(); }
+    });
+
+    c.appendChild(field('screen', 'Screen', screens().opts, (o) => screens().label[o]));
+
+    const actions = document.createElement('div'); actions.className = 'mangmi-actions';
+    const rand = document.createElement('button'); rand.type = 'button'; rand.textContent = 'Randomize'; rand.className = 'primary';
+    rand.addEventListener('click', () => {
+      const pick = (a) => a[Math.floor(Math.random() * a.length)];
+      SEL_KEYS.forEach(k => sel[k] = pick(optsFor(k)));
+      syncSelects(); compose();
+    });
+    const reset = document.createElement('button'); reset.type = 'button'; reset.textContent = 'Reset';
+    reset.addEventListener('click', () => {
+      Object.assign(sel, DEFAULTS);
+      syncScreenField();                 // DEFAULTS' screen may not exist on this device
+      syncSelects(); compose();
+    });
+    actions.appendChild(rand); actions.appendChild(reset);
+    c.appendChild(actions);
+
+    const share = document.createElement('button'); share.type = 'button'; share.className = 'mangmi-share';
+    share.textContent = 'Copy share link';
+    share.addEventListener('click', async () => {
+      updateURL();
+      const url = location.href;
+      try { await navigator.clipboard.writeText(url); }
+      catch (e) {
+        const t = document.createElement('textarea'); t.value = url; document.body.appendChild(t);
+        t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove();
+      }
+      share.textContent = 'Link copied!';
+      clearTimeout(share._t); share._t = setTimeout(() => { share.textContent = 'Copy share link'; }, 1600);
+    });
+    c.appendChild(share);
+  }
+
+  // Load one angle's three renders + its packed mask. The front is awaited before the
+  // first paint; the back streams in behind it so the page isn't held up by an angle
+  // nobody has asked for yet.
+  const loading = {};                    // in-flight per device+angle, so nothing loads twice
+  function loadView(d, v) {
+    const k = `${d}/${v}`;
+    if (loading[k]) return loading[k];
+    const cfg = DEVICES[d].views[v];
+    return (loading[k] = Promise.all([
+      Promise.all(COLORWAYS.map(c => load(`${BASE}${cfg.render(c)}`))),
+      load(`${BASE}${cfg.mask}`),
+      cfg.bg ? load(`${BASE}${cfg.bg}`) : null,
+    ]).then(([renders, atlas, bg]) => {
+      R[k] = Object.fromEntries(COLORWAYS.map((c, i) => [c, renders[i]]));
+      M[k] = splitMask(atlas, cfg.parts);
+      if (bg) BG[k] = bg;
+    }));
+  }
+
+  // Show only the angles this device actually has; hide the whole bar when there's one.
+  function syncViewBar() {
+    const names = Object.keys(dev().views);
+    document.getElementById('mangmi-viewbar').hidden = names.length < 2;
+    document.querySelectorAll('#mangmi-viewbar button').forEach(b => {
+      b.hidden = !names.includes(b.dataset.view);
+      b.classList.toggle('active', b.dataset.view === VIEW);
+    });
+  }
+
+  // Rebuild the Screen dropdown for the current device — the wallpapers differ, so the
+  // option list can't be baked in the way the colorway lists can.
+  function syncScreenField() {
+    const s = document.querySelector('.mangmi-controls select[data-key="screen"]');
+    if (!s) return;
+    const { opts, label } = screens();
+    if (!opts.includes(sel.screen)) sel.screen = opts[0];
+    s.replaceChildren(...opts.map(o => {
+      const op = document.createElement('option');
+      op.value = o; op.textContent = label[o]; return op;
+    }));
+    s.value = sel.screen;
+  }
+
+  function setPlace(d, v) {
+    DEV = d;
+    VIEW = DEVICES[d].views[v] ? v : Object.keys(DEVICES[d].views)[0];
+    document.querySelectorAll('#mangmi-devicebar button').forEach(b =>
+      b.classList.toggle('active', b.dataset.device === DEV));
+    syncViewBar();
+    syncScreenField();
+    document.querySelectorAll('.mangmi-controls .mangmi-field[data-part]').forEach(f =>
+      f.classList.toggle('hide-view', !view().parts.includes(f.dataset.part)));
+    if (R[KEY()]) compose(); else loadView(DEV, VIEW).then(compose);
+  }
+  const setView = (v) => setPlace(DEV, v);
+
+  async function init() {
+    applyURL();
+    buildControls();
+    document.querySelectorAll('#mangmi-devicebar button').forEach(b =>
+      b.addEventListener('click', () => setPlace(b.dataset.device, VIEW)));
+    document.querySelectorAll('#mangmi-viewbar button').forEach(b =>
+      b.addEventListener('click', () => setView(b.dataset.view)));
+    try {
+      await Promise.all([
+        loadView(DEV, VIEW),
+        (async () => { leafLogo = await load(`${BASE}leaf.png`); })(),
+      ]);
+      document.getElementById('mangmi-loading').remove();
+      setPlace(DEV, VIEW);
+      // warm every other device+angle in the background
+      Object.entries(DEVICES).forEach(([d, cfg]) =>
+        Object.keys(cfg.views).forEach(v => loadView(d, v)));
+    } catch (e) {
+      const l = document.getElementById('mangmi-loading');
+      if (l) l.textContent = 'Could not load renders.';
+      console.error(e);
+    }
+  }
+  init();
+</script>

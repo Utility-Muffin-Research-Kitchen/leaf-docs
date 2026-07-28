@@ -21,9 +21,10 @@ Everything lives under **Settings > Controls & Feedback**.
 - **Strength** - how hard the motor runs, from weak to full. Press **Left** and
   **Right** to adjust it, and the device taps as you go so you can feel each level
   rather than guessing from a number.
-- **Navigation Tick** - a small tap every time the cursor moves. Off by default,
+- **Cursor Movement** - a small tap every time the cursor moves. Off by default,
   because it fires constantly while you scroll. Turn it on if you like the
-  interface to feel clicky.
+  interface to feel clicky. It covers movement only, so opening a screen and
+  confirming an action still tap with it off.
 - **Game Rumble** - lets the game itself drive the motor. On by default.
 - **Screenshots** - the **Menu + L1** capture hotkey, which lives here alongside
   the other feel-of-the-device settings. See [Screenshots](/guide/screenshots/).
@@ -64,4 +65,4 @@ not interrupt one you are already playing.
 Turn **Rumble** off for silence everywhere. If you only dislike it in one place,
 you do not have to give up the rest: leave **Rumble** on and switch off
 **Game Rumble** to keep the interface taps without games buzzing, or leave
-**Navigation Tick** off to keep confirmations while scrolling stays quiet.
+**Cursor Movement** off to keep confirmations while scrolling stays quiet.

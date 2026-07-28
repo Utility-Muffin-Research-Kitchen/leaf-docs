@@ -8,7 +8,7 @@ update mechanism. You don't need ADB, a custom flasher, or any PC-side tooling:
 just extract the release to a card and let the device install it.
 
 :::tip[Download Leaf]
-**[Get the latest release →](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest)** and grab `leaf-mlp1-sd-<release_id>.zip`. Leaf is pre-1.0, so skim the release notes on that page first, then follow the steps below.
+**[Get the latest release →](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/releases/latest)** and grab `leaf-mlp1-sd-<release_id>.zip`. Skim the release notes on that page first, then follow the steps below.
 :::
 
 :::caution[Update stock at least once first]

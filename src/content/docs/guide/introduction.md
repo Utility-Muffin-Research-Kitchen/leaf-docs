@@ -52,8 +52,8 @@ This has two practical benefits:
 
 ## Project status
 
-Leaf is pre-1.0 and changes quickly. Releases are published on GitHub; read
-each release's notes before installing. It currently targets the Miniloong
+Leaf is stable and released often. Every release is published on GitHub with
+notes worth reading before you install. It currently targets the Miniloong
 Pocket 1 only.
 
 Leaf is open source, baked in the

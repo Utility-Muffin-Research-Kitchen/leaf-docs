@@ -3,11 +3,6 @@ title: Rumble
 description: Haptic feedback on the Miniloong Pocket 1. Feel the interface as you move through it, and let games drive the rumble motor.
 ---
 
-:::caution[Coming soon]
-Rumble is not in the current release yet. This page previews a feature that is on
-the way. Join the [Discord](https://discord.gg/q5F7cZ7KRp) to hear when it lands.
-:::
-
 The Pocket 1 has a rumble motor inside it. Leaf uses it two ways: short taps that
 give the interface a physical response, and real in-game rumble driven by the game
 you are playing.

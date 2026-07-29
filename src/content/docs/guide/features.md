@@ -152,6 +152,58 @@ carousel of your recent games for jumping back in fast.
 The currently running game shows a live snapshot of where you left off; others show
 their box art, or a placeholder card with the system name when there's no art yet.
 
+## Rumble
+
+The Pocket 1 has a vibration motor, and Leaf uses it two ways. The interface taps
+as you confirm something or run into the end of a list, and games drive the motor
+themselves on RetroArch cores, Dreamcast, N64, and PSP.
+
+**Settings → Controls & Feedback** holds the controls: a master switch, a strength
+slider that also acts as the ceiling for in-game rumble, an optional tap on cursor
+movement (off by default, since it fires constantly while you scroll), and a
+separate switch for game rumble if you want the interface feedback without it.
+
+See [Rumble](/guide/rumble/) for what each pattern means and the three controller
+changes that make in-game rumble possible.
+
+## 5-Game Mode
+
+A lockable focus mode that shows five games and nothing else. Pick and arrange
+them from **Menu → Actions → Start 5-Game Mode**, choose theme colors or black and
+white, and optionally set a four-digit PIN.
+
+The focused screen survives reboots, quitting a game returns to it rather than the
+launcher, and Wi-Fi switches off while it is active and comes back as you left it.
+Useful for handing the device to a child, or for cutting a large library down to
+the few things you actually mean to play.
+
+See [5-Game Mode](/guide/five-game-mode/), including the failsafe for a forgotten
+PIN.
+
+## Screenshots
+
+Turn on **Settings → Controls & Feedback → Screenshots**, then press **Menu + L1**
+to capture whatever is on screen: the launcher, a menu, 5-Game Mode, or a running
+RetroArch game. Files land in the top-level `Screenshots` folder as PNGs, and none
+of it needs Wi-Fi.
+
+See [Screenshots](/guide/screenshots/).
+
+## RetroArch shaders
+
+Leaf bundles a small, curated set of GLSL shader presets, tested on this screen.
+Nothing switches on by itself, so a fresh install shows the original picture until
+you pick one. Load a preset from **Quick Menu → Shaders → Load Preset** inside a
+RetroArch game, then look in **`leaf-recommended/`**.
+
+The nine recommendations cover crisp pixel scaling, subtle scanlines, per-system
+Game Boy and GBA color and LCD simulations, a shimmer-free option for awkward
+scaling, and a light CRT look. Shaders only affect games running through
+RetroArch; standalone emulators have their own video settings.
+
+See [RetroArch shaders](/guide/shaders/), including which presets to keep away
+from Black Frame Insertion.
+
 ## Recents & saves
 
 - **Recents** shows what you've been playing; you can remove entries you don't

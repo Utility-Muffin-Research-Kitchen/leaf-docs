@@ -10,8 +10,8 @@ computer.
 
 ## Turning it on
 
-Screenshots are off by default. Turn them on in **Settings > General**, on the
-**Screenshots** row. Once on, the capture combo works everywhere until you switch
+Screenshots are off by default. Turn them on in **Settings → Controls & Feedback**, on
+the **Screenshots** row. Once on, the capture combo works everywhere until you switch
 it off again.
 
 ![The General settings page with the Screenshots row highlighted and set to On, among rows for Auto Sleep, Game Performance, Time Zone, and Boot Splash](/screenshot_settings.png)

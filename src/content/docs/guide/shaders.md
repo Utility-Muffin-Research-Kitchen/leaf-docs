@@ -3,15 +3,9 @@ title: RetroArch shaders
 description: 'Load Leaf’s bundled GLSL presets, add your own shaders safely, and understand how they interact with Fugazi.'
 ---
 
-:::caution[Coming soon]
-The bundled shader library is not in the current release yet. This page
-previews a feature that is on the way. Join the
-[Discord](https://discord.gg/q5F7cZ7KRp) to hear when it lands.
-:::
-
-An upcoming Leaf release adds a small, curated set of GLSL shader presets for
-RetroArch games. Nothing switches on by itself. A fresh install shows the
-original picture until you pick a preset.
+Leaf includes a small, curated set of GLSL shader presets for RetroArch games.
+Nothing switches on by itself. A fresh install shows the original picture until
+you pick a preset.
 
 Shaders only affect games running through RetroArch. Standalone emulators like
 DraStic, PPSSPP, Mupen64Plus, and Flycast have their own video settings.

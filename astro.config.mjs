@@ -108,6 +108,8 @@ export default defineConfig({
             { label: 'Contributing', slug: 'develop/contributing' },
           ],
         },
+        // The individual studios stay orphaned; this hub is the way in.
+        { label: 'Colorway studios', slug: 'colorways' },
         { label: 'Credits', slug: 'credits' },
       ],
     }),

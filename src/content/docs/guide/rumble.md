@@ -48,9 +48,13 @@ like a crash.
 controls the moment-to-moment force; your setting caps how strong the loudest
 moment gets.
 
-This works for games running under RetroArch, which covers most systems. The
-standalone emulators (PPSSPP for PSP, DraStic for DS, standalone Mupen64Plus for
-N64, and standalone Flycast for Dreamcast) do not drive the motor yet.
+This works for games running under RetroArch, which covers most systems, and for
+the standalone Dreamcast and N64 emulators.
+
+Two systems are not covered, for different reasons. The PSP had no rumble motor
+of its own, so there is nothing for a PSP game to ask for. DS rumble came from a
+Rumble Pak in the GBA slot, which very few games used, and DraStic has not been
+tested for it.
 
 Changing **Game Rumble** takes effect the next time you start a game, so it will
 not interrupt one you are already playing.

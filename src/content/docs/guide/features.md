@@ -156,7 +156,7 @@ their box art, or a placeholder card with the system name when there's no art ye
 
 The Pocket 1 has a vibration motor, and Leaf uses it two ways. The interface taps
 as you confirm something or run into the end of a list, and games drive the motor
-themselves on RetroArch cores, Dreamcast, N64, and PSP.
+themselves on RetroArch cores, Dreamcast, and N64.
 
 **Settings → Controls & Feedback** holds the controls: a master switch, a strength
 slider that also acts as the ceiling for in-game rumble, an optional tap on cursor

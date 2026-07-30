@@ -137,10 +137,17 @@
     white:  { render:'game_cube', side:'left'  },
     yellow: { render:'game_cube', side:'right' },
   };
-  // shoulder triggers come in two colors, cut straight from a matching render
-  const TRIGGER_COLORS = ['black','white'];
+  // Shoulder triggers. There is no user-facing choice here and there never was one:
+  // each render already depicts its own correct trigger colour (the translucent
+  // colourways genuinely ship black triggers, the solid ones match their shell), so a
+  // trigger is right whenever it is cut from the render of the device it belongs to.
+  //
+  // masks/triggers.png spans BOTH devices in the frame — the back shell's shoulder and
+  // the front unit's — as two disjoint blobs, so splitTriggers() separates them and each
+  // follows its own device. The old fixed 'white' source painted a light 16 Bit shoulder
+  // onto every body, which read as a bug on anything dark.
+  const TRIGGER_COLORS = ['black','white'];   // kept only so a legacy ?c= digit still parses
   const TRIGGER_LABEL = { black:'Black', white:'White' };
-  const TRIGGER_SRC = { black:'black', white:'16_bit' };
   // secret on-screen easter eggs: ?screen=<code> swaps the display. Not in the UI;
   // assets lazy-loaded only when a valid code is present.
   const SCREEN_CODES = { f_the_p: 'rise.png', h_gonna_h: 'bleepbloop.png' };
@@ -166,6 +173,7 @@
   const octx = off.getContext('2d');
 
   function drawMasked(maskImg, renderImg) {
+    if (!maskImg || !renderImg) return;   // a missing layer skips, rather than killing compose()
     octx.globalCompositeOperation = 'source-over';
     octx.clearRect(0,0,2048,2048);
     octx.drawImage(maskImg, 0,0);
@@ -173,6 +181,53 @@
     octx.drawImage(renderImg, 0,0);
     ctx.drawImage(off, 0,0);
   }
+  // Cut masks/triggers.png into its two disjoint blobs and label them by device: the one
+  // that overlaps the back-shell mask is the back shoulder, the other is the front's.
+  // Same trick as Real's fourbutton split, so no new artwork is needed.
+  function splitTriggers() {
+    if (!M.triggers || !M.back) return;
+    const S = 2048;
+    const read = (img) => {
+      octx.globalCompositeOperation = 'source-over';
+      octx.clearRect(0,0,S,S); octx.drawImage(img, 0,0);
+      return octx.getImageData(0,0,S,S).data;
+    };
+    const back = read(M.back), a = read(M.triggers);
+    const lbl = new Int32Array(S*S), blobs = [], stack = [];
+    for (let p = 0; p < S*S; p++) {
+      if (a[p*4+3] <= 8 || lbl[p]) continue;
+      const id = blobs.length + 1;
+      let n = 0, onBack = 0;
+      stack.push(p); lbl[p] = id;
+      while (stack.length) {
+        const q = stack.pop(), qx = q % S, qy = (q / S) | 0;
+        n++; if (back[q*4+3] > 128) onBack++;
+        for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+          const nx = qx+dx, ny = qy+dy;
+          if (nx<0||nx>=S||ny<0||ny>=S) continue;
+          const r = ny*S+nx;
+          if (a[r*4+3] > 8 && !lbl[r]) { lbl[r] = id; stack.push(r); }
+        }
+      }
+      blobs.push({ id, n, onBack });
+    }
+    if (blobs.length < 2) return;                  // unexpected shape; leave triggers alone
+    const backBlob = blobs.reduce((m, b) => (b.onBack > m.onBack ? b : m), blobs[0]);
+    const stencil = (keep) => {
+      const buf = new Uint8ClampedArray(S*S*4);
+      for (let p = 0; p < S*S; p++) {
+        if (!lbl[p] || (lbl[p] === backBlob.id) !== keep) continue;
+        buf[p*4] = buf[p*4+1] = buf[p*4+2] = 255;
+        buf[p*4+3] = a[p*4+3];
+      }
+      const c = document.createElement('canvas'); c.width = c.height = S;
+      c.getContext('2d').putImageData(new ImageData(buf, S, S), 0, 0);
+      return c;
+    };
+    M.trig_back = stencil(true);
+    M.trig_front = stencil(false);
+  }
+
   function drawStick(side, color) {
     const s = STICK_SRC[color];
     const src = s.side === 'same' ? STICK_BBOX[side] : STICK_BBOX[s.side];
@@ -206,7 +261,8 @@
     ctx.clearRect(0,0,2048,2048);
     ctx.drawImage(R[sel.body], 0,0);
     drawMasked(M.back, R[sel.back]);
-    drawMasked(M.triggers, R[TRIGGER_SRC[sel.triggers]]);
+    drawMasked(M.trig_back, R[sel.back]);     // back shell's shoulder follows the back shell
+    drawMasked(M.trig_front, R[sel.body]);    // front unit's follows the body
     if (sel.screen && M.screen && SCREENS[SCREEN_CODES[sel.screen]]) drawMasked(M.screen, SCREENS[SCREEN_CODES[sel.screen]]);
     ['abxy','dpad','func1','func2','func3','func4'].forEach(el => drawMasked(M[el], R[sel[el]]));
     drawStick('left', sel.stick_left);
@@ -945,6 +1001,7 @@
         ...ELEMENT_MASKS.map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
         ...['leds_left','leds_right'].map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
       ]);
+      splitTriggers();        // masks/triggers.png -> M.trig_back + M.trig_front
       illReady = true;
       document.getElementById('nova-loading').remove();
       compose();

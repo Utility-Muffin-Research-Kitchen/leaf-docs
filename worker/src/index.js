@@ -25,7 +25,10 @@ const STUDIOS = [
     ogPath: '/nova-og',
     canvasId: 'nova-canvas',
     loadingId: 'nova-loading',
-    ver: 7,
+    // 8: the studio's rendering changed (per-button function colors in Real mode, the
+    // shoulder-trigger fix, the new Display axis). Cards are cached immutable, so already
+    // rendered links would have kept serving the pre-fix image without this bump.
+    ver: 8,
     altName: 'Retroid Pocket Nova',
     card: { title: 'Nova<br>Colorway<br>Studio', sub: 'Design your<br>Retroid Pocket Nova' },
     buildConfig(p) {

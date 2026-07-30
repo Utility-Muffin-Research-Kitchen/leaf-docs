@@ -152,6 +152,12 @@
   // assets lazy-loaded only when a valid code is present.
   const SCREEN_CODES = { f_the_p: 'rise.png', h_gonna_h: 'bleepbloop.png' };
   const SCREENS = {};
+  // Display axis, matching Real's Screen. 'render' is extra: the illustrated renders
+  // carry their own wallpaper art, which the photos have no equivalent for.
+  const DISPLAY_OPTS = ['render','off','leaf'];
+  const DISPLAY_LABEL = { render:'Wallpaper', off:'Off', leaf:'Retroid Leaf' };
+  const DISPLAY_FILL = '#0c0d10';
+  let SCREEN_LEAF = null;   // leaf pre-warped into the screen quad
   // per-stick RGB LED rings (masks/leds_left|right.png) — emissive ROYGBIV + Off, with a soft glow
   const LED_COLORS = ['off','red','orange','yellow','green','blue','indigo','violet'];
   const LED_LABEL = { off:'Off', red:'Red', orange:'Orange', yellow:'Yellow', green:'Green', blue:'Blue', indigo:'Indigo', violet:'Violet' };
@@ -160,7 +166,8 @@
 
   const sel = { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
                 func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
-                stick_left:'gray', stick_right:'gray', led_left:'off', led_right:'off', screen:null };
+                stick_left:'gray', stick_right:'gray', led_left:'off', led_right:'off',
+                display:'render', screen:null };
 
   const R = {}, M = {};
   const load = (src) => new Promise((res, rej) => {
@@ -257,13 +264,32 @@
     ctx.restore();
     ctx.drawImage(off, 0,0);                        // crisp ring on top, pure color
   }
+  // Display axis. 'render' keeps the wallpaper baked into the render; 'off' fills the
+  // panel dark; 'leaf' adds the Retroid leaf on top. The leaf art is pre-warped into the
+  // screen's perspective quad (scripts/make-nova-screen-leaf.py) because canvas can only
+  // do affine transforms — the same reason the easter-egg screens are full-frame images.
+  function drawDisplay() {
+    if (sel.display === 'render' || !M.screen) return;
+    octx.globalCompositeOperation = 'source-over';
+    octx.clearRect(0,0,2048,2048);
+    octx.drawImage(M.screen, 0,0);
+    octx.globalCompositeOperation = 'source-in';
+    octx.fillStyle = DISPLAY_FILL;
+    octx.fillRect(0,0,2048,2048);
+    ctx.drawImage(off, 0,0);
+    if (sel.display === 'leaf' && SCREEN_LEAF) ctx.drawImage(SCREEN_LEAF, 0,0);
+  }
+
   function compose() {
     ctx.clearRect(0,0,2048,2048);
     ctx.drawImage(R[sel.body], 0,0);
     drawMasked(M.back, R[sel.back]);
     drawMasked(M.trig_back, R[sel.back]);     // back shell's shoulder follows the back shell
     drawMasked(M.trig_front, R[sel.body]);    // front unit's follows the body
+    // The hidden ?screen= egg wins outright; otherwise the Display axis decides. 'render'
+    // leaves the render's own wallpaper alone, which is why it is the default.
     if (sel.screen && M.screen && SCREENS[SCREEN_CODES[sel.screen]]) drawMasked(M.screen, SCREENS[SCREEN_CODES[sel.screen]]);
+    else drawDisplay();
     ['abxy','dpad','func1','func2','func3','func4'].forEach(el => drawMasked(M[el], R[sel[el]]));
     drawStick('left', sel.stick_left);
     drawStick('right', sel.stick_right);
@@ -273,10 +299,13 @@
     updateURL();
   }
 
-  const SEL_KEYS = ['body','back','triggers','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right','led_left','led_right'];
+  // 'display' is appended last so codes written before it existed still decode, falling
+  // back to its 'render' default — the wallpaper those links were shared with.
+  const SEL_KEYS = ['body','back','triggers','dpad','abxy','func1','func2','func3','func4','stick_left','stick_right','led_left','led_right','display'];
   // The option list backing each axis; shared by the compact URL code and validation.
   function optsFor(k) {
-    return k.startsWith('led_')    ? LED_COLORS
+    return k === 'display'         ? DISPLAY_OPTS
+         : k.startsWith('led_')    ? LED_COLORS
          : k.startsWith('stick_')  ? STICK_COLORS
          : k === 'triggers'        ? TRIGGER_COLORS
          : BUTTON_KEYS.includes(k) ? BUTTON_OPTIONS
@@ -345,7 +374,8 @@
       `Body <b>${RLABEL[sel.body]}</b> · Back shell <b>${RLABEL[sel.back]}</b> · D-pad <b>${RLABEL[sel.dpad]}</b> · A/B/X/Y <b>${RLABEL[sel.abxy]}</b>`
       + ` · Select <b>${RLABEL[sel.func3]}</b> · Start <b>${RLABEL[sel.func1]}</b> · Home <b>${RLABEL[sel.func4]}</b> · Back <b>${RLABEL[sel.func2]}</b>`
       + ` · Sticks <b>${STICK_LABEL[sel.stick_left]}</b> (L) / <b>${STICK_LABEL[sel.stick_right]}</b> (R)`
-      + ` · Stick LEDs <b>${LED_LABEL[sel.led_left]}</b> (L) / <b>${LED_LABEL[sel.led_right]}</b> (R)`;
+      + ` · Stick LEDs <b>${LED_LABEL[sel.led_left]}</b> (L) / <b>${LED_LABEL[sel.led_right]}</b> (R)`
+      + ` · Display <b>${DISPLAY_LABEL[sel.display]}</b>`;
   }
 
   function field(key, label, options, labelFn) {
@@ -402,6 +432,7 @@
       }
     });
 
+    c.appendChild(field('display', 'Display', DISPLAY_OPTS, (o) => DISPLAY_LABEL[o]));
     c.appendChild(field('stick_left', 'Left stick', STICK_COLORS, sl));
     c.appendChild(field('stick_right', 'Right stick', STICK_COLORS, sl));
     c.appendChild(field('led_left', 'Left LED', LED_COLORS, (o) => LED_LABEL[o]));
@@ -415,13 +446,14 @@
       BUTTON_KEYS.forEach(k => sel[k] = pick(BUTTON_OPTIONS));
       sel.stick_left = pick(STICK_COLORS); sel.stick_right = pick(STICK_COLORS);
       sel.led_left = pick(LED_COLORS); sel.led_right = pick(LED_COLORS);
+      sel.display = pick(DISPLAY_OPTS);
       syncSelects(); compose();
     });
     const reset = document.createElement('button'); reset.textContent = 'Reset';
     reset.addEventListener('click', () => {
       Object.assign(sel, { body:'16_bit', back:'16_bit', triggers:'white', abxy:'16_bit', dpad:'16_bit',
         func1:'16_bit', func2:'16_bit', func3:'16_bit', func4:'16_bit',
-        stick_left:'gray', stick_right:'gray', led_left:'off', led_right:'off' });
+        stick_left:'gray', stick_right:'gray', led_left:'off', led_right:'off', display:'render' });
       syncSelects(); compose();
     });
     actions.appendChild(rand); actions.appendChild(reset);
@@ -954,13 +986,22 @@
   // Both modes now colour the four function buttons individually, so every colourway
   // axis maps 1:1 and nothing is lost in either direction.
   const MAPPED = ['body', 'back', 'dpad', 'abxy', 'func1', 'func2', 'func3', 'func4'];
+  // Display/Screen share 'off' and 'leaf'. Rendered's third option, the render's own
+  // wallpaper, has no photo equivalent, so it hands over as 'off' and is restored on the
+  // way back unless the value was actually changed in Real — same guard the function
+  // buttons used to need.
+  let handedScreen = null;
   function syncToReal() {
     MAPPED.forEach(k => { if (I2R[sel[k]]) rsel[k] = I2R[sel[k]]; });
     SHARED.forEach(k => rsel[k] = sel[k]);
+    rsel.screen = sel.display === 'leaf' ? 'leaf' : 'off';
+    handedScreen = rsel.screen;
   }
   function syncToIllustrated() {
     MAPPED.forEach(k => { if (R2I[rsel[k]]) sel[k] = R2I[rsel[k]]; });
     SHARED.forEach(k => sel[k] = rsel[k]);
+    if (rsel.screen !== handedScreen || sel.display !== 'render')
+      sel.display = rsel.screen;                       // 'off' | 'leaf'
   }
   // Only a user-driven switch syncs. setMode() also runs on load, where `sel`/`rsel`
   // are still whatever the share link decoded into and copying would wipe it out.
@@ -998,8 +1039,11 @@
       await Promise.all([
         ...RENDERS.map(async n => { R[n] = await load(`${BASE}${n}.jpg`); }),
         (async () => { R.retro = await load(`${BASE}retro.jpg`); })(),
+        (async () => { SCREEN_LEAF = await load(`${BASE}screen_leaf.png`); })(),
         ...ELEMENT_MASKS.map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
-        ...['leds_left','leds_right'].map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
+        // 'screen' used to be lazy-loaded only for the easter egg; the Display axis needs
+        // it on every load now.
+        ...['leds_left','leds_right','screen'].map(async n => { M[n] = await load(`${BASE}masks/${n}.png`); }),
       ]);
       splitTriggers();        // masks/triggers.png -> M.trig_back + M.trig_front
       illReady = true;

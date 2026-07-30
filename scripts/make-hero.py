@@ -29,11 +29,11 @@ FRAME_MS = 160                 # ~6 fps (slower, more readable loop)
 SCREEN_BG = (15, 22, 14)       # dark-green page/screen background
 HALO_GREEN = (140, 220, 120)   # external device halo + leaf glow
 RING_GREEN = (150, 255, 130)   # LED stick-ring
-RING_CENTER = (262, 433)       # device-coord centre of the analog stick
+RING_CENTER = (262, 433)       # device-coord center of the analog stick
 RING_RX, RING_RY = 80, 72
 
 GI_BASE = 0.48                 # external-halo intensity during the screen cycle
-                               # (and the breath's low point) — raise to brighten
+                               # (and the breath's low point) - raise to brighten
                                # the resting glow around the device.
 LEAF_GLOW_GAIN = 0.42          # overall on-screen leaf-glow brightness.
 DONUT_W = 1.2                  # inner glow hugging the leaf (the "middle").

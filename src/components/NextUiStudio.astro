@@ -99,12 +99,12 @@
     border: 1px solid var(--sl-color-gray-5); }
 
   /* Render mode: flat SVG device art, so the screen is a plain scale/translate onto
-     the artwork's screen rect — none of the photo's perspective warp or PNG mask. */
+     the artwork's screen rect - none of the photo's perspective warp or PNG mask. */
   /* Deliberately a fixed neutral, not palette-derived: a stage that shifts with the
-     colors throws off how those colors read on the screen next to it. This mid grey
+     colors throws off how those colors read on the screen next to it. This mid gray
      holds its own against both a black and a white colorway. */
   /* Fixed box, sized for the tallest artwork (the square Brick canvas, plus a hair
-     of margin). The wide Smart Pro art just centres inside it, so switching colorway
+     of margin). The wide Smart Pro art just centers inside it, so switching colorway
      no longer resizes the stage and shoves the page around. */
   .nu-render { width: 100%; max-width: 640px; margin: 0 auto; position: relative;
     aspect-ratio: 100 / 102; display: flex; align-items: center;
@@ -154,9 +154,9 @@
   /* selected row: color1 (Main) pill via GFX_blitPillDark, text in color5 */
   .nu-row.sel { background: var(--c1); color: var(--c5); }
   .nu-hints { display: flex; justify-content: space-between; gap: 1em; padding: 16px 20px; color: var(--c6); font-size: 30px; align-items: center; }
-  /* each hint group sits in its own accent (color2) backing pill — same height as a list pill */
+  /* each hint group sits in its own accent (color2) backing pill - same height as a list pill */
   .nu-hint { display: inline-flex; align-items: center; gap: 10px; background: var(--c2); border-radius: 999px; height: 64px; padding: 0 20px; }
-  /* multi-char button (e.g. POWER) — a color1 pill nested concentrically in the group pill */
+  /* multi-char button (e.g. POWER) - a color1 pill nested concentrically in the group pill */
   .nu-pill { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 16px;
     border-radius: 999px; background: var(--c1); color: var(--c3); font-size: 28px; font-weight: 800; }
   /* button glyph: color1 circle with the letter in color3 (ALT_BUTTON_TEXT_COLOR = accent2) */
@@ -217,7 +217,7 @@
 </style>
 
 <script>
-  // 7 palette slots — NextUI color1..color7 with their default packed RGBA.
+  // 7 palette slots - NextUI color1..color7 with their default packed RGBA.
   const ELS = [
     { key: 'c1', name: 'Main',                def: 0xffffffff },
     { key: 'c2', name: 'Primary Accent',      def: 0x9b2257ff },
@@ -237,7 +237,7 @@
   let name = 'Custom';
   // Authoritative hue/sat for the active swatch. Re-deriving these from the packed
   // RGB on every edit round-trips through 8-bit quantization, so dragging Brightness
-  // made the wheel marker drift — and at 0 the color is pure black, where hue/sat no
+  // made the wheel marker drift - and at 0 the color is pure black, where hue/sat no
   // longer exist at all (the marker snapped to the center and the hue was lost for
   // good). Keeping them here means Brightness only ever changes V.
   let curH = 0, curS = 0;
@@ -580,8 +580,8 @@
   }
 
   // The accent carries hint text whose polarity is dictated by the background, so the
-  // accent needs to leave room for it. Constraining its HSV *value* isn't enough — a
-  // yellow at v=.6 is far brighter than a blue at v=.6 — so pull its actual relative
+  // accent needs to leave room for it. Constraining its HSV *value* isn't enough - a
+  // yellow at v=.6 is far brighter than a blue at v=.6 - so pull its actual relative
   // luminance into the feasible band instead.
   function fitAccentLuminance(dark) {
     if (locked.c2) return;
@@ -616,7 +616,7 @@
     const dark = locked.c7 ? relLum(state.c7) < 0.25 : Math.random() < 0.75;
 
     put('c7', hue(0), rnd(0.10, 0.35), dark ? rnd(0.05, 0.14) : rnd(0.90, 0.99));  // background
-    // The accent carries hint text, and that text follows the background's polarity —
+    // The accent carries hint text, and that text follows the background's polarity
     // so on a dark theme the accent has to stay deep enough for light text, and on a
     // light theme light enough for dark text. Otherwise the pair is unsatisfiable.
     put('c2', hue(1), rnd(0.55, 0.90), dark ? rnd(0.32, 0.60) : rnd(0.62, 0.88));  // accent pill
@@ -637,7 +637,7 @@
 
   // ---- device photo: perspective-warp the 800x600 screen onto the masked quad ----
   const SCREEN_W = 800, SCREEN_H = 600;
-  // Native photo space (half the 1496x1126 source — see the .nu-photo-inner note).
+  // Native photo space (half the 1496x1126 source - see the .nu-photo-inner note).
   const NW = 748;
   // Screen-quad corners (TL,TR,BR,BL) read from screen-mask.png, halved into the 748x563 space.
   const QUAD = [{x:291,y:144},{x:497.5,y:135.5},{x:490.5,y:288},{x:294.5,y:305.5}];
@@ -653,7 +653,7 @@
   }
   function warpScreen() {
     // Overscan: push the target corners slightly outward so the screen bleeds past
-    // the mask edges (which then trim it cleanly) — no gap along the rounded border.
+    // the mask edges (which then trim it cleanly) - no gap along the rounded border.
     const OVER = 0.035;
     const cx = (QUAD[0].x+QUAD[1].x+QUAD[2].x+QUAD[3].x)/4, cy = (QUAD[0].y+QUAD[1].y+QUAD[2].y+QUAD[3].y)/4;
     const dst = QUAD.map(p => ({ x: cx + (p.x-cx)*(1+OVER), y: cy + (p.y-cy)*(1+OVER) }));
@@ -677,7 +677,7 @@
   // one screen rect, every Smart Pro / Pro S shares another.
   // x/y/w/h is the dark glass panel in the artwork. The live screen is inset inside
   // it so that panel reads as a bezel band, and nudged up (dy) because sitting dead
-  // centre in the glass looks low against the hardware. The stage itself is a fixed
+  // center in the glass looks low against the hardware. The stage itself is a fixed
   // box in CSS, so nothing here sizes it.
   const FAM = {
     brick:    { vw:1280, vh:1280, x:334, y:194, w:602,  h:426, r:6, inset:16, dy:-5  },

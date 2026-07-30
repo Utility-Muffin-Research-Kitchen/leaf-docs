@@ -1,6 +1,6 @@
 # leaf-docs
 
-Documentation site for **Leaf** — custom firmware for the Miniloong Pocket 1 (MLP1).
+Documentation site for **Leaf** - custom firmware for the Miniloong Pocket 1 (MLP1).
 
 Built with [Astro](https://astro.build) + [Starlight](https://starlight.astro.build).
 Deployed to GitHub Pages via the workflow in `.github/workflows/deploy.yml`.
@@ -18,14 +18,14 @@ npm run preview  # serve the built site locally
 
 Pages live in `src/content/docs/`:
 
-- `guide/` — end-user docs (install, updating, games, BIOS, features, …)
-- `develop/` — contributor docs (architecture, repo map, building, contributing)
+- `guide/` - end-user docs (install, updating, games, BIOS, features, …)
+- `develop/` - contributor docs (architecture, repo map, building, contributing)
 
 The sidebar order is defined explicitly in `astro.config.mjs`. Add a page by
 creating the Markdown file and adding it to the matching sidebar group.
 
 Stubs are real pages with a short "in progress" note; fill them in by editing
-the Markdown — no structural change needed.
+the Markdown - no structural change needed.
 
 ## Deploy URL & custom domain
 

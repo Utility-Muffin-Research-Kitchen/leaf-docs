@@ -6,7 +6,7 @@ description: 'Browse itch.io and add compatible homebrew games and soundtracks d
 ![The Itch.io app browsing Game Boy homebrew, with a game list, cover art, title, author, and Catastrophe button hints](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.1.0/docs/screenshots/main-list.png)
 
 The Itch.io app brings compatible console homebrew into Leaf without needing a
-computer. Browse, search, filter, and sort the public catalogue, inspect a
+computer. Browse, search, filter, and sort the public catalog, inspect a
 game's description and screenshots, then download supported ROMs and artwork to
 your library.
 
@@ -36,7 +36,7 @@ required.
   PlayStation.
 - Standalone ROMs plus inspected ZIP and 7z archives, including multi-file
   Pico-8 and PlayStation CUE/BIN sets.
-- Animated catalogue artwork, launcher artwork, and itch.io titles in the Leaf
+- Animated catalog artwork, launcher artwork, and itch.io titles in the Leaf
   library.
 - Either SD card for ROMs, artwork, and optional soundtracks.
 - Free downloads without an account and owned paid downloads with an optional
@@ -114,7 +114,7 @@ these advisories are best effort.
 
 The app is a Leaf-only hard fork of
 [Carroarmato0's NextUI-Itchio-Pak](https://github.com/carroarmato0/NextUI-Itchio-Pak).
-UMRK preserves the upstream history, attribution, and MIT licence while using
+UMRK preserves the upstream history, attribution, and MIT license while using
 Leaf runtime paths, Jawaka services, and Catastrophe for the interface. The
 [UMRK source and release history](https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak)
 are public.

@@ -1,5 +1,5 @@
 ---
-// Mangmi colorway configurator — the Air X (front + back) and the Pocket Max (front).
+// Mangmi colorway configurator - the Air X (front + back) and the Pocket Max (front).
 // Each angle ships three renders (black / white / retro) camera-registered at
 // 2000x2000, so every part mask cuts the same region out of any colorway: pick a body,
 // then source each control from whichever colorway you like. Composited on an offscreen
@@ -7,7 +7,7 @@
 // an Air's two angles share one crop so the device holds its size when you flip.
 //
 // Every part mask for an angle lives in ONE hand-painted file in /public/mangmi/
-// air_mask/ — each region painted a flat ID color (see MASK_ID) with the alpha channel
+// air_mask/ - each region painted a flat ID color (see MASK_ID) with the alpha channel
 // carrying the shape, no two regions overlapping. splitMask() cuts it into bbox-cropped
 // stencils at load. Check one with scripts/check-mangmi-mask.py before wiring it up.
 // Assets live in /public/mangmi/. Orphan page; not linked from the docs sidebar.
@@ -34,10 +34,10 @@
 </div>
 
 <style is:global>
-  /* align-items:center, not the default stretch — otherwise a bar inherits Starlight's
+  /* align-items:center, not the default stretch - otherwise a bar inherits Starlight's
      sibling top margin and stretches its neighbour to match. */
   .mangmi-bars { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin: 1.25rem 0 1rem; }
-  /* One pill, split by a hairline — a segmented control, not separate buttons.
+  /* One pill, split by a hairline - a segmented control, not separate buttons.
      Equal-width columns (1fr against a max-content track sizes both to the longer
      label) so the halves stay symmetric, and line-height:0 kills the inherited text
      strut that would otherwise leave dead space below the segments. */
@@ -58,7 +58,7 @@
   .mangmi-pillbar button.active { background: var(--sl-color-accent); color: var(--sl-color-black); }
   .mangmi { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
   .mangmi-stage { flex: 1 1 320px; min-width: 320px; position: relative; }
-  /* A neutral studio spotlight — brighter behind the device, deeper at the edge. Only
+  /* A neutral studio spotlight - brighter behind the device, deeper at the edge. Only
      visible where an angle has a background mask cut out; otherwise the render's own
      backdrop covers it. Kept color-neutral so it doesn't bias how a colorway reads. */
   .mangmi-stage canvas {
@@ -120,7 +120,7 @@
   const CLABEL = { black: 'Black', white: 'White', retro: 'Retro' };
 
   // Devices, each with its angles. `crop` frames the device inside the square render so
-  // the preview isn't mostly background — one per device, shared by its angles so the
+  // the preview isn't mostly background - one per device, shared by its angles so the
   // device holds its size when you flip. `parts` lists the axes an angle's mask paints,
   // in draw order; `render`/`mask` are paths under /public/mangmi/.
   const DEVICES = {
@@ -159,14 +159,14 @@
   const KEY = () => `${DEV}/${VIEW}`;      // how loaded renders + stencils are cached
 
   // ONE mask image holds every part: paint each region a flat ID color, let the
-  // alpha channel carry the shape (anti-aliased edges keep their coverage — the RGB
+  // alpha channel carry the shape (anti-aliased edges keep their coverage - the RGB
   // of a partly-transparent pixel is still the pure ID color, so nothing smears).
   // Regions must not overlap. splitMask() cuts it back into per-part stencils at load.
   const MASK_ID = {
     dpad:         [255,   0,   0],   // red
     abxy:         [  0, 255,   0],   // green
-    start:        [  0,   0, 255],   // blue      — the Start/Select pair (right)
-    home:         [255, 255,   0],   // yellow    — the Back/Home pair (left)
+    start:        [  0,   0, 255],   // blue      - the Start/Select pair (right)
+    home:         [255, 255,   0],   // yellow    - the Back/Home pair (left)
     stick_left:   [255,   0, 255],   // magenta
     stick_right:  [  0, 255, 255],   // cyan
     bumper_left:  [255, 128,   0],   // orange
@@ -174,8 +174,8 @@
     power:        [  0, 255, 128],   // spring green
     volume:       [255,   0, 128],   // pink
     screen:       [128, 128, 128],   // gray
-    trigger_left: [128, 255,   0],   // lime      — back view
-    trigger_right:[  0, 128, 255],   // azure     — back view
+    trigger_left: [128, 255,   0],   // lime      - back view
+    trigger_right:[  0, 128, 255],   // azure     - back view
   };
   // Every part that isn't the body or the screen. A colorway normally ships as one
   // pack, so a checkbox collapses all of these into a single dropdown. Power and volume
@@ -191,14 +191,14 @@
     trigger_left: 'Left trigger', trigger_right: 'Right trigger',
     power: 'Power', volume: 'Volume', screen: 'Screen',
   };
-  // The stick caps only come in two colors — Retro ships the black ones.
+  // The stick caps only come in two colors - Retro ships the black ones.
   const STICK_OPTS = ['black', 'white'];
   const packValue = (k, v) => (k.startsWith('stick_') && !STICK_OPTS.includes(v) ? 'black' : v);
 
   // Display: 'off' is a dark panel, 'leaf' draws the Leaf mark, and every other option
   // lifts a wallpaper straight out of one colorway's render. Which wallpapers exist is
-  // per-device — the Air's black and white ship the same eclipse, while the Max's lens
-  // art comes in three colorways — so each device declares its own list.
+  // per-device - the Air's black and white ship the same eclipse, while the Max's lens
+  // art comes in three colorways - so each device declares its own list.
   const SCREENS = {
     air: { opts: ['eclipse', 'city', 'leaf', 'off'],
            label: { eclipse: 'Eclipse', city: 'Pixel City', leaf: 'Leaf', off: 'Off' },
@@ -302,7 +302,7 @@
   //
   // Each stencil is then stored CROPPED to its own bounding box with the offset kept
   // alongside, so eleven parts cost a few MB instead of eleven full 2000x2000 frames
-  // — and every later composite only touches the rect it actually covers.
+  // - and every later composite only touches the rect it actually covers.
   function splitMask(atlas, keys) {
     octx.globalCompositeOperation = 'source-over';
     octx.clearRect(0, 0, SIZE, SIZE);
@@ -499,7 +499,7 @@
     });
   }
 
-  // Rebuild the Screen dropdown for the current device — the wallpapers differ, so the
+  // Rebuild the Screen dropdown for the current device - the wallpapers differ, so the
   // option list can't be baked in the way the colorway lists can.
   function syncScreenField() {
     const s = document.querySelector('.mangmi-controls select[data-key="screen"]');

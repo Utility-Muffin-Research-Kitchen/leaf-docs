@@ -1,4 +1,4 @@
-# leaf-nova-og — dynamic Open Graph for the colorway studios
+# leaf-nova-og - dynamic Open Graph for the colorway studios
 
 leaf.game is static (GitHub Pages) and each colorway studio draws client-side
 from its share link, so link crawlers (Discord, Slack, iMessage) only see the
@@ -6,15 +6,15 @@ generic Leaf banner. This Cloudflare Worker sits in front of the GitHub Pages
 origin and, for a studio link that carries a valid config, rewrites `og:image`
 to a rendered picture of that exact build. It serves two studios:
 
-- **Nova** — `/nova-colorways?c=<code>` → `/nova-og?c=<code>`
-- **MLP1** — `/mlp1-colorways?bd=&fp=&sc=` → `/mlp1-og?bd=&fp=&sc=`
-- **NextUI** — `/nextui-palettes?t=<hex>` → `/nextui-og?t=<hex>`
-- **Mangmi** — `/mangmi-colorways?c=<code>[&d=max][&v=back]` → `/mangmi-og?…`
+- **Nova** - `/nova-colorways?c=<code>` → `/nova-og?c=<code>`
+- **MLP1** - `/mlp1-colorways?bd=&fp=&sc=` → `/mlp1-og?bd=&fp=&sc=`
+- **NextUI** - `/nextui-palettes?t=<hex>` → `/nextui-og?t=<hex>`
+- **Mangmi** - `/mangmi-colorways?c=<code>[&d=max][&v=back]` → `/mangmi-og?…`
 
-Everything else — the rest of the site, and a bare studio link with no config —
+Everything else - the rest of the site, and a bare studio link with no config
 passes through untouched and keeps the Leaf banner. Add another studio by
 appending an entry to the `STUDIOS` array in `src/index.js` **and adding its two
-routes to `wrangler.toml`** — without the routes the Worker deploys fine and
+routes to `wrangler.toml`** - without the routes the Worker deploys fine and
 simply never runs for that path.
 
 A studio that covers more than one device can give `card` as a function of the
@@ -24,14 +24,14 @@ config instead of an object, so the card names the device the link opens.
 
 The Worker cannot see traffic until the domain is proxied through Cloudflare.
 
-1. **Proxy the domain** (leaf.game DNS record: grey cloud -> **orange cloud**).
-2. **SSL/TLS -> Full** (NOT Flexible — Flexible loops with GitHub Pages HTTPS).
+1. **Proxy the domain** (leaf.game DNS record: gray cloud -> **orange cloud**).
+2. **SSL/TLS -> Full** (NOT Flexible - Flexible loops with GitHub Pages HTTPS).
 3. Verify: `curl -sI https://leaf.game/ | grep -i cf-ray` returns a `cf-ray`.
 
 ## Deploy (Workers Free plan is fine)
 
 Browser Rendering ("Browser Run") is included on the Free plan with a monthly
-usage allowance — no paid plan needed. The Worker screenshots the canvas as a
+usage allowance - no paid plan needed. The Worker screenshots the canvas as a
 binary PNG (no base64), so per-request Worker CPU stays well under the free
 10ms cap; the browser work itself is billed as the Browser Run allowance, and
 every image is cached forever so a given `?c=` renders at most once.
@@ -56,7 +56,7 @@ curl -sI "https://leaf.game/nextui-og?t=ffffffff9b2257ff1e2329ffffffffff000000ff
 curl -s  "https://leaf.game/nextui-palettes/?t=ffffffff9b2257ff1e2329ffffffffff000000ffffffffff14315eff31d0ffff31d0ffff" | grep og:image
 ```
 
-Then paste a share link in Discord — the embed shows the built device. Each
+Then paste a share link in Discord - the embed shows the built device. Each
 unique config is a unique URL, so Discord scrapes it fresh (no stale-cache issue).
 
 ## How it works
@@ -69,7 +69,7 @@ unique config is a unique URL, so Discord scrapes it fresh (no stale-cache issue
   before it composes `#nova-canvas`), pins the canvas to 1200x1200 and
   screenshots it to a binary PNG, then caches it forever.
 - **Fail-soft:** any render error redirects to `/og.png`, so an embed never
-  breaks — worst case it shows the default banner.
+  breaks - worst case it shows the default banner.
 
 ### Beating the crawler timeout
 

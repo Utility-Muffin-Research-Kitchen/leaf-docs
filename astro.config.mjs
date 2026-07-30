@@ -19,7 +19,7 @@ export default defineConfig({
     starlight({
       title: 'Leaf',
       // "Deconstructed leaf" duotone mark (separated halves + detached stem held
-      // by negative space) + the "Leaf" title text. Provisional brand mark —
+      // by negative space) + the "Leaf" title text. Provisional brand mark
       // pending Helaas review. Swap src/assets/leaf.png to change it.
       logo: { src: './src/assets/leaf.png', alt: 'Leaf' },
       favicon: '/favicon.png',

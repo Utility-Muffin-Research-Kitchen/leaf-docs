@@ -38,7 +38,7 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 
 ## System folders
 
-Each console gets **one** `Roms/` subfolder, grouped by maker below — one folder
+Each console gets **one** `Roms/` subfolder, grouped by maker below - one folder
 per system, not one per emulator. Different emulators or compatibility modes for
 the same console are a **Core** choice (see Options below), not separate folders.
 

@@ -7,11 +7,11 @@ studio's splitMask() sorts every painted pixel to the nearest ID and crops each 
 its own bounding box. The rules that matter:
 
   * one flat ID color per part, straight from the table below
-  * alpha is the shape — anti-aliased edges are fine and keep their softness
+  * alpha is the shape - anti-aliased edges are fine and keep their softness
   * no two parts overlapping (a pixel can only belong to one part)
 
 A color that isn't in the table won't error, it will silently snap to whichever ID is
-nearest — which is exactly the bug this script exists to catch.
+nearest - which is exactly the bug this script exists to catch.
 
     python3 scripts/check-mangmi-mask.py                       # check every mask
     python3 scripts/check-mangmi-mask.py air_front_mask.png    # check one
@@ -60,7 +60,7 @@ def check(path):
     a = np.asarray(im).astype(int)
     print(f'{path.name}  {im.size[0]}x{im.size[1]}')
     if im.size != (2000, 2000):
-        print('  !! not 2000x2000 — it will not line up with the renders')
+        print('  !! not 2000x2000 - it will not line up with the renders')
 
     painted = a[:, :, 3] > 0
     if not painted.any():
@@ -88,7 +88,7 @@ def check(path):
     if off.any():
         bad = rgb[off]
         uniq = np.unique(bad, axis=0)[:6]
-        print(f'  !! {int(off.sum())}px are not within {TOLERANCE} of any ID color — '
+        print(f'  !! {int(off.sum())}px are not within {TOLERANCE} of any ID color - '
               f'they will snap to the nearest part anyway')
         for c in uniq:
             print(f'     stray #{c[0]:02X}{c[1]:02X}{c[2]:02X}')

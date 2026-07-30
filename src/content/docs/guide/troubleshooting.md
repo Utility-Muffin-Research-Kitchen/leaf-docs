@@ -17,7 +17,7 @@ likely isn't installed. See [BIOS & cores](/guide/bios-and-cores/).
 Some consoles have older alias folder names (for example `Roms/FC` for NES,
 `Roms/MD` for Genesis, `Roms/PS` for PlayStation, `Roms/TG16` for PC Engine).
 Leaf still reads those, and combines them with the recommended folder into one
-console in the launcher and in Central Scrutinizer — you won't get duplicate
+console in the launcher and in Central Scrutinizer - you won't get duplicate
 entries. Going forward, add new games and box art to the recommended folder
 listed in [Adding games & ROMs](/guide/games/#system-folders); you can move the
 older folder's files there whenever you like, or just leave them.

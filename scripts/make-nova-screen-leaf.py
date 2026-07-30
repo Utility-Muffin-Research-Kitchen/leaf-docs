@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Generate public/nova/screen_leaf.png — the Retroid leaf pre-warped into the Nova render's screen.
+"""Generate public/nova/screen_leaf.png - the Retroid leaf pre-warped into the Nova render's screen.
 
 The illustrated Nova sits at an angle, so its screen is a perspective quad rather than a
 rectangle (scanning the mask gives row widths 61 -> 736 -> 57). Anything drawn there has
 to be warped to match, which is why the existing on-screen assets (rise.png,
-bleepbloop.png) are full-frame 2048 images rather than logos placed at runtime — canvas
+bleepbloop.png) are full-frame 2048 images rather than logos placed at runtime - canvas
 can only do affine transforms, so the perspective has to be baked in.
 
 This reads the screen quad straight off masks/screen.png, so it stays correct if the

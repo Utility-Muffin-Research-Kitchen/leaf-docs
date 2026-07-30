@@ -138,8 +138,8 @@
     yellow: { render:'game_cube', side:'right' },
   };
   // Shoulder triggers. There is no user-facing choice here and there never was one:
-  // each render already depicts its own correct trigger colour (the translucent
-  // colourways genuinely ship black triggers, the solid ones match their shell), so a
+  // each render already depicts its own correct trigger color (the translucent
+  // colorways genuinely ship black triggers, the solid ones match their shell), so a
   // trigger is right whenever it is cut from the render of the device it belongs to.
   //
   // masks/triggers.png spans BOTH devices in the frame — the back shell's shoulder and
@@ -340,7 +340,7 @@
           const opts = realOptsFor(k), idx = parseInt(rc[i] ?? '', 36);
           if (idx >= 0 && idx < opts.length) rsel[k] = opts[idx];
         });
-        // A pre-split code only carried one function colour; give the other three that
+        // A pre-split code only carried one function color; give the other three that
         // same value so an old link still renders the way it was shared.
         if (rc.length <= REAL_KEYS_LEGACY_LEN)
           ['func2','func3','func4'].forEach(k => rsel[k] = rsel.func1);
@@ -488,7 +488,7 @@
   // func2/3/4 unset and applyURL fills them from func1 — exactly the old all-four look.
   const REAL_KEYS = ['body','back','dpad','abxy','func1','stick_left','stick_right',
                      'led_left','led_right','screen','func3','func4','func2'];
-  const REAL_KEYS_LEGACY_LEN = 10;   // codes this short predate per-button function colours
+  const REAL_KEYS_LEGACY_LEN = 10;   // codes this short predate per-button function colors
   const REAL_OPTS = ['16','black','clear','purple','gc','blue','watermelon'];
   // Button axes (D-pad / A/B/X/Y / Function) can also be the synthetic Retro maroon — a
   // front-only recolor of the black buttons (front/retro.png). Appended last so existing
@@ -498,7 +498,7 @@
                        gc:'Game Cube', blue:'Ice Blue', watermelon:'Watermelon', retro:'Retro' };
   // front-face element masks: axis -> mask filename. fourbutton.png holds all four
   // function buttons; splitFourButton() cuts it into one stencil per button at load so
-  // Real can colour them individually, the same as Rendered.
+  // Real can color them individually, the same as Rendered.
   const REAL_MASK = { dpad:'dpadpng', abxy:'abxy' };  // front elements cut per colorway
   // Which corner of the front face each function button sits in, read off the icons in
   // the photos: square = Select (upper left), triangle = Start (upper right),
@@ -623,7 +623,7 @@
   }
   // fourbutton.png carries all four function buttons in one alpha channel, but they are
   // four disjoint blobs, so they can be separated without any new artwork: flood-fill the
-  // components, then name each by which quadrant its centre falls in. Runs once at load
+  // components, then name each by which quadrant its center falls in. Runs once at load
   // and writes RM.func1..func4, after which they behave like any other element mask.
   function splitFourButton() {
     const src = RM.fourbutton;
@@ -983,7 +983,7 @@
   const R2I = Object.fromEntries(Object.entries(I2R).map(([i, r]) => [r, i]));
   const SHARED = ['stick_left', 'stick_right', 'led_left', 'led_right'];
 
-  // Both modes now colour the four function buttons individually, so every colourway
+  // Both modes now color the four function buttons individually, so every colorway
   // axis maps 1:1 and nothing is lost in either direction.
   const MAPPED = ['body', 'back', 'dpad', 'abxy', 'func1', 'func2', 'func3', 'func4'];
   // Display/Screen share 'off' and 'leaf'. Rendered's third option, the render's own

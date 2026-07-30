@@ -804,6 +804,55 @@
   }
   function d3Up() { if (!drag3d) { return; } drag3d = false; snap3d(); }
 
+  // ---- keeping the two modes in step ----
+  // The modes are separate state (`sel` / `rsel`) over different option namespaces, so
+  // switching used to strand whatever you'd built in the other one. Carry the choices
+  // across on every switch.
+  //
+  // Colorways are the same seven, named differently per mode. Sticks and LEDs already
+  // share their constants, so those copy straight over. Triggers are illustrated-only
+  // and the screen means different things in each mode, so both stay put.
+  const I2R = { '16_bit':'16', black:'black', clear:'clear', clear_purple:'purple',
+                game_cube:'gc', ice_blue:'blue', watermelon:'watermelon', retro:'retro' };
+  const R2I = Object.fromEntries(Object.entries(I2R).map(([i, r]) => [r, i]));
+  const SHARED = ['stick_left', 'stick_right', 'led_left', 'led_right'];
+
+  // Real mode cuts all four function buttons from ONE mask, so it can only show a
+  // single colour where illustrated has four. Collapse to the most common, ties going
+  // to Start, and remember what we handed over: coming back, the four are only
+  // overwritten if the value was actually changed while in real mode. Otherwise a
+  // round trip would flatten four distinct choices into one.
+  const FUNC_KEYS = ['func1', 'func2', 'func3', 'func4'];
+  let handedToReal = null;
+  function collapseFunc() {
+    const tally = {};
+    FUNC_KEYS.forEach(k => { tally[sel[k]] = (tally[sel[k]] || 0) + 1; });
+    let best = sel.func1;
+    for (const v of FUNC_KEYS.map(k => sel[k]))
+      if (tally[v] > tally[best]) best = v;
+    return best;
+  }
+  function syncToReal() {
+    ['body', 'back', 'dpad', 'abxy'].forEach(k => { if (I2R[sel[k]]) rsel[k] = I2R[sel[k]]; });
+    rsel.func = I2R[collapseFunc()] || rsel.func;
+    handedToReal = rsel.func;
+    SHARED.forEach(k => rsel[k] = sel[k]);
+  }
+  function syncToIllustrated() {
+    ['body', 'back', 'dpad', 'abxy'].forEach(k => { if (R2I[rsel[k]]) sel[k] = R2I[rsel[k]]; });
+    if (rsel.func !== handedToReal && R2I[rsel.func])
+      FUNC_KEYS.forEach(k => sel[k] = R2I[rsel.func]);
+    SHARED.forEach(k => sel[k] = rsel[k]);
+  }
+  // Only a user-driven switch syncs. setMode() also runs on load, where `sel`/`rsel`
+  // are still whatever the share link decoded into and copying would wipe it out.
+  function switchMode(m) {
+    if (m === MODE) return;
+    if (m === 'real') syncToReal(); else syncToIllustrated();
+    syncSelects(); realSyncSelects();
+    setMode(m);
+  }
+
   function setMode(m) {
     MODE = m;
     document.getElementById('nova-illustrated').hidden = (m !== 'illustrated');
@@ -820,7 +869,7 @@
     buildControls();
     realBuildControls();
     document.querySelectorAll('.nova-modebar button').forEach(b =>
-      b.addEventListener('click', () => setMode(b.dataset.mode)));
+      b.addEventListener('click', () => switchMode(b.dataset.mode)));
     if (c3d) {
       c3d.addEventListener('pointerdown', d3Down);
       window.addEventListener('pointermove', d3Move);

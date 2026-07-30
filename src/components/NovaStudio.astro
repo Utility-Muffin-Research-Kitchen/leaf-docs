@@ -250,10 +250,16 @@
     if (p.get('m') === 'real') {
       MODE = 'real';
       const rc = p.get('rc');
-      if (rc) REAL_KEYS.forEach((k, i) => {
-        const opts = realOptsFor(k), idx = parseInt(rc[i] ?? '', 36);
-        if (idx >= 0 && idx < opts.length) rsel[k] = opts[idx];
-      });
+      if (rc) {
+        REAL_KEYS.forEach((k, i) => {
+          const opts = realOptsFor(k), idx = parseInt(rc[i] ?? '', 36);
+          if (idx >= 0 && idx < opts.length) rsel[k] = opts[idx];
+        });
+        // A pre-split code only carried one function colour; give the other three that
+        // same value so an old link still renders the way it was shared.
+        if (rc.length <= REAL_KEYS_LEGACY_LEN)
+          ['func2','func3','func4'].forEach(k => rsel[k] = rsel.func1);
+      }
     }
     const code = p.get('c');
     if (code) {                                      // new compact form
@@ -389,7 +395,12 @@
   // Photos are camera-registered across all 7 colorways, so element masks cut from
   // any colorway land in the same place on any body. Front on top, back below.
   const REAL_BASE = BASE + 'real/';
-  const REAL_KEYS = ['body','back','dpad','abxy','func','stick_left','stick_right','led_left','led_right','screen'];
+  // Share-code axis order. `func1` keeps the slot the old single Function axis had, and
+  // the other three are appended, so an existing ?rc= still decodes: a short code leaves
+  // func2/3/4 unset and applyURL fills them from func1 — exactly the old all-four look.
+  const REAL_KEYS = ['body','back','dpad','abxy','func1','stick_left','stick_right',
+                     'led_left','led_right','screen','func3','func4','func2'];
+  const REAL_KEYS_LEGACY_LEN = 10;   // codes this short predate per-button function colours
   const REAL_OPTS = ['16','black','clear','purple','gc','blue','watermelon'];
   // Button axes (D-pad / A/B/X/Y / Function) can also be the synthetic Retro maroon — a
   // front-only recolor of the black buttons (front/retro.png). Appended last so existing
@@ -397,9 +408,17 @@
   const REAL_BUTTON_OPTS = REAL_OPTS.concat(['retro']);
   const REAL_LABEL = { '16':'16 Bit', black:'Black', clear:'Clear', purple:'Clear Purple',
                        gc:'Game Cube', blue:'Ice Blue', watermelon:'Watermelon', retro:'Retro' };
-  // front-face element masks: axis -> mask filename (four function buttons ship as one)
-  const REAL_MASK = { dpad:'dpadpng', abxy:'abxy', func:'fourbutton' };  // front elements cut per colorway
-  const REAL_BUTTON_KEYS = ['dpad','abxy','func'];  // the axes a "Single pack" collapses
+  // front-face element masks: axis -> mask filename. fourbutton.png holds all four
+  // function buttons; splitFourButton() cuts it into one stencil per button at load so
+  // Real can colour them individually, the same as Rendered.
+  const REAL_MASK = { dpad:'dpadpng', abxy:'abxy' };  // front elements cut per colorway
+  // Which corner of the front face each function button sits in, read off the icons in
+  // the photos: square = Select (upper left), triangle = Start (upper right),
+  // circular arrow = Back (lower right), house = Home (lower left). Keys mirror the
+  // illustrated mode's func1..func4 so the two sides map cleanly.
+  const REAL_FUNC = { func3:'UL', func1:'UR', func2:'LR', func4:'LL' };
+  const REAL_FUNC_KEYS = ['func3','func1','func4','func2'];   // Select, Start, Home, Back
+  const REAL_BUTTON_KEYS = ['dpad','abxy', ...REAL_FUNC_KEYS];  // the axes "Single pack" collapses
   // Sticks are a fixed 4-color set, not colorway-based: each color is cut from a
   // specific photo + side, then translated to the target stick's position.
   const STICK_MASK = { left:'leftstick', right:'rightstick' };
@@ -421,7 +440,8 @@
   const SCREEN_LABEL = { off:'Off', leaf:'Retroid Leaf' };
   const SCREEN_BBOX = { x:449, y:288, w:598, h:447 };
   const SCREEN_FILL = '#2b2d31';   // slightly-dark gray so the panel reads vs black bezel
-  const rsel = { body:'16', back:'16', dpad:'16', abxy:'16', func:'16',
+  const rsel = { body:'16', back:'16', dpad:'16', abxy:'16',
+                 func1:'16', func2:'16', func3:'16', func4:'16',
                  stick_left:'gray', stick_right:'gray',
                  led_left:'off', led_right:'off', screen:'leaf' };
   const RF = {}, RB = {}, RM = {};   // front photos, back photos, element masks
@@ -513,12 +533,64 @@
       rfctx.drawImage(roff, 0,0);
     }
   }
+  // fourbutton.png carries all four function buttons in one alpha channel, but they are
+  // four disjoint blobs, so they can be separated without any new artwork: flood-fill the
+  // components, then name each by which quadrant its centre falls in. Runs once at load
+  // and writes RM.func1..func4, after which they behave like any other element mask.
+  function splitFourButton() {
+    const src = RM.fourbutton;
+    if (!src) return;
+    const W = 1500, H = 1000;
+    roctx.globalCompositeOperation = 'source-over';
+    roctx.clearRect(0,0,W,H);
+    roctx.drawImage(src, 0,0);
+    const a = roctx.getImageData(0,0,W,H).data;
+    const lbl = new Int32Array(W*H);
+    const blobs = [];
+    const stack = [];
+    for (let p = 0; p < W*H; p++) {
+      if (a[p*4+3] <= 8 || lbl[p]) continue;
+      const id = blobs.length + 1;
+      let sx = 0, sy = 0, n = 0;
+      stack.push(p); lbl[p] = id;
+      while (stack.length) {
+        const q = stack.pop(), qx = q % W, qy = (q / W) | 0;
+        sx += qx; sy += qy; n++;
+        for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+          const nx = qx+dx, ny = qy+dy;
+          if (nx<0||nx>=W||ny<0||ny>=H) continue;
+          const r = ny*W+nx;
+          if (a[r*4+3] > 8 && !lbl[r]) { lbl[r] = id; stack.push(r); }
+        }
+      }
+      blobs.push({ id, cx: sx/n, cy: sy/n });
+    }
+    // quadrant -> which axis owns it
+    const owner = {};
+    Object.entries(REAL_FUNC).forEach(([k, pos]) => { owner[pos] = k; });
+    blobs.forEach(b => {
+      const pos = (b.cy < H/2 ? 'U' : 'L') + (b.cx < W/2 ? 'L' : 'R');
+      const key = owner[pos];
+      if (!key) return;
+      const buf = new Uint8ClampedArray(W*H*4);
+      for (let p = 0; p < W*H; p++) {
+        if (lbl[p] !== b.id) continue;
+        buf[p*4] = buf[p*4+1] = buf[p*4+2] = 255;
+        buf[p*4+3] = a[p*4+3];
+      }
+      const c = document.createElement('canvas'); c.width = W; c.height = H;
+      c.getContext('2d').putImageData(new ImageData(buf, W, H), 0, 0);
+      RM[key] = c;
+    });
+  }
+
   function realCompose() {
     if (!realReady || !RF[rsel.body] || !RB[rsel.back]) return;
     rfctx.clearRect(0,0,1500,1000);
     rfctx.drawImage(RF[rsel.body], 0,0);
     rDrawScreen();
     Object.keys(REAL_MASK).forEach(axis => rDrawMasked(rfctx, RM[REAL_MASK[axis]], RF[rsel[axis]]));
+    REAL_FUNC_KEYS.forEach(k => rDrawMasked(rfctx, RM[k], RF[rsel[k]]));
     rDrawStick('left', rsel.stick_left);
     rDrawStick('right', rsel.stick_right);
     rDrawLED('left', rsel.led_left);
@@ -534,7 +606,8 @@
     if (el) el.innerHTML =
       `Body <b>${REAL_LABEL[rsel.body]}</b> · Back shell <b>${REAL_LABEL[rsel.back]}</b>`
       + ` · D-pad <b>${REAL_LABEL[rsel.dpad]}</b> · A/B/X/Y <b>${REAL_LABEL[rsel.abxy]}</b>`
-      + ` · Function buttons <b>${REAL_LABEL[rsel.func]}</b>`
+      + ` · Select <b>${REAL_LABEL[rsel.func3]}</b> · Start <b>${REAL_LABEL[rsel.func1]}</b>`
+      + ` · Home <b>${REAL_LABEL[rsel.func4]}</b> · Back <b>${REAL_LABEL[rsel.func2]}</b>`
       + ` · Sticks <b>${STICK_LABEL[rsel.stick_left]}</b> (L) / <b>${STICK_LABEL[rsel.stick_right]}</b> (R)`
       + ` · LEDs <b>${LED_LABEL[rsel.led_left]}</b> (L) / <b>${LED_LABEL[rsel.led_right]}</b> (R)`
       + ` · Screen <b>${SCREEN_LABEL[rsel.screen]}</b>`;
@@ -588,10 +661,14 @@
     packRow.appendChild(packCbLab); packRow.appendChild(packCb);
     c.appendChild(packRow);
 
+    // Same order and wording as Rendered: Select, Start, Home, Back.
     const members = [
       realField('dpad', 'D-pad'),
       realField('abxy', 'A/B/X/Y'),
-      realField('func', 'Function'),
+      realField('func3', 'Select'),
+      realField('func1', 'Start'),
+      realField('func4', 'Home'),
+      realField('func2', 'Back'),
     ];
     members.forEach(f => c.appendChild(f));
 
@@ -661,10 +738,11 @@
         ...REAL_OPTS.map(async n => { RF[n] = await load(`${REAL_BASE}front/${n}.png`); }),
         ...REAL_OPTS.map(async n => { RB[n] = await load(`${REAL_BASE}back/${n}.png`); }),
         (async () => { RF['retro'] = await load(`${REAL_BASE}front/retro.png`); })(),  // button-only; no back photo
-        ...Object.values(REAL_MASK).concat(Object.values(STICK_MASK), Object.values(LED_MASK), ['screen'])
+        ...Object.values(REAL_MASK).concat(['fourbutton'], Object.values(STICK_MASK), Object.values(LED_MASK), ['screen'])
             .map(async m => { RM[m] = await load(`${REAL_BASE}masks/${m}.png`); }),
         (async () => { RLEAF = await load(`${REAL_BASE}retroid_leaf.png`); })(),
       ]);
+      splitFourButton();          // fourbutton.png -> RM.func1..func4, before first compose
       realReady = true;
       const l = document.getElementById('nova-real-loading'); if (l) l.remove();
       realSyncSelects();
@@ -817,31 +895,15 @@
   const R2I = Object.fromEntries(Object.entries(I2R).map(([i, r]) => [r, i]));
   const SHARED = ['stick_left', 'stick_right', 'led_left', 'led_right'];
 
-  // Real mode cuts all four function buttons from ONE mask, so it can only show a
-  // single colour where illustrated has four. Collapse to the most common, ties going
-  // to Start, and remember what we handed over: coming back, the four are only
-  // overwritten if the value was actually changed while in real mode. Otherwise a
-  // round trip would flatten four distinct choices into one.
-  const FUNC_KEYS = ['func1', 'func2', 'func3', 'func4'];
-  let handedToReal = null;
-  function collapseFunc() {
-    const tally = {};
-    FUNC_KEYS.forEach(k => { tally[sel[k]] = (tally[sel[k]] || 0) + 1; });
-    let best = sel.func1;
-    for (const v of FUNC_KEYS.map(k => sel[k]))
-      if (tally[v] > tally[best]) best = v;
-    return best;
-  }
+  // Both modes now colour the four function buttons individually, so every colourway
+  // axis maps 1:1 and nothing is lost in either direction.
+  const MAPPED = ['body', 'back', 'dpad', 'abxy', 'func1', 'func2', 'func3', 'func4'];
   function syncToReal() {
-    ['body', 'back', 'dpad', 'abxy'].forEach(k => { if (I2R[sel[k]]) rsel[k] = I2R[sel[k]]; });
-    rsel.func = I2R[collapseFunc()] || rsel.func;
-    handedToReal = rsel.func;
+    MAPPED.forEach(k => { if (I2R[sel[k]]) rsel[k] = I2R[sel[k]]; });
     SHARED.forEach(k => rsel[k] = sel[k]);
   }
   function syncToIllustrated() {
-    ['body', 'back', 'dpad', 'abxy'].forEach(k => { if (R2I[rsel[k]]) sel[k] = R2I[rsel[k]]; });
-    if (rsel.func !== handedToReal && R2I[rsel.func])
-      FUNC_KEYS.forEach(k => sel[k] = R2I[rsel.func]);
+    MAPPED.forEach(k => { if (R2I[rsel[k]]) sel[k] = R2I[rsel[k]]; });
     SHARED.forEach(k => sel[k] = rsel[k]);
   }
   // Only a user-driven switch syncs. setMode() also runs on load, where `sel`/`rsel`

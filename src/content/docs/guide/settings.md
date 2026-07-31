@@ -44,6 +44,9 @@ Theme and layout, under **Settings → Appearance**.
   feel smoother in the launcher and in games that can keep up; 60 is the most
   power-efficient. On a TV this setting also picks the HDMI mode and the sharp-versus-
   smooth trade-off (see [How the TV picture works](#how-the-tv-picture-works)).
+  The panel only advertises 60 Hz, so the higher rates are a timing overclock - we
+  [measured the panel optically](/panel-refresh-measurement/) to confirm 120 Hz is
+  real.
 - **Black Frame Insertion** - inserts a black frame between game frames to cut
   motion blur, for a sharper, more CRT-like image in fast-scrolling games. It only
   works cleanly at **120 Hz**, so it is grayed out as "120 Hz only" at other refresh

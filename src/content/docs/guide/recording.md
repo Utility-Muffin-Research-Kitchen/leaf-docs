@@ -8,6 +8,10 @@ card. When you leave the game, Leaf converts the clip to an MP4 that plays
 anywhere - Discord, a browser, your phone - and splits it into pieces small enough
 to post if it is long.
 
+To get clips off the handheld, use [Central Scrutinizer](/apps/central-scrutinizer/)
+to download them over Wi-Fi to a computer or phone, then post them to Discord,
+Reddit, or wherever you like.
+
 ## Turning it on
 
 Recording is off by default. Turn it on in **Settings → Controls & Feedback**, on the
@@ -33,7 +37,7 @@ a few seconds later - longer clips take longer.
 
 ## Splitting long clips
 
-Discord's free upload limit is 10 MB, which is roughly 35 seconds of gameplay at
+Discord's free upload limit is 10 MB, which is about 30 seconds of gameplay at
 Leaf's recording quality. Anything longer would be too big to post.
 
 **Split Over 10MB** is on by default. When a clip is too large, it is saved as

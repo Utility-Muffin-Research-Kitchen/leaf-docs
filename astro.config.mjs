@@ -107,6 +107,7 @@ export default defineConfig({
             { label: 'Building from source', slug: 'develop/building' },
             { label: 'Building a Leaf app', slug: 'develop/building-an-app' },
             { label: 'Contributing', slug: 'develop/contributing' },
+            { label: 'Measuring the refresh rate', slug: 'panel-refresh-measurement' },
           ],
         },
         // The individual studios stay orphaned; this hub is the way in.

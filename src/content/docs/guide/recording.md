@@ -67,5 +67,4 @@ which Leaf cannot record - the combo simply does nothing there.
 **Clips do not include shaders.** Recording captures the picture the emulator draws,
 before any shader runs, so a clip of a game with a CRT shader will not have the
 scanlines you were looking at. The recording is a clean, sharp version of the same
-image. Capturing the shaded picture instead is possible, but on this hardware it
-slows the game down badly enough that it is not worth doing.
+image.

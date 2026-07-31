@@ -6,7 +6,7 @@ description: Record video of a game on the Miniloong Pocket 1 with a button comb
 Recording captures video of a game with a button combo, saved straight to the SD
 card. When you leave the game, Leaf converts the clip to an MP4 that plays
 anywhere - Discord, a browser, your phone - and splits it into pieces small enough
-to post if it is long. It needs no Wi-Fi and no computer.
+to post if it is long.
 
 ## Turning it on
 
@@ -16,8 +16,7 @@ recording is on.
 
 ## Recording a game
 
-Hold **MENU** and tap **R1** to start, and the same combo again to stop. RetroArch
-shows its own note in the corner when recording starts and stops.
+Hold **MENU** and tap **R1** to start, and the same combo again to stop.
 
 Neither button reaches the game, so you can record from a title screen or a menu
 without pressing anything in the game itself.
@@ -29,8 +28,8 @@ Filenames include the game name and the date and time.
 
 You will see two files for each clip. The **`.mkv`** is the original capture, and
 the **`.mp4`** is the shareable version made when you left the game. Converting
-takes a second or two per clip and happens in the background, so the launcher comes
-straight back and the MP4 appears shortly after.
+happens in the background, so the launcher comes straight back and the MP4 appears
+a few seconds later - longer clips take longer.
 
 ## Splitting long clips
 

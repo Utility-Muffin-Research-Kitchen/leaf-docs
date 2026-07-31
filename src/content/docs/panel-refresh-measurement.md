@@ -210,11 +210,14 @@ The measurement reads the vblank rate, which is the panel's timing. It does not
 formally prove that every vblank produces a distinct visible image rather than the
 panel accepting the timing and holding pixels.
 
-In practice that distinction is covered by the failure mode: a panel that cannot lock
-this modeline shows a **white screen**, not a dimmer or blurrier picture. Some
-individual units do exactly that, since the overclock depends on DSI margin that
-varies between units. If your device shows 60 Hz correctly but white-screens at 90 or
-120, that unit cannot hold the overclock, and no software change will fix it.
+In practice the distinction is hard to make matter. A panel that failed to lock a
+timing this far from its native mode would not show a subtly worse picture; it would
+show no valid image at all, which is not what we measured or saw.
+
+The measurement also says nothing about rates above 120. 110 Hz is the highest rate
+that produces zero VOP errors in the kernel log, and 120 logs a single output-buffer
+underrun at the mode switch itself with no recurrence under load, so 120 is one small
+step past the conservative ceiling rather than a limit that has been probed.
 
 ## Reproducing it
 

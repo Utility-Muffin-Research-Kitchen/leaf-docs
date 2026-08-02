@@ -47,16 +47,20 @@ follow the same setting.
 The Pocket 1 panel is rated for 60Hz, but Leaf drives it faster
 (**Settings → Display & Sound**):
 
-- **90 or 120Hz refresh** - a smoother launcher and smoother games on a screen the
+- **100 or 120Hz refresh** - a smoother launcher and smoother games on a screen the
   stock firmware runs at 60. Games launched through RetroArch inherit the higher
-  rate too. 60Hz stays available for the longest battery life. The panel only
-  advertises 60, so we [measured it optically](/panel-refresh-measurement/) to
-  confirm the higher rates are real.
-- **Black Frame Insertion** - an optional extra at 120Hz that flashes a black frame
-  between game frames to cut LCD motion blur, for a sharper, more CRT-like image in
-  fast-scrolling games. It works in RetroArch cores and is best with 60fps titles.
-  It trades some brightness for the clarity, so turn brightness up to compensate.
-  See [Settings → Display & Sound](/guide/settings/#display--sound).
+  rate too. Each rate divides evenly into a frame rate, so motion stays even: 120 for
+  60fps (NTSC) games, and **100 for 50fps (PAL) games**, which judder at every other
+  rate because 50 does not divide into them. 60Hz stays available for the longest
+  battery life. The panel only advertises 60, so we
+  [measured it optically](/panel-refresh-measurement/) to confirm the higher rates
+  are real.
+- **Black Frame Insertion** - an optional extra that flashes a black frame between
+  game frames to cut LCD motion blur, for a sharper, more CRT-like image in
+  fast-scrolling games. It needs a refresh that is twice the game's frame rate, so it
+  is available at 120Hz for 60fps games and 100Hz for 50fps PAL games. It works in
+  RetroArch cores and trades some brightness for the clarity, so turn brightness up to
+  compensate. See [Settings → Display & Sound](/guide/settings/#display--sound).
 
 ## Lighting (RGB ring)
 

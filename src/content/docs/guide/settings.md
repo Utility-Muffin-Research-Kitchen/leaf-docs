@@ -37,23 +37,34 @@ Theme and layout, under **Settings → Appearance**.
 
 ## Display & Sound
 
-![The Display & Sound settings page: Brightness and Volume sliders, Refresh Rate and Audio Output cyclers, Black Frame Insertion on, HDMI Output grayed out as Not connected, and a Test Sound row](/settings-display.png)
+![The Display & Sound settings page: Brightness and Volume sliders, Refresh Rate set to 100 Hz, Black Frame Insertion reading "On (50 fps)", HDMI Output grayed out as Not connected, Audio Output on Speaker, and a Test Sound row](/settings-display.png)
 
 - **Brightness** - screen backlight level.
-- **Refresh Rate** - display refresh: **60**, **90**, or **120 Hz**. Higher rates
-  feel smoother in the launcher and in games that can keep up; 60 is the most
-  power-efficient. On a TV this setting also picks the HDMI mode and the sharp-versus-
-  smooth trade-off (see [How the TV picture works](#how-the-tv-picture-works)).
-  The panel only advertises 60 Hz, so the higher rates are a timing overclock - we
+- **Refresh Rate** - display refresh: **60**, **100**, or **120 Hz**. Each one divides
+  evenly into a frame rate, which is what keeps motion even: **60** and **120** suit
+  60fps (NTSC) games, and **100** suits 50fps (PAL) games. A rate that does not divide
+  evenly has to hold some frames on screen a refresh longer than others, and that
+  unevenness is what you see as stutter in scrolling - which is why PAL games look
+  better at 100 than at 60. Of the two NTSC rates, 120 shows less motion blur and 60
+  is the most power-efficient. On a TV this setting also picks the HDMI mode and the
+  sharp-versus-smooth trade-off (see
+  [How the TV picture works](#how-the-tv-picture-works)). The panel only advertises
+  60 Hz, so the higher rates are a timing overclock - we
   [measured the panel optically](/panel-refresh-measurement/) to confirm 120 Hz is
   real.
 - **Black Frame Insertion** - inserts a black frame between game frames to cut
-  motion blur, for a sharper, more CRT-like image in fast-scrolling games. It only
-  works cleanly at **120 Hz**, so it is grayed out as "120 Hz only" at other refresh
-  rates. It applies to RetroArch-based games, on the built-in screen or on a 120 Hz
-  TV, and trades some brightness for the clarity, so turn Brightness up to compensate.
-  Best for 60fps titles; leave it off for 50fps (PAL) games, where it does not strobe
-  cleanly.
+  motion blur, for a sharper, more CRT-like image in fast-scrolling games. It needs a
+  refresh rate that is exactly twice the game's frame rate, so that every frame gets
+  one lit refresh and one black one: **120 Hz** for 60fps games and **100 Hz** for
+  50fps (PAL) games. At 60 Hz there is no spare refresh to blank, so the row is grayed
+  out as "100/120 Hz only". The row names the frame rate it is currently set up for,
+  such as "On (50 fps)" - match that to what you are playing, because it is a single
+  setting rather than a per-game one, and a 60fps game left running at 100 Hz gets
+  paced down to 50 and runs slow. It applies to RetroArch-based games, on the built-in
+  screen or on a 120 Hz TV, and trades some brightness for the clarity, so turn
+  Brightness up to compensate. At 100 Hz the strobe is 50 Hz, exactly like a PAL CRT,
+  which some people see as flicker - if it bothers you, leave it off and keep the 100 Hz
+  refresh, which still smooths PAL motion on its own.
 - **HDMI Output** - send the picture to a TV over HDMI in the right shape. **Off**
   keeps everything on the built-in screen; **4:3** sends a pillarboxed, correctly
   proportioned image (black bars on the sides, no stretching); **Stretch** fills a
@@ -73,9 +84,11 @@ Theme and layout, under **Settings → Appearance**.
 
 When you connect a TV, the **Refresh Rate** setting decides the trade-off between a
 sharp picture and a smooth one, and Leaf picks the best HDMI mode the TV actually
-supports:
+supports. The setting offers just **60** and **120 Hz** while a TV is connected,
+since no TV takes the 100 Hz PAL mode and every rate below 120 lands on the same
+720p picture anyway:
 
-- **60 or 90 Hz** sends **720p**. The handheld's 4:3 image lands on the TV one pixel
+- **60 Hz** sends **720p**. The handheld's 4:3 image lands on the TV one pixel
   for one with no scaling, so it is pin-sharp. This is the safe default and works on
   every HDMI TV.
 - **120 Hz** sends **1080p at 120 Hz** (when the TV reports it). Motion is smoother

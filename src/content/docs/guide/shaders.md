@@ -48,6 +48,11 @@ two apart regardless.
 **CRT Lite** also wants BFI off. A PlayStation test with both enabled fell to
 around 50 fps, against full speed at 60 Hz and 120 Hz with BFI off.
 
+Both of those results were measured at 120 Hz. Black Frame Insertion is also
+available at 100 Hz for 50fps (PAL) games, which asks for fewer frames per second
+and so should be easier on a core, but these shaders have not been tested there -
+if a PAL game with a shader runs short of full speed, turn BFI off first.
+
 Worth remembering generally: scanlines and BFI each cost you some brightness,
 and using both costs more.
 

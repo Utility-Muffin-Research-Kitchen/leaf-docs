@@ -93,9 +93,13 @@ stick's range needs calibrating. Open **Joe's Calibrage** from the **Apps** tab 
 
 ## Black Frame Insertion is grayed out
 
-Black Frame Insertion only works at 120Hz, so it shows "120 Hz only" until you raise
-the refresh rate. Set **Settings → Display & Sound → Refresh Rate** to **120**, then the
-toggle becomes available. See [Settings → Display & Sound](/guide/settings/#display--sound).
+Black Frame Insertion needs a refresh rate that is twice the game's frame rate, so that
+every frame gets one lit refresh and one black one. At 60 Hz there is no spare refresh to
+blank and the row shows "100/120 Hz only". Set **Settings → Display & Sound → Refresh
+Rate** to **120** for 60fps games or **100** for 50fps (PAL) games, and the toggle becomes
+available. The row then names the frame rate it is set up for, such as "On (50 fps)" -
+match that to what you are playing, or a 60fps game running at 100 Hz will be paced down
+to 50 and run slow. See [Settings → Display & Sound](/guide/settings/#display--sound).
 
 ## Games, saves, or box art don't stick after a reboot
 

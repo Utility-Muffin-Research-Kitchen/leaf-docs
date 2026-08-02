@@ -35,7 +35,7 @@ clk_MHz = 782842 x Hz / 1,000,000 = 0.782842 x Hz
 | Rate | Pixel clock |
 | --- | --- |
 | 60 Hz | 46.97 MHz |
-| 90 Hz | 70.46 MHz |
+| 100 Hz | 78.28 MHz |
 | 120 Hz | 93.94 MHz |
 
 At 120 Hz the driver reports `clk[93940] real_clk[93940]`. Requested and achieved are

@@ -25,6 +25,14 @@ Hold **MENU** and tap **R1** to start, and the same combo again to stop.
 Neither button reaches the game, so you can record from a title screen or a menu
 without pressing anything in the game itself.
 
+A small red dot appears in the top left corner while a recording is running, and
+pulses slowly so you can tell it apart from anything in the game. It disappears the
+moment you stop.
+
+The dot is not in your clips. Recording captures the game's own picture before
+anything is drawn over it, which is the same reason a shader never shows up in a
+recording, so the dot stays on your screen and out of the video.
+
 ## Where clips go
 
 Everything lands in a **`Recordings`** folder at the top level of the SD card.

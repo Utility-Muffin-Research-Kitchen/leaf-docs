@@ -71,7 +71,7 @@ export default defineConfig({
             { label: 'Features tour', slug: 'guide/features' },
             { label: '5-Game Mode', slug: 'guide/five-game-mode' },
             { label: 'Screenshots', slug: 'guide/screenshots' },
-            { label: 'Recording', slug: 'guide/recording', badge: { text: 'Soon', variant: 'caution' } },
+            { label: 'Recording', slug: 'guide/recording' },
             { label: 'Rumble', slug: 'guide/rumble' },
             { label: 'Settings reference', slug: 'guide/settings' },
             { label: 'Troubleshooting', slug: 'guide/troubleshooting' },

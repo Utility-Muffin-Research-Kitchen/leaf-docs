@@ -183,6 +183,9 @@ RetroArch in-game menu, go to **Core Options**, and set **Neo-Geo mode** to
 AES. A BIOS containing the Universe BIOS also lets you pick console/region at
 boot.
 
+Note that `.neo` files (the NeoSD / Darksoft flashcart format) are not
+supported: FinalBurn Neo needs the original zipped ROM sets instead.
+
 ## A note on the hardware
 
 The Miniloong Pocket 1's CPU comfortably handles 8- and 16-bit systems and

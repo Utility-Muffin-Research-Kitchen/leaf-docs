@@ -83,7 +83,7 @@ already have them, but new games and box art should go in the recommended folder
 
 | Folder | System |
 |---|---|
-| `NEOGEO` | Neo Geo (needs a BIOS; see below) |
+| `NEOGEO` | Neo Geo - home (AES) and arcade (MVS) share this folder; needs a BIOS, see below |
 | `NGP` / `NGPC` | Neo Geo Pocket / Color |
 
 **Sony**
@@ -111,12 +111,13 @@ already have them, but new games and box art should go in the recommended folder
 | `PICO8` | Pico-8 |
 | `DOS` | MS-DOS |
 | `EASYRPG` | EasyRPG (RPG Maker 2000/2003) |
-| `ARCADE` | Arcade (FBNeo, recommended for most arcade sets) |
+| `ARCADE` | Arcade (FBNeo, recommended for most arcade sets; Neo Geo sets go in `NEOGEO`) |
 | `PORTS` | Ports (native game ports) |
 
 Advanced arcade users can also use `Roms/MAME/` for MAME 03+ zipped ROM sets.
 Use that only when your set is built for that core; otherwise put arcade games
-in `Roms/ARCADE/`.
+in `Roms/ARCADE/`. The one exception is Neo Geo: FinalBurn Neo runs those too,
+but they belong in `Roms/NEOGEO/` so they get their own system in the launcher.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;

@@ -132,7 +132,9 @@ BIOS/
 ### Systems that need a BIOS
 
 - **Neo Geo** - requires `neogeo.zip` in `BIOS/`. Without it, Neo Geo games
-  appear but won't launch.
+  appear but won't launch. The file must be named exactly `neogeo.zip` -
+  files like `aes.zip` are not used, so don't drop them into your ROM
+  folders (they would show up as a broken "game").
 - **Arcade (FinalBurn Neo / FBNeo)** - many arcade games depend on a BIOS or a
   parent ROM set (for example, CPS systems need their BIOS). These also live in
   `BIOS/` or alongside the game set.
@@ -148,20 +150,38 @@ just work.
 
 ## Arcade & Neo Geo: extra rules
 
-Arcade emulation is the fussiest part of any handheld. Three things matter:
+Arcade emulation is the fussiest part of any handheld. A few things matter:
 
-1. **Match the ROM-set version.** Arcade cores only load ROM sets that match the
-   core's expected version. A set from the wrong version silently fails to load
-   even when the game name looks right. Use `Roms/ARCADE/` for the normal FBNeo
-   arcade library, or `Roms/MAME/` if you intentionally maintain a MAME 03+ set.
-2. **Keep them zipped.** Arcade games load from their `.zip` by exact filename;
+1. **Pick the right folder.** Leaf organizes arcade games by folder:
+   - `Roms/ARCADE/` - the normal FinalBurn Neo arcade library.
+   - `Roms/NEOGEO/` - all Neo Geo sets, arcade ones included. FinalBurn Neo
+     treats Neo Geo as arcade, but Leaf gives Neo Geo its own system
+     (see below).
+   - `Roms/MAME/` - only if you intentionally maintain a MAME 03+ set.
+2. **Match the ROM-set version.** Arcade cores only load ROM sets that match
+   the core's expected version. A set from the wrong version silently fails to
+   load even when the game name looks right.
+3. **Keep them zipped.** Arcade games load from their `.zip` by exact filename;
    do not unzip or rename them (the opposite of some other systems).
-3. **Parents & BIOS.** Clones reference their parent set (both must be present),
+4. **Parents & BIOS.** Clones reference their parent set (both must be present),
    and `neogeo.zip` acts as the shared BIOS for the whole Neo Geo library.
 
 Once they load, Leaf shows arcade games under their real titles rather than the
 cryptic ROM-set names - see
 [Arcade names](/guide/games/#arcade-names) for how that works and how to override it.
+
+### AES vs MVS: one Neo Geo folder
+
+Leaf has no separate folders for the Neo Geo home console (AES) and arcade
+cabinet (MVS) - they are one system. Put all Neo Geo games, home or arcade, in
+`Roms/NEOGEO/`, zipped, with their original set names. Both are emulated by
+FinalBurn Neo with the same `neogeo.zip` BIOS.
+
+If you specifically want the home-console (AES) experience, that's a runtime
+setting rather than a folder: while a Neo Geo game is running, open the
+RetroArch in-game menu, go to **Core Options**, and set **Neo-Geo mode** to
+AES. A BIOS containing the Universe BIOS also lets you pick console/region at
+boot.
 
 ## A note on the hardware
 

@@ -16,6 +16,8 @@
 <div class="mangmi-bars">
   <div class="mangmi-pillbar" id="mangmi-devicebar" role="tablist" aria-label="Device">
     <button type="button" data-device="air" class="active" role="tab">Air X</button>
+    <button type="button" data-device="air_y" role="tab">Air Y</button>
+    <button type="button" data-device="air_y_pro" role="tab">Air Y Pro</button>
     <button type="button" data-device="max" role="tab">Pocket Max</button>
   </div>
   <div class="mangmi-pillbar" id="mangmi-viewbar" role="tablist" aria-label="View">
@@ -43,8 +45,16 @@
      strut that would otherwise leave dead space below the segments. */
   .mangmi-pillbar {
     display: grid; grid-auto-flow: column; grid-auto-columns: minmax(7rem, 1fr);
-    width: max-content; padding: 0; margin: 0; overflow: hidden; line-height: 0;
+    width: max-content; max-width: 100%;
+    padding: 0; margin: 0; overflow: hidden; line-height: 0;
     border: 1px solid var(--sl-color-gray-5); border-radius: 999px; background: var(--sl-color-gray-6);
+  }
+  /* Four devices need ~28rem at the 7rem minimum, which overruns a phone - and the
+     rounded pill shape depends on overflow:hidden, so the overrun is CLIPPED rather
+     than scrollable. Let the columns collapse and tighten the padding instead. */
+  @media (max-width: 34rem) {
+    .mangmi-pillbar { grid-auto-columns: minmax(0, 1fr); }
+    .mangmi-pillbar button { padding: 0 .55rem; font-size: .875rem; }
   }
   .mangmi-pillbar[hidden] { display: none; }
   .mangmi-pillbar button {
@@ -116,8 +126,10 @@
   const BASE = '/mangmi/';
   const SIZE = 2000;                                   // renders + masks are square 2000px
 
+  // The default set. A device may narrow or replace it with its own `colorways`
+  // (the Air Y pair ships Black and Retro GB, and has no White or Retro render).
   const COLORWAYS = ['black', 'white', 'retro'];
-  const CLABEL = { black: 'Black', white: 'White', retro: 'Retro' };
+  const CLABEL = { black: 'Black', white: 'White', retro: 'Retro', retro_gb: 'Retro GB' };
 
   // Devices, each with its angles. `crop` frames the device inside the square render so
   // the preview isn't mostly background - one per device, shared by its angles so the
@@ -152,9 +164,47 @@
                  parts: ['screen', 'dpad', 'abxy'] },
       },
     },
+    /* The Air Y and Air Y Pro are the same body - identical device bbox, and the Pro's
+       right stick sits where the Y's speaker grille is - so they share a crop, a
+       background mask and every part mask except the sticks. Both ship Black and
+       Retro GB rather than the usual three, hence their own `colorways`. */
+    air_y: {
+      label: 'Air Y',
+      colorways: ['black', 'retro_gb'],
+      // No White render, so the light cap has to be sourced from Retro GB.
+      stickWays: ['black', 'retro_gb'],
+      // Portrait, where the other two are landscape - the stage bounds its own width
+      // from this aspect so it does not tower over them (see compose()).
+      crop: { x: 464, y: 246, w: 1071, h: 1509 },
+      views: {
+        front: { label: 'Front',
+                 render: (c) => `air_y/air_y_${c}.webp`,
+                 mask: 'air_y/air_y_front_mask.png',
+                 bg: 'air_y/background_mask.png',
+                 // One stick, not a pair - stick_main keeps the `stick_` prefix so it
+                 // picks up the black/white cap options automatically.
+                 parts: ['screen', 'dpad', 'abxy', 'start', 'stick_main'] },
+      },
+    },
+    air_y_pro: {
+      label: 'Air Y Pro',
+      colorways: ['black', 'retro_gb'],
+      // No White render, so the light cap has to be sourced from Retro GB.
+      stickWays: ['black', 'retro_gb'],
+      crop: { x: 464, y: 246, w: 1071, h: 1509 },
+      views: {
+        front: { label: 'Front',
+                 render: (c) => `air_y/air_y_pro_${c}.webp`,
+                 mask: 'air_y/air_y_pro_front_mask.png',
+                 bg: 'air_y/background_mask.png',
+                 parts: ['screen', 'dpad', 'abxy', 'start', 'stick_left', 'stick_right'] },
+      },
+    },
   };
   let DEV = 'air', VIEW = 'front';
   const dev = () => DEVICES[DEV];
+  // Which colorways this device ships. Only the Air Y narrows it so far.
+  const ways = () => dev().colorways || COLORWAYS;
   const view = () => dev().views[VIEW];
   const KEY = () => `${DEV}/${VIEW}`;      // how loaded renders + stencils are cached
 
@@ -176,24 +226,34 @@
     screen:       [128, 128, 128],   // gray
     trigger_left: [128, 255,   0],   // lime      - back view
     trigger_right:[  0, 128, 255],   // azure     - back view
+    stick_main:   [200,   0, 255],   // violet    - the Air Y's single stick
   };
   // Every part that isn't the body or the screen. A colorway normally ships as one
   // pack, so a checkbox collapses all of these into a single dropdown. Power and volume
   // are one physical key each, shared by both views.
   const PACK_KEYS = ['dpad', 'abxy', 'start', 'home', 'stick_left', 'stick_right',
-                     'bumper_left', 'bumper_right', 'trigger_left', 'trigger_right',
-                     'power', 'volume'];
+                     'stick_main', 'bumper_left', 'bumper_right',
+                     'trigger_left', 'trigger_right', 'power', 'volume'];
   // Control-row order and wording; also what the summary line reads from.
   const PART_LABEL = {
     dpad: 'D-pad', abxy: 'A/B/X/Y', start: 'Start/Select', home: 'Back/Home',
-    stick_left: 'Left stick', stick_right: 'Right stick',
+    stick_left: 'Left stick', stick_right: 'Right stick', stick_main: 'Analog stick',
     bumper_left: 'Left bumper', bumper_right: 'Right bumper',
     trigger_left: 'Left trigger', trigger_right: 'Right trigger',
     power: 'Power', volume: 'Volume', screen: 'Screen',
   };
   // The stick caps only come in two colors - Retro ships the black ones.
+  /* Stick caps come in fewer finishes than bodies, and a cap is drawn by sourcing that
+     region out of a colorway's render - so an option here MUST be a colorway the device
+     actually ships, or there is no render to cut from and the cap silently fails to
+     draw. The Air X and Max default to black/white because their Retro reuses the black
+     caps; the Air Y pair overrides it, since its light cap lives in the Retro GB render
+     and it has no White at all. */
   const STICK_OPTS = ['black', 'white'];
-  const packValue = (k, v) => (k.startsWith('stick_') && !STICK_OPTS.includes(v) ? 'black' : v);
+  const stickWays = () => dev().stickWays || STICK_OPTS;
+  const packValue = (k, v) => (!k.startsWith('stick_') ? v
+                               : stickWays().includes(v) ? v
+                               : 'black');
 
   // Display: 'off' is a dark panel, 'leaf' draws the Leaf mark, and every other option
   // lifts a wallpaper straight out of one colorway's render. Which wallpapers exist is
@@ -206,11 +266,23 @@
     max: { opts: ['violet', 'mono', 'ember', 'leaf', 'off'],
            label: { violet: 'Violet', mono: 'Mono', ember: 'Ember', leaf: 'Leaf', off: 'Off' },
            src:   { violet: 'black', mono: 'white', ember: 'retro' } },
+    air_y: { opts: ['weave', 'sunrise', 'leaf', 'off'],
+             label: { weave: 'Amber Weave', sunrise: 'Sunrise', leaf: 'Leaf', off: 'Off' },
+             src:   { weave: 'black', sunrise: 'retro_gb' } },
   };
+  // The Pro ships the same two wallpapers as the Air Y.
+  SCREENS.air_y_pro = SCREENS.air_y;
   const screens = () => SCREENS[DEV];
   const SCREEN_FILL = '#0c0d10';
 
-  const SEL_KEYS = ['body', ...PACK_KEYS, 'screen'];
+  /* The share code is one base36 digit per key IN THIS ORDER, so this list is a WIRE
+     FORMAT: links already posted decode purely by position. Never insert or reorder -
+     append only. stick_main sits after 'screen' for exactly that reason; it arrived with
+     the Air Y, and putting it in its natural place beside the other sticks would have
+     shifted every key after it and silently mis-decoded every existing Air X link. */
+  const SEL_KEYS = ['body', 'dpad', 'abxy', 'start', 'home', 'stick_left', 'stick_right',
+                    'bumper_left', 'bumper_right', 'trigger_left', 'trigger_right',
+                    'power', 'volume', 'screen', 'stick_main'];
   const DEFAULTS = Object.fromEntries(SEL_KEYS.map(k => [k, k === 'screen' ? 'eclipse' : 'black']));
   const sel = { ...DEFAULTS };
 
@@ -288,6 +360,11 @@
     const CROP = dev().crop;
     if (canvas.width !== CROP.w || canvas.height !== CROP.h) {
       canvas.width = CROP.w; canvas.height = CROP.h;     // devices frame at different sizes
+      /* The canvas is width:100%, so a portrait device would render about three times
+         taller than a landscape one and the page would lurch when switching. Bound the
+         stage's width by the aspect instead, which caps the drawn height at ~60vh. A
+         landscape device computes a bound far wider than the column, so it is unaffected. */
+      canvas.parentElement.style.maxWidth = `${(CROP.w / CROP.h) * 60}vh`;
     }
     ctx.clearRect(0, 0, CROP.w, CROP.h);
     ctx.drawImage(frame, CROP.x, CROP.y, CROP.w, CROP.h, 0, 0, CROP.w, CROP.h);
@@ -362,20 +439,26 @@
 
   // ---- share links: one base36 digit per axis, in SEL_KEYS order (?c=0002...) ----
   const optsFor = (k) => k === 'screen'         ? screens().opts
-                       : k.startsWith('stick_') ? STICK_OPTS
-                       : COLORWAYS;
+                       : k.startsWith('stick_') ? stickWays()
+                       : ways();
   function shareCode() {
     return SEL_KEYS.map(k => optsFor(k).indexOf(sel[k]).toString(36)).join('');
   }
+  /* Short aliases keep a share link tidy - `d=yp` rather than `d=air_y_pro`. The Air X
+     is the default and needs no `d` at all; `max` keeps its own name because links to it
+     are already public. Both spellings are accepted on the way in. */
+  const DEV_SLUG = { air_y: 'y', air_y_pro: 'yp' };
+  const SLUG_DEV = Object.fromEntries(Object.entries(DEV_SLUG).map(([k, v]) => [v, k]));
+
   function updateURL() {
     const q = 'c=' + shareCode()
-            + (DEV === 'air' ? '' : '&d=' + DEV)
+            + (DEV === 'air' ? '' : '&d=' + (DEV_SLUG[DEV] || DEV))
             + (VIEW === 'front' ? '' : '&v=' + VIEW);
     history.replaceState(null, '', location.pathname + '?' + q);
   }
   function applyURL() {
     const p = new URLSearchParams(location.search);
-    const d = p.get('d'); if (d && DEVICES[d]) DEV = d;
+    const d = p.get('d'), dk = SLUG_DEV[d] || d; if (dk && DEVICES[dk]) DEV = dk;
     const v = p.get('v'); if (v && dev().views[v]) VIEW = v;
     const code = p.get('c');
     if (!code) return;
@@ -449,6 +532,7 @@
     reset.addEventListener('click', () => {
       Object.assign(sel, DEFAULTS);
       syncScreenField();                 // DEFAULTS' screen may not exist on this device
+      syncColorwayFields();              // ...nor its colorway
       syncSelects(); compose();
     });
     actions.appendChild(rand); actions.appendChild(reset);
@@ -478,12 +562,13 @@
     const k = `${d}/${v}`;
     if (loading[k]) return loading[k];
     const cfg = DEVICES[d].views[v];
+    const ws = DEVICES[d].colorways || COLORWAYS;   // the Air Y has no Retro render
     return (loading[k] = Promise.all([
-      Promise.all(COLORWAYS.map(c => load(`${BASE}${cfg.render(c)}`))),
+      Promise.all(ws.map(c => load(`${BASE}${cfg.render(c)}`))),
       load(`${BASE}${cfg.mask}`),
       cfg.bg ? load(`${BASE}${cfg.bg}`) : null,
     ]).then(([renders, atlas, bg]) => {
-      R[k] = Object.fromEntries(COLORWAYS.map((c, i) => [c, renders[i]]));
+      R[k] = Object.fromEntries(ws.map((c, i) => [c, renders[i]]));
       M[k] = splitMask(atlas, cfg.parts);
       if (bg) BG[k] = bg;
     }));
@@ -513,6 +598,26 @@
     s.value = sel.screen;
   }
 
+  /* The colorway dropdowns are built once, but not every device offers the same set.
+     Rebuild them for the current device and pull any selection it does not ship back to
+     a colorway it does — otherwise picking Retro on the Air X and switching to the Air Y
+     would leave the control reading "Retro" while the canvas drew black, since the
+     render simply is not there. Sticks and the screen keep their own option sets. */
+  function syncColorwayFields() {
+    const body = ways(), caps = stickWays();
+    document.querySelectorAll('.mangmi-controls select').forEach(s => {
+      const k = s.dataset.key;
+      if (k === 'screen') return;                  // syncScreenField owns that one
+      const opts = k.startsWith('stick_') ? caps : body;
+      if (!opts.includes(sel[k])) sel[k] = opts[0];
+      s.replaceChildren(...opts.map(o => {
+        const op = document.createElement('option');
+        op.value = o; op.textContent = CLABEL[o]; return op;
+      }));
+      s.value = sel[k];
+    });
+  }
+
   function setPlace(d, v) {
     DEV = d;
     VIEW = DEVICES[d].views[v] ? v : Object.keys(DEVICES[d].views)[0];
@@ -520,6 +625,7 @@
       b.classList.toggle('active', b.dataset.device === DEV));
     syncViewBar();
     syncScreenField();
+    syncColorwayFields();
     document.querySelectorAll('.mangmi-controls .mangmi-field[data-part]').forEach(f =>
       f.classList.toggle('hide-view', !view().parts.includes(f.dataset.part)));
     if (R[KEY()]) compose(); else loadView(DEV, VIEW).then(compose);

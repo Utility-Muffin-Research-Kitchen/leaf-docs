@@ -73,15 +73,18 @@ const STUDIOS = [
     ogPath: '/mangmi-og',
     canvasId: 'mangmi-canvas',
     loadingId: 'mangmi-loading',
-    ver: 1,
+    ver: 2,
     altName: 'Mangmi',
     ogAlt: 'A Mangmi handheld colorway',
-    // Two devices share the page, so the card names whichever one the link opens.
+    // Four devices share the page, so the card names whichever one the link opens.
     card(cfg) {
-      const max = cfg.includes('d=max');
+      const name = cfg.includes('d=max')  ? 'Pocket Max'
+                 : cfg.includes('d=yp')   ? 'Air Y Pro'
+                 : cfg.includes('d=y')    ? 'Air Y'
+                 : 'Air X';
       return {
         title: 'Mangmi<br>Colorway<br>Studio',
-        sub: `Design your<br>Mangmi ${max ? 'Pocket Max' : 'Air X'}`,
+        sub: `Design your<br>Mangmi ${name}`,
       };
     },
     buildConfig(p) {
@@ -90,13 +93,25 @@ const STUDIOS = [
       const c = p.get('c') || '';
       if (!/^[0-9a-z]{1,24}$/.test(c)) return null;
       let out = `c=${c}`;
-      if (p.get('d') === 'max') out += '&d=max';
+      const d = p.get('d');
+      // Whitelisted rather than passed through, so a junk value can't mint cache keys.
+      if (d === 'max' || d === 'y' || d === 'yp') out += `&d=${d}`;
       if (p.get('v') === 'back') out += '&v=back';
       return out;
     },
-    // The canvas is ~2:1 and its background is masked out, so it sits directly on
-    // the card rather than in a filled box.
-    ogTarget() {
+    // The Air X and Max canvases are ~2:1 with the background masked out, so they sit
+    // directly on the card. The Air Y pair is PORTRAIT (roughly 5:7) - at the landscape
+    // width of 760px it would stand ~1070px tall and overflow a 900px card, so it is
+    // sized by height instead.
+    ogTarget(cfg) {
+      const portrait = cfg.includes('d=y');   // matches d=y and d=yp
+      if (portrait) {
+        return {
+          canvasId: this.canvasId, loadingId: this.loadingId,
+          cvStyle: 'height:800px;width:auto;max-width:none;border-radius:24px;'
+                 + 'margin-left:44px;flex:0 0 auto;background:transparent',
+        };
+      }
       return { canvasId: this.canvasId, loadingId: this.loadingId, landscape: true };
     },
   },

@@ -1,7 +1,7 @@
 import puppeteer from '@cloudflare/puppeteer';
 
 // Dynamic Open Graph for the colorway studios (Retroid Pocket Nova, Miniloong
-// Pocket 1, Mangmi, and TrimUI Brick NextUI palettes).
+// Pocket 1, MANGMI, and TrimUI Brick NextUI palettes).
 //
 // leaf.game is static (GitHub Pages) and each colorway is drawn client-side from
 // the share link, so crawlers (Discord/Slack/iMessage) only see the generic Leaf
@@ -73,9 +73,9 @@ const STUDIOS = [
     ogPath: '/mangmi-og',
     canvasId: 'mangmi-canvas',
     loadingId: 'mangmi-loading',
-    ver: 2,
-    altName: 'Mangmi',
-    ogAlt: 'A Mangmi handheld colorway',
+    ver: 3,
+    altName: 'MANGMI',
+    ogAlt: 'A MANGMI handheld colorway',
     // Four devices share the page, so the card names whichever one the link opens.
     card(cfg) {
       const name = cfg.includes('d=max')  ? 'Pocket Max'
@@ -83,8 +83,8 @@ const STUDIOS = [
                  : cfg.includes('d=y')    ? 'Air Y'
                  : 'Air X';
       return {
-        title: 'Mangmi<br>Colorway<br>Studio',
-        sub: `Design your<br>Mangmi ${name}`,
+        title: 'MANGMI<br>Colorway<br>Studio',
+        sub: `Design your<br>MANGMI ${name}`,
       };
     },
     buildConfig(p) {

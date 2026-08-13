@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260813T223123Z",
-  "generated_at": "2026-08-13T22:31:23Z",
+  "catalog_revision": "prod-20260813T224506Z",
+  "generated_at": "2026-08-13T22:45:06Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -232,6 +232,36 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "org.umrk.videofromhell",
+      "name": "Video From Hell",
+      "summary": "Play local video files on Leaf.",
+      "description": "A Catastrophe-native video player for Leaf on the Miniloong Pocket 1. Browse videos from either SD card and play them with the device hardware decoder.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell",
+      "categories": [
+        "video",
+        "media"
+      ],
+      "version": "0.3.1",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "0.3.1",
+          "install_name": "VideoFromHell.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.1/VideoFromHell.pak.zip",
+            "name": "VideoFromHell.pak.zip",
+            "archive": "zip",
+            "size": 221216,
+            "installed_size": 405731,
+            "sha256": "6943885e61ebde2ba751ba3c9e52056d9ecc4eba30fa5de208ad09dcc8d979d2"
+          }
         }
       ]
     }

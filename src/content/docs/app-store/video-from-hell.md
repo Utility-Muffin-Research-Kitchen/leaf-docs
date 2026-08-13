@@ -3,11 +3,6 @@ title: Video From Hell
 description: 'A local video player for Leaf: one library across both SD cards and your recorded gameplay, hardware-decoded playback, resume, a queue, and subtitles.'
 ---
 
-:::caution[Coming soon]
-This feature is built but has not shipped in a release yet. This page describes what
-is coming.
-:::
-
 ![Video From Hell's video library on the Recently Added tab, showing a list of videos with thumbnails and durations on the left and a preview panel on the right with the selected video's poster, title, and length](/videofromhell.png)
 
 Sometimes the handheld is the only screen within reach: a bunk, a plane, a hotel room
@@ -22,14 +17,16 @@ Zappa's home-video release.
 
 ## Install
 
-Video From Hell is a standalone app, not bundled with Leaf. When it ships you will
-install it on-device with **Pak Rat**: press the **Menu** button, open **Actions → Pak
-Rat**, choose **Video From Hell**, and install it over Wi-Fi. It appears in your **Apps**
-tab when the install finishes.
+Video From Hell is a standalone app, not bundled with Leaf. Install it on-device with
+**Pak Rat**: press the **Menu** button, open **Actions → Pak Rat**, choose **Video From
+Hell**, and install it over Wi-Fi. It appears in your **Apps** tab when the install
+finishes.
 
-Until then there is nothing to install - no release archive exists yet, and Pak Rat has
-nothing to list. Video From Hell is open source
-([MIT](https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell)).
+Manual fallback: open the
+**[latest release](https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/latest)**,
+download `VideoFromHell.pak.zip`, unzip it, copy the `VideoFromHell.pak` folder into
+`Apps/mlp1/` on your SD card, then run **System → Rescan Library**. Video From Hell is
+open source ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell)).
 
 ## Features
 

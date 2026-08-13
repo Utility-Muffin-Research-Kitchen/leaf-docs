@@ -73,6 +73,7 @@ export default defineConfig({
             { label: 'Screenshots', slug: 'guide/screenshots' },
             { label: 'Recording', slug: 'guide/recording' },
             { label: 'Rumble', slug: 'guide/rumble' },
+            { label: 'Language', slug: 'guide/language', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Settings reference', slug: 'guide/settings' },
             { label: 'Troubleshooting', slug: 'guide/troubleshooting' },
           ],

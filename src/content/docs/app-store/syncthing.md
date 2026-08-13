@@ -45,6 +45,22 @@ Devices can also sync directly with each other. A hub is easier to reason about,
 is more likely to be online when you finish playing, and gives you one place for
 version history and backups.
 
+Folder paths are local to each device. They do not need to match, and a path from
+one device must never be copied blindly to another.
+
+| Device | Example local path when accepting a Leaf folder |
+| --- | --- |
+| Windows | `C:\Users\<you>\Syncthing\Leaf Saves` |
+| macOS | `/Users/<you>/Syncthing/Leaf Saves` |
+| Linux, NAS, or VPS | `/home/<you>/Syncthing/Leaf Saves`, or another directory writable by the Syncthing service account |
+| Android | Choose a writable folder such as **Internal storage → Syncthing → Leaf Saves** in that app's folder picker |
+| Leaf | Leaf chooses the selected card's `Saves` or `States` directory; the path is intentionally read-only |
+| Another retro handheld | Choose the save directory actually used by that handheld's emulator; do not assume it matches Leaf |
+
+Use a different hub directory for every physical card's Saves folder and every
+optional States folder. The folder ID, not the local path or label, connects the
+copies.
+
 ## Install and start Syncthing
 
 When Syncthing ships, install it with **Menu → Actions → Pak Rat**. It will appear
@@ -140,6 +156,16 @@ The direction is described from Leaf's point of view.
 A two-way merge can create Syncthing conflict files if both sides already contain
 different versions of the same save. Check both devices before the first sync and
 keep the version you intend to use.
+
+### Match the other emulator
+
+Leaf already points RetroArch at the managed `Saves` and `States` directories.
+On another RetroArch device, check **Settings → Directory → Save Files** and
+**Save States**, or its per-core directory override, before accepting a folder.
+Point Saves at the normal save directory used by the matching core. Only share
+States when both devices use the same ROM revision, emulator, core, and core
+version. Menu names vary between RetroArch builds, so confirm by creating one
+test save and checking where it appears.
 
 ### Review first-sync safety
 
@@ -242,6 +268,42 @@ trusted browser and close it immediately.
 The dashboard carries a read-only warning. Some upstream Syncthing controls may
 still be visible, but Leaf blocks changes made through this gateway.
 
+## Privacy and network modes
+
+Syncthing encrypts device-to-device traffic. **LAN-only** keeps Leaf to local
+discovery and direct encrypted connections on the current network. **Sync
+Anywhere** additionally enables internet discovery, relays, and router traversal.
+That can expose device IDs and connection metadata to discovery or relay
+infrastructure, and encrypted file traffic may pass through a relay. Leaf keeps
+upstream usage reporting disabled in both modes.
+
+The read-only web view is a separate local-LAN listener protected by its pairing
+code, browser trust record, and TLS certificate. Revoke trusted browsers if a
+paired computer or phone is lost.
+
+Leaf apps run with the same system authority as the launcher. FAT-formatted SD
+cards do not provide per-app permission isolation. Someone with physical access
+to a card can copy credential-equivalent material, including the Syncthing device
+private key and, when created, the web-view TLS private key. Treat a removed or
+copied card as you would a copied account credential: reset Syncthing to create a
+new identity, revoke trusted browsers, and remove the old device from every peer.
+
+## Coming from an existing Syncthing setup
+
+Keep the existing folder and its folder ID, but give Leaf a fresh device identity:
+
+1. Stop and remove any community Syncthing Pak or manually started Syncthing on
+   the Leaf handheld. Leaf refuses to run beside another local instance or a
+   folder already managed by one.
+2. Start the Leaf Syncthing Pak and add its new device ID to the existing peers.
+3. Share the existing folder with that new Leaf device.
+4. Wait for the offer on Leaf and choose **Join offered folder**.
+
+Never copy another device's `cert.pem`, `key.pem`, `config.xml`, database, local
+folder path, folder type, or marker settings onto Leaf. Cloned certificates make
+two devices claim one identity; copied local settings can bind Syncthing to the
+wrong card or bypass Leaf's first-sync protection.
+
 ## Day-to-day management
 
 - **Status** shows whether folders are current, syncing, paused, offline, or not
@@ -262,6 +324,31 @@ snapshots and version history are managed separately.
 
 Pause a folder before making manual changes with **File explorer**. Resume and
 rescan it afterward. Editing while Syncthing is active can create conflicts.
+
+## Uninstalling
+
+Pak Rat removes the app and revokes trusted web-view browsers, but preserves the
+Syncthing identity, configuration, index, safety snapshots, version history, and
+live Saves and States. This lets a reinstall reconnect as the same device; the
+service starts disabled after reinstall.
+
+The retained Syncthing data lives under `.userdata/mlp1/Syncthing` on the
+relevant card or cards. Use **Settings & Recovery** to see exact locations and
+sizes and to remove retained history or perform a separately confirmed reset.
+Do not delete a whole `.userdata` directory: other Leaf features and apps use it.
+
+## Known limitations in the first release
+
+- Leaf's important configuration, card-enrollment, first-sync, and reset writes
+  have targeted interruption recovery. A dedicated abrupt-power-loss campaign
+  during every upstream index and version-history write has not been completed.
+  After an unsafe power loss, inspect **Status** and use **Reset index only** if
+  Leaf reports a database problem; this preserves identity and configuration.
+- SD cards use FAT32. The first release has not exhaustively characterized file
+  names that differ only by case, every Unicode or host-invalid name, FAT's coarse
+  timestamp behavior, or files larger than FAT32's 4 GiB limit. Normal game saves
+  are much smaller, but avoid using these managed folders for unrelated large
+  files and resolve name conflicts on the computer or server.
 
 ## Troubleshooting
 

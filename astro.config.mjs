@@ -72,6 +72,7 @@ export default defineConfig({
             { label: '5-Game Mode', slug: 'guide/five-game-mode' },
             { label: 'Screenshots', slug: 'guide/screenshots' },
             { label: 'Recording', slug: 'guide/recording' },
+            { label: 'Controllers', slug: 'guide/controllers', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Rumble', slug: 'guide/rumble' },
             { label: 'Language', slug: 'guide/language', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Settings reference', slug: 'guide/settings' },

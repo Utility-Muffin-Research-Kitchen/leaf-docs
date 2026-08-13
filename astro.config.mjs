@@ -100,6 +100,7 @@ export default defineConfig({
             { label: 'PortMaster', slug: 'app-store/portmaster' },
             { label: 'SDLReader', slug: 'app-store/sdlreader' },
             { label: 'Syncthing', slug: 'app-store/syncthing', badge: { text: 'Soon', variant: 'caution' } },
+            { label: 'Video From Hell', slug: 'app-store/video-from-hell', badge: { text: 'Soon', variant: 'caution' } },
           ],
         },
         {

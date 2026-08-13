@@ -29,6 +29,8 @@ This section is new and will grow over time.
 - **[Syncthing](/app-store/syncthing/)** - keep game saves and optional save
   states in sync with other Leaf handhelds, computers, servers, NAS devices,
   and Android handhelds.
+- **[Video From Hell](/app-store/video-from-hell/)** - a local video player for
+  films on your SD cards and your recorded gameplay.
 
 ## Installing an app
 

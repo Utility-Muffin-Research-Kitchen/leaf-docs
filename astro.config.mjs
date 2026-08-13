@@ -99,6 +99,7 @@ export default defineConfig({
             { label: 'Nimbus', slug: 'app-store/nimbus' },
             { label: 'PortMaster', slug: 'app-store/portmaster' },
             { label: 'SDLReader', slug: 'app-store/sdlreader' },
+            { label: 'Syncthing', slug: 'app-store/syncthing', badge: { text: 'Soon', variant: 'caution' } },
           ],
         },
         {

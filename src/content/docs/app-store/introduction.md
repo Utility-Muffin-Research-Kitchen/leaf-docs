@@ -24,6 +24,12 @@ This section is new and will grow over time.
 - **[SDLReader](/app-store/sdlreader/)** - a reader for PDFs, comics, ebooks,
   and text.
 
+## Coming soon
+
+- **[Syncthing](/app-store/syncthing/)** - keep game saves and optional save
+  states in sync with other Leaf handhelds, computers, servers, NAS devices,
+  and Android handhelds.
+
 ## Installing an app
 
 Open **System** with the **Menu** button, go to **Actions**, then choose

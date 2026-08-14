@@ -4,8 +4,8 @@ description: 'Keep game saves and optional save states in sync between Leaf, com
 ---
 
 :::caution[Coming soon]
-This feature is built but has not shipped in a release yet. This page describes what
-is coming.
+Syncthing is available to test in the **beta** channel now. It has not shipped in a
+stable release yet.
 :::
 
 Syncthing keeps a card's game saves in sync with your other devices. The other

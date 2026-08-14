@@ -4,8 +4,8 @@ description: Pair a wireless controller to the Miniloong Pocket 1, how player or
 ---
 
 :::caution[Coming soon]
-This feature is built but has not shipped in a release yet. This page describes what
-is coming.
+Wireless controllers are available to test in the **beta** channel now. They have not
+shipped in a stable release yet.
 :::
 
 Leaf plays multiplayer games with wireless controllers alongside the Pocket 1's own

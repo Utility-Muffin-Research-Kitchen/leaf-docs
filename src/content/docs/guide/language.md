@@ -4,8 +4,8 @@ description: Switch the Leaf interface to Simplified Chinese, and how Chinese ga
 ---
 
 :::caution[Coming soon]
-This feature is built and translated but has not shipped in a release yet. This page
-describes what is coming.
+Simplified Chinese is available to test in the **beta** channel now. It has not shipped
+in a stable release yet.
 :::
 
 Leaf's interface is available in **Simplified Chinese** alongside English. The

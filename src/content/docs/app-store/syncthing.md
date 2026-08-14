@@ -86,45 +86,42 @@ which can swap between cards after a reboot.
 If a card is missing, read-only, or has a duplicate identity, Leaf pauses its
 managed folders rather than guessing and writing to the wrong place.
 
-### Connect a device
+### Connect to a hub and join its Saves folder (recommended)
 
-Open **Devices** and show **My Syncthing Device** to display Leaf's device ID and
-QR code. On the other device, add that ID. You can also add the other device's ID
-on Leaf and accept the request there.
+Use the computer, server, NAS, VPS, or Android device holding the existing Saves
+folder to start the connection. This avoids entering its long device ID with the
+handheld controls.
 
-The Devices screen updates while it is open. When Guided setup sends you there,
-it returns automatically after the peer is accepted or added.
-
-:::caution[Adding a device does not share any folders]
-This is normal Syncthing behavior. A connected device will not see `ra-saves`,
-`ra-states`, or any other existing folder until that folder is explicitly shared
-with it.
+:::tip[No long device ID on Leaf]
+Normally you only show Leaf's QR or device ID and do the typing on the other
+device. **Add peer by ID** on Leaf is a manual fallback, not the recommended hub
+setup.
 :::
 
-If the peer is on the same network, leave **Network** set to **LAN-only**. To reach
-a VPS or a device away from home, choose **Network**, enable **Sync Anywhere**, and
-confirm the warning. Sync Anywhere may use internet discovery, relay services,
-router port mappings, more radio time, and more battery.
+1. If the other device is a VPS or is outside the current network, open
+   **Network** on Leaf, enable **Sync Anywhere**, and confirm the warning. Leave
+   **LAN-only** enabled when both devices are on the same local network.
+2. On Leaf, open **Devices → My device ID + QR**.
+3. On the other device, choose **Add Remote Device** and scan the QR when its
+   Syncthing app supports that, or enter Leaf's displayed device ID there.
+4. Still on the other device, edit the existing Saves folder, open **Sharing**,
+   select Leaf, and save. Adding Leaf as a device without sharing the folder is
+   not enough.
+5. Press **B** on Leaf to return to **Devices**. Select the device marked
+   **Pending**, choose **Accept**, and give it a recognizable name. The list
+   refreshes automatically while it is open.
+6. Guided setup returns to Saves setup. Choose **Join offered folder**. Leaf keeps
+   the existing folder ID while binding it safely to the selected card.
 
-### Set up Saves
+If the other device says **Disconnected (Unused)** after step 3, continue with
+step 4. It means that device knows Leaf but has not shared a folder with it yet,
+so it has no reason to contact the handheld.
 
-There are two different paths.
+Leaf shows **Waiting for folder offer** until the other device completes its
+Sharing change. The connection request and folder offer remain explicit:
+accepting a device never accepts an unknown folder automatically.
 
-#### Join an existing Saves folder
-
-On the computer, server, NAS, Android device, or other Leaf that already has the
-folder:
-
-1. Edit that folder in its own Syncthing app.
-2. Open **Sharing**.
-3. Select this Leaf device and save the change.
-4. Return to Guided setup on Leaf.
-
-Leaf will show **Waiting for folder offer** until the remote device shares the
-folder. When the offer arrives, choose **Join offered folder**. This keeps the
-existing folder ID and is the recommended choice.
-
-#### Create a new Saves folder
+### Create a new Saves folder
 
 Choose **Create new Saves folder instead** only when this is genuinely a new
 share. Leaf warns before doing this because the new folder receives a different
@@ -290,9 +287,11 @@ Keep the existing folder and its folder ID, but give Leaf a fresh device identit
 1. Stop and remove any community Syncthing Pak or manually started Syncthing on
    the Leaf handheld. Leaf refuses to run beside another local instance or a
    folder already managed by one.
-2. Start the Leaf Syncthing Pak and add its new device ID to the existing peers.
-3. Share the existing folder with that new Leaf device.
-4. Wait for the offer on Leaf and choose **Join offered folder**.
+2. Start the Leaf Syncthing Pak and open **Devices → My device ID + QR**.
+3. On the existing peer, add Leaf's displayed ID and share the existing folder
+   with that new Leaf device.
+4. Back on Leaf, accept the **Pending** device, then choose **Join offered
+   folder**.
 
 Never copy another device's `cert.pem`, `key.pem`, `config.xml`, database, local
 folder path, folder type, or marker settings onto Leaf. Cloned certificates make
@@ -347,11 +346,20 @@ Do not delete a whole `.userdata` directory: other Leaf features and apps use it
 
 ## Troubleshooting
 
+### The computer or VPS says Disconnected (Unused)
+
+The other device knows Leaf's ID but does not share a folder with it yet. Edit the
+intended Saves folder on that device, open **Sharing**, select Leaf, and save.
+Then return to **Devices** on Leaf, select the **Pending** request, and choose
+**Accept**. You do not need to enter the computer or VPS device ID on Leaf just to
+clear the Unused status.
+
 ### The folder offer never appears
 
 Confirm all of the following:
 
-- Both devices have accepted each other's device ID.
+- Leaf accepted the device's **Pending** request, or the device was added manually
+  with **Add peer by ID**.
 - The device holding the existing folder explicitly includes Leaf under that
   folder's **Sharing** tab.
 - Both Syncthing services are running and the peer is not paused.
@@ -441,14 +449,17 @@ it without your choice.
 ## Resetting Syncthing
 
 Use **Settings & Recovery → Recovery** only when ordinary folder or device controls
-cannot repair the setup. Read the confirmation carefully:
+cannot repair the setup. Reset actions use two controller confirmations and never
+ask you to type a phrase. Read both screens carefully:
 
 - **Reset index only** rebuilds Syncthing's derived database while keeping the
   configuration, identity, Saves, States, snapshots, and versions.
-- **Reset Syncthing** clears the local Syncthing setup and creates a new device
-  identity. Every enrolled card must be present.
+- **Restore fresh setup** returns Syncthing to the same local state as a fresh Pak
+  setup. It clears the identity, devices, folders, index, browser trust, snapshots,
+  and version history, then creates a new device identity. Every enrolled card
+  must be present.
 - **Reset available state only** is the recovery choice when not every enrolled
   card is currently available.
 
-The reset tools do not delete live Saves, States, or ROMs, but a new device identity
-must be accepted and shared with again on every peer.
+The reset tools do not delete live Saves, States, ROMs, or card enrollment, but a
+new device identity must be accepted and shared with again on every peer.

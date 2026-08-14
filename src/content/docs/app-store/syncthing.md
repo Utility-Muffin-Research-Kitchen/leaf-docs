@@ -3,11 +3,6 @@ title: Syncthing
 description: 'Keep game saves and optional save states in sync between Leaf, computers, servers, NAS devices, and Android handhelds.'
 ---
 
-:::caution[Coming soon]
-Syncthing is available to test in the **beta** channel now. It has not shipped in a
-stable release yet.
-:::
-
 Syncthing keeps a card's game saves in sync with your other devices. The other
 device can be another Leaf handheld, a computer, a NAS, a home server, a VPS, or
 an Android handheld running a compatible Syncthing app.

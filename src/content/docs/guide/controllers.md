@@ -3,11 +3,6 @@ title: Controllers
 description: Pair a wireless controller to the Miniloong Pocket 1, how player order works, and what you need for three or more players.
 ---
 
-:::caution[Coming soon]
-Wireless controllers are available to test in the **beta** channel now. They have not
-shipped in a stable release yet.
-:::
-
 Leaf plays multiplayer games with wireless controllers alongside the Pocket 1's own
 controls. Up to four players: three wireless controllers plus the handheld itself.
 

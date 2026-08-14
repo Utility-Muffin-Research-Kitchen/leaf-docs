@@ -3,11 +3,6 @@ title: Language
 description: Switch the Leaf interface to Simplified Chinese, and how Chinese game names render whatever language you use.
 ---
 
-:::caution[Coming soon]
-Simplified Chinese is available to test in the **beta** channel now. It has not shipped
-in a stable release yet.
-:::
-
 Leaf's interface is available in **Simplified Chinese** alongside English. The
 translation was written and reviewed by a native speaker from the community, not run
 through a machine and shipped as-is.

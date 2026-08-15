@@ -19,8 +19,10 @@ Leaf predates the feature.
 ## What changes
 
 Menus, settings, dialogs, button hints, the in-game menu, and system messages are
-translated. The interface also switches to a font that can draw Chinese, since none
-of the nine regular Leaf fonts carry those characters. That is why the **Font** row
+translated. **RetroArch follows too**: its own menus switch with Leaf, so you never set
+the language in two places, and switching back to English brings both with it. The
+interface also switches to a font that can draw Chinese, since none of the nine regular
+Leaf fonts carry those characters. That is why the **Font** row
 in Settings is locked while Chinese is active: your chosen font comes back when you
 switch to English.
 
@@ -34,8 +36,9 @@ Some things are kept in English on purpose:
   is how Chinese players write them too. The arcade category is translated (街机).
 - **Product and app names.** Leaf, RetroArch, and the built-in apps keep their names,
   since those are the words you would search for when asking for help.
-- **RetroArch's own menus.** The quick menu inside a game belongs to RetroArch and is
-  not translated yet.
+- **Standalone emulator menus.** This one is not deliberate, just not done yet. PPSSPP,
+  DraStic, Flycast and the N64 emulator each carry their own interface, and those are
+  still English. Bringing them in line with Leaf is on the list.
 
 ## Chinese game names
 

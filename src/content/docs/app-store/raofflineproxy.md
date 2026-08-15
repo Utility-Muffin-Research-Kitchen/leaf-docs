@@ -42,8 +42,8 @@ Turn on both if you want it always available. Both are also in
 ## Preparing games for a trip
 
 Playing a game online caches it automatically. Anything you have *not* played
-online has nothing cached, so it will not have achievements offline — which is
-usually discovered at the worst moment.
+online has nothing cached, so it will not have achievements offline. You
+usually find that out once you are already away from a network.
 
 To prepare in advance:
 
@@ -52,9 +52,9 @@ To prepare in advance:
 - **Prepare one game** browses your library by console, with a search, so you
   can prepare a specific title.
 
-Preparing downloads achievement data for each game, pacing itself to stay a
-good citizen of a free community service. The progress screen updates live, and
-you can leave it — the work continues in the background, and stopping is a
+Preparing downloads achievement data for each game, a few requests at a time
+so it does not hammer the RetroAchievements servers. The progress screen updates
+live. You can leave it and the work carries on in the background; stopping is a
 separate, explicit action.
 
 Some ROMs will report **No RA data**. That means RetroAchievements has no entry
@@ -73,13 +73,13 @@ Favourites, and per-game keep it proportionate.
 Once a game is prepared, play as normal with the network off. Achievements
 unlock, and the ones you earn are queued locally and signed.
 
-When you reconnect, the queue is sent automatically — once each, in order. You
-do not need to open the pak.
+When you reconnect, the queue is sent automatically, once each and in order.
+You do not need to open the pak.
 
 ## What it does not do
 
-- **No Hardcore.** By design; upstream does not support offline hardcore
-  unlocks, and this pak will not pretend otherwise.
+- **No Hardcore.** Upstream does not support offline hardcore unlocks, so
+  neither does this. Hardcore games launch unproxied instead.
 - **No leaderboards offline.** Submissions are refused rather than queued,
   because a leaderboard entry sent hours later is not the same entry.
 - **Not a way to earn achievements you did not earn.** The queue is signed and

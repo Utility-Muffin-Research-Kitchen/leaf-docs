@@ -264,6 +264,61 @@
           }
         }
       ]
+    },
+    {
+      "id": "org.umrk.raofflineproxy",
+      "name": "RAOfflineProxy",
+      "summary": "Earn RetroAchievements offline, and send them when you reconnect.",
+      "description": "Experimental, casual-only offline RetroAchievements for Leaf. Caches achievement data while you are online, serves it to RetroArch while you are not, and queues anything you unlock offline to send on reconnect. Prepare games for a trip from the pak itself. Hardcore play always launches directly and is never proxied. Built on misantronic/RAOfflineProxy, whose Linux support is alpha.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-RAOfflineProxy-Pak",
+      "categories": [
+        "tools",
+        "games"
+      ],
+      "version": "0.0.1",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "0.0.1",
+          "install_name": "RAOfflineProxy.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-RAOfflineProxy-Pak/releases/download/v0.0.1/RAOfflineProxy.mlp1.pak.zip",
+            "name": "RAOfflineProxy.mlp1.pak.zip",
+            "archive": "zip",
+            "size": 109673,
+            "installed_size": 156006,
+            "sha256": "da4131120a414e6cd100555ce709be5faf1ba3f70b148f57b98d0c79b3ad5624"
+          },
+          "versions": [
+            {
+              "version": "0.1.0",
+              "min_leaf_version": "0.10.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-RAOfflineProxy-Pak/releases/download/v0.1.0/RAOfflineProxy.mlp1.pak.zip",
+                "name": "RAOfflineProxy.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 9322048,
+                "installed_size": 28458647,
+                "sha256": "5ee5b7957c3a45f7194e850763daa006e40266cdc4257549efe5c331bec62b6e"
+              }
+            },
+            {
+              "version": "0.0.1",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-RAOfflineProxy-Pak/releases/download/v0.0.1/RAOfflineProxy.mlp1.pak.zip",
+                "name": "RAOfflineProxy.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 109673,
+                "installed_size": 156006,
+                "sha256": "da4131120a414e6cd100555ce709be5faf1ba3f70b148f57b98d0c79b3ad5624"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

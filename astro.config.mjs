@@ -98,6 +98,7 @@ export default defineConfig({
             { label: 'Disco Boy', slug: 'app-store/disco-boy' },
             { label: 'Nimbus', slug: 'app-store/nimbus' },
             { label: 'PortMaster', slug: 'app-store/portmaster' },
+            { label: 'RAOfflineProxy', slug: 'app-store/raofflineproxy' },
             { label: 'SDLReader', slug: 'app-store/sdlreader' },
             { label: 'Syncthing', slug: 'app-store/syncthing', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Video From Hell', slug: 'app-store/video-from-hell' },

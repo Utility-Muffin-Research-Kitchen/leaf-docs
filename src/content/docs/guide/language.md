@@ -19,12 +19,16 @@ Leaf predates the feature.
 ## What changes
 
 Menus, settings, dialogs, button hints, the in-game menu, and system messages are
-translated. **RetroArch follows too**: its own menus switch with Leaf, so you never set
-the language in two places, and switching back to English brings both with it. The
-interface also switches to a font that can draw Chinese, since none of the nine regular
-Leaf fonts carry those characters. That is why the **Font** row
+translated. **RetroArch and PPSSPP follow too**: their own menus switch with Leaf, so
+you never set the language in three places, and switching back to English brings them
+all with it. The interface also switches to a font that can draw Chinese, since none of
+the nine regular Leaf fonts carry those characters. That is why the **Font** row
 in Settings is locked while Chinese is active: your chosen font comes back when you
 switch to English.
+
+If you would rather run PSP games in a different language from the rest of Leaf, set it
+inside PPSSPP's own settings. Leaf notices you have chosen for yourself and stops
+changing it.
 
 ## What stays in English
 
@@ -36,9 +40,11 @@ Some things are kept in English on purpose:
   is how Chinese players write them too. The arcade category is translated (街机).
 - **Product and app names.** Leaf, RetroArch, and the built-in apps keep their names,
   since those are the words you would search for when asking for help.
-- **Standalone emulator menus.** This one is not deliberate, just not done yet. PPSSPP,
-  DraStic, Flycast and the N64 emulator each carry their own interface, and those are
-  still English. Bringing them in line with Leaf is on the list.
+- **Some standalone emulator menus.** PPSSPP now follows Leaf, but the others each
+  carry their own interface and are still English. **DraStic** is only ever offered in
+  Traditional Chinese, which is the one translation it ships, so Leaf leaves it in
+  English rather than switch you to the wrong script. **Flycast** and the **N64
+  emulator** have no Chinese at all. Bringing the rest in line is on the list.
 
 ## Chinese game names
 

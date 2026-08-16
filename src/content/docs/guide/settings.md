@@ -39,7 +39,11 @@ Theme and layout, under **Settings → Appearance**.
 
 ![The Display & Sound settings page: Brightness and Volume sliders, Refresh Rate set to 100 Hz, Black Frame Insertion reading "On (50 fps)", HDMI Output grayed out as Not connected, Audio Output on Speaker, and a Test Sound row](/settings-display.png)
 
-- **Brightness** - screen backlight level.
+- **Brightness** - screen backlight level. If you keep it very low, plugging in the
+  charger nudges the screen up to the dimmest level the hardware will hold while
+  charging, and unplugging puts your own setting straight back. That floor is enforced
+  below Leaf and cannot be turned off, but Leaf keeps the nudge as small as possible
+  rather than letting the screen jump to something much brighter.
 - **Refresh Rate** - display refresh: **60**, **100**, or **120 Hz**. Each one divides
   evenly into a frame rate, which is what keeps motion even: **60** and **120** suit
   60fps (NTSC) games, and **100** suits 50fps (PAL) games. A rate that does not divide

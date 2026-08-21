@@ -196,6 +196,10 @@ family matches; no extra setup is needed. Artwork still lands at
 `Images/<SYSTEM>/<game-name>.png`, including `Images/NAOMI/` for every Naomi
 family.
 
+A Naomi miss can query all three family catalogs, so scraping a large unmatched
+Naomi set can use more of ScreenScraper's daily request allowance than a
+single-catalog system.
+
 ## Options menu
 
 Press **X** on a game or a system in the launcher to open its **Options** menu.

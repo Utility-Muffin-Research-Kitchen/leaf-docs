@@ -158,12 +158,14 @@ is switched off here until it can be wired up safely.
 Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
 **Left / Right** to change a value, **A** to confirm, and **B** to go back or close.
 
-## Dreamcast (standalone Flycast)
+## Dreamcast, Atomiswave, and Naomi (standalone Flycast)
 
-Dreamcast games default to **standalone Flycast** rather than the RetroArch
-Flycast core, because it performs noticeably better on this hardware. Both use
-the same `Roms/DC/` folder; switch between them with **Core** from a game or
-system's **Options** menu.
+Dreamcast, Atomiswave, and Naomi games default to **standalone Flycast** rather
+than the RetroArch Flycast core, because the standalone path performs noticeably
+better on this hardware. Each system keeps its own ROM folder (`Roms/DC/`,
+`Roms/ATOMISWAVE/`, or `Roms/NAOMI/`), while Naomi, Naomi GD-ROM, and Naomi 2 all
+share `Roms/NAOMI/`. Switch emulator with **Core** from a game or system's
+**Options** menu; RetroArch Flycast remains the first compatibility fallback.
 
 Like the other standalone emulators, it runs its own session, so the in-game
 menu, save states, and switcher above don't apply:
@@ -172,7 +174,8 @@ menu, save states, and switcher above don't apply:
   video and controller settings, and exiting all live there.
 - Your VMU memory-card data and Flycast settings survive Leaf updates. VMU data
   and saves are kept under `Saves/Flycast/`, and Flycast's own save states under
-  `States/Flycast/`.
+  `States/Flycast/`. Dreamcast, Atomiswave, and Naomi share these durable
+  locations rather than creating separate emulator copies.
 
 ## PSP (standalone PPSSPP)
 

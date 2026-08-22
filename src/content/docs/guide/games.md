@@ -71,6 +71,8 @@ already have them, but new games and box art should go in the recommended folder
 | `32X` | Sega 32X |
 | `SATURN` | Saturn |
 | `DC` | Dreamcast |
+| `ATOMISWAVE` | Atomiswave |
+| `NAOMI` | Sega Naomi, Naomi GD-ROM, and Naomi 2 |
 
 **NEC**
 
@@ -78,6 +80,7 @@ already have them, but new games and box art should go in the recommended folder
 |---|---|
 | `PCE` | PC Engine / TurboGrafx-16 |
 | `PCECD` | PC Engine CD / TurboGrafx-CD |
+| `PC98` | NEC PC-98 |
 
 **SNK**
 
@@ -118,6 +121,23 @@ Advanced arcade users can also use `Roms/MAME/` for MAME 03+ zipped ROM sets.
 Use that only when your set is built for that core; otherwise put arcade games
 in `Roms/ARCADE/`. The one exception is Neo Geo: FinalBurn Neo runs those too,
 but they belong in `Roms/NEOGEO/` so they get their own system in the launcher.
+
+Naomi, Naomi GD-ROM, and Naomi 2 are one system in Leaf. Put content from all
+three hardware families in `Roms/NAOMI/`; do not create separate GD-ROM or
+Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
+`BIOS/dc/naomi.zip` serves base Naomi and Naomi GD-ROM, while
+`BIOS/dc/naomi2.zip` serves Naomi 2.
+
+### PC-98, Atomiswave, and Naomi formats
+
+- **NEC PC-98** accepts `.d98`, `.98d`, `.fdi`, `.fdd`, `.2hd`, `.tfd`, `.d88`,
+  `.88d`, `.hdm`, `.xdf`, `.dup`, `.cmd`, `.hdi`, `.thd`, `.nhd`, `.hdd`,
+  and `.hdn` images in `Roms/PC98/`. A `.zip` is passed directly to np2kai
+  rather than extracted.
+- **Atomiswave and Naomi** accept `.chd`, `.cdi`, `.gdi`, `.cue`, `.iso`, and
+  `.dat` files. Zipped arcade sets are passed directly to Flycast, and `.m3u`
+  playlists can group related media. Use `Roms/ATOMISWAVE/` and `Roms/NAOMI/`
+  respectively.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
@@ -170,6 +190,17 @@ Systems** plus each system with its missing-art count. Fetched art lands in
 `Images/<SYSTEM>/` exactly as if you had added it by hand, and appears in the list
 as soon as each download finishes. Which image type and region it picks is set
 under **Settings → Game Art** (Artwork Priority and Region Priority).
+
+PC-98, Atomiswave, and the complete Naomi family are supported by live scraping.
+For a Naomi title, Leaf tries the base Naomi catalog first, then Naomi GD-ROM,
+then Naomi 2. It computes the game hash once and stops as soon as the correct
+family matches; no extra setup is needed. Artwork still lands at
+`Images/<SYSTEM>/<game-name>.png`, including `Images/NAOMI/` for every Naomi
+family.
+
+A Naomi miss can query all three family catalogs, so scraping a large unmatched
+Naomi set can use more of ScreenScraper's daily request allowance than a
+single-catalog system.
 
 ## Options menu
 

@@ -173,7 +173,12 @@ menu, save states, and switcher above don't apply:
 - **MENU** - open Flycast's own menu, rotated to match the screen. Save states,
   video and controller settings, and exiting all live there.
 - **SELECT** - insert a coin in Atomiswave and Naomi games.
-- **L1** - Atomiswave arcade button 3, used for grenades in Metal Slug 6.
+- **A, B, L1, X, Y, R1** - arcade buttons 1 through 6 respectively. Metal
+  Slug 6 uses L1 for grenades.
+- **L2 / R2** - Dreamcast left and right analog triggers. Crazy Taxi uses L2
+  for brake/reverse and R2 for acceleration.
+- Dreamcast uses VGA output by default. Flycast automatically falls back to
+  composite for games that do not support VGA.
 - Your VMU memory-card data and Flycast settings survive Leaf updates. VMU data
   and saves are kept under `Saves/Flycast/`, and Flycast's own save states under
   `States/Flycast/`. Dreamcast, Atomiswave, and Naomi share these durable

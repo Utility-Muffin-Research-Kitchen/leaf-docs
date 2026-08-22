@@ -172,9 +172,7 @@ BIOS/
 
 `BIOS/dc/` is the canonical folder for Dreamcast, Atomiswave, base Naomi, Naomi
 GD-ROM, and Naomi 2. Central Scrutinizer's BIOS upload view targets this same
-shared folder. Standalone Flycast also checks the `BIOS/` root after `BIOS/dc/`
-so an older standalone setup can still launch, but new files should go in
-`BIOS/dc/` for both standalone and RetroArch Flycast.
+shared folder. Standalone and RetroArch Flycast both use `BIOS/dc/`.
 
 All firmware and arcade BIOS archives are user-supplied. Leaf does not bundle,
 download, or redistribute them.

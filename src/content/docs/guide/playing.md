@@ -172,6 +172,7 @@ menu, save states, and switcher above don't apply:
 
 - **MENU** - open Flycast's own menu, rotated to match the screen. Save states,
   video and controller settings, and exiting all live there.
+- **SELECT** - insert a coin in Atomiswave and Naomi games.
 - Your VMU memory-card data and Flycast settings survive Leaf updates. VMU data
   and saves are kept under `Saves/Flycast/`, and Flycast's own save states under
   `States/Flycast/`. Dreamcast, Atomiswave, and Naomi share these durable

@@ -62,6 +62,11 @@ usable emulator is installed: np2kai for PC-98, or standalone/RetroArch Flycast
 for the arcade systems. Upload destinations are always the canonical public
 folders: `Roms/PC98/`, `Roms/ATOMISWAVE/`, and `Roms/NAOMI/`.
 
+Dreamcast, Atomiswave, and Naomi share Flycast's canonical `BIOS/dc/` folder.
+Opening **BIOS** on any of those three cards browses that same folder, and BIOS
+uploads through the Library land there. For Naomi 2, upload `naomi2.zip`; base
+Naomi and Naomi GD-ROM use `naomi.zip`.
+
 The accepted formats come from Leaf's installed system catalog, not from a
 separate web-app list. That means PC-98 disk and hard-drive images, ZIP
 pass-through, Atomiswave/Naomi direct images, zipped arcade sets, and `.m3u`

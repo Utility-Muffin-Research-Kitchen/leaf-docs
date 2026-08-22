@@ -124,7 +124,9 @@ but they belong in `Roms/NEOGEO/` so they get their own system in the launcher.
 
 Naomi, Naomi GD-ROM, and Naomi 2 are one system in Leaf. Put content from all
 three hardware families in `Roms/NAOMI/`; do not create separate GD-ROM or
-Naomi 2 folders.
+Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
+`BIOS/dc/naomi.zip` serves base Naomi and Naomi GD-ROM, while
+`BIOS/dc/naomi2.zip` serves Naomi 2.
 
 ### PC-98, Atomiswave, and Naomi formats
 

@@ -130,8 +130,10 @@ Put them in the `BIOS/` folder at the root of the SD card:
 ```text
 BIOS/
   dc/
+    dc_boot.bin
     awbios.zip
     naomi.zip
+    naomi2.zip
   np2kai/
     font.bmp
   neogeo.zip
@@ -159,11 +161,20 @@ BIOS/
   compatibility. Optional YM2608 rhythm samples (`2608_BD.WAV`, `2608_SD.WAV`,
   `2608_TOP.WAV`, `2608_HH.WAV`, `2608_TOM.WAV`, and `2608_RIM.WAV`) belong
   there too. Preserve the filenames expected by np2kai.
+- **Dreamcast** - `BIOS/dc/dc_boot.bin` is optional but recommended for the real
+  Dreamcast boot firmware. Current Flycast creates and maintains its own writable
+  NVRAM, so `dc_flash.bin` is not required.
 - **Atomiswave and Naomi** - put Flycast's arcade BIOS archives in `BIOS/dc/`.
-  Atomiswave uses `awbios.zip`; Naomi-family software uses `naomi.zip` plus any
-  applicable game-specific archive required by that legal ROM set. Leaf checks
-  `BIOS/dc/` first, then the `BIOS/` root so older standalone Flycast setups keep
-  working. The same search order is used for Dreamcast firmware.
+  Atomiswave uses `awbios.zip`. Base Naomi and Naomi GD-ROM use `naomi.zip`;
+  Naomi 2 uses the separate `naomi2.zip`. A few games also need the corresponding
+  game-specific archive, such as `airlbios.zip`, `f355bios.zip`, `f355dlx.zip`,
+  or `hod2bios.zip`.
+
+`BIOS/dc/` is the canonical folder for Dreamcast, Atomiswave, base Naomi, Naomi
+GD-ROM, and Naomi 2. Central Scrutinizer's BIOS upload view targets this same
+shared folder. Standalone Flycast also checks the `BIOS/` root after `BIOS/dc/`
+so an older standalone setup can still launch, but new files should go in
+`BIOS/dc/` for both standalone and RetroArch Flycast.
 
 All firmware and arcade BIOS archives are user-supplied. Leaf does not bundle,
 download, or redistribute them.

@@ -177,7 +177,9 @@ These are the accepted game-file formats per folder:
 
 Keep zipped Atomiswave and Naomi arcade sets under their MAME/Flycast shortnames,
 such as `mslug6.zip` or `mvsc2.zip`; renaming the files can prevent Flycast from
-identifying them. Leaf automatically shows the friendly game title in Jawaka,
+identifying them. If a Sega arcade title requires a specific subfolder, that subfolder
+must also be present and retain the expected shortname/layout.
+Leaf automatically shows the friendly game title in Jawaka,
 so `mslug6.zip` appears as **Metal Slug 6** without changing the file on disk.
 Naomi GD-ROM CHDs similarly keep media names such as `gds-0006.chd`, which Leaf
 displays as **Virtua Striker 3**.

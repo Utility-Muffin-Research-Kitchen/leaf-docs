@@ -62,6 +62,8 @@ usable emulator is installed: np2kai for PC-98, or standalone/RetroArch Flycast
 for the arcade systems. Upload destinations are always the canonical public
 folders: `Roms/PC98/`, `Roms/ATOMISWAVE/`, and `Roms/NAOMI/`.
 
+PC-98 BIOS uploads through its Library card land in `BIOS/np2kai/`, where the
+np2kai core expects `font.bmp` or `FONT.ROM` and its optional firmware files.
 Dreamcast, Atomiswave, and Naomi share Flycast's canonical `BIOS/dc/` folder.
 Opening **BIOS** on any of those three cards browses that same folder, and BIOS
 uploads through the Library land there. For Naomi 2, upload `naomi2.zip`; base

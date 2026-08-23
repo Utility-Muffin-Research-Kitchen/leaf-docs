@@ -128,16 +128,52 @@ Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
 `BIOS/dc/naomi.zip` serves base Naomi and Naomi GD-ROM, while
 `BIOS/dc/naomi2.zip` serves Naomi 2.
 
-### PC-98, Atomiswave, and Naomi formats
+### Supported game formats
 
-- **NEC PC-98** accepts `.d98`, `.98d`, `.fdi`, `.fdd`, `.2hd`, `.tfd`, `.d88`,
-  `.88d`, `.hdm`, `.xdf`, `.dup`, `.cmd`, `.hdi`, `.thd`, `.nhd`, `.hdd`,
-  and `.hdn` images in `Roms/PC98/`. A `.zip` is passed directly to np2kai
-  rather than extracted.
-- **Atomiswave and Naomi** accept `.chd`, `.cdi`, `.gdi`, `.cue`, `.iso`, and
-  `.dat` files. Zipped arcade sets are passed directly to Flycast, and `.m3u`
-  playlists can group related media. Use `Roms/ATOMISWAVE/` and `Roms/NAOMI/`
-  respectively.
+These are the accepted game-file formats per folder:
+
+| Folder | Supported formats | Notes |
+|---|---|---|
+| `NES` | `.fds`, `.nes`, `.unf`, `.unif`, `.7z`, `.zip` |  |
+| `FDS` | `.fds`, `.nes`, `.7z`, `.zip` |  |
+| `SNES` | `.bs`, `.bsx`, `.dx2`, `.fig`, `.gd3`, `.gd7`, `.sfc`, `.smc`, `.st`, `.swc`, `.7z`, `.zip` |  |
+| `N64` | `.n64`, `.v64`, `.z64`, `.7z`, `.zip` |  |
+| `GB` | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
+| `GBC` | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
+| `GBA` | `.bin`, `.gba`, `.7z`, `.zip` |  |
+| `NDS` | `.nds`, `.7z`, `.zip` |  |
+| `VB` | `.vb`, `.vboy`, `.7z`, `.zip` |  |
+| `GW` | `.mgw`, `.7z`, `.zip` |  |
+| `MS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `GG` | `.bin`, `.gg`, `.7z`, `.zip` |  |
+| `GENESIS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `SEGACD` | `.chd`, `.cue`, `.iso`, `.7z`, `.zip`, `.m3u` |  |
+| `32X` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `SATURN` | `.ccd`, `.chd`, `.cue`, `.iso`, `.mds`, `.zip`, `.m3u` |  |
+| `DC` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.m3u` | `.zip` is not accepted directly |
+| `ATOMISWAVE` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
+| `NAOMI` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
+| `PCE` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.pce`, `.7z`, `.zip` |  |
+| `PCECD` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.m3u` | `.zip` is not accepted directly |
+| `PC98` | `.2hd`, `.88d`, `.98d`, `.cmd`, `.d88`, `.d98`, `.dup`, `.fdd`, `.fdi`, `.hdd`, `.hdi`, `.hdm`, `.hdn`, `.nhd`, `.tfd`, `.thd`, `.xdf`, `.zip` |  |
+| `NEOGEO` | `.7z`, `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
+| `NGP` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
+| `NGPC` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
+| `PSX` | `.cbn`, `.chd`, `.cue`, `.img`, `.iso`, `.mdf`, `.pbp`, `.toc`, `.m3u` | `.zip` is not accepted directly |
+| `PSP` | `.chd`, `.cso`, `.iso`, `.pbp` | `.zip` is not accepted directly |
+| `ATARI2600` | `.a26`, `.bin`, `.7z`, `.zip` |  |
+| `A7800` | `.a78`, `.bin`, `.7z`, `.zip` |  |
+| `LYNX` | `.lnx`, `.zip` |  |
+| `WS` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
+| `WSC` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
+| `COLECO` | `.bin`, `.col`, `.rom`, `.7z`, `.zip` |  |
+| `VECTREX` | `.bin`, `.vec`, `.7z`, `.zip` |  |
+| `PICO8` | `.p8`, `.png` |  |
+| `DOS` | `.bat`, `.com`, `.conf`, `.dosz`, `.exe`, `.ima`, `.img`, `.ins`, `.iso`, `.jrc`, `.tc`, `.vhd`, `.zip`, `.m3u`, `.m3u8` |  |
+| `EASYRPG` | `.easyrpg`, `.ldb`, `.zip` | `RPG_RT.ldb` is the expected project entry file |
+| `ARCADE` | `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
+| `PORTS` | `.sh` |  |
+| `MAME` | `.zip` | Optional advanced folder for MAME 03+ sets |
 
 Keep zipped Atomiswave and Naomi arcade sets under their MAME/Flycast shortnames,
 such as `mslug6.zip` or `mvsc2.zip`; renaming the files can prevent Flycast from

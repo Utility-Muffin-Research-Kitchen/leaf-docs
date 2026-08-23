@@ -139,6 +139,11 @@ Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
   playlists can group related media. Use `Roms/ATOMISWAVE/` and `Roms/NAOMI/`
   respectively.
 
+Keep zipped Atomiswave and Naomi arcade sets under their MAME/Flycast shortnames,
+such as `mslug6.zip` or `mvsc2.zip`; renaming the files can prevent Flycast from
+identifying them. Leaf automatically shows the friendly game title in Jawaka,
+so `mslug6.zip` appears as **Metal Slug 6** without changing the file on disk.
+
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
 see [BIOS & cores](/guide/bios-and-cores/).

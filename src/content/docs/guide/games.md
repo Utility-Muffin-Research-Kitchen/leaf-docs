@@ -143,6 +143,8 @@ Keep zipped Atomiswave and Naomi arcade sets under their MAME/Flycast shortnames
 such as `mslug6.zip` or `mvsc2.zip`; renaming the files can prevent Flycast from
 identifying them. Leaf automatically shows the friendly game title in Jawaka,
 so `mslug6.zip` appears as **Metal Slug 6** without changing the file on disk.
+Naomi GD-ROM CHDs similarly keep media names such as `gds-0006.chd`, which Leaf
+displays as **Virtua Striker 3**.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;

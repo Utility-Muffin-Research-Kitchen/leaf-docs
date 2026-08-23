@@ -158,6 +158,25 @@ is switched off here until it can be wired up safely.
 Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
 **Left / Right** to change a value, **A** to confirm, and **B** to go back or close.
 
+## NEC PC-98 (Neko Project II kai)
+
+PC-98 games run through the Neko Project II kai RetroArch core. Leaf enables
+the core's **Arrows** joypad mode by default so games that ask you to press a
+key work from the handheld without a keyboard:
+
+- **D-pad** - keyboard arrow keys.
+- **A / B** - keyboard **X / Z**.
+- **X / Y** - keyboard **Space / Left Ctrl**.
+- **L1 / R1** - keyboard **Backspace / Right Shift**.
+- **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
+  typical “press any key” prompt.
+
+For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
+Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
+**Mouse**. In that mode the D-pad moves the pointer, **B** left-clicks, and
+**A** right-clicks. Switch it back to **Arrows** for keyboard-driven games.
+Multi-disk software can be changed from RetroArch's **Disc Control** menu.
+
 ## Dreamcast, Atomiswave, and Naomi (standalone Flycast)
 
 Dreamcast, Atomiswave, and Naomi games default to **standalone Flycast** rather

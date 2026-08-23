@@ -155,7 +155,7 @@ These are the accepted game-file formats per folder:
 | `NAOMI` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
 | `PCE` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.pce`, `.7z`, `.zip` |  |
 | `PCECD` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.m3u` | `.zip` is not accepted directly |
-| `PC98` | `.2hd`, `.88d`, `.98d`, `.cmd`, `.d88`, `.d98`, `.dup`, `.fdd`, `.fdi`, `.hdd`, `.hdi`, `.hdm`, `.hdn`, `.nhd`, `.tfd`, `.thd`, `.xdf`, `.zip` |  |
+| `PC98` | `.2hd`, `.88d`, `.98d`, `.cmd`, `.d88`, `.d98`, `.dup`, `.fdd`, `.fdi`, `.hdd`, `.hdi`, `.hdm`, `.hdn`, `.nhd`, `.tfd`, `.thd`, `.xdf`, `.zip` | Use `.cmd` when multiple images must be mounted together |
 | `NEOGEO` | `.7z`, `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
 | `NGP` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
 | `NGPC` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
@@ -183,6 +183,30 @@ Leaf automatically shows the friendly game title in Jawaka,
 so `mslug6.zip` appears as **Metal Slug 6** without changing the file on disk.
 Naomi GD-ROM CHDs similarly keep media names such as `gds-0006.chd`, which Leaf
 displays as **Virtua Striker 3**.
+
+### PC-98 games that need multiple disks at startup
+
+Some PC-98 software expects Disk A in the first floppy drive and Disk B in the
+second drive immediately at startup. Launching Disk A by itself can produce a
+**Not ready** message. Keep the images together and add a UTF-8 `.cmd` file in
+the same folder, for example:
+
+```text
+Dragon Knight 4 Special Disk.cmd
+Dragon Knight 4 Special Disk (Disk 1 of 2)(Disk A).fdd
+Dragon Knight 4 Special Disk (Disk 2 of 2)(Disk B).fdd
+```
+
+The `.cmd` file contains one line. Quote every filename that contains spaces:
+
+```text
+np2kai "Dragon Knight 4 Special Disk (Disk 1 of 2)(Disk A).fdd" "Dragon Knight 4 Special Disk (Disk 2 of 2)(Disk B).fdd"
+```
+
+The first floppy image is mounted in FDD1 and the second in FDD2. Launch the
+`.cmd` entry from Jawaka; Jawaka hides the disk files referenced by that command
+so the game appears only once. Unreferenced images remain visible as normal.
+Use RetroArch's **Disc Control** later if the software asks for another disk.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;

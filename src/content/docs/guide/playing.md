@@ -175,7 +175,9 @@ For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → C
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
 **Mouse**. In that mode the D-pad moves the pointer, **B** left-clicks, and
 **A** right-clicks. Switch it back to **Arrows** for keyboard-driven games.
-Multi-disk software can be changed from RetroArch's **Disc Control** menu.
+For software that needs two floppy drives populated at startup, use a
+[PC-98 `.cmd` launch file](/guide/games/#pc-98-games-that-need-multiple-disks-at-startup).
+Later disk changes can be made from RetroArch's **Disc Control** menu.
 
 ## Dreamcast, Atomiswave, and Naomi (standalone Flycast)
 

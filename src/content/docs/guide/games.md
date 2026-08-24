@@ -71,6 +71,8 @@ already have them, but new games and box art should go in the recommended folder
 | `32X` | Sega 32X |
 | `SATURN` | Saturn |
 | `DC` | Dreamcast |
+| `ATOMISWAVE` | Atomiswave |
+| `NAOMI` | Sega Naomi, Naomi GD-ROM, and Naomi 2 |
 
 **NEC**
 
@@ -78,6 +80,7 @@ already have them, but new games and box art should go in the recommended folder
 |---|---|
 | `PCE` | PC Engine / TurboGrafx-16 |
 | `PCECD` | PC Engine CD / TurboGrafx-CD |
+| `PC98` | NEC PC-98 |
 
 **SNK**
 
@@ -118,6 +121,92 @@ Advanced arcade users can also use `Roms/MAME/` for MAME 03+ zipped ROM sets.
 Use that only when your set is built for that core; otherwise put arcade games
 in `Roms/ARCADE/`. The one exception is Neo Geo: FinalBurn Neo runs those too,
 but they belong in `Roms/NEOGEO/` so they get their own system in the launcher.
+
+Naomi, Naomi GD-ROM, and Naomi 2 are one system in Leaf. Put content from all
+three hardware families in `Roms/NAOMI/`; do not create separate GD-ROM or
+Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
+`BIOS/dc/naomi.zip` serves base Naomi and Naomi GD-ROM, while
+`BIOS/dc/naomi2.zip` serves Naomi 2.
+
+### Supported game formats
+
+These are the accepted game-file formats per folder:
+
+| Folder | Supported formats | Notes |
+|---|---|---|
+| `NES` | `.fds`, `.nes`, `.unf`, `.unif`, `.7z`, `.zip` |  |
+| `FDS` | `.fds`, `.nes`, `.7z`, `.zip` |  |
+| `SNES` | `.bs`, `.bsx`, `.dx2`, `.fig`, `.gd3`, `.gd7`, `.sfc`, `.smc`, `.st`, `.swc`, `.7z`, `.zip` |  |
+| `N64` | `.n64`, `.v64`, `.z64`, `.7z`, `.zip` |  |
+| `GB` | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
+| `GBC` | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
+| `GBA` | `.bin`, `.gba`, `.7z`, `.zip` |  |
+| `NDS` | `.nds`, `.7z`, `.zip` |  |
+| `VB` | `.vb`, `.vboy`, `.7z`, `.zip` |  |
+| `GW` | `.mgw`, `.7z`, `.zip` |  |
+| `MS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `GG` | `.bin`, `.gg`, `.7z`, `.zip` |  |
+| `GENESIS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `SEGACD` | `.chd`, `.cue`, `.iso`, `.7z`, `.zip`, `.m3u` |  |
+| `32X` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `SATURN` | `.ccd`, `.chd`, `.cue`, `.iso`, `.mds`, `.zip`, `.m3u` |  |
+| `DC` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.m3u` | `.zip` is not accepted directly |
+| `ATOMISWAVE` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
+| `NAOMI` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
+| `PCE` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.pce`, `.7z`, `.zip` |  |
+| `PCECD` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.m3u` | `.zip` is not accepted directly |
+| `PC98` | `.2hd`, `.88d`, `.98d`, `.cmd`, `.d88`, `.d98`, `.dup`, `.fdd`, `.fdi`, `.hdd`, `.hdi`, `.hdm`, `.hdn`, `.nhd`, `.tfd`, `.thd`, `.xdf`, `.zip` | Use `.cmd` when multiple images must be mounted together |
+| `NEOGEO` | `.7z`, `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
+| `NGP` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
+| `NGPC` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
+| `PSX` | `.cbn`, `.chd`, `.cue`, `.img`, `.iso`, `.mdf`, `.pbp`, `.toc`, `.m3u` | `.zip` is not accepted directly |
+| `PSP` | `.chd`, `.cso`, `.iso`, `.pbp` | `.zip` is not accepted directly |
+| `ATARI2600` | `.a26`, `.bin`, `.7z`, `.zip` |  |
+| `A7800` | `.a78`, `.bin`, `.7z`, `.zip` |  |
+| `LYNX` | `.lnx`, `.zip` |  |
+| `WS` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
+| `WSC` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
+| `COLECO` | `.bin`, `.col`, `.rom`, `.7z`, `.zip` |  |
+| `VECTREX` | `.bin`, `.vec`, `.7z`, `.zip` |  |
+| `PICO8` | `.p8`, `.png` |  |
+| `DOS` | `.bat`, `.com`, `.conf`, `.dosz`, `.exe`, `.ima`, `.img`, `.ins`, `.iso`, `.jrc`, `.tc`, `.vhd`, `.zip`, `.m3u`, `.m3u8` |  |
+| `EASYRPG` | `.easyrpg`, `.ldb`, `.zip` | `RPG_RT.ldb` is the expected project entry file |
+| `ARCADE` | `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
+| `PORTS` | `.sh` |  |
+| `MAME` | `.zip` | Optional advanced folder for MAME 03+ sets |
+
+Keep zipped Atomiswave and Naomi arcade sets under their MAME/Flycast shortnames,
+such as `mslug6.zip` or `mvsc2.zip`; renaming the files can prevent Flycast from
+identifying them. If a Sega arcade title requires a specific subfolder, that subfolder
+must also be present and retain the expected shortname/layout.
+Leaf automatically shows the friendly game title in Jawaka,
+so `mslug6.zip` appears as **Metal Slug 6** without changing the file on disk.
+Naomi GD-ROM CHDs similarly keep media names such as `gds-0006.chd`, which Leaf
+displays as **Virtua Striker 3**.
+
+### PC-98 games that need multiple disks at startup
+
+Some PC-98 software expects Disk A in the first floppy drive and Disk B in the
+second drive immediately at startup. Launching Disk A by itself can produce a
+**Not ready** message. Keep the images together and add a UTF-8 `.cmd` file in
+the same folder, for example:
+
+```text
+Dragon Knight 4 Special Disk.cmd
+Dragon Knight 4 Special Disk (Disk 1 of 2)(Disk A).fdd
+Dragon Knight 4 Special Disk (Disk 2 of 2)(Disk B).fdd
+```
+
+The `.cmd` file contains one line. Quote every filename that contains spaces:
+
+```text
+np2kai "Dragon Knight 4 Special Disk (Disk 1 of 2)(Disk A).fdd" "Dragon Knight 4 Special Disk (Disk 2 of 2)(Disk B).fdd"
+```
+
+The first floppy image is mounted in FDD1 and the second in FDD2. Launch the
+`.cmd` entry from Jawaka; Jawaka hides the disk files referenced by that command
+so the game appears only once. Unreferenced images remain visible as normal.
+Use RetroArch's **Disc Control** later if the software asks for another disk.
 
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
@@ -170,6 +259,17 @@ Systems** plus each system with its missing-art count. Fetched art lands in
 `Images/<SYSTEM>/` exactly as if you had added it by hand, and appears in the list
 as soon as each download finishes. Which image type and region it picks is set
 under **Settings → Game Art** (Artwork Priority and Region Priority).
+
+PC-98, Atomiswave, and the complete Naomi family are supported by live scraping.
+For a Naomi title, Leaf tries the base Naomi catalog first, then Naomi GD-ROM,
+then Naomi 2. It computes the game hash once and stops as soon as the correct
+family matches; no extra setup is needed. Artwork still lands at
+`Images/<SYSTEM>/<game-name>.png`, including `Images/NAOMI/` for every Naomi
+family.
+
+A Naomi miss can query all three family catalogs, so scraping a large unmatched
+Naomi set can use more of ScreenScraper's daily request allowance than a
+single-catalog system.
 
 ## Options menu
 

@@ -158,21 +158,52 @@ is switched off here until it can be wired up safely.
 Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
 **Left / Right** to change a value, **A** to confirm, and **B** to go back or close.
 
-## Dreamcast (standalone Flycast)
+## NEC PC-98 (Neko Project II kai)
 
-Dreamcast games default to **standalone Flycast** rather than the RetroArch
-Flycast core, because it performs noticeably better on this hardware. Both use
-the same `Roms/DC/` folder; switch between them with **Core** from a game or
-system's **Options** menu.
+PC-98 games run through the Neko Project II kai RetroArch core. Leaf enables
+the core's **Arrows** joypad mode by default so games that ask you to press a
+key work from the handheld without a keyboard:
+
+- **D-pad** - keyboard arrow keys.
+- **A / B** - keyboard **X / Z**.
+- **X / Y** - keyboard **Space / Left Ctrl**.
+- **L1 / R1** - keyboard **Backspace / Right Shift**.
+- **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
+  typical “press any key” prompt.
+
+For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
+Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
+**Mouse**. In that mode the D-pad moves the pointer, **B** left-clicks, and
+**A** right-clicks. Switch it back to **Arrows** for keyboard-driven games.
+For software that needs two floppy drives populated at startup, use a
+[PC-98 `.cmd` launch file](/guide/games/#pc-98-games-that-need-multiple-disks-at-startup).
+Later disk changes can be made from RetroArch's **Disc Control** menu.
+
+## Dreamcast, Atomiswave, and Naomi (standalone Flycast)
+
+Dreamcast, Atomiswave, and Naomi games default to **standalone Flycast** rather
+than the RetroArch Flycast core, because the standalone path performs noticeably
+better on this hardware. Each system keeps its own ROM folder (`Roms/DC/`,
+`Roms/ATOMISWAVE/`, or `Roms/NAOMI/`), while Naomi, Naomi GD-ROM, and Naomi 2 all
+share `Roms/NAOMI/`. Switch emulator with **Core** from a game or system's
+**Options** menu; RetroArch Flycast remains the first compatibility fallback.
 
 Like the other standalone emulators, it runs its own session, so the in-game
 menu, save states, and switcher above don't apply:
 
 - **MENU** - open Flycast's own menu, rotated to match the screen. Save states,
   video and controller settings, and exiting all live there.
+- **SELECT** - insert a coin in Atomiswave and Naomi games.
+- **A, B, L1, X, Y, R1** - arcade buttons 1 through 6 respectively. Metal
+  Slug 6 uses L1 for grenades.
+- **L2 / R2** - Dreamcast left and right analog triggers. Crazy Taxi uses L2
+  for brake/reverse and R2 for acceleration.
+- Dreamcast uses VGA output by default. Flycast automatically falls back to
+  composite for games that do not support VGA.
 - Your VMU memory-card data and Flycast settings survive Leaf updates. VMU data
   and saves are kept under `Saves/Flycast/`, and Flycast's own save states under
-  `States/Flycast/`.
+  `States/Flycast/`. Dreamcast, Atomiswave, and Naomi share these durable
+  locations rather than creating separate emulator copies.
 
 ## PSP (standalone PPSSPP)
 

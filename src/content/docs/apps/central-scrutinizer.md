@@ -56,4 +56,23 @@ format list includes `.zip`. For systems that do not (mostly disc based ones), u
 only files a rescan can turn into real games get copied to the card, so it stays
 tidy.
 
+Central Scrutinizer includes cards for **NEC PC-98** in the NEC group and
+**Atomiswave** and **Sega Naomi** in the Arcade group. They appear only when a
+usable emulator is installed: np2kai for PC-98, or standalone/RetroArch Flycast
+for the arcade systems. Upload destinations are always the canonical public
+folders: `Roms/PC98/`, `Roms/ATOMISWAVE/`, and `Roms/NAOMI/`.
+
+PC-98 BIOS uploads through its Library card land in `BIOS/np2kai/`, where the
+np2kai core expects `font.bmp` or `FONT.ROM` and its optional firmware files.
+Dreamcast, Atomiswave, and Naomi share Flycast's canonical `BIOS/dc/` folder.
+Opening **BIOS** on any of those three cards browses that same folder, and BIOS
+uploads through the Library land there. For Naomi 2, upload `naomi2.zip`; base
+Naomi and Naomi GD-ROM use `naomi.zip`.
+
+The accepted formats come from Leaf's installed system catalog, not from a
+separate web-app list. That means PC-98 disk and hard-drive images, ZIP
+pass-through, Atomiswave/Naomi direct images, zipped arcade sets, and `.m3u`
+playlists follow the same rules in the launcher and browser. An unsupported
+extension is rejected before Central Scrutinizer writes any part of the file.
+
 Central Scrutinizer is open source (MIT).

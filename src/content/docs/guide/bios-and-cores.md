@@ -45,14 +45,18 @@ Under the hood:
   as an alternate core, but standalone is the default because it gives Leaf more
   direct control over the video plugins, performance settings, save-and-quit
   handoff, and MLP1 display quirks.
-- **Standalone Flycast** runs Dreamcast games from `Roms/DC/`. The RetroArch
-  Flycast core is still available as an alternate core, but standalone is the
-  default because it performs noticeably better on this hardware. Like the other
+- **Standalone Flycast** runs Dreamcast, Atomiswave, and Naomi games from
+  `Roms/DC/`, `Roms/ATOMISWAVE/`, and `Roms/NAOMI/`. It is the default for all
+  three systems; the RetroArch Flycast core remains an alternate, followed by
+  KM Flycast Xtreme when that optional core is installed. Like the other
   standalone emulators it runs its own session: the Menu button opens Flycast's
   native menu, correctly oriented for the portrait-mounted screen, and the
-  RetroArch in-game menu doesn't apply. VMU data and your Flycast settings are
-  kept across Leaf updates - see
-  [Dreamcast controls](/guide/playing/#dreamcast-standalone-flycast).
+  RetroArch in-game menu doesn't apply. VMU data, save states, and settings use
+  the same durable Flycast locations for all three systems and survive Leaf
+  updates - see [Flycast controls](/guide/playing/#dreamcast-atomiswave-and-naomi-standalone-flycast).
+- **Neko Project II kai** runs NEC PC-98 software from `Roms/PC98/` through
+  RetroArch. It supports disk control for multi-disk software and uses firmware
+  from `BIOS/np2kai/` when supplied.
 
 Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than
@@ -125,6 +129,13 @@ Put them in the `BIOS/` folder at the root of the SD card:
 
 ```text
 BIOS/
+  dc/
+    dc_boot.bin
+    awbios.zip
+    naomi.zip
+    naomi2.zip
+  np2kai/
+    font.bmp
   neogeo.zip
   ...
 ```
@@ -144,6 +155,27 @@ BIOS/
   Saturn games appear in the launcher but won't launch.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
+- **NEC PC-98** - put np2kai firmware in `BIOS/np2kai/`. Provide either
+  `font.bmp` or `FONT.ROM` for text rendering. Optional firmware dumps such as
+  `bios.rom`, `itf.rom`, and `sound.rom` go in the same folder and can improve
+  compatibility. Optional YM2608 rhythm samples (`2608_BD.WAV`, `2608_SD.WAV`,
+  `2608_TOP.WAV`, `2608_HH.WAV`, `2608_TOM.WAV`, and `2608_RIM.WAV`) belong
+  there too. Preserve the filenames expected by np2kai.
+- **Dreamcast** - `BIOS/dc/dc_boot.bin` is optional but recommended for the real
+  Dreamcast boot firmware. Current Flycast creates and maintains its own writable
+  NVRAM, so `dc_flash.bin` is not required.
+- **Atomiswave and Naomi** - put Flycast's arcade BIOS archives in `BIOS/dc/`.
+  Atomiswave uses `awbios.zip`. Base Naomi and Naomi GD-ROM use `naomi.zip`;
+  Naomi 2 uses the separate `naomi2.zip`. A few games also need the corresponding
+  game-specific archive, such as `airlbios.zip`, `f355bios.zip`, `f355dlx.zip`,
+  or `hod2bios.zip`.
+
+`BIOS/dc/` is the canonical folder for Dreamcast, Atomiswave, base Naomi, Naomi
+GD-ROM, and Naomi 2. Central Scrutinizer's BIOS upload view targets this same
+shared folder. Standalone and RetroArch Flycast both use `BIOS/dc/`.
+
+All firmware and arcade BIOS archives are user-supplied. Leaf does not bundle,
+download, or redistribute them.
 
 Handheld systems like Neo Geo Pocket / Color need no BIOS; plain ROMs
 just work.

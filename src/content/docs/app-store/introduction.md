@@ -21,16 +21,15 @@ This section is new and will grow over time.
 - **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.
 - **[PortMaster](/app-store/portmaster/)** - an unofficial PortMaster integration
   for installing compatible native game ports.
+- **[RAOfflineProxy](/app-store/raofflineproxy/)** - earn casual
+  RetroAchievements offline and send them when you reconnect.
 - **[SDLReader](/app-store/sdlreader/)** - a reader for PDFs, comics, ebooks,
   and text.
-- **[Video From Hell](/app-store/video-from-hell/)** - a local video player for
-  films on your SD cards and your recorded gameplay.
-
-## Coming soon
-
 - **[Syncthing](/app-store/syncthing/)** - keep game saves and optional save
   states in sync with other Leaf handhelds, computers, servers, NAS devices,
   and Android handhelds.
+- **[Video From Hell](/app-store/video-from-hell/)** - a local video player for
+  films on your SD cards and your recorded gameplay.
 
 ## Installing an app
 

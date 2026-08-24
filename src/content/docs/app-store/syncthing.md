@@ -58,8 +58,8 @@ copies.
 
 ## Install and start Syncthing
 
-When Syncthing ships, install it with **Menu → Actions → Pak Rat**. It will appear
-in the **Apps** tab.
+Install Syncthing with **Menu → Actions → Pak Rat**. It will appear in the
+**Apps** tab.
 
 Opening the app does not start the service by itself. If the main screen says
 **Stopped**, that is a normal state:

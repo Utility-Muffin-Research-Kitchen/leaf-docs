@@ -178,6 +178,8 @@ BIOS/
 
   | Hardware | PUAE filename | Amiga Forever filename |
   |---|---|---|
+  | A1000 Kickstart 1.1 NTSC | `kick31034.A1000` | `amiga-os-110-ntsc.rom` |
+  | A1000 Kickstart 1.1 PAL | `kick32034.A1000` | `amiga-os-110-pal.rom` |
   | A500 Kickstart 1.2 | `kick33180.A500` | `amiga-os-120.rom` |
   | A500 Kickstart 1.3 | `kick34005.A500` | `amiga-os-130.rom` |
   | A600 Kickstart 2.05 | `kick37350.A600` | `amiga-os-205-a600.rom` |
@@ -189,6 +191,7 @@ BIOS/
   | CDTV extended ROM | `kick34005.CDTV` | `amiga-os-130-cdtv-ext.rom` |
   | CD32 Kickstart | `kick40060.CD32` | `amiga-os-310-cd32.rom` |
   | CD32 extended ROM | `kick40060.CD32.ext` | `amiga-os-310-cd32-ext.rom` |
+  | CD32 combined Kickstart + extended ROM | `kick40060.CD32` | — |
 
   A500/OCS games normally use Kickstart 1.3, while A1200/AGA content normally
   uses Kickstart 3.1. CDTV needs its extended ROM plus an applicable base

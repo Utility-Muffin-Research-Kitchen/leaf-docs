@@ -179,6 +179,29 @@ For software that needs two floppy drives populated at startup, use a
 [PC-98 `.cmd` launch file](/guide/games/#pc-98-games-that-need-multiple-disks-at-startup).
 Later disk changes can be made from RetroArch's **Disc Control** menu.
 
+## Amiga (PUAE)
+
+Amiga games run through PUAE in RetroArch. The default handheld controls are:
+
+- **D-pad** - joystick; **B / A** - fire buttons 1 / 2.
+- **Left or right analog stick** - mouse; **L2 / R2** - left / right mouse button.
+- **X** - Space.
+- **SELECT** (short press) - toggle PUAE's virtual keyboard. In the keyboard,
+  use the D-pad to move, **B** to press a key, **A** for transparency, **X** for
+  Space, and **START** for Return.
+
+Some Amiga games expect a mouse instead of a joystick. Open the virtual keyboard
+and choose **J/M**, or change **Quick Menu → Core Options → RetroPad
+Joystick/Mouse**. Multi-disk games use **MENU → RetroArch Settings → Quick Menu
+→ Disc Control** to eject, choose the next disk, and insert it.
+
+PUAE saves normal game data under Leaf's `Saves/` tree and states under
+`States/`. CDTV/CD32 NVRAM, WHDLoad helper/save images, generated save disks,
+and core configuration are durable user data and survive Leaf updates. Writes
+made inside a ZIP are the exception: PUAE does not repack the temporary archive,
+so follow the persistence advice in
+[Adding games](/guide/games/#amiga-games-archives-and-multiple-disks).
+
 ## Dreamcast, Atomiswave, and Naomi (standalone Flycast)
 
 Dreamcast, Atomiswave, and Naomi games default to **standalone Flycast** rather

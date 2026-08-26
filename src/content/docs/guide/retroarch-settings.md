@@ -20,9 +20,12 @@ the RetroArch app tile. It lives on your primary SD card at:
 .umrk/mlp1/retroarch/retroarch.cfg
 ```
 
-Change the aspect ratio while playing a Mega Drive game and the next Game Boy
-game starts with the same aspect ratio. There is one set of RetroArch settings
-on the device, not one per system or per core.
+Turn on rewind while playing a Mega Drive game and the next Game Boy game
+starts with rewind on. There is one set of RetroArch settings on the device,
+not one per system or per core.
+
+(Aspect ratio and a few others behave differently — see
+[Settings Leaf owns](#settings-leaf-owns) below.)
 
 ### The per-launch working copy
 
@@ -60,11 +63,16 @@ cut — holding the power button until the device dies, or pulling a dead
 battery — stops the device before anything in memory reaches the card. Settings
 changed in that session may be lost, and that is true of any device.
 
-Leaf's own **Power off** and **Restart** are different: they ask RetroArch to
-quit, wait for it to save, and copy the config back before the device goes down.
+Leaf's own **Power off** and **Restart** handle the **RetroArch app tile**
+properly: they ask RetroArch to quit, wait for it to save, and copy the config
+back before the device goes down. If Leaf cannot write the settings back it says
+so on screen, and the previous configuration is left intact either way.
 
-If Leaf cannot write your settings back, it says so on screen rather than losing
-them quietly, and the previous configuration is left intact.
+**A running game is different.** Powering off or restarting with a game open
+stops it quickly and does not wait for RetroArch to save, so settings you
+changed during that session can be lost. Leave a game with **MENU → Save &
+Quit** first. Your game saves and save states are not affected by this — only
+RetroArch's own settings.
 
 ## Settings Leaf owns
 
@@ -122,9 +130,10 @@ hand if you need them.
 **Settings → System → Reset RetroArch Config** replaces the shared config with
 Leaf's packaged defaults.
 
-This erases every RetroArch setting you have changed: shader choices, rewind,
-overlays, per-core options, and input remaps. Your games, saves, and save states
-are untouched. It is the right move when RetroArch is misbehaving and you would
+This erases the settings kept in that file — shader choices, rewind, overlays,
+and the rest of RetroArch's own menus. Per-core options and input remaps are
+stored in separate files and are **not** erased; delete those by hand if you
+need to. Your games, saves, and save states are untouched. It is the right move when RetroArch is misbehaving and you would
 rather start clean than hunt for the setting that did it — see
 [Troubleshooting](/guide/troubleshooting/).
 

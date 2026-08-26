@@ -24,8 +24,8 @@ Turn on rewind while playing a Mega Drive game and the next Game Boy game
 starts with rewind on. There is one set of RetroArch settings on the device,
 not one per system or per core.
 
-(Aspect ratio and a few others behave differently — see
-[Settings Leaf owns](#settings-leaf-owns) below.)
+Aspect ratio and a few others are exceptions. See
+[Settings Leaf owns](#settings-leaf-owns) below.
 
 ### The per-launch working copy
 
@@ -41,13 +41,13 @@ exits, Leaf copies your changes back into the shared config above and deletes
 the working copy.
 
 **A new number in that filename on every launch is normal.** It is not a sign
-that anything failed to save — the file is meant to be temporary, and the number
-is just the process id. The file Leaf actually keeps is `retroarch.cfg`.
+that anything failed to save. The file is temporary, and the number is just the
+process ID. The file Leaf actually keeps is `retroarch.cfg`.
 
 ## When your changes are saved
 
-Leaf turns on RetroArch's **Save Configuration On Exit**, so **quitting normally
-saves everything**. You do not have to save by hand:
+Leaf turns on RetroArch's **Save Configuration on Quit**, so your changes are
+saved when RetroArch quits normally. You do not have to save by hand:
 
 - Exit a game through **MENU → Save & Quit**, or
 - in the RetroArch app tile, use **Main Menu → Quit RetroArch**.
@@ -59,11 +59,11 @@ made a change you care about.
 ### What is not guaranteed
 
 Pulling the power while RetroArch is running cannot be made safe. A hard power
-cut — holding the power button until the device dies, or pulling a dead
-battery — stops the device before anything in memory reaches the card. Settings
-changed in that session may be lost, and that is true of any device.
+cut, such as holding the power button until the device dies or letting the
+battery run flat, stops the device before anything in memory reaches the card.
+Settings changed in that session may be lost.
 
-Leaf's own **Power off** and **Restart** handle the **RetroArch app tile**
+Leaf's own **Power Off** and **Reboot** handle the **RetroArch app tile**
 properly: they ask RetroArch to quit, wait for it to save, and copy the config
 back before the device goes down. If Leaf cannot write the settings back it says
 so on screen, and the previous configuration is left intact either way.
@@ -96,19 +96,18 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Refresh rate, black frame insertion | **Settings → Display & Sound**. |
 | Aspect ratio index, force aspect, integer scaling | Follows the live display mode. |
 | Menu driver, menu scale, menu theme, OK/Cancel button order, load-content animation | Device-appropriate defaults; OK/Cancel is matched to the console's own button layout. |
-| Menu language | **Settings → Language**. |
+| Menu language | **Settings → General → Language**. |
 | Autoconfig and config-override notifications | Suppressed so Leaf's own messages are not buried. |
 | Configuration File menu | Hidden. See [Alternate configurations](#alternate-configurations) below. |
-| Hotkey modifier and hotkey exit | Unbound, so **Select** stays an ordinary game button. Quit through the in-game menu. |
+| Hotkey modifier and hotkey exit | Unbound, so **SELECT** stays an ordinary game button. Quit through the in-game menu. |
 | Player count and per-player controller order | Set from the controllers connected at launch. See [Controllers](/guide/controllers/). |
 | Save-state compression | Fixed so states stay compatible with Leaf's save-state previews. |
-| Recording driver, preset, quality, and output folder | **Settings → Recording**. See [Recording](/guide/recording/). |
+| Recording driver, preset, quality, and output folder | **Settings → Controls & Feedback → Recording** controls whether recording is enabled; Leaf fixes the remaining values. See [Recording](/guide/recording/). |
 | Firmware check, built-in image viewer and media player, dummy core on shutdown | Device compatibility. |
 | RetroAchievements account and password | **Settings → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
 
-Everything else — shaders, rewind, run-ahead, overlays, cheats, per-core
-options, input remaps, and the rest of RetroArch's menus — is yours, and
-persists normally.
+Settings outside this list, including shaders, rewind, run-ahead, overlays,
+cheats, per-core options, and input remaps, are yours and persist normally.
 
 ## Alternate configurations
 
@@ -130,21 +129,21 @@ hand if you need them.
 
 ## Reset RetroArch Config
 
-**Settings → System → Reset RetroArch Config** replaces the shared config with
+**Settings → General → Reset RetroArch Config** replaces the shared config with
 Leaf's packaged defaults.
 
-This erases the settings kept in that file — shader choices, rewind, overlays,
-and the rest of RetroArch's own menus. Per-core options and input remaps are
-stored in separate files and are **not** erased; delete those by hand if you
-need to. Your games, saves, and save states are untouched. It is the right move when RetroArch is misbehaving and you would
-rather start clean than hunt for the setting that did it — see
-[Troubleshooting](/guide/troubleshooting/).
+This erases the settings kept in that file, including shader choices, rewind,
+overlays, and the rest of RetroArch's own menus. Per-core options and input
+remaps are stored in separate files and are not erased; delete those by hand if
+you need to. Your games, saves, and save states are untouched. Use this when
+RetroArch is misbehaving and you would rather start clean than find the setting
+that caused it. See [Troubleshooting](/guide/troubleshooting/).
 
 ## If a setting still will not stick
 
 1. Check the table above. If Leaf owns it, change it from the Leaf setting named
    there instead.
-2. Quit properly — **MENU → Save & Quit**, or **Quit RetroArch** in the app
-   tile — rather than powering off from inside RetroArch.
+2. Quit properly with **MENU → Save & Quit**, or use **Quit RetroArch** in the
+   app tile. Do not power off from inside RetroArch.
 3. If it is not in the table and it still reverts, that is a bug worth
    reporting. Say which setting it was and exactly how you left RetroArch.

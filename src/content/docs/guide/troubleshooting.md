@@ -104,10 +104,10 @@ to 50 and run slow. See [Settings → Display & Sound](/guide/settings/#display-
 ## A RetroArch setting goes back after every launch
 
 A short list of RetroArch settings is set by Leaf on each launch, so changing
-one inside RetroArch only lasts for that session. Each of them has a Leaf
-setting that owns it — audio, language, refresh rate, recording, and so on.
-[RetroArch settings](/guide/retroarch-settings/) lists every one and where to
-change it instead.
+one inside RetroArch only lasts for that session. Some correspond to Leaf
+settings for audio, language, refresh rate, or recording. Others are fixed so
+Leaf can work with RetroArch. [RetroArch settings](/guide/retroarch-settings/)
+lists every one and explains whether you can change it elsewhere.
 
 If the setting is not on that list, quit properly (**MENU → Save & Quit**, or
 **Main Menu → Quit RetroArch** in the app tile) rather than powering off from
@@ -120,4 +120,3 @@ shutdown. To avoid it, power the device down with **MENU → Power Off** rather 
 yanking the charger or holding the power button. If files seem to be missing or the
 launcher behaves oddly, put the card in a computer and let it repair the volume (on
 Windows, "check disk"; on macOS, Disk Utility's "First Aid"), then reinsert it.
-

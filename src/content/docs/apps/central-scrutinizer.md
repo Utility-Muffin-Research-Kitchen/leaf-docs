@@ -75,12 +75,10 @@ Amiga family: OCS/ECS, AGA, CDTV, and CD32. Its BIOS action uses only
 `BIOS/puae/`, matching the packaged core; uploads do not go to root-level
 `BIOS/` or an uppercase compatibility folder.
 
-Amiga upload formats are catalog-driven too. Central Scrutinizer accepts the
-documented floppy, hard-drive, WHDLoad LHA, CD, configuration/package, ZIP/7z,
-and M3U formats. It rejects unsupported files such as IPF and loose WHDLoad
-`.slave`/`.info` entries before writing a partial file. For a downloaded outer
-collection archive, unpack it on your computer first and upload the individual
-per-game archives instead.
+For Amiga, the accepted list covers floppy, hard-drive, WHDLoad LHA, CD,
+configuration/package, ZIP/7z, and M3U formats. It does not include IPF or loose
+WHDLoad `.slave`/`.info` entries. If you download an outer collection archive,
+unpack it on your computer first and upload the individual per-game archives.
 
 The accepted formats come from Leaf's installed system catalog, not from a
 separate web-app list. That means PC-98 disk and hard-drive images, ZIP

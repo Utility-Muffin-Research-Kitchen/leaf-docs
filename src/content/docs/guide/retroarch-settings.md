@@ -69,10 +69,13 @@ back before the device goes down. If Leaf cannot write the settings back it says
 so on screen, and the previous configuration is left intact either way.
 
 **A running game is different.** Powering off or restarting with a game open
-stops it quickly and does not wait for RetroArch to save, so settings you
-changed during that session can be lost. Leave a game with **MENU → Save &
-Quit** first. Your game saves and save states are not affected by this — only
-RetroArch's own settings.
+stops it quickly and does not wait for RetroArch to save. Settings changed
+during that session can be lost, and so can recent in-game progress: RetroArch
+writes a game's save data when the game closes, so a game that never gets to
+close may not have written it yet.
+
+Leave a game with **MENU → Save & Quit** before powering off. That closes the
+game properly and writes everything.
 
 ## Settings Leaf owns
 

@@ -189,7 +189,9 @@ fit, it scrolls while the row is selected.
   **Balanced**, **Performance**, or **Battery Saver**. See
   [Features → Performance](/guide/features/).
 - **Time Zone** - set your local time zone so the clock is correct.
-- **Reset RetroArch Config** - restore RetroArch to its defaults.
+- **Reset RetroArch Config** - restore RetroArch to its defaults. This erases
+  every RetroArch setting you have changed; games and saves are untouched. See
+  [RetroArch settings](/guide/retroarch-settings/).
 - **Unmount Secondary SD** - safely eject a second SD card before removing it.
 
 ## The System page (Menu button)

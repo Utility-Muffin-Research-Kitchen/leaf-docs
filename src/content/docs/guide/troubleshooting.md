@@ -101,6 +101,18 @@ available. The row then names the frame rate it is set up for, such as "On (50 f
 match that to what you are playing, or a 60fps game running at 100 Hz will be paced down
 to 50 and run slow. See [Settings → Display & Sound](/guide/settings/#display--sound).
 
+## A RetroArch setting goes back after every launch
+
+A short list of RetroArch settings is set by Leaf on each launch, so changing
+one inside RetroArch only lasts for that session. Each of them has a Leaf
+setting that owns it — audio, language, refresh rate, recording, and so on.
+[RetroArch settings](/guide/retroarch-settings/) lists every one and where to
+change it instead.
+
+If the setting is not on that list, quit properly (**MENU → Save & Quit**, or
+**Main Menu → Quit RetroArch** in the app tile) rather than powering off from
+inside RetroArch, and try again.
+
 ## Games, saves, or box art don't stick after a reboot
 
 This is almost always a confused SD card, usually from losing power without a clean

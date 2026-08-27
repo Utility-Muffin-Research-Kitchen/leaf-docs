@@ -175,14 +175,40 @@ These are the accepted game-file formats per folder:
 | `PORTS` | `.sh` |  |
 | `MAME` | `.zip` | Optional advanced folder for MAME 03+ sets |
 
-Keep zipped Atomiswave and Naomi arcade sets under their MAME/Flycast shortnames,
-such as `mslug6.zip` or `mvsc2.zip`; renaming the files can prevent Flycast from
-identifying them. If a Sega arcade title requires a specific subfolder, that subfolder
-must also be present and retain the expected shortname/layout.
-Leaf automatically shows the friendly game title in Jawaka,
-so `mslug6.zip` appears as **Metal Slug 6** without changing the file on disk.
-Naomi GD-ROM CHDs similarly keep media names such as `gds-0006.chd`, which Leaf
-displays as **Virtua Striker 3**.
+### Naomi and Atomiswave arcade sets
+
+A `.zip` in either of these folders is a MAME/Flycast ROM set, not a generic
+compressed game. Its filename before `.zip` is a machine-readable game ID. Do
+not replace that shortname with the friendly title: Flycast will not identify
+the game. Leaf shows the friendly title automatically, so `doa2m.zip` appears
+as **Dead or Alive 2 Millennium** without changing the file on disk.
+
+On the SD card, a cartridge example keeps its set archive alongside the
+matching BIOS:
+
+```text
+Roms/NAOMI/doa2m.zip
+BIOS/dc/naomi.zip
+```
+
+A Naomi GD-ROM set uses its shortname ZIP as the launchable entry and keeps the
+CHD in a same-shortname subfolder:
+
+```text
+Roms/NAOMI/ikaruga.zip
+Roms/NAOMI/ikaruga/gdl-0010.chd
+BIOS/dc/naomi.zip
+```
+
+Launch `ikaruga.zip`, not the CHD. Split sets may also require their parent ZIP.
+Keep every archive, parent, subfolder, and media filename exactly as supplied by
+a compatible MAME/Flycast set. Renaming an incompatible dump does not convert it
+into a compatible set.
+
+For a wider title-to-shortname lookup, [Flycast's upstream Naomi compatibility
+list](https://github.com/libretro/flycast/issues/136?timeline_page=1) includes a
+`romset` column. Its compatibility results were collected against an older core,
+so use the names as a lookup aid rather than a Leaf compatibility guarantee.
 
 ### PC-98 games that need multiple disks at startup
 

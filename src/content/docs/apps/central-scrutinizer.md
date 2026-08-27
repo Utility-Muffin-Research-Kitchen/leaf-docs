@@ -75,4 +75,11 @@ pass-through, Atomiswave/Naomi direct images, zipped arcade sets, and `.m3u`
 playlists follow the same rules in the launcher and browser. An unsupported
 extension is rejected before Central Scrutinizer writes any part of the file.
 
+For Atomiswave and Naomi, this check stops at the extension. Central Scrutinizer
+does not verify the ROM-set contents or translate a friendly ZIP filename into
+Flycast's required shortname. A file can therefore upload and appear in the
+launcher while still being unusable by Flycast. Keep the original set names and
+layout described in [Naomi and Atomiswave arcade
+sets](/guide/games/#naomi-and-atomiswave-arcade-sets).
+
 Central Scrutinizer is open source (MIT).

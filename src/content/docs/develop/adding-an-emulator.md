@@ -168,6 +168,53 @@ Optional system fields include:
 - `bios_directory`: the directory below `BIOS/` used by the system;
 - `bios_notes`: short descriptions of required user-supplied BIOS files.
 
+### How ScreenScraper IDs work
+
+ScreenScraper gives each platform a numeric `systemeid`. Put that number in
+`screenscraper_platform_ids`; it is not the Leaf system `id`, ROM-folder name,
+or emulator core id. For example, ScreenScraper's ScummVM platform is `123`:
+
+```json
+"screenscraper_platform_ids": [123]
+```
+
+Use ScreenScraper's official
+[Web API reference](https://www.screenscraper.fr/webapi2.php) and its
+`systemesListe.php` response to find the number for a platform. A system may
+declare up to eight IDs when its games genuinely span multiple ScreenScraper
+platforms. Leaf tries them in the declared order until it finds usable artwork,
+so put the most specific match first. A wrong ID produces wrong or missing
+matches and wastes the user's request allowance. A new third-party system
+should declare its mapping explicitly. When no IDs are declared, Leaf falls
+back to its built-in mappings for release systems; if neither mapping exists,
+it cannot start a scrape.
+
+The platform ID answers **where to search**. The ROM filename normally answers
+**what to search for**. Some systems instead use a small descriptor file whose
+contents are the canonical game identity. Declare that separately with the
+optional top-level `content_scrape` companion:
+
+```json
+{
+  "content_scrape": {
+    "schema": 1,
+    "systems": [
+      {
+        "id": "SCUMMVM",
+        "name_source": "descriptor",
+        "lookup_extension": "scummvm"
+      }
+    ]
+  }
+}
+```
+
+If `Kings Quest 1.scummvm` contains `kq1`, Leaf first searches for
+`kq1.scummvm` under platform `123`, then falls back to filename-based
+candidates. The launcher title and artwork path still use `Kings Quest 1`.
+Only use descriptor mode when the file contains a stable game identifier; its
+`lookup_extension` must also appear in that system's `extensions` list.
+
 Record the source and licence of both artwork and emulator binaries in the
 repository. If the emulator licence requires corresponding source, publish the
 source for the exact shipped binary alongside the package.

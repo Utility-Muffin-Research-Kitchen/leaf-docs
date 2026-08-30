@@ -28,6 +28,52 @@ because it is not running inside RetroArch.
 
 For filters and scanline effects, see [RetroArch shaders](/guide/shaders/).
 
+## RetroArch hotkeys
+
+RetroArch has its own hotkeys, separate from Leaf's. They are held behind a
+modifier button so they cannot fire by accident while you play: on Leaf that
+modifier is **MENU**, and RetroArch calls it **Hotkey Enable**.
+
+So a RetroArch hotkey is **MENU + the button you bound it to**. Pressing that
+button on its own does nothing but play the game.
+
+To change or add one, open **MENU → RetroArch Settings → Settings → Input →
+Hotkeys**. Bind a hotkey to any button you are not already using in the game, then
+leave RetroArch normally so the change is saved.
+
+### Changing the modifier
+
+The **Hotkey Enable** row in that same screen sets the modifier itself. You can
+move it to another button, and your choice is remembered across quitting a game,
+restarting, and updating Leaf.
+
+Two things are worth knowing before you change it:
+
+- **Whatever you choose stops reaching the game while you hold it.** That is how
+  RetroArch prevents a hotkey chord from also pressing something in the game, and
+  it applies to any button you pick. MENU is the default precisely because it is
+  not a game control. Choosing SELECT, for instance, breaks any game that asks you
+  to hold SELECT.
+- **You can clear it**, which makes every hotkey you have bound fire directly, with
+  no modifier. That is a legitimate choice and Leaf will not undo it - but be
+  deliberate, because those buttons will then do their hotkey job in the middle of
+  a game. Leaf does not silently rebind or clear your hotkeys to compensate.
+
+Quitting is the one exception Leaf keeps for itself: RetroArch's own **Quit** hotkey
+stays unbound, so no button can drop you out of a game unexpectedly, even if you
+clear the modifier. Use **Quit** in the in-game menu instead.
+
+### Where Leaf's shortcuts and RetroArch's overlap
+
+Leaf's own in-game shortcuts also use MENU:
+
+- **MENU + SELECT** - the [game switcher](#the-game-switcher)
+- **MENU + L1** - screenshot, if you have turned screenshots on
+- **MENU + R1** - recording, if you have turned recording on
+
+If you bind a RetroArch hotkey to Select, L1, or R1, Leaf's action wins and
+RetroArch never sees the chord. Pick a different button for those hotkeys.
+
 ## Save states
 
 Save states capture the exact moment you are in, separate from a game's own
@@ -48,8 +94,8 @@ as they always have. Save states are an extra layer on top.
 
 ## The game switcher
 
-Press **SELECT** during a RetroArch game to bring up the game switcher: a carousel
-of your recent games laid over the current one.
+Press **MENU + SELECT** during a RetroArch game to bring up the game switcher: a
+carousel of your recent games laid over the current one.
 
 ![The game switcher: a carousel of recent games shown as box art, the centered one named below, with remove, back, and resume hints along the bottom](/screenshot-switcher.png)
 
@@ -63,9 +109,10 @@ of your recent games laid over the current one.
 When you do return to the launcher, it reopens exactly where you left off, on the
 same tab and game.
 
-In standalone Nintendo 64, use **MENU + SELECT** instead. Leaf saves the current
-N64 state, returns to the launcher, and opens the same switcher/recents flow
-there. Press **A** on the selected game to resume from that saved state.
+Standalone Nintendo 64 uses the same **MENU + SELECT** chord, but it works a little
+differently: Leaf saves the current N64 state, returns to the launcher, and opens
+the same switcher/recents flow there. Press **A** on the selected game to resume
+from that saved state.
 
 ## Per-game performance
 

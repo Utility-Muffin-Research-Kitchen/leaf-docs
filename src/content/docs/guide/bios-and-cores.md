@@ -54,6 +54,12 @@ Under the hood:
   RetroArch in-game menu doesn't apply. VMU data, save states, and settings use
   the same durable Flycast locations for all three systems and survive Leaf
   updates - see [Flycast controls](/guide/playing/#dreamcast-atomiswave-and-naomi-standalone-flycast).
+- **Standalone YabaSanshiro** is an optional, faster Saturn route for directly
+  launched `.ccd`, `.chd`, `.cue`, `.iso`, and `.mds` games. RetroArch
+  YabaSanshiro remains the default because its playlists, compressed-game
+  handling, menu, and disc controls are more complete. The standalone emulator
+  uses its own native menu and save-state format; see
+  [Saturn controls](/guide/playing/#saturn-optional-standalone-yabasanshiro).
 - **Neko Project II kai** runs NEC PC-98 software from `Roms/PC98/` through
   RetroArch. It supports disk control for multi-disk software and uses firmware
   from `BIOS/np2kai/` when supplied.
@@ -110,6 +116,22 @@ and game-specific settings than the generic RetroArch core path. That makes it
 the better baseline for the device, while keeping the RetroArch core available
 as a compatibility fallback.
 
+### Saturn: RetroArch vs standalone
+
+Leaf keeps **YabaSanshiro (RetroArch)** as the Saturn default. It provides the
+normal Leaf and RetroArch menus and is the route used for `.m3u` playlists and
+`.zip` files.
+
+**YabaSanshiro Standalone** is an optional faster route for direct `.ccd`,
+`.chd`, `.cue`, `.iso`, and `.mds` launches. Pick it with **Core** for a
+compatible game. It is not offered for `.m3u` or `.zip` entries because those
+formats fail in the standalone frontend.
+
+The two routes keep save states separately and their state formats are not
+compatible. Standalone uses `Saves/YabaSanshiro/` and
+`States/YabaSanshiro/`; switch back to the emulator that created a state rather
+than moving states between them.
+
 :::note
 The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Whether
 a given game runs at full speed varies by title; treat these as "best effort,"
@@ -149,10 +171,11 @@ BIOS/
 - **Arcade (FinalBurn Neo / FBNeo)** - many arcade games depend on a BIOS or a
   parent ROM set (for example, CPS systems need their BIOS). These also live in
   `BIOS/` or alongside the game set.
-- **Saturn** - requires the Sega Saturn BIOS in `BIOS/`; the YabaSanshiro core
-  will not boot without it. Provide the standard Saturn BIOS, for example
-  `sega_101.bin` (Japanese) or `mpr-17933.bin` (US / European). Without one,
-  Saturn games appear in the launcher but won't launch.
+- **Saturn** - the default RetroArch YabaSanshiro core requires the Sega Saturn
+  BIOS in `BIOS/`. Provide the standard Saturn BIOS, for example
+  `sega_101.bin` (Japanese) or `mpr-17933.bin` (US / European). The optional
+  standalone YabaSanshiro route uses its built-in HLE BIOS by default and does
+  not require this file.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
 - **NEC PC-98** - put np2kai firmware in `BIOS/np2kai/`. Provide either

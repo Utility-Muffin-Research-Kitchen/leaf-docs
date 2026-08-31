@@ -10,15 +10,18 @@ computer.
 
 ## Turning it on
 
-Screenshots are off by default. Turn them on in **Settings → Controls & Feedback**, on
-the **Screenshots** row. Once on, the capture combo works everywhere until you switch
-it off again.
+Screenshots are off by default. Turn them on in **Settings → Controls & Feedback →
+In-game Shortcuts**, on the **Screenshots** row. Once on, the capture combo works
+everywhere until you switch it off again.
 
 ![The General settings page with the Screenshots row highlighted and set to On, among rows for Auto Sleep, Game Performance, Time Zone, and Boot Splash](/screenshot_settings.png)
 
 ## Taking a screenshot
 
-Hold **MENU** and tap **L1**.
+Hold **MENU** and tap **L1** — the default. The **Screenshot Shortcut** row on the
+same page puts it on another button, or turns the shortcut off while leaving
+screenshots themselves on. See
+[In-game shortcuts](/guide/features/#in-game-shortcuts).
 
 - In the launcher, a menu, or 5-Game Mode, the screen gives a quick white **flash**.
 - In a game, RetroArch shows its own **Screenshot saved** note in the corner.

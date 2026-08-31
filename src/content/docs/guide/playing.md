@@ -65,14 +65,25 @@ clear the modifier. Use **Quit** in the in-game menu instead.
 
 ### Where Leaf's shortcuts and RetroArch's overlap
 
-Leaf's own in-game shortcuts also use MENU:
+Leaf's own in-game shortcuts also use MENU. These are the **defaults** — the
+second button is yours to change, or turn off, in **Settings → Controls &
+Feedback → In-game Shortcuts**:
 
-- **MENU + SELECT** - the [game switcher](#the-game-switcher)
-- **MENU + L1** - screenshot, if you have turned screenshots on
-- **MENU + R1** - recording, if you have turned recording on
+| Leaf action | Default |
+| --- | --- |
+| [Game switcher](#the-game-switcher) | **MENU + SELECT** |
+| Screenshot | **MENU + L1** |
+| Recording | **MENU + R1** |
 
-If you bind a RetroArch hotkey to Select, L1, or R1, Leaf's action wins and
-RetroArch never sees the chord. Pick a different button for those hotkeys.
+If you bind a RetroArch hotkey to a button a Leaf shortcut is using, Leaf wins
+and RetroArch never sees the chord. Move one of them, or turn the Leaf shortcut
+off.
+
+Leaf only wins when it actually does something. A screenshot shortcut with
+screenshots turned off, or the game switcher outside a RetroArch game, hands the
+whole chord to RetroArch instead — so using a button for a Leaf shortcut does
+not reserve it in every situation. See
+[In-game shortcuts](/guide/features/#in-game-shortcuts).
 
 ## Save states
 
@@ -95,7 +106,9 @@ as they always have. Save states are an extra layer on top.
 ## The game switcher
 
 Press **MENU + SELECT** during a RetroArch game to bring up the game switcher: a
-carousel of your recent games laid over the current one.
+carousel of your recent games laid over the current one. That chord is the
+default — **Settings → Controls & Feedback → In-game Shortcuts** puts it on
+another button, or turns it off.
 
 ![The game switcher: a carousel of recent games shown as box art, the centered one named below, with remove, back, and resume hints along the bottom](/screenshot-switcher.png)
 
@@ -109,10 +122,11 @@ carousel of your recent games laid over the current one.
 When you do return to the launcher, it reopens exactly where you left off, on the
 same tab and game.
 
-Standalone Nintendo 64 uses the same **MENU + SELECT** chord, but it works a little
-differently: Leaf saves the current N64 state, returns to the launcher, and opens
-the same switcher/recents flow there. Press **A** on the selected game to resume
-from that saved state.
+Standalone Nintendo 64 uses **MENU + SELECT** too, but there the chord is fixed
+— it is not one of the configurable in-game shortcuts, which apply to RetroArch
+games only. It also works a little differently: Leaf saves the current N64
+state, returns to the launcher, and opens the same switcher/recents flow there.
+Press **A** on the selected game to resume from that saved state.
 
 ## Per-game performance
 
@@ -142,7 +156,8 @@ matter most for N64: video plugin choice, display handling, performance options,
 and the save-and-quit handoff back to the launcher. The RetroArch core remains
 available as an alternate when a particular game behaves better there.
 
-Controls that differ from RetroArch:
+Controls that differ from RetroArch. These are fixed, not the configurable
+[in-game shortcuts](/guide/features/#in-game-shortcuts):
 
 - **MENU** - open the Leaf N64 overlay.
 - **MENU + SELECT** - save the current state and hand off to Leaf's game
@@ -164,6 +179,11 @@ DraStic, which Leaf forks and builds on - most of the heavy lifting here is his
 work. Because the DS has two screens and a touch screen, the wrapper maps
 everything onto the handheld using **MENU** as a modifier you hold together with
 another button.
+
+These chords are **fixed** and belong to DraStic, not to Leaf. They are not the
+configurable [in-game shortcuts](/guide/features/#in-game-shortcuts), which
+apply to RetroArch games only — so **MENU + L1** here quits DraStic regardless
+of what you have set your Leaf screenshot shortcut to.
 
 ### Everyday controls
 

@@ -14,7 +14,7 @@ Screenshots are off by default. Turn them on in **Settings → Controls & Feedba
 In-game Shortcuts**, on the **Screenshots** row. Once on, the capture combo works
 everywhere until you switch it off again.
 
-![The General settings page with the Screenshots row highlighted and set to On, among rows for Auto Sleep, Game Performance, Time Zone, and Boot Splash](/screenshot_settings.png)
+![The In-game Shortcuts settings page with the Screenshots row highlighted and set to Off, above a Screenshot Shortcut row reading Menu + L1, alongside Game Switcher, Recording, and the recording options](/screenshot_settings.png)
 
 ## Taking a screenshot
 

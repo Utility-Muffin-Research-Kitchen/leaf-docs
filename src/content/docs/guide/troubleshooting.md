@@ -103,6 +103,30 @@ available. The row then names the frame rate it is set up for, such as "On (50 f
 match that to what you are playing, or a 60fps game running at 100 Hz will be paced down
 to 50 and run slow. See [Settings → Display & Sound](/guide/settings/#display--sound).
 
+## A shader is missing, broken, or keeps returning
+
+| Symptom | First action |
+| --- | --- |
+| A Leaf recommendation is missing | Update or reinstall Leaf. Do not use the Online Updater pack as a substitute for `leaf-recommended/` |
+| An updater or custom shader fails | Check whether it compiled. A link failure falls back to the plain picture while RetroArch can still show the preset as loaded. Then restore its complete dependency tree |
+| A shader returns after reloading | Open **MENU > Shader > Off > Remove saved preset** and remove it at the scope that owns it. Check Fugazi or another global preset too. A config override does not save or remove a shader |
+| Fugazi says the state needs attention | Open its resolver and choose **Keep current**, **Restore previous**, or **Cancel**. Do not delete the preset files by hand |
+| Leaf could not confirm the shader after a timeout | Reopen **Shader** or restart the game before saving another scope |
+
+For a short recovery pass:
+
+1. Open **MENU > Shader** and note what is active.
+2. If Fugazi owns the global preset, open Fugazi and choose **Remove**.
+3. Resolve **State needs attention** before applying Fugazi again.
+4. Choose **Off** for this session or preview a Leaf recommendation.
+5. Remove or save at the same scope that owns the old choice.
+6. Use **Advanced RetroArch menu** only for a custom or updater preset, or when
+   support asks for verbose evidence.
+
+See [RetroArch shaders](/guide/shaders/) for recommendation constraints,
+automatic-preset precedence, custom dependency folders, and the difference
+between a config override and a saved shader preset.
+
 ## Games, saves, or box art don't stick after a reboot
 
 This is almost always a confused SD card, usually from losing power without a clean

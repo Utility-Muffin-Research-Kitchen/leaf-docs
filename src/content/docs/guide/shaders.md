@@ -1,90 +1,163 @@
 ---
 title: RetroArch shaders
-description: 'Load Leaf’s bundled GLSL presets, add your own shaders safely, and understand how they interact with Fugazi.'
+description: "Choose Leaf's qualified GLSL presets, save them at the right scope, and recover safely from custom shader or Fugazi conflicts."
 ---
 
-Leaf includes a small, curated set of GLSL shader presets for RetroArch games.
-Nothing switches on by itself. A fresh install shows the original picture until
-you pick a preset.
+Leaf includes qualified GLSL shader presets for RetroArch games. Nothing turns
+on by itself. A fresh install shows the original picture until you choose a
+preset.
 
 Shaders only affect games running through RetroArch. Standalone emulators like
 DraStic, PPSSPP, Mupen64Plus, and Flycast have their own video settings.
 
-## Load a bundled preset
+## Choose a Leaf recommendation
 
 1. Launch a game that uses RetroArch.
-2. Press **MENU**, then open **RetroArch Settings**.
-3. Open **Quick Menu → Shaders** and turn **Video Shaders** on.
-4. Choose **Load Preset**.
-5. Open **`leaf-recommended/`** and pick a `.glslp` preset.
-6. Choose **Apply Changes** to see it.
+2. Press **MENU**, then open **Shader**.
+3. Move through the recommendations to preview them over the paused game.
+4. Select one and save it for **This game** unless you deliberately want a
+   broader scope.
+5. Use **Advanced RetroArch menu** only when you need the full preset browser.
 
-There are nine to choose from:
+Press **B** before saving to restore the shader that was active when you opened
+the picker. **Off** disables shaders for this session. A session choice ends
+when RetroArch reloads content or exits.
 
-- **Sharp Pixels** keeps pixel art crisp at any scale, with no CRT effect. A
-  good first choice if you are not sure what you want.
-- **Subtle Scanlines** adds light scanlines without much of the usual darkening.
-  Suits NES, SNES, Mega Drive, PC Engine, and PlayStation.
-- **GBA Color** tames colors that were authored for the original Game Boy
-  Advance screen, which look oversaturated on a modern panel. GBA games only.
-- **GBC Color** does the same for the softer response of a Game Boy Color
-  screen. GBC games only.
-- **Game Boy LCD**, **Game Boy Color LCD**, and **Game Boy Advance LCD** go
-  further than the color presets. Each simulates the handheld's actual display,
-  with a faint backing texture and a cheap pixel grid tuned per system.
-- **Sharp Shimmerless** is the one to reach for when a game lands on an awkward
-  non-integer scale and scrolling starts to shimmer.
-- **CRT Lite** applies a mild aperture mask and softened scanlines. Aimed at
-  8-bit, 16-bit, and PlayStation-era games.
+The picker shows only recommendations that Leaf qualified for the active
+system, so you won't see all thirteen at once:
 
-All nine passed Leaf's visual checks and a 60-second performance test on the
-MLP1, but a couple carry caveats worth knowing before you save one.
+- **Sharp Pixels** keeps pixel art crisp without adding a CRT effect.
+- **Sharp Shimmerless** keeps non-integer scaling sharp while reducing shimmer
+  during scrolling.
+- **Subtle Scanlines** adds lightweight scanlines for 8-bit, 16-bit, and
+  PlayStation-era games.
+- **CRT Lite** adds a mild aperture mask and softened scanlines without
+  curvature.
+- **CRT Sharp** combines crisp scaling, scanlines, and a flat aperture mask.
+- **CRT Curved** adds curvature, rounded corners, scanlines, and an aperture
+  mask. It crops slightly at the screen edges.
+- **GBA Color** and **GBC Color** approximate the softer color response of the
+  original handheld screens.
+- **Game Boy LCD**, **Game Boy Color LCD**, and **Game Boy Advance LCD** add a
+  stronger display simulation with a backing texture and pixel grid.
+- **LCD Grid** adds a fine RGB handheld pixel grid.
+- **LCD Grid Fast** is a lighter grid with softer cell edges.
 
-**GBA Color** is cleared for 60 Hz, and for 120 Hz as long as Black Frame
-Insertion is off. That is not really the shader's doing: mGBA drops below full
-speed at 120 Hz with BFI even when no shader is running at all, so keep those
-two apart regardless.
+The installed manifest is authoritative if this list changes in a later Leaf
+release.
 
-**CRT Lite** also wants BFI off. A PlayStation test with both enabled fell to
-around 50 fps, against full speed at 60 Hz and 120 Hz with BFI off.
+### Refresh rate and BFI caveats
 
-Both of those results were measured at 120 Hz. Black Frame Insertion is also
-available at 100 Hz for 50fps (PAL) games, which asks for fewer frames per second
-and so should be easier on a core, but these shaders have not been tested there -
-if a PAL game with a shader runs short of full speed, turn BFI off first.
+All thirteen recommendations passed Leaf's visual and performance checks on the
+MLP1, but a few combinations need care:
 
-Worth remembering generally: scanlines and BFI each cost you some brightness,
-and using both costs more.
+- Keep Black Frame Insertion off with **GBA Color** and **Game Boy Advance LCD**
+  when using mGBA. The no-shader mGBA control already falls below full speed at
+  120 Hz with BFI, so the picker shows that warning instead of blaming the
+  shader.
+- Keep BFI off with **CRT Lite**. A PlayStation test at 120 Hz with BFI measured
+  about 50 fps, while the 60 Hz and 120 Hz tests with BFI off ran at full speed.
+- Scanlines, LCD grids, and BFI all reduce brightness. Combining them reduces it
+  further.
 
-## Going further
+The picker detail pane shows the most relevant constraint for the selected
+preset. If a game runs below full speed, turn BFI off before changing the
+shader.
 
-The **`leaf-bundled/`** folder holds the qualified advanced presets the
-recommended ones are built from. Everything there loads and renders correctly,
-but that is a lower bar than the recommended set clears, and it says nothing
-about how a given preset performs on a particular core or game.
+## Save at the right scope
 
-The bundle also carries a few candidates kept traceable to where they came from:
+After a successful preview, Leaf offers these scopes:
 
-- **[PT SkyWalker541](https://github.com/SkyWalker541/PT-SkyWalker541)**, a
-  low-power handheld LCD and pixel-transparency shader with Game Boy, Game Boy
-  Color, and Game Boy Advance modes.
-- **[Sharp Shimmerless](https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader)**,
-  built for sharp non-integer scaling without shimmer on small screens.
-- **CRT Hyllian Fast** and **CRT Lottes Fast**, two lightweight CRT options.
+| Scope | What it affects |
+| --- | --- |
+| **This game** | Only the current game. This is the default and safest choice |
+| **This folder** | Games launched from the same content folder |
+| **This core** | Every game using the active libretro core |
+| **All RetroArch** | Every RetroArch game. Leaf asks for confirmation because this can replace Fugazi |
+| **This session** | The running content only. Reloading content or exiting RetroArch ends it |
 
-The first three cleared testing against real game content and are what the
-recommended presets are made from. **CRT Lottes Fast** did not. It loads safely
-enough, but it managed only about 34 fps on Leaf's deliberately lightweight test
-scene, so it stays in the advanced folder. Treat that as a warning about the
-folder in general: try a preset on demanding content before you save it
-globally.
+Within Leaf's canonical automatic-preset directory, RetroArch checks game,
+folder, core, then global, from most specific to least specific. A more specific
+preset wins.
+
+There is one legacy exception. RetroArch searches automatic-preset directories
+in order before it tries every specificity. A global preset in an earlier old
+or fallback directory can therefore beat a game preset in a later directory.
+If the result looks impossible, remove the legacy preset instead of adding more
+overrides.
+
+### Three saves that do different jobs
+
+- **Save Main Configuration** stores general RetroArch settings. It does not
+  create an automatic shader preset.
+- **Save Override** stores core, folder, or game configuration changes. A config
+  override does not carry the active shader.
+- **Save Shader Preset** creates the automatic shader preset that persists the
+  shader.
+
+Saving a config override while a shader is visible does not save that shader.
+A loaded global shader also keeps returning until you remove it or save a more
+specific shader preset.
+
+## Turn a saved shader off
+
+Choosing **Off > This session** clears only the running session. A saved shader
+can return after a content reload.
+
+To remove it permanently, choose **Off > Remove saved preset**, then select the
+same scope that owns it. Removing a game preset does not remove a core or global
+preset. A broader preset may become active on the next content launch, and Leaf
+says so instead of creating a fake no-shader preset.
+
+## Fugazi and global presets
+
+[Fugazi](/apps/fugazi/) is the specialized global CRT tuner. The Leaf shader
+picker is the common path for recommendations; use Fugazi when you want to tune
+its CRT effect across every RetroArch game.
+
+- **Reset** changes Fugazi's tuner values only. It does not uninstall anything.
+- **Apply** installs Fugazi globally. If another global preset is active,
+  Fugazi asks before replacing it and preserves that preset as one backup.
+- **Remove** disables Fugazi and restores the preserved preset when one exists.
+- If Fugazi finds another current global preset while it still holds a backup,
+  choose **Keep current**, **Restore previous**, or **Cancel**. Do not delete the
+  files by hand.
+
+Saving another **All RetroArch** shader can replace Fugazi later. If that leaves
+a current preset and Fugazi backup together, Fugazi shows the resolver the next
+time you open it.
+
+## Browse advanced presets
+
+Choose **Advanced RetroArch menu**, then open **Quick Menu > Shaders**. The
+**`leaf-bundled/`** folder holds the qualified advanced presets that Leaf's
+recommendations reference. Everything there loads and renders correctly, but
+it may not suit every core or game.
+
+Four formerly reported candidates are now stable recommendation names:
+**LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.
+`zfast-composite` remains advanced-only because its measured audio underrun was
+much higher than the alternatives even though its frame-rate counter stayed at
+60 fps. **CRT Lottes Fast** also remains advanced-only after measuring about
+34 fps on a lightweight test scene.
+
+The bundle includes work from
+**[PT SkyWalker541](https://github.com/SkyWalker541/PT-SkyWalker541)** and
+**[Sharp Shimmerless](https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader)**,
+along with lightweight CRT shaders from the libretro collection.
 
 ## Download the full RetroArch collection
 
-RetroArch's **Online Updater → Update GLSL Shaders** downloads the complete
-official libretro GLSL collection. It appears under **`shaders_glsl/`** beside
-Leaf's two folders. The download is much larger and changes independently of
-Leaf, so those presets have not passed Leaf's MLP1 performance or visual
+::::caution[Official does not mean qualified]
+The official GLSL collection is not guaranteed to be compatible or fast on
+every OpenGL ES driver. Leaf qualifies only **`leaf-recommended/`** for the
+MLP1.
+::::
+
+RetroArch's **Online Updater > Update GLSL Shaders** downloads the complete
+official libretro GLSL collection into **`shaders_glsl/`**. The updater tree is
+complete and byte-identical to upstream; it is not a broken or partial Leaf
+copy. Its presets simply have not passed Leaf's MLP1 performance and visual
 checks.
 
 The folders have separate owners:
@@ -94,72 +167,72 @@ The folders have separate owners:
 - **`custom/`** is yours.
 
 Leaf updates preserve the updater and custom folders. Updating GLSL shaders
-does not overwrite Leaf's pinned, tested dependencies.
+does not overwrite Leaf's pinned dependencies.
 
 ## Add your own shaders
 
-Custom shader files go on the primary SD card, under:
+Custom shader files go on the primary SD card under:
 
 ```text
 .umrk/mlp1/retroarch/.config/retroarch/shaders/custom/
 ```
 
-Booting from a single card, that is:
+With one card this is usually below `/mnt/sdcard/`. With two cards, Linux may
+mount the Leaf card at `/media/sdcard1` instead. Treat the relative `.umrk/`
+path as the real answer and do not hardcode a mount point.
 
-```text
-/mnt/sdcard/.umrk/mlp1/retroarch/.config/retroarch/shaders/custom/
-```
+Keep the dependency folder structure exactly as you found it. A `.glslp` file
+often references `.glsl` passes, LUT images, or other presets next to it.
+Copying only the `.glslp` file can leave the preset visible in the browser but
+unable to compile.
 
-With two cards in, Linux may mount the Leaf card at `/media/sdcard1` instead, so
-treat the relative `.umrk/.../shaders/custom/` path as the real answer and do
-not hardcode a mount point.
+Leaf's RetroArch build supports GLSL `.glslp` presets and `.glsl` passes.
+Slang/Vulkan (`.slangp`, `.slang`) and Cg (`.cgp`, `.cg`) packs do not work on
+MLP1. Because `.umrk` begins with a dot, macOS and Linux file managers hide it
+by default.
 
-Keep each preset's folder structure as you found it. A `.glslp` file often
-points at `.glsl` passes, LUT images, or other presets sitting next to it. Leaf
-already points **Settings → Directory → Video Shaders** at the parent
-`shaders/` directory, so normally you only need to return to **Quick Menu →
-Shaders → Load Preset** and open **`custom/`**.
+Leave `.system/leaf/platforms/mlp1/shaders/` alone. It is Leaf's
+manifest-validated source bundle and is replaced during an update. The browser,
+updater collection, and personal shaders live in durable `.umrk/` state.
 
-Leaf's RetroArch build reads GLSL: `.glslp` presets and `.glsl` passes.
-Slang/Vulkan (`.slangp`, `.slang`) and Cg (`.cgp`, `.cg`) packs will not work.
-And because `.umrk` starts with a dot, macOS and Linux file managers hide it by
-default, so turn on hidden files before going looking for it.
+## A custom or updater shader fails
 
-One directory to leave alone: `.system/leaf/platforms/mlp1/shaders/` is Leaf's
-manifest-validated source bundle and is replaced on every update. The browser,
-updater collection, and personal shaders all live in durable `.umrk/` state.
+First find out whether it compiled. A link failure silently falls back to the
+plain picture even while RetroArch still shows the preset as loaded. The Leaf
+picker reports that failure directly for recommendations and restores the
+previous shader.
 
-## Saving and removing a shader
+For an advanced preset:
 
-Once a preset looks right, **Quick Menu → Shaders → Save Preset** keeps it for
-the current game, the content directory, the core, or all RetroArch content.
-Pick the narrowest scope that does the job. A global preset has to suit systems
-with wildly different resolutions, and it will usually end up looking worse or
-running slower on some of them.
+1. Confirm it is GLSL and suitable for an OpenGL ES driver.
+2. Restore its complete dependency tree.
+3. Reproduce it from **Advanced RetroArch menu** with verbose RetroArch logging
+   enabled if support asks for evidence.
 
-To go back to the plain image, open **Quick Menu → Shaders**, turn **Video
-Shaders** off, and save at the same scope you saved the preset at. Saving at a
-different scope leaves the original in place.
+Do not replace `zfast_crt_geo` by hand. Use Leaf's **CRT Curved** preset, which
+contains a guarded local compatibility patch. The same unpatched shader also
+fails on the stock OS, so stock is not a working fallback.
 
-## Fugazi and manual presets
+## Recovery messages
 
-[Fugazi](/apps/fugazi/) works by writing an automatic global CRT preset.
-Applying or clearing a look there rewrites that one preset, and leaves the
-bundled shaders and anything in your custom directory untouched.
-
-So if a preset you chose by hand keeps reappearing after a relaunch, Fugazi
-probably has a global look applied. Clear it there first.
+| Message or symptom | What to do |
+| --- | --- |
+| A recommendation is missing | Update or reinstall Leaf. Do not use the updater pack as a substitute |
+| The shader could not compile or link | The previous shader was restored. Use another recommendation or troubleshoot the advanced preset's driver support and dependencies |
+| RetroArch did not confirm the shader | Reopen **Shader** or restart the game before saving another scope |
+| The previous shader could not be restored | Reopen the game, then use **RetroArch Settings** to inspect the active shader |
+| A shader returns after reload | Remove the saved preset at its owning scope and check Fugazi or another global preset |
+| Fugazi says the state needs attention | Deliberately choose **Keep current**, **Restore previous**, or **Cancel** |
 
 ## If the preset browser is empty
 
-`No items` on an older Leaf release just means that release predates the shader
-bundle. Update Leaf, or put your own GLSL files in the custom directory above.
+An older Leaf release may predate the shader bundle. Update Leaf first.
 
-If it is still empty after updating, check **Settings → Directory → Video
-Shaders**. It should point to the durable
-`.umrk/mlp1/retroarch/.config/retroarch/shaders/` root, not directly to one of
-its child folders. Fully exit and relaunch the game as well, which gives Leaf a
-chance to refresh that directory if two SD cards have swapped mount points.
-Failing all that, **Settings → System → Reset RetroArch Config** restores the
-default shader directory, but it resets your other RetroArch settings too, so
-try fixing the directory by hand first.
+If the browser is still empty, check **Settings > Directory > Video Shaders**.
+It should point to the durable
+`.umrk/mlp1/retroarch/.config/retroarch/shaders/` root, not one of its child
+folders. Fully exit and relaunch the game so Leaf can refresh the path after an
+SD mount swap.
+
+As a last resort, **Settings > System > Reset RetroArch Config** restores the
+default shader directory, but it also resets your other RetroArch settings.

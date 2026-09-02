@@ -132,7 +132,7 @@ time you open it.
 
 ## Browse advanced presets
 
-Choose **Advanced RetroArch menu**, then open **Quick Menu > Shaders**. The
+Choose **Advanced RetroArch menu** to open RetroArch's **Shaders** screen. The
 **`leaf-bundled/`** folder holds the qualified advanced presets that Leaf's
 recommendations reference. Everything there loads and renders correctly, but
 it may not suit every core or game.
@@ -141,10 +141,9 @@ Applying or loading a preset in this browser changes only the running session.
 **Save Main Configuration** and **Save Override** do not make it persistent. To
 keep the active preset:
 
-1. Apply it in **Quick Menu > Shaders**, then return to the game.
-2. Reopen **MENU > Shader**.
-3. Choose **Save current shader**.
-4. Choose **This game**, **This folder**, or **This core**. Choose **This
+1. Apply it on RetroArch's **Shaders** screen.
+2. Press **MENU** to close RetroArch. Leaf immediately asks where to save it.
+3. Choose **This game**, **This folder**, or **This core**. Choose **This
    session** if you do not want to save it.
 
 **All RetroArch** remains unavailable until the installed Leaf build includes

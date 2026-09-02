@@ -29,8 +29,7 @@ bundled component ships in the install under `licenses/`.
 | cJSON | MIT |
 | System icons (libretro Systematic) | CC BY-SA 4.0 |
 | Cover Flow console art (Evan Amos) | Public Domain |
-| Fonts: Space Grotesk, Inter, Rounded M+, Nunito, Baloo 2, Fredoka, Lexend, IBM Plex Sans, Noto Sans, Source Han Sans | SIL OFL 1.1 |
-| Translate (the wide-coverage font bundled with Fun DraStic) | See `licenses/cores/fun_drastic.txt` |
+| Fonts: Space Grotesk, Inter, Rounded M+, Nunito, Baloo 2, Fredoka, Lexend, IBM Plex Sans, Noto Sans, Noto Sans CJK SC, Source Han Sans | SIL OFL 1.1 |
 | Keyboard icons (Nerd Fonts) | MIT |
 | Dropbear SSH | MIT-style |
 

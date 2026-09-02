@@ -18,6 +18,8 @@ bundled component ships in the install under `licenses/`.
 | PT SkyWalker541 shader | MIT |
 | Sharp Shimmerless shader | CC0 1.0 |
 | Libretro cores | GPL / per-core |
+| DraStic front end for Nintendo DS (Steward Fu) | LGPL-2.1 |
+| Fun DraStic front end for Nintendo DS (tenlevels) | Proprietary, used with permission |
 | SDL2, SDL2_image, SDL2_ttf | Zlib |
 | FreeType | FreeType License |
 | HarfBuzz | MIT |
@@ -28,7 +30,12 @@ bundled component ships in the install under `licenses/`.
 | System icons (libretro Systematic) | CC BY-SA 4.0 |
 | Cover Flow console art (Evan Amos) | Public Domain |
 | Fonts: Space Grotesk, Inter, Rounded M+, Nunito, Baloo 2, Fredoka, Lexend, IBM Plex Sans, Noto Sans, Source Han Sans | SIL OFL 1.1 |
+| Translate (the wide-coverage font bundled with Fun DraStic) | See `licenses/cores/fun_drastic.txt` |
 | Keyboard icons (Nerd Fonts) | MIT |
 | Dropbear SSH | MIT-style |
+
+Both Nintendo DS front ends run the same closed-source DraStic emulator, which
+is not open source and is not ours; each front end above is the work that was
+built on top of it.
 
 Spot a credit that is missing or wrong? Let us know and we will fix it.

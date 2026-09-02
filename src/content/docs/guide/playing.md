@@ -110,6 +110,10 @@ Nintendo DS games run in **DraStic**, a standalone emulator rather than RetroArc
 so the in-game menu, save states, and switcher above don't apply - DraStic has its
 own menu and its own controls.
 
+Leaf ships two front ends for DraStic. The default one is described here; **Fun
+DraStic** is an alternate you can pick per game, and it's covered
+[further down](#fun-drastic-the-alternate-ds-front-end).
+
 DraStic itself is closed-source. The two-screen layouts, the transparent overlay,
 and the button shortcuts below all come from
 [Steward Fu](https://github.com/steward-fu/nds)'s open-source SDL2 wrapper for
@@ -157,6 +161,36 @@ is switched off here until it can be wired up safely.
 
 Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
 **Left / Right** to change a value, **A** to confirm, and **B** to go back or close.
+
+### Fun DraStic, the alternate DS front end
+
+**Fun DraStic** gives your DS games a nicer interface: a redesigned menu, screen
+overlays, more screen layouts, and themes. Switch a game over to it with **Core**
+from that game's **Options** menu, and switch back the same way. DraStic stays the
+default for everything you haven't changed.
+
+It's a visual upgrade, not a different emulator. Underneath, Fun DraStic runs the
+same closed-source DraStic that Leaf already ships - the identical program file -
+with a new front end attached to it. So game compatibility, accuracy, and speed
+are exactly what you already get. What you're choosing is the interface.
+
+Fun DraStic is by [tenlevels](https://github.com/tenlevels), whose work is the
+menus, overlays, screen layouts, and presentation, in the same way the default DS
+front end is Steward Fu's work. Both are built on the same emulator.
+
+A few things to know before you switch a game over:
+
+- **MENU** opens Fun DraStic's own menu, which is laid out differently from the
+  default one. The **MENU + button** shortcuts above belong to the Steward Fu
+  front end and don't carry over.
+- Your in-game saves come with you. Both front ends read and write the same DS
+  save files, so a game you switch keeps its progress, and so does a game you
+  switch back.
+- Save states and settings do not. Each front end keeps its own, so a save state
+  you made in one won't appear in the other. Save in-game before you switch.
+- Neither one needs a BIOS file of your own. See
+  [BIOS and cores](/guide/bios-and-cores/#nintendo-ds) for the optional Nintendo
+  files and what they add.
 
 ## NEC PC-98 (Neko Project II kai)
 

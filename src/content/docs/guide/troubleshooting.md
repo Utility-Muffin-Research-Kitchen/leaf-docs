@@ -109,6 +109,7 @@ to 50 and run slow. See [Settings → Display & Sound](/guide/settings/#display-
 | --- | --- |
 | A Leaf recommendation is missing | Update or reinstall Leaf. Do not use the Online Updater pack as a substitute for `leaf-recommended/` |
 | An updater or custom shader fails | Check whether it compiled. A link failure falls back to the plain picture while RetroArch can still show the preset as loaded. Then restore its complete dependency tree |
+| An Advanced shader disappears after you exit | This is expected after **Apply** or **Load**. Return to the game, reopen **MENU > Shader**, choose **Save current shader**, then choose a game, folder, or core scope |
 | A shader returns after reloading | Open **MENU > Shader > Off > Remove saved preset** and remove it at the scope that owns it. Check Fugazi or another global preset too. A config override does not save or remove a shader |
 | Fugazi says the state needs attention | Open its resolver and choose **Keep current**, **Restore previous**, or **Cancel**. Do not delete the preset files by hand |
 | Leaf could not confirm the shader after a timeout | Reopen **Shader** or restart the game before saving another scope |
@@ -121,7 +122,8 @@ For a short recovery pass:
 4. Choose **Off** for this session or preview a Leaf recommendation.
 5. Remove or save at the same scope that owns the old choice.
 6. Use **Advanced RetroArch menu** only for a custom or updater preset, or when
-   support asks for verbose evidence.
+   support asks for verbose evidence. After applying one, return to Leaf and
+   choose **Save current shader** if it should persist.
 
 See [RetroArch shaders](/guide/shaders/) for recommendation constraints,
 automatic-preset precedence, custom dependency folders, and the difference

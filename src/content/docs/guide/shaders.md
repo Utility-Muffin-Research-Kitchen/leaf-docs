@@ -24,7 +24,10 @@ the picker. **Off** disables shaders for this session. A session choice ends
 when RetroArch reloads content or exits.
 
 The picker shows only recommendations that Leaf qualified for the active
-system, so you won't see all thirteen at once:
+system, so you won't see all thirteen at once. Every packaged RetroArch-backed
+system has at least two choices. When Leaf also ships a standalone emulator for
+a system, its RetroArch alternative gets only the lightest neutral choices.
+The standalone emulator itself does not use these shaders.
 
 - **Sharp Pixels** keeps pixel art crisp without adding a CRT effect.
 - **Sharp Shimmerless** keeps non-integer scaling sharp while reducing shimmer
@@ -133,6 +136,20 @@ Choose **Advanced RetroArch menu**, then open **Quick Menu > Shaders**. The
 **`leaf-bundled/`** folder holds the qualified advanced presets that Leaf's
 recommendations reference. Everything there loads and renders correctly, but
 it may not suit every core or game.
+
+Applying or loading a preset in this browser changes only the running session.
+**Save Main Configuration** and **Save Override** do not make it persistent. To
+keep the active preset:
+
+1. Apply it in **Quick Menu > Shaders**, then return to the game.
+2. Reopen **MENU > Shader**.
+3. Choose **Save current shader**.
+4. Choose **This game**, **This folder**, or **This core**. Choose **This
+   session** if you do not want to save it.
+
+**All RetroArch** remains unavailable until the installed Leaf build includes
+Fugazi's conflict resolver. Leaf asks before a global save once that resolver
+is present.
 
 Four formerly reported candidates are now stable recommendation names:
 **LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.

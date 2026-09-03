@@ -64,6 +64,7 @@ export default defineConfig({
             { label: 'Install Leaf', slug: 'guide/install' },
             { label: 'Updating (OTA)', slug: 'guide/updating' },
             { label: 'Recovery', slug: 'guide/recovery' },
+            { label: 'Moving to a new SD card', slug: 'guide/moving-to-a-new-card' },
             { label: 'Adding games & ROMs', slug: 'guide/games' },
             { label: 'BIOS & cores', slug: 'guide/bios-and-cores' },
             { label: 'Playing games', slug: 'guide/playing' },

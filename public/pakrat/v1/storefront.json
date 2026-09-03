@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260813T224506Z",
-  "generated_at": "2026-08-13T22:45:06Z",
+  "catalog_revision": "prod-20260903T192851Z",
+  "generated_at": "2026-09-03T19:28:51Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -314,6 +314,53 @@
                 "size": 109673,
                 "installed_size": 156006,
                 "sha256": "da4131120a414e6cd100555ce709be5faf1ba3f70b148f57b98d0c79b3ad5624"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "content": [
+    {
+      "id": "org.umrk.scummvm",
+      "name": "ScummVM",
+      "summary": "Point-and-click adventure games, as their own console.",
+      "description": "Adds a ScummVM system with its own ROM folder and the libretro ScummVM core that runs it. There is no app to open: installing this pak makes a ScummVM tile appear alongside your consoles, and your games go in Roms/SCUMMVM.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak",
+      "categories": [
+        "emulation",
+        "content"
+      ],
+      "version": "1.2.0",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "1.2.0",
+          "min_leaf_version": "0.11.0",
+          "install_name": "ScummVM.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak/releases/download/v1.2.0/ScummVM.mlp1.pak.zip",
+            "name": "ScummVM.mlp1.pak.zip",
+            "archive": "zip",
+            "size": 129503201,
+            "installed_size": 221560643,
+            "sha256": "e7aff113a6bb7cb0a6f2b0c9eeb688796a9cca5a2b5a334642a50bf78d9c0d6c"
+          },
+          "versions": [
+            {
+              "version": "1.2.0",
+              "min_leaf_version": "0.11.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak/releases/download/v1.2.0/ScummVM.mlp1.pak.zip",
+                "name": "ScummVM.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 129503201,
+                "installed_size": 221560643,
+                "sha256": "e7aff113a6bb7cb0a6f2b0c9eeb688796a9cca5a2b5a334642a50bf78d9c0d6c"
               }
             }
           ]

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -9,13 +10,16 @@ const catalogPath = new URL('../public/pakrat/v1/storefront.json', import.meta.u
 const source = JSON.parse(await readFile(catalogPath, 'utf8'));
 const temp = await mkdtemp(join(tmpdir(), 'leaf-pakrat-validator-'));
 
-function run(path, remote = false, previousPath = null) {
+function run(path, remote = false, previousPath = null, archivePath = null) {
   const args = [validator.pathname, '--catalog', path];
   if (remote) {
     args.push('--remote');
   }
   if (previousPath) {
     args.push('--previous-catalog', previousPath);
+  }
+  if (archivePath) {
+    args.push('--archive', archivePath);
   }
   return spawnSync(process.execPath, args, { encoding: 'utf8' });
 }
@@ -188,6 +192,213 @@ try {
     const sha = app.packages[0].artifact.sha256;
     app.packages[0].artifact.sha256 = `${sha[0] === '0' ? '1' : '0'}${sha.slice(1)}`;
   }, 'remote sha256', true);
+
+  // ---- STORE-CONTENT-1: the content[] lane --------------------------------
+
+  // Build a content package out of a real published app entry so every other
+  // rule (HTTPS, sha256, version grammar) still holds and only the lane
+  // differs.
+  const asContentPackage = (catalog, id = 'org.umrk.scummvm') => {
+    const entry = structuredClone(catalog.apps[0]);
+    entry.id = id;
+    entry.name = 'ScummVM';
+    const pkg = entry.packages[0];
+    pkg.install_name = 'ScummVM.pak';
+    pkg.min_leaf_version = '0.11.0';
+    pkg.versions = [
+      {
+        version: pkg.version,
+        min_leaf_version: '0.11.0',
+        artifact: structuredClone(pkg.artifact),
+      },
+    ];
+    return entry;
+  };
+
+  const writeArchiveCase = async (name, catalog, manifest) => {
+    const pkg = (catalog.content?.[0] ?? catalog.apps[0]).packages[0];
+    const root = join(temp, `${name}-archive-root`);
+    const pakRoot = join(root, pkg.install_name);
+    await mkdir(pakRoot, { recursive: true });
+    await writeFile(join(pakRoot, pkg.runtime_manifest_path),
+      `${JSON.stringify(manifest)}\n`, 'utf8');
+    const archive = join(temp, `${name}.zip`);
+    const zipped = spawnSync('zip', ['-q', '-r', '-X', archive, pkg.install_name], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    if (zipped.status !== 0) {
+      throw new Error(`${name}: zip failed: ${zipped.stderr}`);
+    }
+    const bytes = await readFile(archive);
+    const artifact = {
+      ...structuredClone(pkg.artifact),
+      size: bytes.length,
+      sha256: createHash('sha256').update(bytes).digest('hex'),
+    };
+    pkg.artifact = structuredClone(artifact);
+    if (Array.isArray(pkg.versions)) {
+      pkg.versions.forEach((entry) => { entry.artifact = structuredClone(artifact); });
+    }
+    const path = join(temp, `${name}-catalog.json`);
+    await writeFile(path, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8');
+    return { archive, path };
+  };
+
+  {
+    // An all-gated content package with no ungated floor is VALID here and
+    // would be rejected outright in apps[]. That asymmetry is the lane.
+    const catalog = structuredClone(source);
+    catalog.content = [asContentPackage(catalog)];
+    const path = join(temp, 'content-all-gated.json');
+    await writeFile(path, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8');
+    const result = run(path);
+    if (result.status !== 0) {
+      throw new Error(
+        `content-all-gated: valid content package was rejected:\n${result.stdout}\n${result.stderr}`,
+      );
+    }
+    console.log('PASS content-all-gated');
+  }
+
+  {
+    const catalog = structuredClone(source);
+    catalog.content = [asContentPackage(catalog)];
+    catalog.apps = [];
+    const { archive, path } = await writeArchiveCase(
+      'content-only-runtime-provides',
+      catalog,
+      {
+        name: 'ScummVM',
+        platform: 'mlp1',
+        pak_version: catalog.content[0].packages[0].version,
+        min_leaf_version: '0.11.0',
+        provides: {},
+      },
+    );
+    const result = run(path, false, null, archive);
+    if (result.status !== 0) {
+      throw new Error(`content-only-runtime-provides rejected:\n${result.stdout}\n${result.stderr}`);
+    }
+    console.log('PASS content-only-runtime-provides');
+  }
+
+  {
+    const catalog = structuredClone(source);
+    catalog.content = [asContentPackage(catalog)];
+    catalog.apps = [];
+    const { archive, path } = await writeArchiveCase(
+      'content-runtime-missing-provides',
+      catalog,
+      {
+        name: 'ScummVM',
+        platform: 'mlp1',
+        pak_version: catalog.content[0].packages[0].version,
+        min_leaf_version: '0.11.0',
+      },
+    );
+    const result = run(path, false, null, archive);
+    const output = `${result.stdout}\n${result.stderr}`;
+    if (result.status === 0 || !output.includes('must declare a provides object')) {
+      throw new Error(`content-runtime-missing-provides was not rejected:\n${output}`);
+    }
+    console.log('PASS content-runtime-missing-provides');
+  }
+
+  {
+    const catalog = structuredClone(source);
+    catalog.apps = [structuredClone(source.apps[0])];
+    delete catalog.content;
+    const pkg = catalog.apps[0].packages[0];
+    const { archive, path } = await writeArchiveCase(
+      'apps-runtime-declares-provides',
+      catalog,
+      {
+        name: catalog.apps[0].name,
+        platform: 'mlp1',
+        pak_version: pkg.version,
+        provides: {},
+      },
+    );
+    const result = run(path, false, null, archive);
+    const output = `${result.stdout}\n${result.stderr}`;
+    if (result.status === 0 || !output.includes('must not declare provides')) {
+      throw new Error(`apps-runtime-declares-provides was not rejected:\n${output}`);
+    }
+    console.log('PASS apps-runtime-declares-provides');
+  }
+
+  await expectRejected('content-id-in-both-lanes', (catalog) => {
+    catalog.content = [asContentPackage(catalog, catalog.apps[0].id)];
+  }, 'may appear in exactly one lane');
+
+  await expectRejected('content-shared-platform', (catalog) => {
+    const entry = asContentPackage(catalog);
+    entry.packages[0].platform = 'shared';
+    catalog.content = [entry];
+  }, '"shared" is refused');
+
+  await expectRejected('content-not-an-array', (catalog) => {
+    catalog.content = {};
+  }, 'must be an array when present');
+
+  await expectRejected('content-legacy-gate-mismatch', (catalog) => {
+    const entry = asContentPackage(catalog);
+    // The legacy fields must mirror the newest entry's gate; claiming an
+    // ungated legacy install of a gated package is exactly the confusion the
+    // apps[] safe-floor rule exists to prevent.
+    delete entry.packages[0].min_leaf_version;
+    catalog.content = [entry];
+  }, "must mirror the newest version's gate");
+
+  await expectRejected('content-version-ungated', (catalog) => {
+    const entry = asContentPackage(catalog);
+    delete entry.packages[0].versions[0].min_leaf_version;
+    catalog.content = [entry];
+  }, 'every content version must declare min_leaf_version');
+
+  await expectRejected('content-legacy-artifact-mismatch', (catalog) => {
+    const entry = asContentPackage(catalog);
+    entry.packages[0].artifact = {
+      ...entry.packages[0].artifact,
+      size: entry.packages[0].artifact.size + 1,
+    };
+    catalog.content = [entry];
+  }, 'must exactly match newest-version artifact');
+
+  {
+    const previous = structuredClone(source);
+    previous.content = [asContentPackage(previous)];
+    const current = structuredClone(previous);
+    current.content = [];
+    await expectImmutableRejected(
+      'content-history-removal', current, previous,
+      'previously published content package must not be removed or change lanes',
+    );
+  }
+
+  {
+    const previous = structuredClone(source);
+    previous.content = [asContentPackage(previous)];
+    const current = structuredClone(previous);
+    current.content[0].packages[0].versions[0].artifact.sha256 = '3'.repeat(64);
+    await expectImmutableRejected(
+      'content-history-mutation', current, previous,
+      'previously published version facts are immutable',
+    );
+  }
+
+  // apps[] must not inherit the exemption.
+  await expectRejected('apps-lane-still-needs-a-safe-floor', (catalog) => {
+    const pkg = catalog.apps[0].packages[0];
+    pkg.versions = [
+      {
+        version: pkg.version,
+        min_leaf_version: '0.11.0',
+        artifact: structuredClone(pkg.artifact),
+      },
+    ];
+  }, 'must contain an ungated safe-floor version');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

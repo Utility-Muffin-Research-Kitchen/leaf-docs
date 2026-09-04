@@ -39,7 +39,8 @@ Under the hood:
   work as usual. DraStic uses **MENU** as a modifier for save states, layouts, and
   the transparent second screen - see
   [Nintendo DS controls](/guide/playing/#nintendo-ds-standalone-drastic) for the
-  full list.
+  full list. **Fun DraStic** is an alternate front end for the same emulator,
+  selectable per game - see [Nintendo DS](#nintendo-ds) below.
 - **Standalone N64** runs Nintendo 64 games from `Roms/N64/` through Leaf's
   packaged Mupen64Plus build. The standard RetroArch N64 core is still available
   as an alternate core, but standalone is the default because it gives Leaf more
@@ -116,6 +117,37 @@ a given game runs at full speed varies by title; treat these as "best effort,"
 not guaranteed.
 :::
 
+### Nintendo DS
+
+Leaf lists Nintendo DS as one system, with one ROM folder: `Roms/NDS/`. Two front
+ends are available through the **Core** option:
+
+- **DraStic** is the default, using [Steward Fu](https://github.com/steward-fu/nds)'s
+  front end. It's what the [Nintendo DS controls](/guide/playing/#nintendo-ds-standalone-drastic)
+  describe.
+- **Fun DraStic** is by [tenlevels](https://github.com/tenlevels): a redesigned
+  menu, screen overlays, extra screen layouts, and themes.
+
+Both run the same closed-source DraStic emulator - the identical program file -
+so they play games identically. Fun DraStic is a nicer interface, not a newer,
+faster, or more compatible emulator. Pick whichever one you prefer looking at.
+
+To move a game across, press **X** on it, choose **Core**, and pick the other
+one. To put it back on the default, choose **Core** again and pick DraStic, or
+use **Reset Override** to clear the per-game choice entirely.
+
+Your in-game saves are shared, so a game keeps its progress whichever front end
+you play it in. Save states and settings are not shared: each front end keeps its
+own, and a save state you made in one won't be there in the other. Save in-game
+before you switch.
+
+Neither one needs a BIOS file of your own; both include DraStic's own free
+replacement BIOS, and most games run on it with no setup at all. The optional
+Nintendo files are covered under [Systems that need a BIOS](#systems-that-need-a-bios).
+
+Both front ends accept `.nds` files, and `.zip` and `.7z` archives containing
+one.
+
 ## BIOS (you supply these)
 
 A *BIOS* is the copyrighted firmware from the original console. Leaf never
@@ -153,6 +185,14 @@ BIOS/
   will not boot without it. Provide the standard Saturn BIOS, for example
   `sega_101.bin` (Japanese) or `mpr-17933.bin` (US / European). Without one,
   Saturn games appear in the launcher but won't launch.
+- **Nintendo DS** - no BIOS is needed to play. Both DS front ends include
+  DraStic's own free replacement BIOS, and nearly every game runs on it. The real
+  Nintendo files are optional and add two things: the handful of games that
+  refuse to start with "need original BIOS", and the DS firmware settings
+  (username, birthday, favourite colour, system language). If you want those,
+  dump them from hardware you own and put all three in `BIOS/NDS/`:
+  `nds_bios_arm7.bin` (16 KB), `nds_bios_arm9.bin` (4 KB), and
+  `nds_firmware.bin`. The sizes are how you tell a good dump from a bad one.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
 - **NEC PC-98** - put np2kai firmware in `BIOS/np2kai/`. Provide either

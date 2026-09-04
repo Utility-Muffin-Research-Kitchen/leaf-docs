@@ -17,6 +17,7 @@ organization. Each is an independent repo with its own build.
 | **retroarch-builds** | RetroArch fetch/build/packaging |
 | **Cores-spruce** | libretro core builder, forked from spruceOS's build lane (downstream of libretro-super) |
 | **leaf-n64-standalone** | Standalone Mupen64Plus package for Nintendo 64 on MLP1 |
+| **Yabasanshiro-standalone** | Optional standalone Saturn emulator package for MLP1, including corresponding-source publication |
 | **ssh-server** | The SSH Server app (a `.pak`) |
 | **Thing-File** | The file-manager app (a `.pak`) |
 | **Fugazi** | The Fugazi live CRT-shader tuner app (a `.pak`) |
@@ -34,5 +35,7 @@ organization. Each is an independent repo with its own build.
   that Leaf stages alongside the launcher.
 - **leaf-n64-standalone** produces the packaged standalone Nintendo 64 emulator
   that Leaf uses by default on MLP1.
+- **Yabasanshiro-standalone** produces Leaf's optional faster Saturn emulator;
+  its public source-only release accompanies the runtime shipped by Leaf.
 - **miniloong-launcher-switcher** owns everything device-stock-specific (the boot
   swap and install/recovery flow).

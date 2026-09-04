@@ -16,6 +16,8 @@ organization. Each is an independent repo with its own build.
 | **mlp1-toolchain** | The Buildroot-based Docker image used to cross-compile for the device |
 | **retroarch-builds** | RetroArch fetch/build/packaging |
 | **Cores-spruce** | libretro core builder, forked from spruceOS's build lane (downstream of libretro-super) |
+| **leaf-contracts** | Public schemas, fixtures, and normative contracts for third-party integrations |
+| **ScummVM-pak** | Buildable reference content pak: adds the ScummVM system and its libretro core |
 | **leaf-n64-standalone** | Standalone Mupen64Plus package for Nintendo 64 on MLP1 |
 | **ssh-server** | The SSH Server app (a `.pak`) |
 | **Thing-File** | The file-manager app (a `.pak`) |
@@ -32,6 +34,9 @@ organization. Each is an independent repo with its own build.
 - **Jawaka** depends on **Catastrophe** (header-only toolkit).
 - **retroarch-builds** + **Cores-spruce** produce the RetroArch emulation stack
   that Leaf stages alongside the launcher.
+- **leaf-contracts** defines the public content-pak interface; **ScummVM-pak**
+  is the clean-checkout example an outside developer can clone and validate
+  against it.
 - **leaf-n64-standalone** produces the packaged standalone Nintendo 64 emulator
   that Leaf uses by default on MLP1.
 - **miniloong-launcher-switcher** owns everything device-stock-specific (the boot

@@ -94,7 +94,7 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Audio device, driver, latency, and block size | **Settings → Display & Sound**. |
 | Video driver, graphics context, threaded video | The working renderer for this device. |
 | Refresh rate, black frame insertion | **Settings → Display & Sound**. |
-| Aspect ratio index, force aspect, integer scaling | Follows the live display mode. |
+| Aspect ratio, force aspect, integer scaling | Pinned to the core's own aspect with integer scaling off. There is no Leaf setting for these; see [Aspect ratio and integer scaling](#aspect-ratio-and-integer-scaling) below. |
 | Menu driver, menu scale, menu theme, OK/Cancel button order, load-content animation | Device-appropriate defaults; OK/Cancel is matched to the console's own button layout. |
 | Menu language | **Settings → General → Language**. |
 | Autoconfig and config-override notifications | Suppressed so Leaf's own messages are not buried. |
@@ -109,6 +109,36 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 Settings outside this list, including shaders, rewind, run-ahead, overlays,
 cheats, per-core options, and input remaps, are yours and persist normally.
 
+## Aspect ratio and integer scaling
+
+Leaf pins RetroArch's aspect ratio to **Core provided**, leaves **Force Aspect
+Ratio** on, and leaves **Integer Scale** off, on every launch. Unlike the other
+rows in the table above, these are not wired to a Leaf setting: there is nothing
+in **Display & Sound** or anywhere else in Leaf that changes them. Turning
+**Integer Scale** on in **Settings → Video → Scaling** works for the rest of that
+session and is back off the next time you start a game.
+
+If you want integer scaling for crisp pixels, save it as a **per-core override**.
+Overrides are loaded after Leaf's values and win, so they survive relaunches:
+
+1. Start a game on the core you want it for.
+2. **MENU → RetroArch Settings**, then **Settings → Video → Scaling**, and turn
+   **Integer Scale** on.
+3. Back out to RetroArch's Quick Menu and choose **Overrides → Save Core
+   Overrides**.
+
+The setting now applies every time you play anything on that core. **Save Game
+Overrides** and **Save Content Directory Overrides** in the same menu do the same
+thing for one game or one folder. The files are kept on your primary card under
+`.umrk/mlp1/retroarch/.config/retroarch/<Core Name>/`, and **Remove Core
+Overrides** in that menu deletes the one in use.
+
+One thing to know before you do this: while an override is loaded, RetroArch
+stops writing the shared config on exit. That is RetroArch's own behaviour, and
+it protects the shared config from absorbing the override's values. Other
+RetroArch settings you change during a session on that core will not persist, so
+make your ordinary settings changes first and save the override afterwards.
+
 ## Alternate configurations
 
 RetroArch can normally keep several configuration files and switch between them
@@ -120,6 +150,9 @@ RetroArch at a different file. Leaf would go on copying back the one it handed
 RetroArch at launch, so the session's changes would look saved and then vanish.
 Rather than leave a menu that quietly loses work, Leaf removes it and saves your
 changes automatically on exit instead.
+
+This is only about whole alternate config files. The per-core overrides
+described above are a different mechanism and still work.
 
 If an older Leaf version left an alternate config on your card under
 `.umrk/mlp1/retroarch/.config/retroarch/`, it is ignored. Leaf will not import
@@ -142,7 +175,9 @@ that caused it. See [Troubleshooting](/guide/troubleshooting/).
 ## If a setting still will not stick
 
 1. Check the table above. If Leaf owns it, change it from the Leaf setting named
-   there instead.
+   there instead. For aspect ratio and integer scaling there is no Leaf setting -
+   save a core override instead, as described in
+   [Aspect ratio and integer scaling](#aspect-ratio-and-integer-scaling).
 2. Quit properly with **MENU → Save & Quit**, or use **Quit RetroArch** in the
    app tile. Do not power off from inside RetroArch.
 3. If it is not in the table and it still reverts, that is a bug worth

@@ -107,7 +107,9 @@ A short list of RetroArch settings is set by Leaf on each launch, so changing
 one inside RetroArch only lasts for that session. Some correspond to Leaf
 settings for audio, language, refresh rate, or recording. Others are fixed so
 Leaf can work with RetroArch. [RetroArch settings](/guide/retroarch-settings/)
-lists every one and explains whether you can change it elsewhere.
+lists every one and explains whether you can change it elsewhere. Aspect ratio
+and **Integer Scale** are on that list, and the same page shows how to keep them
+per core with a RetroArch override.
 
 If the setting is not on that list, quit properly (**MENU → Save & Quit**, or
 **Main Menu → Quit RetroArch** in the app tile) rather than powering off from

@@ -129,6 +129,9 @@ Put them in the `BIOS/` folder at the root of the SD card:
 
 ```text
 BIOS/
+  SATURN/
+    sega_101.bin
+    mpr-17933.bin
   dc/
     dc_boot.bin
     awbios.zip
@@ -149,8 +152,9 @@ BIOS/
 - **Arcade (FinalBurn Neo / FBNeo)** - many arcade games depend on a BIOS or a
   parent ROM set (for example, CPS systems need their BIOS). These also live in
   `BIOS/` or alongside the game set.
-- **Saturn** - the RetroArch YabaSanshiro core requires the Sega Saturn BIOS in
-  `BIOS/`. Provide the standard Saturn BIOS, for example `sega_101.bin`
+- **Saturn** - put Sega Saturn BIOS files in `BIOS/SATURN/`. The RetroArch
+  YabaSanshiro core uses this folder automatically. Provide a standard Saturn
+  BIOS, for example `sega_101.bin`
   (Japanese) or `mpr-17933.bin` (US / European). Without one, Saturn games appear
   in the launcher but won't launch. **YabaSanshiro Standalone** is different: it
   starts without a BIOS by default, and you pick one per game or per system - see
@@ -193,7 +197,8 @@ system, rather than a global switch.
 This applies only to **YabaSanshiro Standalone**. Select it with **Core** first
 (press **X** on a Saturn game or on the Saturn system); the **Saturn BIOS** row
 appears right below **Core** once it is in force. The RetroArch YabaSanshiro core
-keeps using `BIOS/` in the usual way and has no BIOS row.
+also uses `BIOS/SATURN/`, but it has no BIOS row because it selects its expected
+firmware filename itself.
 
 **Saturn BIOS** offers:
 
@@ -203,9 +208,9 @@ keeps using `BIOS/` in the usual way and has no BIOS row.
   the whole system.
 - **Any BIOS file you have staged** - browse to it and press **A**.
 
-Browsing starts at each installed SD card's `BIOS/` folder. You do not need a
-particular filename, a `Saturn` subfolder, or a particular extension: a regional
-or renamed dump is fine, and subfolders are yours to organize as you like.
+Browsing starts at each installed SD card's `BIOS/SATURN/` folder. You do not
+need a particular filename or extension for the standalone emulator: a regional
+or renamed dump is fine, and subfolders below `SATURN/` are yours to organize.
 Nothing is moved, renamed, or copied - Leaf only remembers which file you chose.
 
 Only files of exactly 512 KiB are offered, because that is the size of a Saturn
@@ -219,7 +224,7 @@ you opened the menu.
 
 #### Two cards, and files that go missing
 
-If you run two SD cards, both cards' `BIOS/` folders are offered, and Leaf
+If you run two SD cards, both cards' `BIOS/SATURN/` folders are offered, and Leaf
 remembers *which card* your file came from. Two files with the same name on
 different cards stay two different choices, and a system-wide selection keeps
 pointing at the one file you picked no matter which card a given game lives on.

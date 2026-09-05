@@ -27,11 +27,13 @@ older folder's files there whenever you like, or just leave them.
 - **Missing BIOS.** Some systems need a BIOS file you supply (e.g. Neo Geo needs
   `neogeo.zip` in `BIOS/`). The game appears but won't start without it.
 - **Arcade ROM-set mismatch.** Arcade games must match the core's expected ROM-set
-  version and stay zipped; don't unzip or rename them. A wrong-version set
-  silently fails to load.
+  version and stay zipped; don't unzip or rename them. For Atomiswave and Naomi,
+  preserve the required shortname and any CHD subfolder. A wrong-version or
+  renamed set silently fails to load.
 - **Wrong folder.** Make sure the game is in the correct `Roms/<SYSTEM>/` folder.
 
-See [Adding games & ROMs](/guide/games/) and
+See [Naomi and Atomiswave arcade sets](/guide/games/#naomi-and-atomiswave-arcade-sets),
+[Adding games & ROMs](/guide/games/), and
 [BIOS & cores](/guide/bios-and-cores/).
 
 ## Wi-Fi connects but there's no internet

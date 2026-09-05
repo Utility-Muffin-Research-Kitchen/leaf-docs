@@ -26,7 +26,66 @@ Standalone emulators may replace or adapt a few rows. For example, Nintendo 64
 standalone has Leaf save/load and settings pages, but not RetroArch Settings,
 because it is not running inside RetroArch.
 
-For filters and scanline effects, see [RetroArch shaders](/guide/shaders/).
+For filters and scanline effects, see [RetroArch shaders](/guide/shaders/). For
+where RetroArch's own settings are stored, when they are saved, and the few
+Leaf sets on every launch, see
+[RetroArch settings](/guide/retroarch-settings/).
+
+## RetroArch hotkeys
+
+RetroArch has its own hotkeys, separate from Leaf's. They are held behind a
+modifier button so they cannot fire by accident while you play: on Leaf that
+modifier is **MENU**, and RetroArch calls it **Hotkey Enable**.
+
+So a RetroArch hotkey is **MENU + the button you bound it to**. Pressing that
+button on its own does nothing but play the game.
+
+To change or add one, open **MENU → RetroArch Settings → Settings → Input →
+Hotkeys**. Bind a hotkey to a button that does not clash with a Leaf shortcut, then
+leave RetroArch normally so the change is saved.
+
+### Changing the modifier
+
+The **Hotkey Enable** row in that same screen sets the modifier itself. You can
+move it to another button, and your choice is remembered across quitting a game,
+restarting, and updating Leaf.
+
+Two things are worth knowing before you change it:
+
+- **Whatever you choose stops reaching the game while you hold it.** That is how
+  RetroArch prevents a hotkey chord from also pressing something in the game, and
+  it applies to any button you pick. **MENU** is the default because it is not a game control. Choosing
+  **SELECT**, for instance, breaks any game that asks you to hold **SELECT**.
+- **You can clear it**, which makes every hotkey you have bound fire directly, with
+  no modifier. That is a legitimate choice and Leaf will not undo it - but be
+  deliberate, because those buttons will then do their hotkey job in the middle of
+  a game. Leaf does not silently rebind or clear your hotkeys to compensate.
+
+Quitting is the one exception Leaf keeps for itself: RetroArch's own **Quit** hotkey
+stays unbound, so no button can drop you out of a game unexpectedly, even if you
+clear the modifier. Use **Quit** in the in-game menu instead.
+
+### Where Leaf's shortcuts and RetroArch's overlap
+
+Leaf's own in-game shortcuts also use **MENU**. These are the **defaults** - the
+second button is yours to change, or turn off, in **Settings → Controls &
+Feedback → In-game Shortcuts**:
+
+| Leaf action | Default |
+| --- | --- |
+| [Game switcher](#the-game-switcher) | **MENU + SELECT** |
+| Screenshot | **MENU + L1** |
+| Recording | **MENU + R1** |
+
+If both use **MENU** and you bind a RetroArch hotkey to a button a Leaf shortcut
+is using, Leaf wins and RetroArch never sees the chord. Move one of them, or turn the Leaf shortcut
+off.
+
+Leaf only wins when it actually does something. A screenshot shortcut with
+screenshots turned off, or the game switcher outside a RetroArch game, hands the
+whole chord to RetroArch instead - so using a button for a Leaf shortcut does
+not reserve it in every situation. See
+[In-game shortcuts](/guide/features/#in-game-shortcuts).
 
 ## Save states
 
@@ -48,8 +107,10 @@ as they always have. Save states are an extra layer on top.
 
 ## The game switcher
 
-Press **SELECT** during a RetroArch game to bring up the game switcher: a carousel
-of your recent games laid over the current one.
+Press **MENU + SELECT** during a RetroArch game to bring up the game switcher: a
+carousel of your recent games laid over the current one. That chord is the
+default - **Settings → Controls & Feedback → In-game Shortcuts** puts it on
+another button, or turns it off.
 
 ![The game switcher: a carousel of recent games shown as box art, the centered one named below, with remove, back, and resume hints along the bottom](/screenshot-switcher.png)
 
@@ -63,9 +124,10 @@ of your recent games laid over the current one.
 When you do return to the launcher, it reopens exactly where you left off, on the
 same tab and game.
 
-In standalone Nintendo 64, use **MENU + SELECT** instead. Leaf saves the current
-N64 state, returns to the launcher, and opens the same switcher/recents flow
-there. Press **A** on the selected game to resume from that saved state.
+Standalone Nintendo 64 uses **MENU + SELECT** too, but there the chord is fixed
+- it is not controlled by **In-game Shortcuts**. It also works a little differently: Leaf saves the current N64
+state, returns to the launcher, and opens the same switcher/recents flow there.
+Press **A** on the selected game to resume from that saved state.
 
 ## Per-game performance
 
@@ -95,7 +157,8 @@ matter most for N64: video plugin choice, display handling, performance options,
 and the save-and-quit handoff back to the launcher. The RetroArch core remains
 available as an alternate when a particular game behaves better there.
 
-Controls that differ from RetroArch:
+Controls that differ from RetroArch. These are fixed, not the configurable
+[in-game shortcuts](/guide/features/#in-game-shortcuts):
 
 - **MENU** - open the Leaf N64 overlay.
 - **MENU + SELECT** - save the current state and hand off to Leaf's game
@@ -103,6 +166,34 @@ Controls that differ from RetroArch:
 - **A** from the game switcher or recents - resume the saved N64 state.
 - **RetroArch Settings** does not appear while using standalone N64; renderer and
   N64-specific options live in the standalone overlay instead.
+
+## Saturn (optional standalone YabaSanshiro)
+
+Saturn games default to **YabaSanshiro** in RetroArch. For a directly launched
+`.ccd`, `.chd`, `.cue`, `.iso`, or `.mds` game, you can instead choose
+**YabaSanshiro Standalone** with **Core** from the game or system **Options**
+menu. The standalone route performed better in device testing, but RetroArch
+remains the safer default and is always used for `.m3u` playlists and `.zip`
+files.
+
+YabaSanshiro is developed by [devMiyax](https://github.com/devmiyax/yabause).
+
+Standalone runs its own session, so Leaf's in-game menu, game switcher, and
+RetroArch save states do not apply:
+
+- **MENU** opens YabaSanshiro's own menu, where you can resume, manage native
+  save states, change emulator settings, or exit.
+- In-game saves are kept under `Saves/YabaSanshiro/`; native `.yss` states are
+  kept under `States/YabaSanshiro/`. They are not compatible with RetroArch
+  save states or Leaf's state browser.
+- HLE BIOS is used by default. For a real BIOS, use **Saturn BIOS** in the
+  game or system **Options** menu. See
+  [BIOS and cores](/guide/bios-and-cores/#saturn-choosing-a-bios).
+- The native **Open/Close CD Tray** picker only scans the current game's folder
+  for sibling `.cue`, `.mdf`, `.ccd`, and `.chd` files. It does not understand
+  Leaf `.m3u` playlists and does not list sibling `.iso` or `.mds` files, so the
+  list may be empty even when another disc is present. Use RetroArch for
+  reliable multi-disc playlist switching.
 
 ## Nintendo DS (standalone DraStic)
 
@@ -117,6 +208,11 @@ DraStic, which Leaf forks and builds on - most of the heavy lifting here is his
 work. Because the DS has two screens and a touch screen, the wrapper maps
 everything onto the handheld using **MENU** as a modifier you hold together with
 another button.
+
+These chords are **fixed** and belong to DraStic, not to Leaf. They are not the
+configurable [in-game shortcuts](/guide/features/#in-game-shortcuts).
+**MENU + L1** here quits DraStic regardless
+of what you have set your Leaf screenshot shortcut to.
 
 ### Everyday controls
 
@@ -169,7 +265,7 @@ key work from the handheld without a keyboard:
 - **X / Y** - keyboard **Space / Left Ctrl**.
 - **L1 / R1** - keyboard **Backspace / Right Shift**.
 - **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
-  typical “press any key” prompt.
+  typical "press any key" prompt.
 
 For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
@@ -178,6 +274,34 @@ Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
 For software that needs two floppy drives populated at startup, use a
 [PC-98 `.cmd` launch file](/guide/games/#pc-98-games-that-need-multiple-disks-at-startup).
 Later disk changes can be made from RetroArch's **Disc Control** menu.
+
+## Amiga (PUAE)
+
+Amiga games run through **PUAE 2021** in RetroArch by default. You can choose
+**PUAE** instead with **Core** in the game or system **Options** menu. Both
+come from the [UAE and libretro teams](https://github.com/libretro/libretro-uae).
+They keep separate save and state folders, so return to the same core to
+continue your progress. The default handheld controls are:
+
+- **D-pad** - joystick; **B / A** - fire buttons 1 / 2.
+- **Left or right analog stick** - mouse; **L2 / R2** - left / right mouse button.
+- **X** - Space.
+- **SELECT** (short press) - toggle PUAE's virtual keyboard. In the keyboard,
+  use the **D-pad** to move, **B** to press a key, **A** for transparency, **X** for
+  Space, and **START** for Return.
+
+Some Amiga games expect a mouse instead of a joystick. Open the virtual keyboard
+and choose **J/M**, or change **Quick Menu → Core Options → RetroPad
+Joystick/Mouse**. Multi-disk games use **MENU → RetroArch Settings → Quick Menu
+→ Disc Control** to eject, choose the next disk, and insert it.
+
+PUAE 2021 saves normal game data under `Saves/PUAE 2021/` and states under
+`States/PUAE 2021/`. The alternate PUAE core uses `Saves/PUAE/` and
+`States/PUAE/`. CDTV/CD32 NVRAM, WHDLoad helper/save images, generated save disks,
+and core configuration are durable user data and survive Leaf updates. Writes
+made inside a ZIP are the exception: PUAE does not repack the temporary archive,
+so follow the persistence advice in
+[Adding games](/guide/games/#amiga-games-archives-and-multiple-disks).
 
 ## Dreamcast, Atomiswave, and Naomi (standalone Flycast)
 

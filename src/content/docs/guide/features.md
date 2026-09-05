@@ -192,12 +192,47 @@ PIN.
 
 ## Screenshots
 
-Turn on **Settings → Controls & Feedback → Screenshots**, then press **Menu + L1**
-to capture whatever is on screen: the launcher, a menu, 5-Game Mode, or a running
-RetroArch game. Files land in the top-level `Screenshots` folder as PNGs, and none
-of it needs Wi-Fi.
+Turn on **Settings → Controls & Feedback → In-game Shortcuts → Screenshots**, then
+press **Menu + L1** to capture whatever is on screen: the launcher, a menu,
+5-Game Mode, or a running RetroArch game. **Menu + L1** is the default; you can
+put it on another button, or turn the shortcut off, on the same page. Files land
+in the top-level `Screenshots/` folder as PNGs, and none of it needs Wi-Fi.
 
 See [Screenshots](/guide/screenshots/).
+
+## In-game shortcuts
+
+Leaf's shortcuts use **MENU** held with a second button. **MENU** is always the
+modifier; the second button is yours to choose in **Settings → Controls & Feedback
+→ In-game Shortcuts**.
+
+| Action | Default |
+| --- | --- |
+| Game Switcher | **Menu + Select** |
+| Screenshot | **Menu + L1** |
+| Recording | **Menu + R1** |
+
+Press **A** on a shortcut to open the supported button list, pick one, and press
+**A** again. A button another action already uses is greyed out with that
+action's name beside it, so you can see the clash before you choose rather than
+being told afterwards. **X** on the row clears a shortcut outright.
+
+Two actions cannot share a button. The buttons are named as they are printed on
+the device, because the point is to avoid clashing with buttons you have bound
+in RetroArch, and those are physical too.
+
+### When Leaf and RetroArch want the same chord
+
+RetroArch has its own hotkeys behind its own modifier, which also defaults to
+**MENU** - see [Playing games](/guide/playing/#retroarch-hotkeys). If you bind a
+RetroArch hotkey to a button Leaf is already using and both modifiers are
+**MENU**, **Leaf wins** and RetroArch
+never sees it. Move one of them, or turn the Leaf shortcut off.
+
+Leaf only wins when it actually does something. A screenshot shortcut with
+screenshots turned off, or a game switcher outside a RetroArch game, hands the
+whole chord to RetroArch instead - so assigning a button does not reserve it in
+every situation.
 
 ## RetroArch shaders
 

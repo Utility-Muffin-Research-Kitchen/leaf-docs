@@ -131,7 +131,7 @@ Saving another **All RetroArch** shader can replace Fugazi later. If that leaves
 a current preset and Fugazi backup together, Fugazi shows the resolver the next
 time you open it.
 
-## Browse advanced presets
+## Edit and save advanced presets
 
 Choose **Advanced RetroArch menu** to open RetroArch's native **Shaders** screen
 directly. The **`leaf-bundled/`** folder holds the qualified advanced presets
@@ -139,11 +139,13 @@ that Leaf's recommendations reference. Everything there loads and renders
 correctly, but it may not suit every core or game. Leaf's scope controls are
 hidden or ignored while you are in Advanced.
 
-Apply or load a preset there, then choose RetroArch's native **Save Current
-Preset** action before you leave if you want it to persist. RetroArch also
-offers **Save Game Preset**, **Save Content Directory Preset**, **Save Core
-Preset**, and **Save Global Preset** for native automatic-preset scopes. When
-you return to Leaf, the game resumes without an automatic Leaf save prompt.
+Use RetroArch's **Load Preset** and **Apply Changes** actions to try a preset or
+edit its parameters. Before you leave, choose RetroArch's native **Save Current
+Preset** action if you want the result to persist. RetroArch also offers **Save
+Game Preset**, **Save Content Directory Preset**, **Save Core Preset**, and
+**Save Global Preset** for native automatic-preset scopes. Press **MENU** to
+return to Leaf; the game resumes immediately and Leaf does not open a save-scope
+prompt.
 
 Four formerly reported candidates are now stable recommendation names:
 **LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.

@@ -14,14 +14,17 @@ DraStic, PPSSPP, Mupen64Plus, and Flycast have their own video settings.
 
 1. Launch a game that uses RetroArch.
 2. Press **MENU**, then open **Shader**.
-3. Move through the recommendations to preview them over the paused game.
-4. Select one and save it for **This game** unless you deliberately want a
-   broader scope.
-5. Use **Advanced RetroArch menu** only when you need the full preset browser.
+3. Use **Up** and **Down** to browse the recommendations over a frozen still.
+   Leaf does not apply a live preview while you browse.
+4. Use **Left** and **Right** to choose **This game** (the default), **This
+   folder**, or **All RetroArch** before you apply anything.
+5. Select a recommendation or **Save current shader**. Leaf applies or saves it
+   at the selected scope, then resumes the game.
+6. Use **Advanced RetroArch menu** when you need RetroArch's full shader screen.
 
-Press **B** before saving to restore the shader that was active when you opened
-the picker. **Off** disables shaders for this session. A session choice ends
-when RetroArch reloads content or exits.
+Press **B** to leave the picker without applying a choice. **Off** clears the
+live shader and removes the saved preset at the selected scope. There is no
+separate **Off** submenu. A broader preset may return after you reload the game.
 
 The picker shows only recommendations that Leaf qualified for the active
 system, so you won't see all thirteen at once. Every packaged RetroArch-backed
@@ -69,19 +72,18 @@ shader.
 
 ## Save at the right scope
 
-After a successful preview, Leaf offers these scopes:
+Before you apply a recommendation or save the current shader, Leaf lets you
+choose one of these scopes with **Left** and **Right**:
 
 | Scope | What it affects |
 | --- | --- |
 | **This game** | Only the current game. This is the default and safest choice |
 | **This folder** | Games launched from the same content folder |
-| **This core** | Every game using the active libretro core |
 | **All RetroArch** | Every RetroArch game. Leaf asks for confirmation because this can replace Fugazi |
-| **This session** | The running content only. Reloading content or exiting RetroArch ends it |
 
-Within Leaf's canonical automatic-preset directory, RetroArch checks game,
-folder, core, then global, from most specific to least specific. A more specific
-preset wins.
+Leaf's picker exposes game, folder, and global scopes. RetroArch still supports
+its native core scope and checks automatic presets from most specific to least
+specific: game, folder, core, then global. A more specific preset wins.
 
 There is one legacy exception. RetroArch searches automatic-preset directories
 in order before it tries every specificity. A global preset in an earlier old
@@ -93,10 +95,11 @@ overrides.
 
 - **Save Main Configuration** stores general RetroArch settings. It does not
   create an automatic shader preset.
-- **Save Override** stores core, folder, or game configuration changes. A config
-  override does not carry the active shader.
-- **Save Shader Preset** creates the automatic shader preset that persists the
-  shader.
+- **Save Core Overrides**, **Save Content Directory Overrides**, and **Save Game
+  Overrides** store configuration changes. A config override does not carry the
+  active shader.
+- **Save Current Preset** in RetroArch's native Shaders screen creates the
+  automatic shader preset that persists the shader.
 
 Saving a config override while a shader is visible does not save that shader.
 A loaded global shader also keeps returning until you remove it or save a more
@@ -104,13 +107,11 @@ specific shader preset.
 
 ## Turn a saved shader off
 
-Choosing **Off > This session** clears only the running session. A saved shader
-can return after a content reload.
-
-To remove it permanently, choose **Off > Remove saved preset**, then select the
-same scope that owns it. Removing a game preset does not remove a core or global
-preset. A broader preset may become active on the next content launch, and Leaf
-says so instead of creating a fake no-shader preset.
+Choosing **Off** clears the running shader and removes the saved preset at the
+currently selected Leaf scope. Removing a game or folder preset does not remove
+a native core or global preset. A broader preset may become active after the
+next content launch, and Leaf explains that possibility instead of creating a
+fake no-shader preset.
 
 ## Fugazi and global presets
 
@@ -132,23 +133,17 @@ time you open it.
 
 ## Browse advanced presets
 
-Choose **Advanced RetroArch menu** to open RetroArch's **Shaders** screen. The
-**`leaf-bundled/`** folder holds the qualified advanced presets that Leaf's
-recommendations reference. Everything there loads and renders correctly, but
-it may not suit every core or game.
+Choose **Advanced RetroArch menu** to open RetroArch's native **Shaders** screen
+directly. The **`leaf-bundled/`** folder holds the qualified advanced presets
+that Leaf's recommendations reference. Everything there loads and renders
+correctly, but it may not suit every core or game. Leaf's scope controls are
+hidden or ignored while you are in Advanced.
 
-Applying or loading a preset in this browser changes only the running session.
-**Save Main Configuration** and **Save Override** do not make it persistent. To
-keep the active preset:
-
-1. Apply it on RetroArch's **Shaders** screen.
-2. Press **MENU** to close RetroArch. Leaf immediately asks where to save it.
-3. Choose **This game**, **This folder**, or **This core**. Choose **This
-   session** if you do not want to save it.
-
-**All RetroArch** remains unavailable until the installed Leaf build includes
-Fugazi's conflict resolver. Leaf asks before a global save once that resolver
-is present.
+Apply or load a preset there, then choose RetroArch's native **Save Current
+Preset** action before you leave if you want it to persist. RetroArch also
+offers **Save Game Preset**, **Save Content Directory Preset**, **Save Core
+Preset**, and **Save Global Preset** for native automatic-preset scopes. When
+you return to Leaf, the game resumes without an automatic Leaf save prompt.
 
 Four formerly reported candidates are now stable recommendation names:
 **LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.
@@ -250,5 +245,5 @@ It should point to the durable
 folders. Fully exit and relaunch the game so Leaf can refresh the path after an
 SD mount swap.
 
-As a last resort, **Settings > System > Reset RetroArch Config** restores the
+As a last resort, **Settings > General > Reset RetroArch Config** restores the
 default shader directory, but it also resets your other RetroArch settings.

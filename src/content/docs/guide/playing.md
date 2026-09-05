@@ -125,7 +125,7 @@ RetroArch save states do not apply:
   save states or Leaf's state browser.
 - HLE BIOS is used by default. For a real BIOS, use **Saturn BIOS** in the
   game or system **Options** menu. See
-  [BIOS and cores](/guide/bios-and-cores/#systems-that-need-a-bios).
+  [BIOS and cores](/guide/bios-and-cores/#saturn-choosing-a-bios).
 - The native **Open/Close CD Tray** picker only scans the current game's folder
   for sibling `.cue`, `.mdf`, `.ccd`, and `.chd` files. It does not understand
   Leaf `.m3u` playlists and does not list sibling `.iso` or `.mds` files, so the

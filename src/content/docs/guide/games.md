@@ -104,6 +104,12 @@ already have them, but new games and box art should go in the recommended folder
 | `A7800` | Atari 7800 |
 | `LYNX` | Atari Lynx |
 
+**Commodore**
+
+| Folder | System |
+|---|---|
+| `AMIGA` | Amiga (OCS/ECS/AGA, CDTV, and CD32) |
+
 **Other**
 
 | Folder | System |
@@ -164,6 +170,7 @@ These are the accepted game-file formats per folder:
 | `ATARI2600` | `.a26`, `.bin`, `.7z`, `.zip` |  |
 | `A7800` | `.a78`, `.bin`, `.7z`, `.zip` |  |
 | `LYNX` | `.lnx`, `.zip` |  |
+| `AMIGA` | `.adf`, `.adz`, `.dms`, `.fdi`, `.raw`, `.hdf`, `.hdz`, `.lha`, `.cue`, `.ccd`, `.chd`, `.nrg`, `.mds`, `.iso`, `.uae`, `.rp9`, `.zip`, `.7z`, `.m3u` | One folder covers OCS/ECS, AGA, CDTV, and CD32 |
 | `WS` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
 | `WSC` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
 | `COLECO` | `.bin`, `.col`, `.rom`, `.7z`, `.zip` |  |
@@ -234,6 +241,33 @@ The first floppy image is mounted in FDD1 and the second in FDD2. Launch the
 so the game appears only once. Unreferenced images remain visible as normal.
 Use RetroArch's **Disc Control** later if the software asks for another disk.
 
+### Amiga games, archives, and multiple disks
+
+Keep every supported Amiga family in `Roms/AMIGA/`: A500/OCS, A600/ECS,
+A1200/A4000/AGA, CDTV, and CD32 do not use separate public folders. PUAE chooses
+the machine model from the content type and familiar path tags such as `AGA`,
+`CDTV`, or `CD32`. For example, include `CDTV` in the filename or a parent-folder
+name when CD content must boot as CDTV rather than the normal CD32 default.
+
+Leaf passes individual game `.zip` and `.7z` archives to PUAE intact. If you
+download a large collection ZIP containing many per-game ZIPs, unpack the outer
+collection once on your computer and copy only the individual game archives to
+`Roms/AMIGA/`. Do not unpack a preinstalled WHDLoad `.lha`; launch the LHA
+directly. Writes made inside a temporarily extracted ZIP are not repacked, so
+use an uncompressed disk image, a dedicated save disk, or a WHDLoad LHA when a
+game must write persistent data.
+
+For a multi-disk game, create a text `.m3u` file with one disk per line and
+launch that playlist. Leaf shows the M3U as the game and hides its referenced
+members, including entries with friendly labels such as
+`Disk 1.adf|Game Disk` or ZIP members such as `Game.zip#Disk 1.adf`. PUAE also
+understands `#SAVEDISK:Label` in an M3U. Change media with RetroArch's **Disc
+Control** menu.
+
+Leaf deliberately does not list `.ipf`, loose `.slave`, or loose `.info` files.
+IPF needs a separately packaged CAPSIMG library that this release does not ship;
+preinstalled WHDLoad games should remain in `.lha` archives.
+
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
 see [BIOS & cores](/guide/bios-and-cores/).
@@ -296,6 +330,11 @@ family.
 A Naomi miss can query all three family catalogs, so scraping a large unmatched
 Naomi set can use more of ScreenScraper's daily request allowance than a
 single-catalog system.
+
+Amiga scraping follows the same pattern. Leaf tries the general Amiga catalog,
+then AGA, CDTV, and CD32, stopping on the first match. You keep one
+`Images/AMIGA/` artwork folder and do not need to choose the hardware family by
+hand.
 
 ## Options menu
 

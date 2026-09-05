@@ -57,6 +57,10 @@ Under the hood:
 - **Neko Project II kai** runs NEC PC-98 software from `Roms/PC98/` through
   RetroArch. It supports disk control for multi-disk software and uses firmware
   from `BIOS/np2kai/` when supplied.
+- **PUAE 2021** runs Amiga OCS/ECS, AGA, CDTV, and CD32 content from
+  `Roms/AMIGA/` through RetroArch. **PUAE** is available as an alternate through
+  **Core**. Both support disk control and use model-specific Kickstart firmware
+  from `BIOS/puae/`.
 
 Because Leaf runs upstream RetroArch, features that upstream adds (including
 RetroAchievements with compatible cores) come along for the ride rather than
@@ -129,6 +133,12 @@ Put them in the `BIOS/` folder at the root of the SD card:
 
 ```text
 BIOS/
+  puae/
+    kick34005.A500
+    kick40068.A1200
+    kick34005.CDTV
+    kick40060.CD32
+    kick40060.CD32.ext
   SATURN/
     sega_101.bin
     mpr-17933.bin
@@ -167,6 +177,40 @@ BIOS/
   compatibility. Optional YM2608 rhythm samples (`2608_BD.WAV`, `2608_SD.WAV`,
   `2608_TOP.WAV`, `2608_HH.WAV`, `2608_TOM.WAV`, and `2608_RIM.WAV`) belong
   there too. Preserve the filenames expected by np2kai.
+- **Amiga (PUAE)** - put every Kickstart ROM and related file in `BIOS/puae/`.
+  Both packaged cores use this subfolder rather than root-level `BIOS/` or
+  `BIOS/AMIGA/`. Use the lowercase spelling on a case-sensitive filesystem. PUAE has a limited built-in AROS fallback,
+  but model-specific firmware gives much better compatibility. Common official
+  filenames and accepted Amiga Forever alternatives are:
+
+  | Hardware | PUAE filename | Amiga Forever filename | Raw size |
+  |---|---|---|---|
+  | A1000 Kickstart 1.1 NTSC | `kick31034.A1000` | `amiga-os-110-ntsc.rom` | 256 KB |
+  | A1000 Kickstart 1.1 PAL | `kick32034.A1000` | `amiga-os-110-pal.rom` | 256 KB |
+  | A500 Kickstart 1.2 | `kick33180.A500` | `amiga-os-120.rom` | 256 KB |
+  | A500 Kickstart 1.3 | `kick34005.A500` | `amiga-os-130.rom` | 256 KB |
+  | A600 Kickstart 2.05 | `kick37350.A600` | `amiga-os-205-a600.rom` | 512 KB |
+  | A600 Kickstart 3.1 | `kick40063.A600` | `amiga-os-310-a600.rom` | 512 KB |
+  | A1200 Kickstart 3.0 | `kick39106.A1200` | `amiga-os-300-a1200.rom` | 512 KB |
+  | A1200 Kickstart 3.1 | `kick40068.A1200` | `amiga-os-310-a1200.rom` | 512 KB |
+  | A4000 Kickstart 3.0 | `kick39106.A4000` | `amiga-os-300-a4000.rom` | 512 KB |
+  | A4000 Kickstart 3.1 | `kick40068.A4000` | `amiga-os-310-a4000.rom` | 512 KB |
+  | CDTV extended ROM | `kick34005.CDTV` | `amiga-os-130-cdtv-ext.rom` | 256 KB |
+  | CD32 Kickstart | `kick40060.CD32` | `amiga-os-310-cd32.rom` | 512 KB |
+  | CD32 extended ROM | `kick40060.CD32.ext` | `amiga-os-310-cd32-ext.rom` | 512 KB |
+  | CD32 combined Kickstart + extended ROM | `kick40060.CD32` | N/A | 1 MB |
+
+  These sizes describe raw ROM images; an encrypted Amiga Forever file may
+  include a header. Check the upstream hashes as well as the size.
+
+  A500/OCS games normally use Kickstart 1.3, while A1200/AGA content normally
+  uses Kickstart 3.1. CDTV needs its extended ROM plus an applicable base
+  Kickstart. CD32 needs both CD32 files, unless you have the accepted combined
+  ROM image. If your legally obtained Amiga Forever ROMs are encrypted, place
+  their `rom.key` in `BIOS/puae/` too. PUAE may create user-owned WHDLoad files
+  in this folder; Leaf updates leave them in place. The complete upstream BIOS
+  table, including hashes, is in the
+  [official PUAE documentation](https://docs.libretro.com/library/puae/#bios).
 - **Dreamcast** - `BIOS/dc/dc_boot.bin` is optional but recommended for the real
   Dreamcast boot firmware. Current Flycast creates and maintains its own writable
   NVRAM, so `dc_flash.bin` is not required.

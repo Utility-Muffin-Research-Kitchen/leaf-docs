@@ -69,6 +69,18 @@ Opening **BIOS** on any of those three cards browses that same folder, and BIOS
 uploads through the Library land there. For Naomi 2, upload `naomi2.zip`; base
 Naomi and Naomi GD-ROM use `naomi.zip`.
 
+The **Amiga** card appears in the **Computer** group when its emulator is
+installed. Its ROM
+and artwork actions use `Roms/AMIGA/` and `Images/AMIGA/` for every supported
+Amiga family: OCS/ECS, AGA, CDTV, and CD32. Its BIOS action uses only
+`BIOS/puae/`, matching the packaged core; uploads do not go to root-level
+`BIOS/` or `BIOS/AMIGA/`.
+
+For Amiga, the accepted list covers floppy, hard-drive, WHDLoad LHA, CD,
+configuration/package, `.zip`, `.7z`, and `.m3u` formats. It does not include IPF or loose
+WHDLoad `.slave`/`.info` entries. If you download an outer collection archive,
+unpack it on your computer first and upload the individual per-game archives.
+
 The accepted formats come from Leaf's installed system catalog, not from a
 separate web-app list. That means PC-98 disk and hard-drive images, ZIP
 pass-through, Atomiswave/Naomi direct images, zipped arcade sets, and `.m3u`

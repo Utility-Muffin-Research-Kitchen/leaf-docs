@@ -29,7 +29,7 @@ Themes/
         _apps.png
       labels/
         FC.png
-      pads/
+      controllers/
         FC.png
 ```
 
@@ -67,7 +67,7 @@ Set it to `light` or `dark` to decide for both.
 - **`labels/`** is a name written across the tile, drawn on top of the icon. Its
   canvas is the whole tile, so you place the wordmark wherever you want it and
   leave the rest transparent.
-- **`pads/`** is the controller drawn beside the game count of whichever tile is
+- **`controllers/`** is the one drawn beside the game count of whichever tile is
   selected. Leaf colors it to match the clock and battery, so draw a white shape
   on transparency - any color you paint is thrown away, and holes stay holes.
 - **`wallpaper.png`** fills the screen behind everything.
@@ -76,11 +76,11 @@ Set it to `light` or `dark` to decide for both.
 | --- | --- | --- |
 | Icons | 512 x 512 | 1024 is the hard cap. Anything larger is skipped |
 | Labels | 512 x 512 | Same canvas as the icon it sits on |
-| Pads | 128 px tall | Any width, cropped tight to the art |
+| Controllers | 128 px tall | Any width, cropped tight to the art |
 | Wallpaper | 960 x 720 | `.jpg` is accepted too |
 
-PNG only, apart from the wallpaper. Pads are small on purpose: one draws about 37
-pixels tall, so check yours at that size rather than at full canvas.
+PNG only, apart from the wallpaper. Controllers are small on purpose: one draws
+about 37 pixels tall, so check yours at that size rather than at full canvas.
 
 ## Naming the files
 
@@ -120,5 +120,5 @@ When more than one picture could apply, the first of these that exists wins:
 4. Leaf's built-in set
 5. Leaf's fallback art
 
-Labels, pads and the wallpaper resolve the same way. A pad you leave out falls
-back to Leaf's generic controller rather than to nothing.
+Labels, controllers and the wallpaper resolve the same way. One you leave out
+falls back to Leaf's generic controller rather than to nothing.

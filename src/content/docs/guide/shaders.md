@@ -140,7 +140,6 @@ correctly, but it may not suit every core or game. Leaf's scope controls are
 hidden or ignored while you are in Advanced.
 
 Use RetroArch's **Load Preset** and **Apply Changes** actions to try a preset or
-Use RetroArch's **Load Preset** and **Apply Changes** actions to try a preset or
 edit its parameters. Before you leave, open **Manage Presets** and choose
 RetroArch's native **Save Current Preset** action if you want the result to
 persist. **Manage Presets** also offers **Save Game Preset**, **Save Content

@@ -106,8 +106,12 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Firmware check, built-in image viewer and media player, dummy core on shutdown | Device compatibility. |
 | RetroAchievements account and password | **Settings → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
 
-Settings outside this list, including shaders, rewind, run-ahead, overlays,
-cheats, per-core options, and input remaps, are yours and persist normally.
+Settings outside this list, including rewind, run-ahead, overlays, cheats,
+per-core options, and input remaps, are yours and persist normally. Shaders are
+a separate case: a shader can be active for only the current session, while an
+automatic shader preset has its own game, folder, core, and global precedence.
+See [RetroArch shaders](/guide/shaders/) for how to save and remove those
+presets.
 
 ## Aspect ratio and integer scaling
 
@@ -165,12 +169,15 @@ hand if you need them.
 **Settings → General → Reset RetroArch Config** replaces the shared config with
 Leaf's packaged defaults.
 
-This erases the settings kept in that file, including shader choices, rewind,
-overlays, and the rest of RetroArch's own menus. Per-core options and input
-remaps are stored in separate files and are not erased; delete those by hand if
-you need to. Your games, saves, and save states are untouched. Use this when
-RetroArch is misbehaving and you would rather start clean than find the setting
-that caused it. See [Troubleshooting](/guide/troubleshooting/).
+This erases the settings kept in that file, including the active shader setting,
+rewind, overlays, and the rest of RetroArch's own menus. It does not remove
+automatic shader preset files, so a saved game, folder, core, or global preset
+can apply again after the reset. Use [RetroArch shaders](/guide/shaders/) to
+remove those presets. Per-core options and input remaps are stored in separate
+files and are not erased; delete those by hand if you need to. Your games,
+saves, and save states are untouched. Use this when RetroArch is misbehaving
+and you would rather start clean than find the setting that caused it. See
+[Troubleshooting](/guide/troubleshooting/).
 
 ## If a setting still will not stick
 

@@ -54,7 +54,7 @@ release.
 All thirteen recommendations passed Leaf's visual and performance checks on the
 MLP1, but a few combinations need care:
 
-- Keep Black Frame Insertion off with **GBA Color** and **Game Boy Advance LCD**
+- Keep **Black Frame Insertion** off with **GBA Color** and **Game Boy Advance LCD**
   when using mGBA. The no-shader mGBA control already falls below full speed at
   120 Hz with BFI, so the picker shows that warning instead of blaming the
   shader.
@@ -74,8 +74,8 @@ choose one of these scopes with **Left** and **Right**:
 
 | Scope | What it affects |
 | --- | --- |
-| **This game** | Only the current game. This is the default and safest choice |
-| **This folder** | Games launched from the same content folder |
+| **This game** | The current game with its current core. This is the default |
+| **This folder** | Games launched from the same content folder with the same core |
 | **All RetroArch** | Every RetroArch game. Leaf asks for confirmation because this can replace Fugazi |
 
 Leaf's picker exposes game, folder, and global scopes. RetroArch still supports
@@ -90,15 +90,15 @@ overrides.
 
 ### Three saves that do different jobs
 
-- **Save Main Configuration** stores general RetroArch settings. It does not
-  create an automatic shader preset.
+- Quitting RetroArch normally saves general RetroArch settings. It does not
+  create an automatic shader preset. Leaf hides the **Configuration File** menu.
 - **Save Core Overrides**, **Save Content Directory Overrides**, and **Save Game
   Overrides** store configuration changes. A config override does not carry the
   active shader.
 - **Save Game Preset**, **Save Content Directory Preset**, **Save Core Preset**,
   and **Save Global Preset** under **Shaders > Manage Presets** create automatic
-  presets at their matching scopes. **Save Current Preset** edits the currently
-  loaded preset file instead.
+  presets at their matching scopes. **Save Current Preset** updates the loaded
+  preset file; it does not choose a new automatic scope.
 
 Saving a config override while a shader is visible does not save that shader.
 A loaded global shader also keeps returning until you remove it or save a more
@@ -135,27 +135,27 @@ time you open it.
 Choose **Advanced RetroArch menu** to open RetroArch's native **Shaders** screen
 directly. The **`leaf-bundled/`** folder holds the qualified advanced presets
 that Leaf's recommendations reference. Everything there loads and renders
-correctly, but it may not suit every core or game. Leaf's scope controls are
-hidden or ignored while you are in Advanced.
+correctly, but it may not suit every core or game. Choose the save scope in RetroArch while you are there; Leaf's **Left / Right**
+scope selection does not carry into that menu.
 
-Apply or load a preset there, then open **Manage Presets** and choose **Save
-Game Preset**, **Save Content Directory Preset**, **Save Core Preset**, or **Save
-Global Preset** for the native automatic scope you want before you leave.
+Choose **Load Preset** to load a preset. If you edit its shader passes, choose
+**Apply Changes**. Then open **Manage Presets** and choose **Save Game Preset**,
+**Save Content Directory Preset**, **Save Core Preset**, or **Save Global Preset**
+for the automatic scope you want before you leave.
 **Save Current Preset** edits the currently loaded preset file, so use it only
 when that is the file you intend to maintain. When you return to Leaf, the game
 resumes without an automatic Leaf save prompt.
 
-Four formerly reported candidates are now stable recommendation names:
-**LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.
 `zfast-composite` remains advanced-only because its measured audio underrun was
 much higher than the alternatives even though its frame-rate counter stayed at
 60 fps. **CRT Lottes Fast** also remains advanced-only after measuring about
 34 fps on a lightweight test scene.
 
-The bundle includes work from
-**[PT SkyWalker541](https://github.com/SkyWalker541/PT-SkyWalker541)** and
-**[Sharp Shimmerless](https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader)**,
-along with lightweight CRT shaders from the libretro collection.
+The bundle includes PT SkyWalker541 by
+[SkyWalker541](https://github.com/SkyWalker541/PT-SkyWalker541), Sharp Shimmerless
+by [Woohyun-Kang](https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader),
+and lightweight CRT shaders from the
+[libretro shader contributors](https://github.com/libretro/glsl-shaders).
 
 ## Download the full RetroArch collection
 
@@ -166,10 +166,8 @@ MLP1.
 ::::
 
 RetroArch's **Online Updater > Update GLSL Shaders** downloads the complete
-official libretro GLSL collection into **`shaders_glsl/`**. The updater tree is
-complete and byte-identical to upstream; it is not a broken or partial Leaf
-copy. Its presets simply have not passed Leaf's MLP1 performance and visual
-checks.
+official libretro GLSL collection into **`shaders_glsl/`**. These presets have not all passed Leaf's MLP1 performance and visual checks.
+Let the download finish before browsing them.
 
 The folders have separate owners:
 
@@ -235,7 +233,7 @@ fails on the stock OS, so stock is not a working fallback.
 | A shader returns after reload | Remove the saved preset at its owning scope and check Fugazi or another global preset |
 | Fugazi says the state needs attention | Deliberately choose **Keep current**, **Restore previous**, or **Cancel** |
 
-## If the preset browser is empty
+## The preset browser is empty
 
 An older Leaf release may predate the shader bundle. Update Leaf first.
 

@@ -118,8 +118,9 @@ For a short recovery pass:
 1. Open **MENU > Shader** and note what is active.
 2. If Fugazi owns the global preset, open Fugazi and choose **Remove**.
 3. Resolve **State needs attention** before applying Fugazi again.
-4. Choose **Off** at the scope that owns the old choice, or browse a Leaf
-   recommendation over the frozen still.
+4. Choose **Off** at the game, folder, or global scope that owns the old
+   choice. For a native core preset, use RetroArch's **Manage Presets → Remove
+   Core Preset**. You can also browse a Leaf recommendation over the frozen still.
 5. Use **Advanced RetroArch menu** only for a custom or updater preset, or when
    support asks for verbose evidence. Use **Manage Presets > Save Game Preset**
    or the matching native automatic scope before leaving if the Advanced choice

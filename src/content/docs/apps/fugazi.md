@@ -37,20 +37,20 @@ preset by content and will not silently overwrite or remove an unknown one.
 
 | Button | Action |
 | --- | --- |
-| Up / Down | Pick a setting |
-| Left / Right | Fine adjustment |
-| L1 / R1 | Coarse adjustment |
-| X | Toggle between the game image and test pattern |
-| Y | Reset the tuner values to no visible effect |
-| A | Apply the current tuning globally |
-| START | Remove Fugazi or resolve a conflicting preset state |
-| B | Quit |
+| **Up / Down** | Pick a setting |
+| **Left / Right** | Fine adjustment |
+| **L1 / R1** | Coarse adjustment |
+| **X** | Toggle between the game image and test pattern |
+| **Y** | Reset the tuner values to no visible effect |
+| **A** | Apply the current tuning globally |
+| **START** | Remove Fugazi or resolve a conflicting preset state |
+| **B** | Quit |
 
 **Reset is not Remove.** Pressing **Y** changes the tuner values only. If
 Fugazi is already installed globally, resetting the sliders does not uninstall
 its preset. Use **START > Remove** to disable Fugazi.
 
-## Apply and Remove
+## Apply or remove a global preset
 
 When no global preset exists, **Apply** installs Fugazi. When Fugazi already
 owns the global preset, **Apply** updates it.
@@ -61,16 +61,16 @@ Fugazi installs its own. Only one predecessor is kept.
 
 **Remove** behaves according to ownership:
 
-- If Fugazi owns the global preset and no backup exists, Remove deletes only
+- If Fugazi owns the global preset and no backup exists, **Remove** deletes only
   Fugazi's automatic preset.
-- If Fugazi owns the global preset and a backup exists, Remove restores that
+- If Fugazi owns the global preset and a backup exists, **Remove** restores that
   preset byte-for-byte.
-- If another preset owns the global path, Remove refuses to delete it.
+- If another preset owns the global path, **Remove** refuses to delete it.
 
 Removing Fugazi leaves its small generated shader files in place. They are
 harmless and may still be referenced by a running game or another preset.
 
-## When the state needs attention
+## Fugazi says the state needs attention
 
 Fugazi shows **State needs attention** when another current global preset and a
 Fugazi backup coexist. This can happen if you apply Fugazi over one global

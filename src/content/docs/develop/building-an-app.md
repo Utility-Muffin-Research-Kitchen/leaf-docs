@@ -39,13 +39,18 @@ come from here, not the folder or binary name:
   "icon": "icon.png",
   "platform": "mlp1",
   "pak_version": "1.0.0",
-  "min_jawaka_version": "0.0.1",
+  "min_leaf_version": "0.7.0",
   "type": "TOOL",
   "description": "What the app does, shown in the app store.",
   "author": "your-name",
   "repo_url": "https://github.com/your-name/leaf-app"
 }
 ```
+
+This page covers a launchable app. To add a console-style system, libretro core,
+or standalone emulator, build a
+[content pak instead](/develop/adding-an-emulator/); content paks use a
+`provides` manifest and do not patch Leaf's release-managed catalog.
 
 `launch.sh` is run from inside the pak directory with the platform environment
 set (`PLATFORM`, `DEVICE`, `HOME`, and the `*_PATH` data roots). The minimal job

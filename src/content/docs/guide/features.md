@@ -108,8 +108,8 @@ back to where you were. See
 While a game is running, the same button opens the **in-game menu** instead -
 quick actions (resume, save and load states, the performance panel, shaders,
 RetroArch settings, and quit back to the launcher) without leaving the game.
-**MENU > Shader** is the common path for previewing Leaf's recommendations and
-saving one for a game, folder, core, or session. See
+**MENU > Shader** is the common path for browsing Leaf's recommendations over a
+frozen still and saving one for a game, folder, or all RetroArch content. See
 [Playing games](/guide/playing/) for the full in-game menu, save states, and
 per-game performance.
 
@@ -204,9 +204,10 @@ See [Screenshots](/guide/screenshots/).
 Leaf bundles a small, curated set of GLSL shader presets, tested on this screen.
 Nothing switches on by itself, so a fresh install shows the original picture until
 you pick one. Launch a RetroArch game, press **MENU**, and open **Shader** to
-preview only the recommendations qualified for that system. Save for **This
-game** unless you intentionally need a broader scope; use **Advanced RetroArch
-menu** for the full browser.
+  browse the recommendations over a frozen still, then use **Left** and
+  **Right** to choose **This game**, **This folder**, or **All RetroArch** before
+  applying or saving. Use **Advanced RetroArch menu** for the native Shaders
+  screen and save there with RetroArch's **Save Current Preset** action.
 
 The thirteen recommendations cover crisp pixel scaling, subtle scanlines,
 per-system Game Boy and GBA color and LCD simulations, shimmer-free scaling,

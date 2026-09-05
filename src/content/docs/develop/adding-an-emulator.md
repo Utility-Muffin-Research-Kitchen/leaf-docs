@@ -3,9 +3,9 @@ title: Adding a system or emulator
 description: Package a third-party system, libretro core, or standalone emulator for Leaf as a self-contained content pak.
 ---
 
-A **content pak** is a `.pak` whose `pak.json` has a top-level `provides`
-object. Installing it can add a system to the launcher, ship the emulator that
-runs that system, or add an alternate core to an existing system. It never
+You can add a system and its emulator to Leaf, or add an alternate core to an
+existing system, by installing a **content pak**. It is a `.pak` whose
+`pak.json` has a top-level `provides` object. It never
 patches Leaf's installed files: the core, metadata, and artwork stay inside the
 pak, and uninstalling the pak removes its contribution on the same library
 rescan.
@@ -158,7 +158,7 @@ Content paks cannot replace a first-party system or change its default core.
 
 Every new system ships a flat PNG in `icon_flat`. `icon_photographic` may name a
 second PNG or be `null`; when it is absent, Leaf uses the flat icon even under
-the Photographic setting. A user-created `Roms/<SYSTEM>/icon.png` still wins
+the **Photographic** setting. A user-created `Roms/<SYSTEM>/icon.png` still wins
 over both.
 
 Optional system fields include:
@@ -230,14 +230,14 @@ For a quick device iteration:
 
 1. Assemble `MySystem.pak/` on your computer.
 2. Copy that one directory to `Apps/mlp1/` on the primary SD card.
-3. In Leaf, run **System → Rescan Library**.
-4. Put ROMs in the declared `Roms/<SYSTEM>/` folder.
+3. Put ROMs in the declared `Roms/<SYSTEM>/` folder.
+4. In Leaf, press **MENU**, then choose **Actions → Rescan Library**.
 
 The new system and its games appear in that same rescan. Removing the pak and
 rescanning removes the system contribution; it does not delete the user's ROMs,
 images, saves, or states.
 
-## When the pak installs but contributes nothing
+## My pak installs but doesn't add its system or core
 
 First open its Pak Rat detail page. Leaf shows what the installed manifest says
 it provides and the newest matching catalog diagnostic. Developers can also

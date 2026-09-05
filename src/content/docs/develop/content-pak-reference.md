@@ -29,7 +29,9 @@ for every rejection reason, default, merge rule, and effective-catalog detail.
 ```
 
 At least one of the three arrays must be non-empty. `schema` is exactly `1`.
-Unknown fields are refused rather than ignored.
+Unknown fields inside `provides` and its entries are refused rather than
+ignored. Other top-level `pak.json` metadata is allowed; `content_scrape` is
+one such optional companion.
 
 An executable `launch.sh` controls whether the installed pak appears in Apps:
 
@@ -45,9 +47,9 @@ An executable `launch.sh` controls whether the installed pak appears in Apps:
 | Field | Required | Value |
 |---|---|---|
 | `id` | yes | `^[A-Z0-9_]{2,32}$` |
-| `name` | yes | 1–64 characters |
-| `patterns` | yes | 1–32 recognized ROM-folder names |
-| `extensions` | yes | 1–64 lowercase extensions, without dots |
+| `name` | yes | 1-64 characters |
+| `patterns` | yes | 1-32 recognized ROM-folder names |
+| `extensions` | yes | 1-64 lowercase extensions, without dots |
 | `default_core` | yes | core id available after merge |
 | `rom_root` | yes | `Roms/<folder>` |
 | `image_root` | yes | `Images/<folder>` |
@@ -62,7 +64,7 @@ An executable `launch.sh` controls whether the installed pak appears in Apps:
 | `m3u_generation` | no | `none`, `auto`, or `manual` |
 | `alternate_cores` | no | additional core ids for this new system |
 | `bios_notes` | no | up to eight short BIOS requirements |
-| `screenscraper_platform_ids` | no | up to eight integers from 1–99999 |
+| `screenscraper_platform_ids` | no | up to eight integers from 1-99999 |
 | `group` | no | Central Scrutinizer group, or `null` |
 | `bios_directory` | no | one FAT32-safe directory component, or `null` |
 

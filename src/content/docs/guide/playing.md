@@ -38,7 +38,7 @@ So a RetroArch hotkey is **MENU + the button you bound it to**. Pressing that
 button on its own does nothing but play the game.
 
 To change or add one, open **MENU → RetroArch Settings → Settings → Input →
-Hotkeys**. Bind a hotkey to any button you are not already using in the game, then
+Hotkeys**. Bind a hotkey to a button that does not clash with a Leaf shortcut, then
 leave RetroArch normally so the change is saved.
 
 ### Changing the modifier
@@ -51,9 +51,8 @@ Two things are worth knowing before you change it:
 
 - **Whatever you choose stops reaching the game while you hold it.** That is how
   RetroArch prevents a hotkey chord from also pressing something in the game, and
-  it applies to any button you pick. MENU is the default precisely because it is
-  not a game control. Choosing SELECT, for instance, breaks any game that asks you
-  to hold SELECT.
+  it applies to any button you pick. **MENU** is the default because it is not a game control. Choosing
+  **SELECT**, for instance, breaks any game that asks you to hold **SELECT**.
 - **You can clear it**, which makes every hotkey you have bound fire directly, with
   no modifier. That is a legitimate choice and Leaf will not undo it - but be
   deliberate, because those buttons will then do their hotkey job in the middle of
@@ -65,7 +64,7 @@ clear the modifier. Use **Quit** in the in-game menu instead.
 
 ### Where Leaf's shortcuts and RetroArch's overlap
 
-Leaf's own in-game shortcuts also use MENU. These are the **defaults** — the
+Leaf's own in-game shortcuts also use **MENU**. These are the **defaults** - the
 second button is yours to change, or turn off, in **Settings → Controls &
 Feedback → In-game Shortcuts**:
 
@@ -75,13 +74,13 @@ Feedback → In-game Shortcuts**:
 | Screenshot | **MENU + L1** |
 | Recording | **MENU + R1** |
 
-If you bind a RetroArch hotkey to a button a Leaf shortcut is using, Leaf wins
-and RetroArch never sees the chord. Move one of them, or turn the Leaf shortcut
+If both use **MENU** and you bind a RetroArch hotkey to a button a Leaf shortcut
+is using, Leaf wins and RetroArch never sees the chord. Move one of them, or turn the Leaf shortcut
 off.
 
 Leaf only wins when it actually does something. A screenshot shortcut with
 screenshots turned off, or the game switcher outside a RetroArch game, hands the
-whole chord to RetroArch instead — so using a button for a Leaf shortcut does
+whole chord to RetroArch instead - so using a button for a Leaf shortcut does
 not reserve it in every situation. See
 [In-game shortcuts](/guide/features/#in-game-shortcuts).
 
@@ -107,7 +106,7 @@ as they always have. Save states are an extra layer on top.
 
 Press **MENU + SELECT** during a RetroArch game to bring up the game switcher: a
 carousel of your recent games laid over the current one. That chord is the
-default — **Settings → Controls & Feedback → In-game Shortcuts** puts it on
+default - **Settings → Controls & Feedback → In-game Shortcuts** puts it on
 another button, or turns it off.
 
 ![The game switcher: a carousel of recent games shown as box art, the centered one named below, with remove, back, and resume hints along the bottom](/screenshot-switcher.png)
@@ -123,8 +122,7 @@ When you do return to the launcher, it reopens exactly where you left off, on th
 same tab and game.
 
 Standalone Nintendo 64 uses **MENU + SELECT** too, but there the chord is fixed
-— it is not one of the configurable in-game shortcuts, which apply to RetroArch
-games only. It also works a little differently: Leaf saves the current N64
+- it is not controlled by **In-game Shortcuts**. It also works a little differently: Leaf saves the current N64
 state, returns to the launcher, and opens the same switcher/recents flow there.
 Press **A** on the selected game to resume from that saved state.
 
@@ -181,8 +179,8 @@ everything onto the handheld using **MENU** as a modifier you hold together with
 another button.
 
 These chords are **fixed** and belong to DraStic, not to Leaf. They are not the
-configurable [in-game shortcuts](/guide/features/#in-game-shortcuts), which
-apply to RetroArch games only — so **MENU + L1** here quits DraStic regardless
+configurable [in-game shortcuts](/guide/features/#in-game-shortcuts).
+**MENU + L1** here quits DraStic regardless
 of what you have set your Leaf screenshot shortcut to.
 
 ### Everyday controls
@@ -236,7 +234,7 @@ key work from the handheld without a keyboard:
 - **X / Y** - keyboard **Space / Left Ctrl**.
 - **L1 / R1** - keyboard **Backspace / Right Shift**.
 - **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
-  typical “press any key” prompt.
+  typical "press any key" prompt.
 
 For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to

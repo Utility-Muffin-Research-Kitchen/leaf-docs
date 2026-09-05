@@ -21,7 +21,7 @@ Everything lives under **Settings > Controls & Feedback**.
   interface to feel clicky. It covers movement only, so opening a screen and
   confirming an action still tap with it off.
 - **Game Rumble** - lets the game itself drive the motor. On by default.
-- **In-game Shortcuts** - opens a separate page for the Menu chords: the game
+- **In-game Shortcuts** - opens a separate page for the **MENU** chords: the game
   switcher, screenshots, and recording, and which button each one uses. See
   [In-game shortcuts](/guide/features/#in-game-shortcuts).
 

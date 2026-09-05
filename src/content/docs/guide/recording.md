@@ -15,8 +15,9 @@ Reddit, or wherever you like.
 ## Turning it on
 
 Recording is off by default. Turn it on in **Settings → Controls & Feedback →
-In-game Shortcuts**, on the **Recording** row. Two more rows sit underneath it and
-stay grayed out until recording is on.
+In-game Shortcuts**, on the **Recording** row. **Split Over 10MB** and
+**Keep Original** stay grayed out until recording is on. **Recording Shortcut**
+can be changed even while recording is off.
 
 ## Recording a game
 

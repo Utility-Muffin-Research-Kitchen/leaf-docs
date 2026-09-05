@@ -4,21 +4,21 @@ description: Capture whatever is on screen on the Miniloong Pocket 1 with a butt
 ---
 
 Screenshots let you capture whatever is on screen with a single button combo,
-saved straight to the SD card as a PNG. It works everywhere - the launcher, any
-menu, in a game, and even in the locked 5-Game Mode - and it needs no Wi-Fi and no
-computer.
+saved straight to the SD card as a PNG. You can capture the launcher, Leaf
+menus, RetroArch games, and the locked 5-Game Mode without Wi-Fi or a computer.
 
 ## Turning it on
 
 Screenshots are off by default. Turn them on in **Settings → Controls & Feedback →
-In-game Shortcuts**, on the **Screenshots** row. Once on, the capture combo works
-everywhere until you switch it off again.
+In-game Shortcuts**, on the **Screenshots** row. Once on, your capture shortcut
+works in the launcher, Leaf menus, 5-Game Mode, and RetroArch games. Standalone
+emulators use their own controls.
 
 ![The In-game Shortcuts settings page with the Screenshots row highlighted and set to Off, above a Screenshot Shortcut row reading Menu + L1, alongside Game Switcher, Recording, and the recording options](/screenshot_settings.png)
 
 ## Taking a screenshot
 
-Hold **MENU** and tap **L1** — the default. The **Screenshot Shortcut** row on the
+Hold **MENU** and tap **L1** - the default. The **Screenshot Shortcut** row on the
 same page puts it on another button, or turns the shortcut off while leaving
 screenshots themselves on. See
 [In-game shortcuts](/guide/features/#in-game-shortcuts).

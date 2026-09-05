@@ -89,7 +89,8 @@ for [recovery](/guide/recovery/).
   the top level of the card (`Roms/`, `Saves/`, `States/`, and the `.userdata/` and
   `.umrk/` folders), separate from the firmware. Re-installing or
   [updating](/guide/updating/) over an existing card refreshes Leaf
-  itself but leaves all of that untouched.
+  itself but leaves all of that untouched. Carrying that data to a different
+  card later is covered in [Moving to a new SD card](/guide/moving-to-a-new-card/).
 - **Crash safety.** If Leaf ever fails to start cleanly several times in a row,
   the device falls back to the stock interface automatically so you're never
   stuck.

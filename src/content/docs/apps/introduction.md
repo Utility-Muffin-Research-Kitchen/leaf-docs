@@ -8,8 +8,9 @@ themes, and controls. You will find them on the **Apps** tab.
 
 - **[Central Scrutinizer](/apps/central-scrutinizer/)** - manage your game library
   from a web browser over Wi-Fi: upload ROMs, sort box art, browse logs.
-- **[Fugazi](/apps/fugazi/)** - a live CRT-shader tuner. Dial in scanlines, curvature,
-  and glow, and apply the look to every RetroArch game.
+- **[Fugazi](/apps/fugazi/)** - a live CRT-shader tuner. Dial in scanlines,
+  curvature, and glow, then deliberately install the look globally. Fugazi asks
+  before replacing another global preset and can preserve it for restoration.
 - **[Joe's Calibrage](/apps/joes-calibrage/)** - calibrate the analog stick so games
   see its full range.
 - **[SSH Server](/apps/ssh-server/)** - start an SSH server to reach the device's

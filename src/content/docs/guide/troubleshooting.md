@@ -117,6 +117,33 @@ If the setting is not on that list, quit properly (**MENU → Save & Quit**, or
 **Main Menu → Quit RetroArch** in the app tile) rather than powering off from
 inside RetroArch, and try again.
 
+## A shader is missing, broken, or keeps returning
+
+| Symptom | First action |
+| --- | --- |
+| A Leaf recommendation is missing | Update or reinstall Leaf. Do not use the Online Updater pack as a substitute for `leaf-recommended/` |
+| An updater or custom shader fails | Check whether it compiled. A link failure falls back to the plain picture while RetroArch can still show the preset as loaded. Then restore its complete dependency tree |
+| A shader returns after reloading | Open **MENU > Shader**, choose **Off** at the scope that owns the saved preset, and let Leaf explain that a broader preset may return. Check Fugazi or another global preset too. A config override does not save or remove a shader |
+| Fugazi says the state needs attention | Open its resolver and choose **Keep current**, **Restore previous**, or **Cancel**. Do not delete the preset files by hand |
+| Leaf could not confirm the shader after a timeout | Reopen **Shader** or restart the game before saving another scope |
+
+For a short recovery pass:
+
+1. Open **MENU > Shader** and note what is active.
+2. If Fugazi owns the global preset, open Fugazi and choose **Remove**.
+3. Resolve **State needs attention** before applying Fugazi again.
+4. Choose **Off** at the game, folder, or global scope that owns the old
+   choice. For a native core preset, use RetroArch's **Manage Presets → Remove
+   Core Preset**. You can also browse a Leaf recommendation over the frozen still.
+5. Use **Advanced RetroArch menu** only for a custom or updater preset, or when
+   support asks for verbose evidence. Use **Manage Presets > Save Game Preset**
+   or the matching native automatic scope before leaving if the Advanced choice
+   should persist.
+
+See [RetroArch shaders](/guide/shaders/) for recommendation constraints,
+automatic-preset precedence, custom dependency folders, and the difference
+between a config override and a saved shader preset.
+
 ## Games, saves, or box art don't stick after a reboot
 
 This is almost always a confused SD card, usually from losing power without a clean

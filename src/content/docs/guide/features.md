@@ -106,9 +106,12 @@ back to where you were. See
 [The System page](/guide/settings/#the-system-page-menu-button).
 
 While a game is running, the same button opens the **in-game menu** instead -
-quick actions (resume, save and load states, the performance panel, quit back to
-the launcher) without leaving the game. See [Playing games](/guide/playing/) for
-the full in-game menu, save states, and per-game performance.
+quick actions (resume, save and load states, the performance panel, shaders,
+RetroArch settings, and quit back to the launcher) without leaving the game.
+**MENU > Shader** is the common path for browsing Leaf's recommendations over a
+frozen still and saving one for a game, folder, or all RetroArch content. See
+[Playing games](/guide/playing/) for the full in-game menu, save states, and
+per-game performance.
 
 ![The in-game menu over a paused game, with a save-state thumbnail and button hints](/screenshot-ingame-menu.png)
 
@@ -124,7 +127,8 @@ under [Built-in apps](/apps/introduction/):
   browse the SD card, all without pulling the card.
 - **[Fugazi](/apps/fugazi/)** - a live CRT-shader tuner. Dial in a retro look
   (scanlines, screen curvature, a phosphor mask, glow, and more) against a full-screen
-  preview, then install it as the global shader so it applies to every game.
+  preview, then deliberately install it as the global RetroArch shader. Fugazi
+  preserves an existing global preset after confirmation and can restore it later.
 - **[Joe's Calibrage](/apps/joes-calibrage/)** - calibrate the analog stick so games
   see its full range.
 - **[SSH Server](/apps/ssh-server/)** - start an SSH server to reach the device over
@@ -234,13 +238,18 @@ every situation.
 
 Leaf bundles a small, curated set of GLSL shader presets, tested on this screen.
 Nothing switches on by itself, so a fresh install shows the original picture until
-you pick one. Load a preset from **Quick Menu → Shaders → Load Preset** inside a
-RetroArch game, then look in **`leaf-recommended/`**.
+you pick one. Launch a RetroArch game, press **MENU**, and open **Shader** to
+  browse the recommendations over a frozen still, then use **Left** and
+  **Right** to choose **This game**, **This folder**, or **All RetroArch** before
+  applying or saving. Use **Advanced RetroArch menu** for the native Shaders
+  screen and save there through **Manage Presets > Save Game Preset** or the
+  matching native automatic scope.
 
-The nine recommendations cover crisp pixel scaling, subtle scanlines, per-system
-Game Boy and GBA color and LCD simulations, a shimmer-free option for awkward
-scaling, and a light CRT look. Shaders only affect games running through
-RetroArch; standalone emulators have their own video settings.
+The thirteen recommendations cover crisp pixel scaling, subtle scanlines,
+per-system Game Boy and GBA color and LCD simulations, shimmer-free scaling,
+and flat or curved CRT looks. Shaders only affect games running through
+RetroArch; standalone emulators have their own video settings. Fugazi remains
+the specialized tuner for a custom CRT look applied globally.
 
 See [RetroArch shaders](/guide/shaders/), including which presets to keep away
 from Black Frame Insertion.
@@ -251,4 +260,3 @@ from Black Frame Insertion.
   want.
 - In-game saves and save states are written to the SD card (`Saves/`,
   `States/`).
-

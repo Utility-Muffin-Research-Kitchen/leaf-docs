@@ -134,7 +134,7 @@ Saving another **All RetroArch** shader can replace Fugazi later. If that leaves
 a current preset and Fugazi backup together, Fugazi shows the resolver the next
 time you open it.
 
-## Browse advanced presets
+## Edit and save advanced presets
 
 Choose **Advanced RetroArch menu** to open RetroArch's native **Shaders** screen
 directly. The **`leaf-bundled/`** folder holds the qualified advanced presets
@@ -147,8 +147,9 @@ Choose **Load Preset** to load a preset. If you edit its shader passes, choose
 **Save Content Directory Preset**, **Save Core Preset**, or **Save Global Preset**
 for the automatic scope you want before you leave.
 **Save Current Preset** edits the currently loaded preset file, so use it only
-when that is the file you intend to maintain. When you return to Leaf, the game
-resumes without an automatic Leaf save prompt.
+when that is the file you intend to maintain. Press **MENU** to return directly
+to the game. Leaf does not ask you to choose a save scope when you leave
+RetroArch's shader screen.
 
 `zfast-composite` remains advanced-only because its measured audio underrun was
 much higher than the alternatives even though its frame-rate counter stayed at

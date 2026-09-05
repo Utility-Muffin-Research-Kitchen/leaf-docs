@@ -54,6 +54,12 @@ Under the hood:
   RetroArch in-game menu doesn't apply. VMU data, save states, and settings use
   the same durable Flycast locations for all three systems and survive Leaf
   updates - see [Flycast controls](/guide/playing/#dreamcast-atomiswave-and-naomi-standalone-flycast).
+- **Standalone YabaSanshiro** is an optional, faster Saturn route for directly
+  launched `.ccd`, `.chd`, `.cue`, `.iso`, and `.mds` games. RetroArch
+  YabaSanshiro remains the default because its playlists, compressed-game
+  handling, menu, and disc controls are more complete. The standalone emulator
+  uses its own native menu and save-state format; see
+  [Saturn controls](/guide/playing/#saturn-optional-standalone-yabasanshiro).
 - **Neko Project II kai** runs NEC PC-98 software from `Roms/PC98/` through
   RetroArch. It supports disk control for multi-disk software and uses firmware
   from `BIOS/np2kai/` when supplied.
@@ -113,6 +119,21 @@ the native package gives us tighter control over rendering, display rotation,
 and game-specific settings than the generic RetroArch core path. That makes it
 the better baseline for the device, while keeping the RetroArch core available
 as a compatibility fallback.
+
+### Saturn: RetroArch vs standalone
+
+Leaf keeps **YabaSanshiro** in RetroArch as the Saturn default. It provides the
+normal Leaf and RetroArch menus and is the route used for `.m3u` playlists and
+`.zip` files.
+
+**YabaSanshiro Standalone** is an optional faster route for direct `.ccd`,
+`.chd`, `.cue`, `.iso`, and `.mds` launches. Pick it with **Core** for a
+compatible game. It is not offered for `.m3u` or `.zip` entries because those
+formats fail in the standalone frontend.
+
+The two routes use different save-state formats, which are not compatible. Standalone uses `Saves/YabaSanshiro/` and
+`States/YabaSanshiro/`; switch back to the emulator that created a state rather
+than moving states between them.
 
 :::note
 The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Whether

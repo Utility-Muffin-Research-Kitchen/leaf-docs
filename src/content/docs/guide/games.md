@@ -155,7 +155,7 @@ These are the accepted game-file formats per folder:
 | `GENESIS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
 | `SEGACD` | `.chd`, `.cue`, `.iso`, `.7z`, `.zip`, `.m3u` |  |
 | `32X` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
-| `SATURN` | `.ccd`, `.chd`, `.cue`, `.iso`, `.mds`, `.zip`, `.m3u` |  |
+| `SATURN` | `.ccd`, `.chd`, `.cue`, `.iso`, `.mds`, `.zip`, `.m3u` | Standalone supports direct `.ccd`, `.chd`, `.cue`, `.iso`, and `.mds`; `.zip` and `.m3u` use RetroArch only |
 | `DC` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.m3u` | `.zip` is not accepted directly |
 | `ATOMISWAVE` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
 | `NAOMI` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |

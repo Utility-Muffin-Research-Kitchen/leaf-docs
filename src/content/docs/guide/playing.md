@@ -167,6 +167,34 @@ Controls that differ from RetroArch. These are fixed, not the configurable
 - **RetroArch Settings** does not appear while using standalone N64; renderer and
   N64-specific options live in the standalone overlay instead.
 
+## Saturn (optional standalone YabaSanshiro)
+
+Saturn games default to **YabaSanshiro** in RetroArch. For a directly launched
+`.ccd`, `.chd`, `.cue`, `.iso`, or `.mds` game, you can instead choose
+**YabaSanshiro Standalone** with **Core** from the game or system **Options**
+menu. The standalone route performed better in device testing, but RetroArch
+remains the safer default and is always used for `.m3u` playlists and `.zip`
+files.
+
+YabaSanshiro is developed by [devMiyax](https://github.com/devmiyax/yabause).
+
+Standalone runs its own session, so Leaf's in-game menu, game switcher, and
+RetroArch save states do not apply:
+
+- **MENU** opens YabaSanshiro's own menu, where you can resume, manage native
+  save states, change emulator settings, or exit.
+- In-game saves are kept under `Saves/YabaSanshiro/`; native `.yss` states are
+  kept under `States/YabaSanshiro/`. They are not compatible with RetroArch
+  save states or Leaf's state browser.
+- HLE BIOS is used by default. For a real BIOS, use **Saturn BIOS** in the
+  game or system **Options** menu. See
+  [BIOS and cores](/guide/bios-and-cores/#saturn-choosing-a-bios).
+- The native **Open/Close CD Tray** picker only scans the current game's folder
+  for sibling `.cue`, `.mdf`, `.ccd`, and `.chd` files. It does not understand
+  Leaf `.m3u` playlists and does not list sibling `.iso` or `.mds` files, so the
+  list may be empty even when another disc is present. Use RetroArch for
+  reliable multi-disc playlist switching.
+
 ## Nintendo DS (standalone DraStic)
 
 Nintendo DS games run in **DraStic**, a standalone emulator rather than RetroArch,

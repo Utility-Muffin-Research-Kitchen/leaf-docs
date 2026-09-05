@@ -26,7 +26,10 @@ Standalone emulators may replace or adapt a few rows. For example, Nintendo 64
 standalone has Leaf save/load and settings pages, but not RetroArch Settings,
 because it is not running inside RetroArch.
 
-For filters and scanline effects, see [RetroArch shaders](/guide/shaders/).
+For filters and scanline effects, see [RetroArch shaders](/guide/shaders/). For
+where RetroArch's own settings are stored, when they are saved, and the few
+Leaf sets on every launch, see
+[RetroArch settings](/guide/retroarch-settings/).
 
 ## Save states
 

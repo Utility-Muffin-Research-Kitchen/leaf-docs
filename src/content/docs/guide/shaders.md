@@ -1,6 +1,6 @@
 ---
 title: RetroArch shaders
-description: 'Load Leaf’s bundled GLSL presets, add your own shaders safely, and understand how they interact with Fugazi.'
+description: "Load Leaf's bundled GLSL presets, add your own shaders safely, and understand how they interact with Fugazi."
 ---
 
 Leaf includes a small, curated set of GLSL shader presets for RetroArch games.
@@ -160,6 +160,6 @@ Shaders**. It should point to the durable
 `.umrk/mlp1/retroarch/.config/retroarch/shaders/` root, not directly to one of
 its child folders. Fully exit and relaunch the game as well, which gives Leaf a
 chance to refresh that directory if two SD cards have swapped mount points.
-Failing all that, **Settings → System → Reset RetroArch Config** restores the
+Failing all that, **Settings → General → Reset RetroArch Config** restores the
 default shader directory, but it resets your other RetroArch settings too, so
 try fixing the directory by hand first.

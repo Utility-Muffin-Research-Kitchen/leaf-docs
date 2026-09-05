@@ -207,7 +207,7 @@ you pick one. Launch a RetroArch game, press **MENU**, and open **Shader** to
   browse the recommendations over a frozen still, then use **Left** and
   **Right** to choose **This game**, **This folder**, or **All RetroArch** before
   applying or saving. Use **Advanced RetroArch menu** for the native Shaders
-  screen and save there with RetroArch's **Save Current Preset** action.
+  screen and save there through **Manage Presets > Save Current Preset**.
 
 The thirteen recommendations cover crisp pixel scaling, subtle scanlines,
 per-system Game Boy and GBA color and LCD simulations, shimmer-free scaling,

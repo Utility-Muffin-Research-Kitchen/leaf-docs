@@ -1,6 +1,6 @@
 ---
 title: RetroArch shaders
-description: 'Load Leaf’s bundled GLSL presets, add your own shaders safely, and understand how they interact with Fugazi.'
+description: "Load Leaf's bundled GLSL presets, add your own shaders safely, and understand how they interact with Fugazi."
 ---
 
 Leaf includes a small, curated set of GLSL shader presets for RetroArch games.

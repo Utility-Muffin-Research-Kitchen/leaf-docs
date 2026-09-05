@@ -172,7 +172,7 @@ key work from the handheld without a keyboard:
 - **X / Y** - keyboard **Space / Left Ctrl**.
 - **L1 / R1** - keyboard **Backspace / Right Shift**.
 - **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
-  typical “press any key” prompt.
+  typical "press any key" prompt.
 
 For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to

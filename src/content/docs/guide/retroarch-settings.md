@@ -11,7 +11,7 @@ launch something.
 You do not need any of this to play games. Read it if a setting you changed did
 not stick.
 
-## One config, shared by everything
+## One shared base configuration
 
 Leaf keeps a single RetroArch configuration and shares it across every game and
 the RetroArch app tile. It lives on your primary SD card at:
@@ -21,8 +21,9 @@ the RetroArch app tile. It lives on your primary SD card at:
 ```
 
 Turn on rewind while playing a Mega Drive game and the next Game Boy game
-starts with rewind on. There is one set of RetroArch settings on the device,
-not one per system or per core.
+starts with rewind on, unless a configuration override changes it. Core
+options, input remaps, and overrides have their own files; the shared config
+is the starting point for each session.
 
 Aspect ratio and a few others are exceptions. See
 [Settings Leaf owns](#settings-leaf-owns) below.
@@ -52,11 +53,10 @@ saved when RetroArch quits normally. You do not have to save by hand:
 - Exit a game through **MENU → Save & Quit**, or
 - in the RetroArch app tile, use **Main Menu → Quit RetroArch**.
 
-**Save Current Configuration** (in RetroArch's Configuration File menu, where
-that menu is available) also works, and is a reasonable habit if you have just
-made a change you care about.
+Leaf hides the **Configuration File** menu. Quit normally to save the shared
+configuration; see [Alternate configurations](#alternate-configurations).
 
-### What is not guaranteed
+### My changes disappeared after powering off
 
 Pulling the power while RetroArch is running cannot be made safe. A hard power
 cut, such as holding the power button until the device dies or letting the
@@ -65,17 +65,19 @@ Settings changed in that session may be lost.
 
 Leaf's own **Power Off** and **Reboot** handle the **RetroArch app tile**
 properly: they ask RetroArch to quit, wait for it to save, and copy the config
-back before the device goes down. If Leaf cannot write the settings back it says
-so on screen, and the previous configuration is left intact either way.
+back before the device goes down. If RetroArch hangs or the write fails, those
+changes may not be saved. A failed copy leaves the previous shared config
+intact; check for an error when you next return to the launcher.
 
 **A running game is different.** Powering off or restarting with a game open
-stops it quickly and does not wait for RetroArch to save. Settings changed
+stops its process without the app tile's graceful quit sequence. Settings changed
 during that session can be lost, and so can recent in-game progress: RetroArch
 writes a game's save data when the game closes, so a game that never gets to
 close may not have written it yet.
 
 Leave a game with **MENU → Save & Quit** before powering off. That closes the
-game properly and writes everything.
+game through the normal save-and-quit sequence. A core must support the
+kind of save you are using, and the SD card must be writable.
 
 ## Settings Leaf owns
 
@@ -88,10 +90,10 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 
 | What Leaf owns | Why, and where to change it instead |
 | --- | --- |
-| Save, save-state, system, core, and screenshot folders | Leaf decides where saves and states live, including for games on a second SD card. |
+| Save, save-state, system, and screenshot folders; per-core save sorting | Leaf decides where saves and states live, including for games on a second SD card. |
 | Core and core-info folders, controller autoconfig folder | Set from the installed core and Leaf's packaged controller profiles. |
 | Save-on-exit, the network command port, and pause-when-inactive | How Leaf saves your settings and drives RetroArch's menu, save states, and clean quit. Turning these off would break the in-game menu. |
-| Audio device, driver, latency, and block size | **Settings → Display & Sound**. |
+| Audio device, driver, latency, and block size | Choose the output in **Settings → Display & Sound**. Leaf fixes the driver and buffering values. |
 | Video driver, graphics context, threaded video | The working renderer for this device. |
 | Refresh rate, black frame insertion | **Settings → Display & Sound**. |
 | Aspect ratio, force aspect, integer scaling | Pinned to the core's own aspect with integer scaling off. There is no Leaf setting for these; see [Aspect ratio and integer scaling](#aspect-ratio-and-integer-scaling) below. |
@@ -99,12 +101,13 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Menu language | **Settings → General → Language**. |
 | Autoconfig and config-override notifications | Suppressed so Leaf's own messages are not buried. |
 | Configuration File menu | Hidden. See [Alternate configurations](#alternate-configurations) below. |
-| Hotkey modifier and hotkey exit | Unbound, so **SELECT** stays an ordinary game button. Quit through the in-game menu. |
+| Quit hotkey | Unbound. Quit through Leaf's in-game menu. The **Hotkey Enable** modifier is yours to change and defaults to **MENU**. |
+| Automatic shader preset directory and loading | Leaf fixes the automatic-preset directory and enables shader loading on each launch. Remove an unwanted saved preset at its scope; disabling **Video Shaders** lasts only for the session. |
 | Player count and per-player controller order | Set from the controllers connected at launch. See [Controllers](/guide/controllers/). |
-| Save-state compression | Fixed so states stay compatible with Leaf's save-state previews. |
-| Recording driver, preset, quality, and output folder | **Settings → Controls & Feedback → Recording** controls whether recording is enabled; Leaf fixes the remaining values. See [Recording](/guide/recording/). |
+| Save-state compression and thumbnails | Compression is off and thumbnails are on for Leaf's state browser. |
+| Recording driver, preset, quality, and output folder | **Settings → Controls & Feedback → In-game Shortcuts → Recording** controls whether recording is enabled; Leaf fixes the remaining values. See [Recording](/guide/recording/). |
 | Firmware check, built-in image viewer and media player, dummy core on shutdown | Device compatibility. |
-| RetroAchievements account and password | **Settings → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
+| RetroAchievements enablement, account, password, and token | **Settings → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
 
 Settings outside this list, including rewind, run-ahead, overlays, cheats,
 per-core options, and input remaps, are yours and persist normally. Shaders are
@@ -134,7 +137,7 @@ Overrides are loaded after Leaf's values and win, so they survive relaunches:
 The setting now applies every time you play anything on that core. **Save Game
 Overrides** and **Save Content Directory Overrides** in the same menu do the same
 thing for one game or one folder. The files are kept on your primary card under
-`.umrk/mlp1/retroarch/.config/retroarch/<Core Name>/`, and **Remove Core
+`.umrk/mlp1/retroarch/.config/retroarch/config/<Core Name>/`, and **Remove Core
 Overrides** in that menu deletes the one in use.
 
 One thing to know before you do this: while an override is loaded, RetroArch
@@ -164,7 +167,7 @@ it for you, because picking the right one among several is guesswork and the
 wrong pick would overwrite the settings you are using. Copy values across by
 hand if you need them.
 
-## Reset RetroArch Config
+## Reset the RetroArch config
 
 **Settings → General → Reset RetroArch Config** replaces the shared config with
 Leaf's packaged defaults.
@@ -173,13 +176,14 @@ This erases the settings kept in that file, including the active shader setting,
 rewind, overlays, and the rest of RetroArch's own menus. It does not remove
 automatic shader preset files, so a saved game, folder, core, or global preset
 can apply again after the reset. Use [RetroArch shaders](/guide/shaders/) to
-remove those presets. Per-core options and input remaps are stored in separate
-files and are not erased; delete those by hand if you need to. Your games,
+remove those presets. Configuration overrides, per-core options, and input remaps are
+stored in separate files and are not erased. Remove a configuration override
+through **Quick Menu → Overrides** if you want to clear it too. Your games,
 saves, and save states are untouched. Use this when RetroArch is misbehaving
 and you would rather start clean than find the setting that caused it. See
 [Troubleshooting](/guide/troubleshooting/).
 
-## If a setting still will not stick
+## A setting still won't stick
 
 1. Check the table above. If Leaf owns it, change it from the Leaf setting named
    there instead. For aspect ratio and integer scaling there is no Leaf setting -
@@ -187,5 +191,7 @@ and you would rather start clean than find the setting that caused it. See
    [Aspect ratio and integer scaling](#aspect-ratio-and-integer-scaling).
 2. Quit properly with **MENU → Save & Quit**, or use **Quit RetroArch** in the
    app tile. Do not power off from inside RetroArch.
-3. If it is not in the table and it still reverts, that is a bug worth
-   reporting. Say which setting it was and exactly how you left RetroArch.
+3. Check whether a core, folder, or game override is loaded. It can replace the
+   shared value and prevents RetroArch from saving the shared config on exit.
+4. If none of these explains it, report which setting changed and exactly how
+   you left RetroArch.

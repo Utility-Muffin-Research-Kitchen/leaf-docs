@@ -305,13 +305,16 @@ This is where per-item actions live, so they stay out of the main list:
 - **Display Name** - rename how the game or system shows in the launcher.
 - **Core** - choose which emulator core runs this game or system, when more than
   one is available.
+- **Saturn BIOS** - appears only when **YabaSanshiro Standalone** is the emulator
+  in force. Choose **Default**, **HLE**, or one of your own BIOS files. See
+  [Saturn BIOS selection](/guide/bios-and-cores/#saturn-choosing-a-bios).
 - **Performance** - set a per-game or per-system performance profile that
   overrides the global default.
 - **Scrape Artwork** - on a game, fetch and replace its box art. While that scrape
   is queued the row reads **Cancel Scraping**. To scrape a whole system or every
   system at once, use **Settings → Game Art → Scrape Artwork** instead.
-- **Reset Overrides** - clear the custom name, core, and performance settings you
-  set above.
+- **Reset Overrides** - clear the custom name, core, performance, and Saturn BIOS
+  settings you set above.
 
 Scraping runs in the background, so you can leave the menu, keep browsing, or
 even play a game while art downloads.

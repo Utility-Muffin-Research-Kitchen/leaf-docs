@@ -145,20 +145,6 @@ offers **Save Game Preset**, **Save Content Directory Preset**, **Save Core
 Preset**, and **Save Global Preset** for native automatic-preset scopes. When
 you return to Leaf, the game resumes without an automatic Leaf save prompt.
 
-Applying or loading a preset in this browser changes only the running session.
-**Save Main Configuration** and **Save Override** do not make it persistent. To
-keep the active preset:
-
-1. Apply it in **Quick Menu > Shaders**, then return to the game.
-2. Reopen **MENU > Shader**.
-3. Choose **Save current shader**.
-4. Choose **This game**, **This folder**, or **This core**. Choose **This
-   session** if you do not want to save it.
-
-**All RetroArch** remains unavailable until the installed Leaf build includes
-Fugazi's conflict resolver. Leaf asks before a global save once that resolver
-is present.
-
 Four formerly reported candidates are now stable recommendation names:
 **LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.
 `zfast-composite` remains advanced-only because its measured audio underrun was

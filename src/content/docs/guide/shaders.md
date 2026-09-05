@@ -98,8 +98,10 @@ overrides.
 - **Save Core Overrides**, **Save Content Directory Overrides**, and **Save Game
   Overrides** store configuration changes. A config override does not carry the
   active shader.
-- **Save Current Preset** under RetroArch's **Shaders > Manage Presets** creates
-  the automatic shader preset that persists the shader.
+- **Save Game Preset**, **Save Content Directory Preset**, **Save Core Preset**,
+  and **Save Global Preset** under **Shaders > Manage Presets** create automatic
+  presets at their matching scopes. **Save Current Preset** edits the currently
+  loaded preset file instead.
 
 Saving a config override while a shader is visible does not save that shader.
 A loaded global shader also keeps returning until you remove it or save a more
@@ -139,13 +141,12 @@ that Leaf's recommendations reference. Everything there loads and renders
 correctly, but it may not suit every core or game. Leaf's scope controls are
 hidden or ignored while you are in Advanced.
 
-Use RetroArch's **Load Preset** and **Apply Changes** actions to try a preset or
-edit its parameters. Before you leave, open **Manage Presets** and choose
-RetroArch's native **Save Current Preset** action if you want the result to
-persist. **Manage Presets** also offers **Save Game Preset**, **Save Content
-Directory Preset**, **Save Core Preset**, and **Save Global Preset** for native
-automatic-preset scopes. Press **MENU** to return to Leaf; the game resumes
-immediately and Leaf does not open a save-scope prompt.
+Apply or load a preset there, then open **Manage Presets** and choose **Save
+Game Preset**, **Save Content Directory Preset**, **Save Core Preset**, or **Save
+Global Preset** for the native automatic scope you want before you leave.
+**Save Current Preset** edits the currently loaded preset file, so use it only
+when that is the file you intend to maintain. When you return to Leaf, the game
+resumes without an automatic Leaf save prompt.
 
 Four formerly reported candidates are now stable recommendation names:
 **LCD Grid**, **LCD Grid Fast**, **CRT Sharp**, and **CRT Curved**.

@@ -164,19 +164,20 @@ Inside DraStic's own menu (and the Steward Fu menu), use the **D-pad** to move,
 
 ### Fun DraStic, the alternate DS front end
 
-**Fun DraStic** gives your DS games a nicer interface: a redesigned menu, screen
-overlays, more screen layouts, and themes. Switch a game over to it with **Core**
+**Fun DraStic** gives your DS games a redesigned menu, screen overlays, more
+screen layouts, and themes. Switch a game over to it with **Core**
 from that game's **Options** menu, and switch back the same way. DraStic stays the
 default for everything you haven't changed.
 
-It's a visual upgrade, not a different emulator. Underneath, Fun DraStic runs the
-same closed-source DraStic that Leaf already ships - the identical program file -
-with a new front end attached to it. So game compatibility, accuracy, and speed
-are exactly what you already get. What you're choosing is the interface.
+Fun DraStic runs the same closed-source DraStic emulator binary as the default
+front end. You are choosing its menus, layouts, and controls; there is no
+newer emulator core underneath.
 
 Fun DraStic is by [tenlevels](https://github.com/tenlevels), whose work is the
 menus, overlays, screen layouts, and presentation, in the same way the default DS
-front end is Steward Fu's work. Both are built on the same emulator.
+front end is Steward Fu's work. You can read
+[Fun DraStic's source and credits](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src);
+the frontend uses the PolyForm Noncommercial 1.0.0 license.
 
 A few things to know before you switch a game over:
 
@@ -189,8 +190,8 @@ A few things to know before you switch a game over:
 - Save states and settings do not. Each front end keeps its own, so a save state
   you made in one won't appear in the other. Save in-game before you switch.
 - Neither one needs a BIOS file of your own. See
-  [BIOS and cores](/guide/bios-and-cores/#nintendo-ds) for the optional Nintendo
-  files and what they add.
+  [BIOS and cores](/guide/bios-and-cores/#nintendo-ds) for the included
+  replacement BIOS and the correct locations for optional Nintendo files.
 
 ## NEC PC-98 (Neko Project II kai)
 
@@ -203,7 +204,7 @@ key work from the handheld without a keyboard:
 - **X / Y** - keyboard **Space / Left Ctrl**.
 - **L1 / R1** - keyboard **Backspace / Right Shift**.
 - **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
-  typical “press any key” prompt.
+  typical "press any key" prompt.
 
 For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to

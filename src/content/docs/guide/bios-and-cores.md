@@ -128,12 +128,12 @@ ends are available through the **Core** option:
 - **Fun DraStic** is by [tenlevels](https://github.com/tenlevels): a redesigned
   menu, screen overlays, extra screen layouts, and themes.
 
-Both run the same closed-source DraStic emulator - the identical program file -
-so they play games identically. Fun DraStic is a nicer interface, not a newer,
-faster, or more compatible emulator. Pick whichever one you prefer looking at.
+Both run the same closed-source DraStic emulator binary. Choose the front end
+whose menus, layouts, and controls you prefer; the alternate interface does
+not provide a newer emulator core.
 
 To move a game across, press **X** on it, choose **Core**, and pick the other
-one. To put it back on the default, choose **Core** again and pick DraStic, or
+one. To put it back on the default, choose **Core** again and pick **DraStic**, or
 use **Reset Override** to clear the per-game choice entirely.
 
 Your in-game saves are shared, so a game keeps its progress whichever front end
@@ -142,8 +142,27 @@ own, and a save state you made in one won't be there in the other. Save in-game
 before you switch.
 
 Neither one needs a BIOS file of your own; both include DraStic's own free
-replacement BIOS, and most games run on it with no setup at all. The optional
-Nintendo files are covered under [Systems that need a BIOS](#systems-that-need-a-bios).
+replacement BIOS, and most games run on it with no setup at all.
+
+If you need original Nintendo files, for example for encrypted ROMs, supply
+your own dumps using these names and sizes:
+
+| File | Size |
+| --- | --- |
+| `nds_bios_arm7.bin` | 16 KB (16,384 bytes) |
+| `nds_bios_arm9.bin` | 4 KB (4,096 bytes) |
+| `nds_firmware.bin` | 256 KB (262,144 bytes) |
+
+The two front ends read them from different places on your primary card:
+
+- **Fun DraStic** reads them directly from `BIOS/`.
+- **DraStic** reads them from `.umrk/mlp1/drastic/system/`, which is its durable
+  runtime data folder.
+
+Putting them in `BIOS/NDS/` does not make them available to both front ends.
+Neither location above is replaced by a Leaf update. Your DS username,
+birthday, favourite colour, and language are emulator settings; supplying
+`nds_firmware.bin` does not import those settings from your console.
 
 Both front ends accept `.nds` files, and `.zip` and `.7z` archives containing
 one.
@@ -185,14 +204,6 @@ BIOS/
   will not boot without it. Provide the standard Saturn BIOS, for example
   `sega_101.bin` (Japanese) or `mpr-17933.bin` (US / European). Without one,
   Saturn games appear in the launcher but won't launch.
-- **Nintendo DS** - no BIOS is needed to play. Both DS front ends include
-  DraStic's own free replacement BIOS, and nearly every game runs on it. The real
-  Nintendo files are optional and add two things: the handful of games that
-  refuse to start with "need original BIOS", and the DS firmware settings
-  (username, birthday, favourite colour, system language). If you want those,
-  dump them from hardware you own and put all three in `BIOS/NDS/`:
-  `nds_bios_arm7.bin` (16 KB), `nds_bios_arm9.bin` (4 KB), and
-  `nds_firmware.bin`. The sizes are how you tell a good dump from a bad one.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
 - **NEC PC-98** - put np2kai firmware in `BIOS/np2kai/`. Provide either

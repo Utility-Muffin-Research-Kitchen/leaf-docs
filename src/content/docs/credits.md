@@ -1,12 +1,12 @@
 ---
 title: Credits
-description: The open-source projects, fonts, and artwork Leaf is built on, and the people behind them.
+description: The software, fonts, and artwork you use in Leaf, and the people behind them.
 ---
 
-Leaf stands on a lot of other people's work. This page thanks the open-source
-projects, fonts, and artwork that make it possible. The same list lives on your
-device under **Menu > Info > Device**, and the full license text for every
-bundled component ships in the install under `licenses/`.
+Your Leaf installation includes software, fonts, and artwork from the people
+and projects below. You can also find device credits under **Menu > Info >
+Device**. Bundled license texts are included with the installation and its
+individual packages.
 
 ## Software and assets
 
@@ -18,6 +18,8 @@ bundled component ships in the install under `licenses/`.
 | PT SkyWalker541 shader | MIT |
 | Sharp Shimmerless shader | CC0 1.0 |
 | Libretro cores | GPL / per-core |
+| DraStic front end for Nintendo DS ([Steward Fu](https://github.com/steward-fu/nds)) | LGPL-2.1 |
+| Fun DraStic front end for Nintendo DS ([tenlevels](https://github.com/tenlevels)) | [PolyForm Noncommercial 1.0.0](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src/blob/main/LICENSE) |
 | SDL2, SDL2_image, SDL2_ttf | Zlib |
 | FreeType | FreeType License |
 | HarfBuzz | MIT |
@@ -27,8 +29,13 @@ bundled component ships in the install under `licenses/`.
 | cJSON | MIT |
 | System icons (libretro Systematic) | CC BY-SA 4.0 |
 | Cover Flow console art (Evan Amos) | Public Domain |
-| Fonts: Space Grotesk, Inter, Rounded M+, Nunito, Baloo 2, Fredoka, Lexend, IBM Plex Sans, Noto Sans, Source Han Sans | SIL OFL 1.1 |
+| Fonts: Space Grotesk, Inter, Rounded M+, Nunito, Baloo 2, Fredoka, Lexend, IBM Plex Sans, Noto Sans, Noto Sans CJK SC, Source Han Sans | SIL OFL 1.1 |
 | Keyboard icons (Nerd Fonts) | MIT |
 | Dropbear SSH | MIT-style |
 
-Spot a credit that is missing or wrong? Let us know and we will fix it.
+Both Nintendo DS front ends run the same closed-source DraStic emulator by
+[Exophase, with Lordus and slaanesh](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src/blob/main/CREDITS.md). Their emulator has separate terms from the
+front ends. Fun DraStic's frontend source is available under a noncommercial
+license; see its [source and credits](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src).
+
+You can [report a missing or incorrect credit](https://github.com/Utility-Muffin-Research-Kitchen/leaf-docs/issues).

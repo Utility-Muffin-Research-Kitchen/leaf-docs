@@ -39,7 +39,8 @@ Under the hood:
   work as usual. DraStic uses **MENU** as a modifier for save states, layouts, and
   the transparent second screen - see
   [Nintendo DS controls](/guide/playing/#nintendo-ds-standalone-drastic) for the
-  full list.
+  full list. **Fun DraStic** is an alternate front end for the same emulator,
+  selectable per game - see [Nintendo DS](#nintendo-ds) below.
 - **Standalone N64** runs Nintendo 64 games from `Roms/N64/` through Leaf's
   packaged Mupen64Plus build. The standard RetroArch N64 core is still available
   as an alternate core, but standalone is the default because it gives Leaf more
@@ -140,6 +141,56 @@ The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Wheth
 a given game runs at full speed varies by title; treat these as "best effort,"
 not guaranteed.
 :::
+
+### Nintendo DS
+
+Leaf lists Nintendo DS as one system, with one ROM folder: `Roms/NDS/`. Two front
+ends are available through the **Core** option:
+
+- **DraStic** is the default, using [Steward Fu](https://github.com/steward-fu/nds)'s
+  front end. It's what the [Nintendo DS controls](/guide/playing/#nintendo-ds-standalone-drastic)
+  describe.
+- **Fun DraStic** is by [tenlevels](https://github.com/tenlevels): a redesigned
+  menu, screen overlays, extra screen layouts, and themes.
+
+Both run the same closed-source DraStic emulator binary. Choose the front end
+whose menus, layouts, and controls you prefer; the alternate interface does
+not provide a newer emulator core.
+
+To move a game across, press **X** on it, choose **Core**, and pick the other
+one. To put it back on the default, choose **Core** again and pick **DraStic**, or
+use **Reset Override** to clear the per-game choice entirely.
+
+Your in-game saves are shared, so a game keeps its progress whichever front end
+you play it in. Save states and settings are not shared: each front end keeps its
+own, and a save state you made in one won't be there in the other. Save in-game
+before you switch.
+
+Neither one needs a BIOS file of your own; both include DraStic's own free
+replacement BIOS, and most games run on it with no setup at all.
+
+If you need original Nintendo files, for example for encrypted ROMs, supply
+your own dumps using these names and sizes:
+
+| File | Size |
+| --- | --- |
+| `nds_bios_arm7.bin` | 16 KB (16,384 bytes) |
+| `nds_bios_arm9.bin` | 4 KB (4,096 bytes) |
+| `nds_firmware.bin` | 256 KB (262,144 bytes) |
+
+The two front ends read them from different places on your primary card:
+
+- **Fun DraStic** reads them directly from `BIOS/`.
+- **DraStic** reads them from `.umrk/mlp1/drastic/system/`, which is its durable
+  runtime data folder.
+
+Putting them in `BIOS/NDS/` does not make them available to both front ends.
+Neither location above is replaced by a Leaf update. Your DS username,
+birthday, favourite colour, and language are emulator settings; supplying
+`nds_firmware.bin` does not import those settings from your console.
+
+Both front ends accept `.nds` files, and `.zip` and `.7z` archives containing
+one.
 
 ## BIOS (you supply these)
 

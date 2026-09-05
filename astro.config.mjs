@@ -76,6 +76,7 @@ export default defineConfig({
             { label: 'Controllers', slug: 'guide/controllers' },
             { label: 'Rumble', slug: 'guide/rumble' },
             { label: 'Language (中文)', slug: 'guide/language' },
+            { label: 'Themes', slug: 'guide/themes', badge: { text: 'Soon', variant: 'caution' } },
             { label: 'Settings reference', slug: 'guide/settings' },
             { label: 'Troubleshooting', slug: 'guide/troubleshooting' },
           ],

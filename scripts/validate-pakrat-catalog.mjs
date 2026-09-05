@@ -11,6 +11,7 @@ import { URL } from 'node:url';
 const checkRemote = process.argv.includes('--remote');
 const catalogArg = process.argv.indexOf('--catalog');
 const previousCatalogArg = process.argv.indexOf('--previous-catalog');
+const archiveArg = process.argv.indexOf('--archive');
 if (catalogArg >= 0 && !process.argv[catalogArg + 1]) {
   console.error('usage: validate-pakrat-catalog.mjs [--remote] [--catalog <path>] [--previous-catalog <path>]');
   process.exit(2);
@@ -19,12 +20,17 @@ if (previousCatalogArg >= 0 && !process.argv[previousCatalogArg + 1]) {
   console.error('usage: validate-pakrat-catalog.mjs [--remote] [--catalog <path>] [--previous-catalog <path>]');
   process.exit(2);
 }
+if (archiveArg >= 0 && !process.argv[archiveArg + 1]) {
+  console.error('usage: validate-pakrat-catalog.mjs [--remote] [--archive <path>] [--catalog <path>] [--previous-catalog <path>]');
+  process.exit(2);
+}
 const catalogPath = catalogArg >= 0
   ? process.argv[catalogArg + 1]
   : new URL('../public/pakrat/v1/storefront.json', import.meta.url);
 const previousCatalogPath = previousCatalogArg >= 0
   ? process.argv[previousCatalogArg + 1]
   : null;
+const archivePath = archiveArg >= 0 ? process.argv[archiveArg + 1] : null;
 const errors = [];
 const VERSION_RE = /^[0-9]+\.[0-9]+\.[0-9]+$/;
 const MAX_VERSION_COMPONENT = 9999;
@@ -175,7 +181,13 @@ function packageHistory(pkg) {
   if (Array.isArray(pkg.versions)) {
     return pkg.versions;
   }
-  return [{ version: pkg.version, artifact: pkg.artifact }];
+  return [{
+    version: pkg.version,
+    ...(Object.hasOwn(pkg, 'min_leaf_version')
+      ? { min_leaf_version: pkg.min_leaf_version }
+      : {}),
+    artifact: pkg.artifact,
+  }];
 }
 
 function historyEntriesEqual(left, right) {
@@ -196,35 +208,40 @@ function validateImmutableHistory(previous, current) {
     return;
   }
 
-  for (const previousApp of previous.apps) {
-    const appPath = `$.apps[id=${JSON.stringify(previousApp.id)}]`;
-    const currentApp = current.apps.find((candidate) => candidate.id === previousApp.id);
-    if (!currentApp) {
-      fail(appPath, 'previously published app must not be removed');
-      continue;
-    }
-    if (!Array.isArray(previousApp.packages) || !Array.isArray(currentApp.packages)) {
-      fail(`${appPath}.packages`, 'cannot compare malformed package history');
-      continue;
-    }
-    for (const previousPackage of previousApp.packages) {
-      const pkgPath = `${appPath}.packages[platform=${JSON.stringify(previousPackage.platform)},install_name=${JSON.stringify(previousPackage.install_name)}]`;
-      const currentPackage = currentApp.packages.find((candidate) =>
-        candidate.platform === previousPackage.platform &&
-        candidate.install_name === previousPackage.install_name);
-      if (!currentPackage) {
-        fail(pkgPath, 'previously published package must not be removed');
+  const lanes = ['apps', 'content'];
+  for (const lane of lanes) {
+    const previousEntries = Array.isArray(previous[lane]) ? previous[lane] : [];
+    const currentEntries = Array.isArray(current[lane]) ? current[lane] : [];
+    for (const previousApp of previousEntries) {
+      const appPath = `$.${lane}[id=${JSON.stringify(previousApp.id)}]`;
+      const currentApp = currentEntries.find((candidate) => candidate.id === previousApp.id);
+      if (!currentApp) {
+        fail(appPath, `previously published ${lane === 'apps' ? 'app' : 'content package'} must not be removed or change lanes`);
         continue;
       }
-      for (const previousEntry of packageHistory(previousPackage)) {
-        const currentEntry = packageHistory(currentPackage).find(
-          (candidate) => candidate.version === previousEntry.version,
-        );
-        const versionPath = `${pkgPath}.versions[version=${JSON.stringify(previousEntry.version)}]`;
-        if (!currentEntry) {
-          fail(versionPath, 'previously published version must not be removed');
-        } else if (!historyEntriesEqual(previousEntry, currentEntry)) {
-          fail(versionPath, 'previously published version facts are immutable');
+      if (!Array.isArray(previousApp.packages) || !Array.isArray(currentApp.packages)) {
+        fail(`${appPath}.packages`, 'cannot compare malformed package history');
+        continue;
+      }
+      for (const previousPackage of previousApp.packages) {
+        const pkgPath = `${appPath}.packages[platform=${JSON.stringify(previousPackage.platform)},install_name=${JSON.stringify(previousPackage.install_name)}]`;
+        const currentPackage = currentApp.packages.find((candidate) =>
+          candidate.platform === previousPackage.platform &&
+          candidate.install_name === previousPackage.install_name);
+        if (!currentPackage) {
+          fail(pkgPath, 'previously published package must not be removed');
+          continue;
+        }
+        for (const previousEntry of packageHistory(previousPackage)) {
+          const currentEntry = packageHistory(currentPackage).find(
+            (candidate) => candidate.version === previousEntry.version,
+          );
+          const versionPath = `${pkgPath}.versions[version=${JSON.stringify(previousEntry.version)}]`;
+          if (!currentEntry) {
+            fail(versionPath, 'previously published version must not be removed');
+          } else if (!historyEntriesEqual(previousEntry, currentEntry)) {
+            fail(versionPath, 'previously published version facts are immutable');
+          }
         }
       }
     }
@@ -245,149 +262,207 @@ function validateCatalog(catalog) {
   if (requireString(catalog.generated_at, '$.generated_at') && Number.isNaN(Date.parse(catalog.generated_at))) {
     fail('$.generated_at', 'must be an ISO-like date string');
   }
-  if (!Array.isArray(catalog.apps) || catalog.apps.length === 0) {
-    fail('$.apps', 'must be a non-empty array');
+  if (!Array.isArray(catalog.apps)) {
+    fail('$.apps', 'must be an array');
     return [];
   }
+  // STORE-CONTENT-1. `schema` stays 1 and the key is optional: a gate-unaware
+  // client parses apps[], ignores an unknown `content` key, and never learns a
+  // content pak exists. A present-but-malformed lane is still an error.
+  if ('content' in catalog && !Array.isArray(catalog.content)) {
+    fail('$.content', 'must be an array when present');
+    return [];
+  }
+  const contentLane = Array.isArray(catalog.content) ? catalog.content : [];
 
   const ids = new Set();
   const artifacts = [];
-  catalog.apps.forEach((app, appIndex) => {
-    const appPath = `$.apps[${appIndex}]`;
-    if (!requireObject(app, appPath)) {
-      return;
-    }
-    if (requireString(app.id, `${appPath}.id`)) {
-      if (ids.has(app.id)) {
-        fail(`${appPath}.id`, `duplicate app id "${app.id}"`);
-      }
-      ids.add(app.id);
-    }
-    requireString(app.name, `${appPath}.name`);
-    requireString(app.summary, `${appPath}.summary`);
-    requireVersion(app.version, `${appPath}.version`);
-    if ('description' in app) {
-      requireString(app.description, `${appPath}.description`);
-    }
-    if ('author' in app) {
-      requireString(app.author, `${appPath}.author`);
-    }
-    if ('repo_url' in app) {
-      requireHttpsUrl(app.repo_url, `${appPath}.repo_url`);
-    }
-    if ('categories' in app) {
-      requireStringArray(app.categories, `${appPath}.categories`);
-    }
-    if (!Array.isArray(app.packages) || app.packages.length === 0) {
-      fail(`${appPath}.packages`, 'must be a non-empty array');
-      return;
-    }
-
-    app.packages.forEach((pkg, pkgIndex) => {
-      const pkgPath = `${appPath}.packages[${pkgIndex}]`;
-      if (!requireObject(pkg, pkgPath)) {
+  const lanes = [
+    { entries: catalog.apps, key: 'apps', isContent: false },
+    { entries: contentLane, key: 'content', isContent: true },
+  ];
+  lanes.forEach(({ entries, key: laneKey, isContent }) => {
+    entries.forEach((app, appIndex) => {
+      const appPath = `$.${laneKey}[${appIndex}]`;
+      if (!requireObject(app, appPath)) {
         return;
       }
-      if (requireString(pkg.platform, `${pkgPath}.platform`) && pkg.platform !== 'mlp1') {
-        fail(`${pkgPath}.platform`, 'must be "mlp1"');
-      }
-      if (pkg.runtime !== 'leaf') {
-        fail(`${pkgPath}.runtime`, 'must be "leaf"');
-      }
-      requireVersion(pkg.version, `${pkgPath}.version`);
-      if (pkg.version !== app.version) {
-        fail(`${pkgPath}.version`, 'must match the legacy app version');
-      }
-      if ('min_leaf_version' in pkg) {
-        fail(`${pkgPath}.min_leaf_version`, 'must be absent from the ungated legacy safe floor');
-      }
-      if (requireSafeRelativePath(pkg.install_name, `${pkgPath}.install_name`) &&
-          !pkg.install_name.endsWith('.pak')) {
-        fail(`${pkgPath}.install_name`, 'must end with .pak');
-      }
-      requireSafeRelativePath(pkg.runtime_manifest_path, `${pkgPath}.runtime_manifest_path`);
-
-      const artifactPath = `${pkgPath}.artifact`;
-      const legacyArtifactValid = validateArtifact(pkg.artifact, artifactPath);
-
-      if (!('versions' in pkg)) {
-        if (legacyArtifactValid) {
-          artifacts.push({
-            artifact: pkg.artifact,
-            path: artifactPath,
-            installName: pkg.install_name,
-            runtimeManifestPath: pkg.runtime_manifest_path,
-            version: pkg.version,
-            minLeafVersion: null,
-          });
+      if (requireString(app.id, `${appPath}.id`)) {
+        if (ids.has(app.id)) {
+          // Shared across BOTH lanes on purpose: an id in apps[] and content[]
+          // resolves to one install_path, which is a duplicate-identity bug.
+          fail(`${appPath}.id`, `duplicate app id "${app.id}" (an id may appear in exactly one lane)`);
         }
+        ids.add(app.id);
+      }
+      requireString(app.name, `${appPath}.name`);
+      requireString(app.summary, `${appPath}.summary`);
+      requireVersion(app.version, `${appPath}.version`);
+      if ('description' in app) {
+        requireString(app.description, `${appPath}.description`);
+      }
+      if ('author' in app) {
+        requireString(app.author, `${appPath}.author`);
+      }
+      if ('repo_url' in app) {
+        requireHttpsUrl(app.repo_url, `${appPath}.repo_url`);
+      }
+      if ('categories' in app) {
+        requireStringArray(app.categories, `${appPath}.categories`);
+      }
+      if (!Array.isArray(app.packages) || app.packages.length === 0) {
+        fail(`${appPath}.packages`, 'must be a non-empty array');
         return;
       }
 
-      if (!Array.isArray(pkg.versions) || pkg.versions.length === 0) {
-        fail(`${pkgPath}.versions`, 'must be a non-empty array when present');
-        return;
-      }
-      if (pkg.versions.length > MAX_PACKAGE_VERSIONS) {
-        fail(`${pkgPath}.versions`, `must contain at most ${MAX_PACKAGE_VERSIONS} entries`);
-      }
-
-      const seenVersions = new Set();
-      const validatedVersions = [];
-      let previousParsed = null;
-      pkg.versions.forEach((entry, versionIndex) => {
-        const versionPath = `${pkgPath}.versions[${versionIndex}]`;
-        if (!requireObject(entry, versionPath)) {
+      app.packages.forEach((pkg, pkgIndex) => {
+        const pkgPath = `${appPath}.packages[${pkgIndex}]`;
+        if (!requireObject(pkg, pkgPath)) {
           return;
         }
-        const parsed = requireVersion(entry.version, `${versionPath}.version`);
-        if (typeof entry.version === 'string') {
-          if (seenVersions.has(entry.version)) {
-            fail(`${versionPath}.version`, `duplicate package version "${entry.version}"`);
+        if (requireString(pkg.platform, `${pkgPath}.platform`) && pkg.platform !== 'mlp1') {
+          // D16: cores and standalone emulator binaries are platform-specific,
+          // so a content package can never be "shared".
+          fail(
+            `${pkgPath}.platform`,
+            isContent && pkg.platform === 'shared'
+              ? 'content packages must name a concrete platform; "shared" is refused'
+              : 'must be "mlp1"',
+          );
+        }
+        if (pkg.runtime !== 'leaf') {
+          fail(`${pkgPath}.runtime`, 'must be "leaf"');
+        }
+        requireVersion(pkg.version, `${pkgPath}.version`);
+        if (pkg.version !== app.version) {
+          fail(`${pkgPath}.version`, 'must match the legacy app version');
+        }
+        if ('min_leaf_version' in pkg && !isContent) {
+          fail(`${pkgPath}.min_leaf_version`, 'must be absent from the ungated legacy safe floor');
+        }
+        if (isContent && !('min_leaf_version' in pkg)) {
+          fail(`${pkgPath}.min_leaf_version`, 'every content version must declare min_leaf_version');
+        } else if (isContent) {
+          requireVersion(pkg.min_leaf_version, `${pkgPath}.min_leaf_version`);
+        }
+        if (requireSafeRelativePath(pkg.install_name, `${pkgPath}.install_name`) &&
+            !pkg.install_name.endsWith('.pak')) {
+          fail(`${pkgPath}.install_name`, 'must end with .pak');
+        }
+        requireSafeRelativePath(pkg.runtime_manifest_path, `${pkgPath}.runtime_manifest_path`);
+
+        const artifactPath = `${pkgPath}.artifact`;
+        const legacyArtifactValid = validateArtifact(pkg.artifact, artifactPath);
+
+        if (!('versions' in pkg)) {
+          if (legacyArtifactValid) {
+            artifacts.push({
+              artifact: pkg.artifact,
+              path: artifactPath,
+              installName: pkg.install_name,
+              runtimeManifestPath: pkg.runtime_manifest_path,
+              version: pkg.version,
+              minLeafVersion: isContent ? pkg.min_leaf_version : null,
+              isContent,
+            });
           }
-          seenVersions.add(entry.version);
-        }
-        if (parsed && previousParsed && compareVersions(previousParsed, parsed) <= 0) {
-          fail(`${versionPath}.version`, 'versions must be strictly descending newest-first');
-        }
-        if (parsed) {
-          previousParsed = parsed;
+          return;
         }
 
-        let minimum = null;
-        const gated = 'min_leaf_version' in entry;
-        if (gated) {
-          minimum = requireVersion(entry.min_leaf_version, `${versionPath}.min_leaf_version`);
+        if (!Array.isArray(pkg.versions) || pkg.versions.length === 0) {
+          fail(`${pkgPath}.versions`, 'must be a non-empty array when present');
+          return;
         }
-        const versionArtifactPath = `${versionPath}.artifact`;
-        const artifactValid = validateArtifact(entry.artifact, versionArtifactPath);
-        validatedVersions.push({ entry, path: versionPath, parsed, gated });
-        if (artifactValid && parsed && (!gated || minimum)) {
-          artifacts.push({
-            artifact: entry.artifact,
-            path: versionArtifactPath,
-            installName: pkg.install_name,
-            runtimeManifestPath: pkg.runtime_manifest_path,
-            version: entry.version,
-            minLeafVersion: gated ? entry.min_leaf_version : null,
-          });
+        if (pkg.versions.length > MAX_PACKAGE_VERSIONS) {
+          fail(`${pkgPath}.versions`, `must contain at most ${MAX_PACKAGE_VERSIONS} entries`);
+        }
+
+        const seenVersions = new Set();
+        const validatedVersions = [];
+        let previousParsed = null;
+        pkg.versions.forEach((entry, versionIndex) => {
+          const versionPath = `${pkgPath}.versions[${versionIndex}]`;
+          if (!requireObject(entry, versionPath)) {
+            return;
+          }
+          const parsed = requireVersion(entry.version, `${versionPath}.version`);
+          if (typeof entry.version === 'string') {
+            if (seenVersions.has(entry.version)) {
+              fail(`${versionPath}.version`, `duplicate package version "${entry.version}"`);
+            }
+            seenVersions.add(entry.version);
+          }
+          if (parsed && previousParsed && compareVersions(previousParsed, parsed) <= 0) {
+            fail(`${versionPath}.version`, 'versions must be strictly descending newest-first');
+          }
+          if (parsed) {
+            previousParsed = parsed;
+          }
+
+          let minimum = null;
+          const gated = 'min_leaf_version' in entry;
+          if (isContent && !gated) {
+            fail(`${versionPath}.min_leaf_version`, 'every content version must declare min_leaf_version');
+          }
+          if (gated) {
+            minimum = requireVersion(entry.min_leaf_version, `${versionPath}.min_leaf_version`);
+          }
+          const versionArtifactPath = `${versionPath}.artifact`;
+          const artifactValid = validateArtifact(entry.artifact, versionArtifactPath);
+          validatedVersions.push({ entry, path: versionPath, parsed, gated });
+          if (artifactValid && parsed && (!gated || minimum)) {
+            artifacts.push({
+              artifact: entry.artifact,
+              path: versionArtifactPath,
+              installName: pkg.install_name,
+              runtimeManifestPath: pkg.runtime_manifest_path,
+              version: entry.version,
+              minLeafVersion: gated ? entry.min_leaf_version : null,
+              isContent,
+            });
+          }
+        });
+
+        // The safe-floor rule is the ONE thing content[] relaxes: every content
+        // package gates on the contract that defines it, and no gate-unaware
+        // client parses this lane. Immutability and append-only history above
+        // still apply unchanged.
+        const mirror = isContent
+          ? validatedVersions.reduce(
+              (newest, candidate) =>
+                !newest || compareVersions(candidate.entry.version, newest.entry.version) > 0
+                  ? candidate
+                  : newest,
+              null,
+            )
+          : validatedVersions.find((candidate) => !candidate.gated);
+        if (!mirror) {
+          fail(
+            `${pkgPath}.versions`,
+            isContent ? 'must contain at least one version' : 'must contain an ungated safe-floor version',
+          );
+          return;
+        }
+        // Wording is load-bearing for the apps lane: existing tests assert these
+        // exact strings, and they are what a publisher sees on a failed release.
+        const mirrorLabel = isContent ? 'newest version' : 'safe floor';
+        const mirrorArtifactLabel = isContent ? 'newest-version' : 'safe-floor';
+        if (pkg.version !== mirror.entry.version || app.version !== mirror.entry.version) {
+          fail(
+            `${pkgPath}.version`,
+            `legacy app/package versions must match ${mirrorLabel} ${JSON.stringify(mirror.entry.version)}`,
+          );
+        }
+        if (!artifactsEqual(pkg.artifact, mirror.entry.artifact)) {
+          fail(artifactPath, `must exactly match ${mirrorArtifactLabel} artifact ${mirror.path}.artifact`);
+        }
+        if (isContent && (pkg.min_leaf_version ?? null) !== (mirror.entry.min_leaf_version ?? null)) {
+          fail(
+            `${pkgPath}.min_leaf_version`,
+            `must mirror the newest version's gate ${JSON.stringify(mirror.entry.min_leaf_version ?? null)}`,
+          );
         }
       });
-
-      const safeFloor = validatedVersions.find((candidate) => !candidate.gated);
-      if (!safeFloor) {
-        fail(`${pkgPath}.versions`, 'must contain an ungated safe-floor version');
-        return;
-      }
-      if (pkg.version !== safeFloor.entry.version || app.version !== safeFloor.entry.version) {
-        fail(
-          `${pkgPath}.version`,
-          `legacy app/package versions must match safe floor ${JSON.stringify(safeFloor.entry.version)}`,
-        );
-      }
-      if (!artifactsEqual(pkg.artifact, safeFloor.entry.artifact)) {
-        fail(artifactPath, `must exactly match safe-floor artifact ${safeFloor.path}.artifact`);
-      }
     });
   });
   return artifacts;
@@ -472,6 +547,12 @@ function validateRuntimeManifest(archivePath, record) {
       `${manifestPath} min_leaf_version ${JSON.stringify(runtimeMinimum)} does not match catalog ${JSON.stringify(record.minLeafVersion)}`,
     );
   }
+  const declaresProvides = isObject(manifest.provides);
+  if (record.isContent && !declaresProvides) {
+    fail(record.path, `${manifestPath} must declare a provides object for content[]`);
+  } else if (!record.isContent && Object.hasOwn(manifest, 'provides')) {
+    fail(record.path, `${manifestPath} must not declare provides for apps[]`);
+  }
 }
 
 let catalog;
@@ -517,6 +598,30 @@ if (checkRemote && errors.length === 0) {
     }
   } finally {
     await rm(downloadDir, { recursive: true, force: true });
+  }
+}
+
+if (archivePath && errors.length === 0) {
+  if (artifacts.length !== 1) {
+    fail('$', '--archive requires a catalog containing exactly one artifact');
+  } else {
+    const record = artifacts[0];
+    try {
+      const bytes = await readFile(archivePath);
+      const sha256 = createHash('sha256').update(bytes).digest('hex');
+      if (bytes.length !== record.artifact.size) {
+        fail(`${record.path}.size`, `archive size ${bytes.length} does not match catalog ${record.artifact.size}`);
+      }
+      if (sha256 !== record.artifact.sha256.toLowerCase()) {
+        fail(`${record.path}.sha256`, `archive sha256 ${sha256} does not match catalog ${record.artifact.sha256}`);
+      }
+      if (bytes.length === record.artifact.size &&
+          sha256 === record.artifact.sha256.toLowerCase()) {
+        validateRuntimeManifest(archivePath, record);
+      }
+    } catch (error) {
+      fail('$', `archive validation failed: ${error.message}`);
+    }
   }
 }
 

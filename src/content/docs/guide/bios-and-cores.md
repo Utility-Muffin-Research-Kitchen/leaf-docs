@@ -118,7 +118,7 @@ as a compatibility fallback.
 
 ### Saturn: RetroArch vs standalone
 
-Leaf keeps **YabaSanshiro (RetroArch)** as the Saturn default. It provides the
+Leaf keeps **YabaSanshiro** in RetroArch as the Saturn default. It provides the
 normal Leaf and RetroArch menus and is the route used for `.m3u` playlists and
 `.zip` files.
 
@@ -127,8 +127,7 @@ normal Leaf and RetroArch menus and is the route used for `.m3u` playlists and
 compatible game. It is not offered for `.m3u` or `.zip` entries because those
 formats fail in the standalone frontend.
 
-The two routes keep save states separately and their state formats are not
-compatible. Standalone uses `Saves/YabaSanshiro/` and
+The two routes use different save-state formats, which are not compatible. Standalone uses `Saves/YabaSanshiro/` and
 `States/YabaSanshiro/`; switch back to the emulator that created a state rather
 than moving states between them.
 
@@ -174,8 +173,14 @@ BIOS/
 - **Saturn** - the default RetroArch YabaSanshiro core requires the Sega Saturn
   BIOS in `BIOS/`. Provide the standard Saturn BIOS, for example
   `sega_101.bin` (Japanese) or `mpr-17933.bin` (US / European). The optional
-  standalone YabaSanshiro route uses its built-in HLE BIOS by default and does
-  not require this file.
+  standalone YabaSanshiro route uses its built-in HLE BIOS by default. To use
+  a real BIOS with standalone, put a raw 512 KB (524,288-byte) image under
+  `BIOS/SATURN/` on either card, then select it through **Saturn BIOS** in the
+  game or system **Options** menu. The file can keep its original name.
+  **HLE** uses no file; **Default** inherits the system choice for a game, or
+  HLE for the system. If your selected file becomes unavailable, Leaf stops
+  the launch instead of silently changing BIOS. This picker does not change
+  the RetroArch core's root-level `BIOS/` lookup.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
 - **NEC PC-98** - put np2kai firmware in `BIOS/np2kai/`. Provide either

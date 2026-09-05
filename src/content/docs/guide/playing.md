@@ -106,22 +106,26 @@ Controls that differ from RetroArch:
 
 ## Saturn (optional standalone YabaSanshiro)
 
-Saturn games default to **YabaSanshiro (RetroArch)**. For a directly launched
+Saturn games default to **YabaSanshiro** in RetroArch. For a directly launched
 `.ccd`, `.chd`, `.cue`, `.iso`, or `.mds` game, you can instead choose
 **YabaSanshiro Standalone** with **Core** from the game or system **Options**
 menu. The standalone route performed better in device testing, but RetroArch
 remains the safer default and is always used for `.m3u` playlists and `.zip`
 files.
 
+YabaSanshiro is developed by [devMiyax](https://github.com/devmiyax/yabause).
+
 Standalone runs its own session, so Leaf's in-game menu, game switcher, and
 RetroArch save states do not apply:
 
-- **MENU** opens YabaSanshiro's own menu. Resume, native save states, emulator
-  settings, and Exit live there.
+- **MENU** opens YabaSanshiro's own menu, where you can resume, manage native
+  save states, change emulator settings, or exit.
 - In-game saves are kept under `Saves/YabaSanshiro/`; native `.yss` states are
   kept under `States/YabaSanshiro/`. They are not compatible with RetroArch
   save states or Leaf's state browser.
-- HLE BIOS is used by default, so standalone does not need a Saturn BIOS file.
+- HLE BIOS is used by default. For a real BIOS, use **Saturn BIOS** in the
+  game or system **Options** menu. See
+  [BIOS and cores](/guide/bios-and-cores/#systems-that-need-a-bios).
 - The native **Open/Close CD Tray** picker only scans the current game's folder
   for sibling `.cue`, `.mdf`, `.ccd`, and `.chd` files. It does not understand
   Leaf `.m3u` playlists and does not list sibling `.iso` or `.mds` files, so the
@@ -193,7 +197,7 @@ key work from the handheld without a keyboard:
 - **X / Y** - keyboard **Space / Left Ctrl**.
 - **L1 / R1** - keyboard **Backspace / Right Shift**.
 - **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
-  typical “press any key” prompt.
+  typical "press any key" prompt.
 
 For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to

@@ -27,7 +27,11 @@ live shader and removes the saved preset at the selected scope. There is no
 separate **Off** submenu. A broader preset may return after you reload the game.
 
 The picker shows only recommendations that Leaf qualified for the active
-system, so you won't see all thirteen at once:
+system, so you won't see all thirteen at once. Each built-in system with a
+packaged RetroArch core has at least two choices. Nintendo 64, Dreamcast,
+Atomiswave, and Naomi get **Sharp Pixels** and **Sharp Shimmerless** for their
+RetroArch alternatives. Saturn gets **Sharp Pixels** and **Subtle Scanlines**.
+Standalone emulators do not use these shaders.
 
 - **Sharp Pixels** keeps pixel art crisp without adding a CRT effect.
 - **Sharp Shimmerless** keeps non-integer scaling sharp while reducing shimmer

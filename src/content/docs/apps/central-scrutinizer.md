@@ -69,14 +69,15 @@ Opening **BIOS** on any of those three cards browses that same folder, and BIOS
 uploads through the Library land there. For Naomi 2, upload `naomi2.zip`; base
 Naomi and Naomi GD-ROM use `naomi.zip`.
 
-The **Amiga** card appears in the Computer group when PUAE is installed. Its ROM
+The **Amiga** card appears in the **Computer** group when its emulator is
+installed. Its ROM
 and artwork actions use `Roms/AMIGA/` and `Images/AMIGA/` for every supported
 Amiga family: OCS/ECS, AGA, CDTV, and CD32. Its BIOS action uses only
 `BIOS/puae/`, matching the packaged core; uploads do not go to root-level
-`BIOS/` or an uppercase compatibility folder.
+`BIOS/` or `BIOS/AMIGA/`.
 
 For Amiga, the accepted list covers floppy, hard-drive, WHDLoad LHA, CD,
-configuration/package, ZIP/7z, and M3U formats. It does not include IPF or loose
+configuration/package, `.zip`, `.7z`, and `.m3u` formats. It does not include IPF or loose
 WHDLoad `.slave`/`.info` entries. If you download an outer collection archive,
 unpack it on your computer first and upload the individual per-game archives.
 

@@ -169,7 +169,7 @@ key work from the handheld without a keyboard:
 - **X / Y** - keyboard **Space / Left Ctrl**.
 - **L1 / R1** - keyboard **Backspace / Right Shift**.
 - **SELECT / START** - keyboard **Escape / Return**. Press **START** at a
-  typical “press any key” prompt.
+  typical "press any key" prompt.
 
 For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
@@ -181,13 +181,17 @@ Later disk changes can be made from RetroArch's **Disc Control** menu.
 
 ## Amiga (PUAE)
 
-Amiga games run through PUAE in RetroArch. The default handheld controls are:
+Amiga games run through **PUAE 2021** in RetroArch by default. You can choose
+**PUAE** instead with **Core** in the game or system **Options** menu. Both
+come from the [UAE and libretro teams](https://github.com/libretro/libretro-uae).
+They keep separate save and state folders, so return to the same core to
+continue your progress. The default handheld controls are:
 
 - **D-pad** - joystick; **B / A** - fire buttons 1 / 2.
 - **Left or right analog stick** - mouse; **L2 / R2** - left / right mouse button.
 - **X** - Space.
 - **SELECT** (short press) - toggle PUAE's virtual keyboard. In the keyboard,
-  use the D-pad to move, **B** to press a key, **A** for transparency, **X** for
+  use the **D-pad** to move, **B** to press a key, **A** for transparency, **X** for
   Space, and **START** for Return.
 
 Some Amiga games expect a mouse instead of a joystick. Open the virtual keyboard
@@ -195,8 +199,9 @@ and choose **J/M**, or change **Quick Menu → Core Options → RetroPad
 Joystick/Mouse**. Multi-disk games use **MENU → RetroArch Settings → Quick Menu
 → Disc Control** to eject, choose the next disk, and insert it.
 
-PUAE saves normal game data under Leaf's `Saves/` tree and states under
-`States/`. CDTV/CD32 NVRAM, WHDLoad helper/save images, generated save disks,
+PUAE 2021 saves normal game data under `Saves/PUAE 2021/` and states under
+`States/PUAE 2021/`. The alternate PUAE core uses `Saves/PUAE/` and
+`States/PUAE/`. CDTV/CD32 NVRAM, WHDLoad helper/save images, generated save disks,
 and core configuration are durable user data and survive Leaf updates. Writes
 made inside a ZIP are the exception: PUAE does not repack the temporary archive,
 so follow the persistence advice in

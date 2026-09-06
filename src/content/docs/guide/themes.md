@@ -29,8 +29,6 @@ Themes/
         _apps.png
       labels/
         FC.png
-      controllers/
-        FC.png
 ```
 
 The `grid/` folder holds the art for Grid view. A `wallpaper.png` inside it
@@ -60,27 +58,26 @@ that Leaf draws over your wallpaper. Leave it on `auto` and Leaf samples your
 wallpaper behind each of those two corners and picks light or dark for itself.
 Set it to `light` or `dark` to decide for both.
 
-## The four kinds of art
+## The three kinds of art
 
 - **`icons/`** is the picture on the tile. Leaf draws the rounded corners and the
   border itself, so supply a plain square and leave the corners alone.
 - **`labels/`** is a name written across the tile, drawn on top of the icon. Its
   canvas is the whole tile, so you place the wordmark wherever you want it and
   leave the rest transparent.
-- **`controllers/`** is the one drawn beside the game count of whichever tile is
-  selected. Leaf colors it to match the clock and battery, so draw a white shape
-  on transparency - any color you paint is thrown away, and holes stay holes.
 - **`wallpaper.png`** fills the screen behind everything.
 
 | | Size | Notes |
 | --- | --- | --- |
 | Icons | 512 x 512 | 1024 is the hard cap. Anything larger is skipped |
 | Labels | 512 x 512 | Same canvas as the icon it sits on |
-| Controllers | 128 px tall | Any width, cropped tight to the art |
 | Wallpaper | 960 x 720 | `.jpg` is accepted too |
 
-PNG only, apart from the wallpaper. Controllers are small on purpose: one draws
-about 37 pixels tall, so check yours at that size rather than at full canvas.
+PNG only, apart from the wallpaper.
+
+The controller drawn beside the game count is not themeable. It labels what the
+number counts, the same way the battery icon labels a percentage, so it stays the
+same in every theme.
 
 ## Naming the files
 
@@ -120,5 +117,4 @@ When more than one picture could apply, the first of these that exists wins:
 4. Leaf's built-in set
 5. Leaf's fallback art
 
-Labels, controllers and the wallpaper resolve the same way. One you leave out
-falls back to Leaf's generic controller rather than to nothing.
+Labels and the wallpaper resolve the same way.

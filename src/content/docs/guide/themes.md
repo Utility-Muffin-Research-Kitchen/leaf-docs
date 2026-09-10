@@ -40,23 +40,75 @@ Copy your folder to the card, then pick it in **Settings → Appearance → Them
 
 This is the only file a theme must have. A folder without one is ignored.
 
+Every key except `name` is optional. Anything you leave out falls back to what
+Leaf already uses, so a theme that only sets a wallpaper is a perfectly good
+theme.
+
 ```json
 {
   "name": "My Theme",
   "author": "Your Name",
   "version": "1.0",
+
+  "status_style": "auto",
+
   "grid": { "cols": 3, "rows": 2 },
-  "status_style": "auto"
+
+  "colors": {
+    "text":             "#5C6367",
+    "underlay":         "#FFFFFF",
+    "underlay_opacity": 178,
+    "highlight":        "#68C7C3",
+    "highlight_text":   "#12292B",
+    "tile_border":      "#FFFFFF3C",
+    "focus_ring":       "#68C7C3",
+    "shadow":           120
+  }
 }
 ```
 
-`name` is what shows up in Settings. `grid` suggests how many tiles to show per
-screen, which you can still override in **Settings → Appearance → Grid Size**.
+### Identity
+
+`name` is what shows up in Settings. `author` and `version` are yours to use.
+
+### Wallpaper and the status icons
+
+Your wallpaper is found by name, not declared here: put `wallpaper.png` at the
+theme root, or `grid/wallpaper.png` to use a different one in Grid view. `.jpg`
+works too.
 
 `status_style` sets the color of the clock, battery, controller and game count
 that Leaf draws over your wallpaper. Leave it on `auto` and Leaf samples your
 wallpaper behind each of those two corners and picks light or dark for itself.
 Set it to `light` or `dark` to decide for both.
+
+### Colors
+
+One palette for the whole theme, and it only dresses Grid view. Menus, Settings
+and the other layouts keep Leaf's own colors however loud a theme is.
+
+| Key | What it colors |
+| --- | --- |
+| `text` | game names in the list, and the system logo, which is tinted to match |
+| `underlay` | the translucent panels that text sits on |
+| `underlay_opacity` | how solid those panels are, 0 to 255 |
+| `highlight` | the selected row or tile |
+| `highlight_text` | text on the highlight |
+| `tile_border` | the border around an unfocused tile |
+| `focus_ring` | the border around the focused tile |
+| `shadow` | how heavy the drop shadows are, 0 to 255. Use 0 to turn them off |
+
+Colors are `#RRGGBB` or `#RRGGBBAA`. `underlay_opacity` and `shadow` are plain
+numbers, not colors, because you will want to tune them against your wallpaper
+without changing the hue.
+
+Leave `text` out and Leaf works it out from how light or dark your `underlay` is,
+which means a theme cannot end up with white text on a white panel by accident.
+
+### Grid
+
+`cols` and `rows` suggest how many tiles fit on a screen, which the user can still
+override in **Settings → Appearance → Grid Size**.
 
 ## The three kinds of art
 

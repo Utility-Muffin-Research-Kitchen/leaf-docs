@@ -70,6 +70,7 @@ export default defineConfig({
             { label: 'Playing games', slug: 'guide/playing' },
             { label: 'RetroArch settings', slug: 'guide/retroarch-settings' },
             { label: 'RetroArch shaders', slug: 'guide/shaders' },
+            { label: 'Native PICO-8', slug: 'guide/pico-8' },
             { label: 'Features tour', slug: 'guide/features' },
             { label: '5-Game Mode', slug: 'guide/five-game-mode' },
             { label: 'Screenshots', slug: 'guide/screenshots' },

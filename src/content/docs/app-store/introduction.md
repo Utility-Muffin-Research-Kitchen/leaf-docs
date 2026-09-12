@@ -12,6 +12,9 @@ These are the apps you add with **Pak Rat**, Leaf's on-device app store. For the
 apps that come pre-installed with Leaf, see [Built-in apps](/apps/introduction/).
 This section is new and will grow over time.
 
+You can also preview the [native PICO-8 setup guide](/guide/pico-8/). That
+integration is still being qualified and isn't listed in Pak Rat yet.
+
 ## Available apps
 
 - **[Itch.io](/app-store/itchio/)** - browse compatible homebrew and add

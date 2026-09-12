@@ -38,4 +38,8 @@ Both Nintendo DS front ends run the same closed-source DraStic emulator by
 front ends. Fun DraStic's frontend source is available under a noncommercial
 license; see its [source and credits](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src).
 
+[PICO-8 and Splore](https://www.lexaloffle.com/pico-8.php) are by Joseph White
+/ Lexaloffle. The optional [Leaf integration](/guide/pico-8/) doesn't include
+the paid runtime; you purchase and supply it yourself.
+
 You can [report a missing or incorrect credit](https://github.com/Utility-Muffin-Research-Kitchen/leaf-docs/issues).

@@ -29,7 +29,7 @@ BIOS/
     pico8.dat
 ```
 
-Keep the names and capitalisation shown above. Don't copy the enclosing
+Keep the names and capitalization shown above. Don't copy the enclosing
 `pico-8` folder into `BIOS/PICO8/`, and don't rename `pico8_64` to `pico8`.
 These are your purchased runtime files, not console BIOS dumps. The Windows,
 macOS, and desktop Linux downloads won't work here. Raspberry Pi version
@@ -61,7 +61,8 @@ the title. You can set your own display name in Leaf; imports keep that choice.
 Removing a Splore favorite keeps your library copy. Whenever you exit Splore,
 Leaf also updates previously imported games if Splore has downloaded newer
 versions. Their library entries, playtime, and core choices stay in place.
-Leaf doesn't overwrite a cart you've edited yourself.
+Leaf doesn't overwrite a cart you've edited yourself. Edited carts and
+filename conflicts are skipped without showing an import failure.
 
 A favorite must finish downloading before it can be imported. Missing or
 incomplete downloads are retried after your next Splore session. If you delete
@@ -88,7 +89,8 @@ start a second emulator.
 Press **MENU** to show **Return to Leaf?**, then press **MENU** again within
 four seconds to quit PICO-8 normally. If you want to keep playing, let the
 prompt disappear. This works in a game and in Splore, even when no cart is
-selected.
+selected. If PICO-8 stays frozen, wait at least two seconds and repeat the
+MENU confirmation to force it to close. Unsaved progress may be lost.
 
 Use the D-pad and action buttons to navigate and play. Press **START** for
 PICO-8's native menu:

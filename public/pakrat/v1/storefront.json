@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260908T223344Z",
-  "generated_at": "2026-09-08T22:33:44Z",
+  "catalog_revision": "prod-20260912T210721Z",
+  "generated_at": "2026-09-12T21:07:21Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -385,6 +385,51 @@
                 "size": 129503201,
                 "installed_size": 221560643,
                 "sha256": "e7aff113a6bb7cb0a6f2b0c9eeb688796a9cca5a2b5a334642a50bf78d9c0d6c"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "org.umrk.pico8",
+      "name": "PICO-8 for Leaf",
+      "summary": "Browse Splore and play your PICO-8 carts natively.",
+      "description": "Adds Splore in Apps and native PICO-8 in the Core picker on MLP1. You purchase PICO-8 separately and copy the Raspberry Pi runtime to your primary card. FAKE-08 stays your default until you choose native PICO-8.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/PICO-8-pak",
+      "categories": [
+        "emulation",
+        "content"
+      ],
+      "version": "0.1.0",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "0.1.0",
+          "min_leaf_version": "0.12.0",
+          "install_name": "PICO8.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/PICO-8-pak/releases/download/v0.1.0/PICO8.mlp1.pak.zip",
+            "name": "PICO8.mlp1.pak.zip",
+            "archive": "zip",
+            "size": 175136,
+            "installed_size": 218631,
+            "sha256": "0e8f97a2f0ed6d100b94fa422c2633644af12f737824e929da08452dc82aca90"
+          },
+          "versions": [
+            {
+              "version": "0.1.0",
+              "min_leaf_version": "0.12.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/PICO-8-pak/releases/download/v0.1.0/PICO8.mlp1.pak.zip",
+                "name": "PICO8.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 175136,
+                "installed_size": 218631,
+                "sha256": "0e8f97a2f0ed6d100b94fa422c2633644af12f737824e929da08452dc82aca90"
               }
             }
           ]

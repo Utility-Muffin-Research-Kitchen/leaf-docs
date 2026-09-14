@@ -9,28 +9,31 @@ you are playing.
 
 ## Turning it on
 
-Everything lives under **Settings > Controls & Feedback**.
+Everything lives under **Settings > Controls & Feedback**. Rumble is two separate
+switches that share one strength, so you can have either one without the other.
 
-- **Rumble** - the master switch. On by default. Turn this off and the motor stays
-  silent everywhere, including in games.
-- **Strength** - how hard the motor runs, from weak to full. Press **Left** and
-  **Right** to adjust it, and the device taps as you go so you can feel each level
-  rather than guessing from a number.
-- **Cursor Movement** - a small tap every time the cursor moves. Off by default,
-  because it fires constantly while you scroll. Turn it on if you like the
-  interface to feel clicky. It covers movement only, so opening a screen and
-  confirming an action still tap with it off.
-- **Game Rumble** - lets the game itself drive the motor. On by default.
+- **UI Rumble** - every tap the interface makes: a tap each time the cursor moves,
+  and the taps for selecting, confirming, and blocked actions. Off by default,
+  because the cursor tap fires constantly while you scroll. The device taps once
+  when you turn it on.
+- **Game Rumble** - lets the game itself drive the motor. On by default. The device
+  taps once when you turn it on.
+- **Strength** - how hard the motor runs, from weak to full, for both the interface
+  and games. Press **Left** and **Right** to adjust it, and the device taps as you
+  go so you can feel each level rather than guessing from a number. It shows a
+  dash while both switches are off.
 - **In-game Shortcuts** - opens a separate page for the **MENU** chords: the game
   switcher, screenshots, and recording, and which button each one uses. See
   [In-game shortcuts](/guide/features/#in-game-shortcuts).
 
-The rest of the rumble settings do nothing while **Rumble** is off, and show a
-dash instead of a value to make that clear.
+If you are updating from a Leaf version that had a single **Rumble** switch, your
+choice carries over. With that switch off, both new switches start off. With it
+on, **UI Rumble** takes your old **Cursor Movement** setting and **Game Rumble**
+keeps its own.
 
 ## What the taps mean
 
-Leaf does not buzz at random. The number of taps tells you what happened, so you
+With **UI Rumble** on, Leaf does not buzz at random. The number of taps tells you what happened, so you
 can often tell the outcome without looking:
 
 - **One tap** - you selected something, or the cursor moved.
@@ -62,7 +65,7 @@ not interrupt one you are already playing.
 
 ## If you would rather not feel it
 
-Turn **Rumble** off for silence everywhere. If you only dislike it in one place,
-you do not have to give up the rest: leave **Rumble** on and switch off
-**Game Rumble** to keep the interface taps without games buzzing, or leave
-**Cursor Movement** off to keep confirmations while scrolling stays quiet.
+Turn both switches off for silence everywhere. If you only dislike it in one place,
+you do not have to give up the other: turn off **UI Rumble** to keep games rumbling
+with quiet menus, or turn off **Game Rumble** to keep the interface taps without
+games buzzing.

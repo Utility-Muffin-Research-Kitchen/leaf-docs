@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260912T210721Z",
-  "generated_at": "2026-09-12T21:07:21Z",
+  "catalog_revision": "prod-20260915T070843Z",
+  "generated_at": "2026-09-15T07:08:43Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -435,6 +435,48 @@
           ]
         }
       ]
+    }
+  ],
+  "themes": [
+    {
+      "id": "t2-sunset",
+      "name": "T2 Sunset",
+      "author": "Leaf Test",
+      "owner_github_id": 735251,
+      "summary": "test of broken theme",
+      "description": "T2 install target: warm orange and purple, every Sample system icon reads SUN, wallpaper says v1.0.0.",
+      "license": "CC0-1.0",
+      "preview": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.0.0/t2-sunset-1.0.0.preview.png",
+        "sha256": "14fe0c74a5286521892c9b6421917cacc22122b4674907ffdcc45634368522c5",
+        "size": 102194
+      },
+      "version": "1.0.0",
+      "min_leaf_version": "0.12.0",
+      "install_name": "t2-sunset",
+      "artifact": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.0.0/t2-sunset-1.0.0.zip",
+        "name": "t2-sunset-1.0.0.zip",
+        "archive": "zip",
+        "size": 1328473,
+        "installed_size": 1364183,
+        "sha256": "8ef17f2e0d25e2f0ab4a68889e3b9bea30059d2d0dff98b22fba82c523a210cf"
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "min_leaf_version": "0.12.0",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.0.0/t2-sunset-1.0.0.zip",
+            "name": "t2-sunset-1.0.0.zip",
+            "archive": "zip",
+            "size": 1328473,
+            "installed_size": 1364183,
+            "sha256": "8ef17f2e0d25e2f0ab4a68889e3b9bea30059d2d0dff98b22fba82c523a210cf"
+          }
+        }
+      ],
+      "withdrawn": false
     }
   ]
 }

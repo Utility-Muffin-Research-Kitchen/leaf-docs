@@ -695,7 +695,27 @@ try {
     current.themes = [];
     await expectImmutableRejected(
       'theme-removed', current, previous,
-      'previously published theme must not be removed or change lanes',
+      'previously published theme must not be removed or change lanes unless it was withdrawn first',
+    );
+  }
+
+  {
+    // A takedown first, then the removal.
+    const previous = catalogWithTheme();
+    previous.themes[0].withdrawn = true;
+    const current = structuredClone(previous);
+    current.themes = [];
+    await expectAccepted('theme-removed-after-withdrawal', current, previous);
+  }
+
+  {
+    // Withdrawing and removing in the same change is still refused.
+    const previous = catalogWithTheme();
+    const current = structuredClone(previous);
+    delete current.themes;
+    await expectImmutableRejected(
+      'theme-withdrawn-and-removed-at-once', current, previous,
+      '$.themes[id="neon-nights"]: previously published theme must not be removed or change lanes unless it was withdrawn first',
     );
   }
 
@@ -706,7 +726,7 @@ try {
     current.content.push(asContentPackage(current, 'neon-nights'));
     await expectImmutableRejected(
       'theme-changed-lanes', current, previous,
-      '$.themes[id="neon-nights"]: previously published theme must not be removed or change lanes',
+      '$.themes[id="neon-nights"]: previously published theme must not be removed or change lanes unless it was withdrawn first',
     );
   }
 

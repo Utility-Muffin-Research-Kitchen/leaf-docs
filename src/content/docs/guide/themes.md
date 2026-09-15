@@ -13,7 +13,8 @@ nothing to compile, and you only have to supply the parts you want to change.
 
 You can install themes other people made from [Pak Rat](/guide/pak-rat-themes/), or
 make your own by following this page. When yours is ready to share, see
-[Submit a theme](/guide/submit-a-theme/).
+[Submit a theme](/guide/submit-a-theme/). To see every published theme before you pick
+one, browse the [Theme gallery](/themes/).
 
 ## Choosing a theme
 

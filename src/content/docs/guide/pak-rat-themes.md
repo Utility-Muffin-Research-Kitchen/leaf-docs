@@ -9,7 +9,8 @@ away. Pak Rat keeps the themes it installed up to date, and removes them cleanly
 you are done with one.
 
 Every theme in Pak Rat was made by someone in the community and reviewed before it was
-published. To make your own, see [Themes](/guide/themes/). To put yours in Pak Rat, see
+published. You can browse them all on the web in the [Theme gallery](/themes/). To make
+your own, see [Themes](/guide/themes/). To put yours in Pak Rat, see
 [Submit a theme](/guide/submit-a-theme/).
 
 ## Browsing themes

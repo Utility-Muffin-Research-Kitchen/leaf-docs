@@ -275,7 +275,7 @@ the Pak Rat catalog, comments **Published** on your issue with a link to the rel
 and closes the issue.
 
 The theme shows up in Pak Rat once leaf.game finishes deploying, usually within a few
-minutes.
+minutes. At the same time, it appears in the [Theme gallery](/themes/) on this site.
 
 The zip people download is rebuilt by the bot from the files that passed the checks,
 so every device gets exactly what was reviewed.

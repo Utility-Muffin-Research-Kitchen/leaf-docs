@@ -1,0 +1,453 @@
+---
+// The Theme gallery: a preview grid, with compact rows as a second view. One
+// toolbar drives both views:
+// search, license filter chips, sort order and a Grid / List toggle. Choosing a
+// theme in either view opens the same dialog, whose previous and next buttons
+// follow what is currently shown. The view is kept in ?view=list and, when the
+// browser allows it, remembered for the next visit.
+import GalleryFrame from './GalleryFrame.astro';
+import InstallSteps from './InstallSteps.astro';
+import { LICENSE_ORDER, LICENSES, formatBytes, galleryThemes, previewAlt, type GalleryTheme } from '../../lib/themes-gallery';
+
+interface Props { themes?: GalleryTheme[] }
+const { themes = galleryThemes() } = Astro.props;
+
+const filters = LICENSE_ORDER
+  .map((license) => ({ license, label: LICENSES[license].short, count: themes.filter((t) => t.license === license).length }))
+  .filter((f) => f.count > 0);
+
+const searchText = (t: GalleryTheme) => `${t.name} ${t.author} ${t.summary} ${t.licenseLabel} ${t.id}`.toLowerCase();
+
+// Only what the dialog draws. "<" is escaped so the JSON can't close its script tag.
+const dialogData = JSON.stringify(themes.map((t) => ({
+  id: t.id,
+  name: t.name,
+  author: t.author,
+  about: t.about,
+  alt: previewAlt(t),
+  preview: t.preview.url,
+  license: t.licenseLabel,
+  licenseUrl: t.licenseUrl,
+  folder: `Themes/${t.install_name}`,
+  versions: t.versions.map((v) => ({ version: v.version, leaf: v.min_leaf_version, size: formatBytes(v.artifact.size) })),
+}))).replace(/</g, '\\u003c');
+---
+
+<GalleryFrame count={themes.length} label="Theme gallery">
+  <div class="tg-br" data-tg-browser data-view="grid">
+    <div class="tg-br__bar">
+      <div class="tg-br__search" role="search">
+        <label for="tg-br-q" class="tg-sr">Search themes</label>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="tg-br-q" class="tg-field" type="search" placeholder="Search by name, author or license" autocomplete="off" data-q />
+      </div>
+      <div class="tg-br__sort">
+        <label for="tg-br-sort">Sort</label>
+        <select id="tg-br-sort" class="tg-field" data-sort>
+          <option value="newest">Newest first</option>
+          <option value="name">Name, A to Z</option>
+          <option value="author">Author, A to Z</option>
+        </select>
+      </div>
+      <div class="tg-br__views" role="group" aria-label="View">
+        <button type="button" class="tg-btn tg-br__view" aria-pressed="true" data-view-btn="grid" title="Grid view">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5" fill="currentColor"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" fill="currentColor"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" fill="currentColor"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" fill="currentColor"/></svg>
+          <span>Grid</span>
+        </button>
+        <button type="button" class="tg-btn tg-br__view" aria-pressed="false" data-view-btn="list" title="List view">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="4" width="5" height="4" rx="1" fill="currentColor"/><rect x="10" y="5" width="11" height="2" rx="1" fill="currentColor"/><rect x="3" y="10" width="5" height="4" rx="1" fill="currentColor"/><rect x="10" y="11" width="11" height="2" rx="1" fill="currentColor"/><rect x="3" y="16" width="5" height="4" rx="1" fill="currentColor"/><rect x="10" y="17" width="11" height="2" rx="1" fill="currentColor"/></svg>
+          <span>List</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tg-lb__filters" role="group" aria-label="Filter by license">
+      <button type="button" class="tg-btn tg-lb__chip" aria-pressed="true" data-filter="">All <span class="tg-lb__n">{themes.length}</span></button>
+      {filters.map((f) => (
+        <button type="button" class="tg-btn tg-lb__chip" aria-pressed="false" data-filter={f.license}
+          title={LICENSES[f.license].label}>{f.label} <span class="tg-lb__n">{f.count}</span></button>
+      ))}
+    </div>
+    <p class="tg-br__status tg-muted" role="status" data-status>{themes.length} {themes.length === 1 ? 'theme' : 'themes'}</p>
+
+    <ul class="tg-lb__grid" role="list" data-items="grid">
+      {themes.map((theme) => (
+        <li data-id={theme.id} data-license={theme.license} data-rank={theme.rank}
+          data-name={theme.name.toLowerCase()} data-author={theme.author.toLowerCase()} data-text={searchText(theme)}>
+          <button type="button" class="tg-lb__tile" data-open={theme.id} aria-haspopup="dialog">
+            <img class="tg-img" src={theme.preview.url} alt={previewAlt(theme)} width="960" height="720" loading="lazy" decoding="async" />
+            <span class="tg-lb__caption">
+              <span class="tg-lb__name">{theme.name}</span>
+              <span class="tg-lb__by">{theme.author}</span>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <div class="tg-br__list" data-list-wrap hidden>
+      <div class="tg-list__head" aria-hidden="true">
+        <span></span><span>Theme</span><span>Version</span><span>License</span>
+      </div>
+      <ul class="tg-list__rows" role="list" data-items="list">
+        {themes.map((theme) => (
+          <li class="tg-row" data-id={theme.id} data-license={theme.license} data-rank={theme.rank}
+            data-name={theme.name.toLowerCase()} data-author={theme.author.toLowerCase()} data-text={searchText(theme)}>
+            <img class="tg-img tg-row__thumb" src={theme.preview.url} alt="" width="960" height="720" loading="lazy" decoding="async" />
+            <div class="tg-row__main">
+              <p class="tg-row__title">
+                <button type="button" class="tg-row__open" data-open={theme.id} aria-haspopup="dialog"><strong>{theme.name}</strong></button>
+                <span class="tg-muted">by {theme.author}</span>
+              </p>
+              <p class="tg-row__summary">{theme.summary}</p>
+            </div>
+            <p class="tg-row__version"><span class="tg-sr">Version </span>{theme.version}
+              {theme.versions.length > 1 && <span class="tg-row__history tg-muted">{theme.versions.length} versions</span>}
+            </p>
+            <p class="tg-row__license"><span class="tg-sr">License </span><span class="tg-chip" title={theme.licenseLabel}>{theme.licenseShort}</span></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="tg-br__none" data-none hidden>
+      <p>No themes match these filters.</p>
+      <button type="button" class="tg-btn" data-clear>Show all themes</button>
+    </div>
+
+    <dialog class="tg-lb__dialog" aria-labelledby="tg-br-title" data-dialog>
+      <div class="tg-lb__bar">
+        <button type="button" class="tg-btn tg-lb__icon" data-nav="-1" aria-label="Previous theme">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="tg-lb__pos tg-muted" data-pos></span>
+        <button type="button" class="tg-btn tg-lb__icon" data-nav="1" aria-label="Next theme">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="tg-btn tg-lb__icon tg-lb__close" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="tg-lb__content">
+        <img class="tg-img tg-lb__big" alt="" width="960" height="720" data-f="preview" />
+        <div class="tg-lb__info">
+          <h2 id="tg-br-title" class="tg-lb__title" data-f="name"></h2>
+          <p class="tg-muted">by <span data-f="author"></span></p>
+          <div class="tg-desc tg-lb__desc" data-f="about"></div>
+          <dl class="tg-facts">
+            <dt>License</dt><dd data-f="license"></dd>
+            <dt>Folder</dt><dd><code data-f="folder"></code></dd>
+          </dl>
+          <InstallSteps name={themes[0]?.name ?? ''} minLeaf={themes[0]?.min_leaf_version ?? ''} />
+          <div class="tg-lb__history">
+            <h3>Version history</h3>
+            <table>
+              <thead><tr><th scope="col">Version</th><th scope="col">Needs Leaf</th><th scope="col">Download</th></tr></thead>
+              <tbody data-f="versions"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </dialog>
+    <script type="application/json" data-themes set:html={dialogData}></script>
+  </div>
+</GalleryFrame>
+
+<script>
+  interface DialogTheme {
+    id: string; name: string; author: string; about: string; alt: string; preview: string;
+    license: string; licenseUrl: string | null; folder: string;
+    versions: { version: string; leaf: string; size: string }[];
+  }
+  type View = 'grid' | 'list';
+  const VIEW_KEY = 'leaf-theme-gallery-view';
+
+  function savedView(): View | null {
+    const fromUrl = new URLSearchParams(location.search).get('view');
+    if (fromUrl === 'grid' || fromUrl === 'list') return fromUrl;
+    try {
+      const stored = localStorage.getItem(VIEW_KEY);
+      return stored === 'grid' || stored === 'list' ? stored : null;
+    } catch {
+      return null;
+    }
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-tg-browser]')) {
+    const data: DialogTheme[] = JSON.parse(root.querySelector('[data-themes]')!.textContent || '[]');
+    const dialog = root.querySelector<HTMLDialogElement>('[data-dialog]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    const q = root.querySelector<HTMLInputElement>('[data-q]')!;
+    const sort = root.querySelector<HTMLSelectElement>('[data-sort]')!;
+    const none = root.querySelector<HTMLElement>('[data-none]')!;
+    const grid = root.querySelector<HTMLElement>('[data-items="grid"]')!;
+    const listWrap = root.querySelector<HTMLElement>('[data-list-wrap]')!;
+    const list = root.querySelector<HTMLElement>('[data-items="list"]')!;
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-view-btn]'));
+    const gridItems = Array.from(grid.querySelectorAll<HTMLElement>('li[data-id]'));
+    const listItems = Array.from(list.querySelectorAll<HTMLElement>('li[data-id]'));
+    const field = (name: string) => dialog.querySelector<HTMLElement>(`[data-f="${name}"]`)!;
+    const total = gridItems.length;
+    let license = '';
+    let view: View = 'grid';
+    let current = 0;
+    let opener: HTMLElement | null = null;
+
+    const compare: Record<string, (a: HTMLElement, b: HTMLElement) => number> = {
+      newest: (a, b) => Number(a.dataset.rank) - Number(b.dataset.rank),
+      name: (a, b) => a.dataset.name!.localeCompare(b.dataset.name!) || compare.newest(a, b),
+      author: (a, b) => a.dataset.author!.localeCompare(b.dataset.author!) || compare.newest(a, b),
+    };
+
+    // Both views hold the same themes in the same order; the grid's order is
+    // the one previous and next follow.
+    const visibleIds = () => gridItems.filter((li) => !li.hidden).map((li) => li.dataset.id!);
+
+    function update() {
+      const words = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const order = compare[sort.value] ?? compare.newest;
+      let shown = 0;
+      for (const [items, parent] of [[gridItems, grid], [listItems, list]] as const) {
+        items.sort(order).forEach((li) => {
+          const match = (!license || li.dataset.license === license) &&
+            words.every((w) => li.dataset.text!.includes(w));
+          li.hidden = !match;
+          parent.append(li);
+        });
+      }
+      shown = visibleIds().length;
+      none.hidden = shown > 0;
+      grid.hidden = view !== 'grid' || shown === 0;
+      listWrap.hidden = view !== 'list' || shown === 0;
+      status.textContent = shown === total
+        ? `${total} ${total === 1 ? 'theme' : 'themes'}`
+        : `${shown} of ${total} themes`;
+    }
+
+    function setView(next: View, remember: boolean) {
+      view = next;
+      root.dataset.view = next;
+      viewButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.viewBtn === next)));
+      if (remember) {
+        const url = new URL(location.href);
+        if (next === 'list') url.searchParams.set('view', 'list'); else url.searchParams.delete('view');
+        history.replaceState(null, '', url);
+        try { localStorage.setItem(VIEW_KEY, next); } catch { /* storage unavailable */ }
+      }
+      update();
+    }
+
+    function fill(id: string) {
+      const theme = data.find((t) => t.id === id);
+      if (!theme) return;
+      const ids = visibleIds();
+      current = ids.indexOf(id);
+      const img = field('preview') as HTMLImageElement;
+      img.src = theme.preview;
+      img.alt = theme.alt;
+      field('name').textContent = theme.name;
+      field('author').textContent = theme.author;
+      dialog.querySelectorAll('[data-tg-step-name]').forEach((el) => { el.textContent = theme.name; });
+      dialog.querySelectorAll('[data-tg-step-leaf]').forEach((el) => { el.textContent = theme.versions[0]?.leaf ?? ''; });
+      field('folder').textContent = theme.folder;
+      field('about').replaceChildren(...theme.about.split(/\n\s*\n/).filter(Boolean).map((text) => {
+        const p = document.createElement('p');
+        p.textContent = text.trim();
+        return p;
+      }));
+      const licenseCell = field('license');
+      if (theme.licenseUrl) {
+        const a = document.createElement('a');
+        a.href = theme.licenseUrl;
+        a.rel = 'license noopener';
+        a.target = '_blank';
+        a.textContent = theme.license;
+        licenseCell.replaceChildren(a);
+      } else {
+        licenseCell.textContent = theme.license;
+      }
+      field('versions').replaceChildren(...theme.versions.map((v, i) => {
+        const tr = document.createElement('tr');
+        [i === 0 ? `${v.version} (latest)` : v.version, v.leaf, v.size].forEach((text) => {
+          const td = document.createElement('td');
+          td.textContent = text;
+          tr.append(td);
+        });
+        return tr;
+      }));
+      dialog.querySelector<HTMLElement>('[data-pos]')!.textContent = `${current + 1} of ${ids.length}`;
+      dialog.querySelectorAll<HTMLButtonElement>('[data-nav]').forEach((b) => { b.disabled = ids.length < 2; });
+      dialog.querySelector('.tg-lb__content')!.scrollTop = 0;
+    }
+
+    function step(delta: number) {
+      const ids = visibleIds();
+      if (!ids.length) return;
+      fill(ids[(current + delta + ids.length) % ids.length]);
+    }
+
+    root.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      if (target.closest('dialog')) return;
+      const opened = target.closest<HTMLElement>('[data-open]');
+      // A click anywhere on a list row opens it, not only on its name.
+      const row = opened ? null : target.closest<HTMLElement>('.tg-row');
+      const openerEl = opened ?? row?.querySelector<HTMLElement>('[data-open]') ?? null;
+      if (openerEl) {
+        opener = openerEl;
+        fill(openerEl.dataset.open!);
+        dialog.showModal();
+        dialog.querySelector<HTMLElement>('[data-close]')!.focus();
+        return;
+      }
+      const chip = target.closest<HTMLButtonElement>('[data-filter]');
+      if (chip) {
+        license = chip.dataset.filter ?? '';
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        update();
+        return;
+      }
+      const viewBtn = target.closest<HTMLButtonElement>('[data-view-btn]');
+      if (viewBtn) setView(viewBtn.dataset.viewBtn as View, true);
+    });
+
+    root.querySelector('[data-clear]')!.addEventListener('click', () => {
+      q.value = '';
+      license = '';
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.filter === '')));
+      update();
+      q.focus();
+    });
+    q.addEventListener('input', update);
+    sort.addEventListener('change', update);
+
+    dialog.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      // A click on the backdrop lands on the dialog element itself.
+      if (target === dialog) return dialog.close();
+      if (target.closest('[data-close]')) return dialog.close();
+      const nav = target.closest<HTMLElement>('[data-nav]');
+      if (nav) step(Number(nav.dataset.nav));
+    });
+    dialog.addEventListener('keydown', (event) => {
+      if ((event.target as Element).closest('a, input, select, textarea')) return;
+      if (event.key === 'ArrowRight') { event.preventDefault(); step(1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
+    });
+    dialog.addEventListener('close', () => { opener?.focus(); });
+
+    setView(savedView() ?? 'grid', false);
+  }
+</script>
+
+<style is:global>
+  .tg-br { container-type: inline-size; }
+  .tg-br__bar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.75rem; }
+  .tg-br__search { position: relative; flex: 1 1 14rem; }
+  .tg-br__search svg {
+    position: absolute; left: 0.65rem; top: 50%; transform: translateY(-50%);
+    color: var(--tg-muted); pointer-events: none;
+  }
+  .tg-br__search input { width: 100%; padding-left: 2rem; }
+  .tg-br__sort { display: flex; align-items: center; gap: 0.45rem; font-size: var(--sl-text-sm); }
+  .tg-br__sort label { color: var(--tg-muted); }
+  .tg-br__views {
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid var(--tg-border);
+    border-radius: 999px;
+  }
+  .tg-br__view {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    min-height: 2rem; border: 0; border-radius: 999px; font-size: var(--sl-text-xs);
+  }
+  .tg-br__view[aria-pressed='false'] { background: transparent; color: var(--tg-muted); }
+  .tg-br__status { font-size: var(--sl-text-xs); margin: 0 0 0.5rem !important; }
+  .tg-br__none { display: grid; justify-items: start; gap: 0.6rem; padding: 1.25rem 0.25rem; }
+
+  /* Grid view. */
+  .tg-lb__filters { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.6rem; }
+  .tg-lb__chip { min-height: 2rem; border-radius: 999px; font-size: var(--sl-text-xs); }
+  .tg-lb__n {
+    display: inline-grid; place-items: center; min-width: 1.3rem; padding: 0 0.3rem;
+    border-radius: 999px; background: var(--sl-color-gray-5); color: var(--tg-strong); font-size: var(--sl-text-2xs);
+  }
+  .tg-lb__chip[aria-pressed='true'] .tg-lb__n { background: rgba(0, 0, 0, 0.18); color: inherit; }
+  .tg-lb__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; padding: 0; list-style: none; }
+  @container (min-width: 34rem) { .tg-lb__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .tg-lb__tile {
+    position: relative; display: block; width: 100%; padding: 0; overflow: hidden; border: 0;
+    border-radius: 8px; background: var(--tg-card-bg); color: #fff; font: inherit; text-align: left; cursor: zoom-in;
+  }
+  .tg-lb__tile img.tg-img { transition: transform 0.25s ease; }
+  .tg-lb__tile:hover img.tg-img { transform: scale(1.04); }
+  .tg-lb__caption {
+    position: absolute; inset: auto 0 0 0; display: flex; flex-direction: column;
+    padding: 1.6rem 0.65rem 0.5rem; background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
+  }
+  .tg-lb__name { font-weight: 700; font-size: var(--sl-text-sm); line-height: 1.2; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
+  .tg-lb__by { font-size: var(--sl-text-2xs); opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* List view. */
+  .tg-list__head, .tg-row { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: 0.85rem; align-items: center; }
+  .tg-list__head { display: none; }
+  .tg-list__rows { padding: 0; list-style: none; border-top: 1px solid var(--tg-border); }
+  .tg-row {
+    grid-template-columns: 5.5rem auto minmax(0, 1fr);
+    grid-template-areas: 'thumb main main' 'thumb version license';
+    row-gap: 0.3rem; padding: 0.6rem 0.25rem; border-bottom: 1px solid var(--tg-border); cursor: pointer;
+  }
+  .tg-row:hover { background: var(--tg-card-bg); }
+  .tg img.tg-row__thumb { grid-area: thumb; border-radius: 6px; align-self: start; outline: 1px solid var(--tg-border); }
+  .tg-row__main { grid-area: main; min-width: 0; }
+  .tg-row__title { font-size: var(--sl-text-sm); }
+  .tg-row__open { padding: 0; border: 0; background: none; font: inherit; color: var(--tg-strong); cursor: pointer; text-align: left; }
+  .tg-row__open strong { font-size: var(--sl-text-base); }
+  .tg-row__open:hover strong { text-decoration: underline; }
+  .tg-row__title .tg-muted { font-size: var(--sl-text-xs); }
+  .tg-row__summary { font-size: var(--sl-text-xs); color: var(--sl-color-gray-2); }
+  .tg-row__version, .tg-row__license { font-size: var(--sl-text-xs); }
+  .tg-row__version { grid-area: version; justify-self: start; display: inline-flex; gap: 0.4rem; align-items: baseline; color: var(--tg-strong); font-variant-numeric: tabular-nums; }
+  .tg-row__license { grid-area: license; justify-self: end; }
+  .tg-row__history { font-size: var(--sl-text-2xs); }
+  @container (min-width: 36rem) {
+    .tg-list__head, .tg-row { grid-template-columns: 6.5rem minmax(0, 1fr) 5.5rem 10rem; }
+    .tg-row { grid-template-areas: 'thumb main version license'; padding: 0.5rem; }
+    .tg-list__head {
+      display: grid; padding: 0 0.5rem 0.35rem; color: var(--tg-muted);
+      font-size: var(--sl-text-2xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .tg-row__version { flex-direction: column; gap: 0; }
+    .tg-row__license { justify-self: start; }
+  }
+
+  /* Dialog. */
+  .tg-lb__dialog {
+    /* Starlight's reset zeroes margins, which would pin the dialog top-left. */
+    margin: auto; width: min(58rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem);
+    padding: 0; overflow: hidden; border: 1px solid var(--tg-border); border-radius: 14px;
+    background: var(--sl-color-bg); color: var(--sl-color-text); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+  .tg-lb__dialog[open] { display: flex; flex-direction: column; }
+  .tg-lb__dialog::backdrop { background: rgba(5, 8, 5, 0.72); backdrop-filter: blur(3px); }
+  .tg-lb__bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--tg-border); }
+  .tg-lb__icon { width: 2.25rem; padding: 0; }
+  .tg-lb__icon:disabled { opacity: 0.4; cursor: default; }
+  .tg-lb__pos { font-size: var(--sl-text-xs); min-width: 4.5rem; text-align: center; }
+  .tg-lb__close { margin-left: auto; }
+  .tg-lb__content { display: grid; gap: 1.25rem; padding: 1rem; overflow-y: auto; }
+  .tg .tg-lb__big { border-radius: 8px; }
+  .tg-lb__info { display: grid; gap: 0.9rem; align-content: start; min-width: 0; }
+  .tg-lb__info > .tg-muted { margin-top: -0.75rem; }
+  .tg .tg-lb__title { font-size: var(--sl-text-2xl); }
+  @media (min-width: 52rem) {
+    .tg-lb__content { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; }
+    .tg .tg-lb__big { position: sticky; top: 0; }
+  }
+  .tg-lb__history h3 { font-size: var(--sl-text-base); margin-bottom: 0.35rem; }
+  .tg-lb__history table { width: 100%; border-collapse: collapse; font-size: var(--sl-text-xs); }
+  .tg-lb__history th, .tg-lb__history td { padding: 0.3rem 0.5rem 0.3rem 0; border-bottom: 1px solid var(--tg-border); text-align: left; }
+  .tg-lb__history th { color: var(--tg-muted); font-weight: 600; }
+  .tg-lb__history td { font-variant-numeric: tabular-nums; color: var(--tg-strong); }
+</style>

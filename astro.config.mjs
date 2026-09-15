@@ -78,6 +78,7 @@ export default defineConfig({
             { label: 'Rumble', slug: 'guide/rumble' },
             { label: 'Language (中文)', slug: 'guide/language' },
             { label: 'Themes', slug: 'guide/themes', badge: { text: 'Soon', variant: 'caution' } },
+            { label: 'Theme gallery', slug: 'themes' },
             { label: 'Themes from Pak Rat', slug: 'guide/pak-rat-themes' },
             { label: 'Submit a theme', slug: 'guide/submit-a-theme' },
             { label: 'Settings reference', slug: 'guide/settings' },

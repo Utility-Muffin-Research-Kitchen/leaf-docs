@@ -32,7 +32,8 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
   `Roms/PSX/Final Fantasy VII/Final Fantasy VII.cue` works just as well.
 - **`Images/<SYSTEM>/`** - put box art next to the matching system folder, named
   to match the game. For `Roms/SNES/Chrono Trigger.sfc`, use
-  `Images/SNES/Chrono Trigger.png`.
+  `Images/SNES/Chrono Trigger.png` or `Images/SNES/Chrono Trigger.jpg`. PNG and
+  JPEG (`.jpg` or `.jpeg`) both work.
 - **`Saves/` and `States/`** - created and managed for you as you play. See
   [Playing games](/guide/playing/) for how in-game saves and save states work.
 
@@ -309,6 +310,16 @@ You can add box art two ways: drop it in yourself, or let Leaf fetch it.
 extension) and place it in `Images/<SYSTEM>/`. For `Roms/SNES/Chrono Trigger.sfc`,
 use `Images/SNES/Chrono Trigger.png`. Leaf pairs them up automatically and shows
 the art in the game list.
+
+Your art can be PNG or JPEG (`.png`, `.jpg`, or `.jpeg`), and the extension's
+case doesn't matter: `.jpg`, `.JPG`, and `.JpG` all work. If a game has more than
+one image in the same folder, Leaf uses the PNG first, then the JPG, then the
+JPEG. Where the image sits counts before its format, so art in `Images/<SYSTEM>/`
+is used even when a PNG for the same game is in a folder Leaf checks after it.
+
+On an ext4 card, file names are case-sensitive. Match the game's file name and
+folder exactly, capital letters included: `Chrono Trigger.sfc` pairs with
+`Chrono Trigger.jpg`, not `chrono trigger.jpg`.
 
 **Let Leaf fetch it.** Leaf can download box art from
 [ScreenScraper.fr](https://www.screenscraper.fr/). Sign in once under

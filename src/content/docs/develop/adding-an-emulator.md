@@ -119,6 +119,24 @@ target must exist inside the pak and be executable:
 }
 ```
 
+Leaf runs the target with one argument, the absolute path of the selected game,
+and exports the runtime paths such as `ROMS_PATH`, `SAVES_PATH`, `USERDATA_PATH`,
+and `LOGS_PATH`. `ROMS_PATH` and `SAVES_PATH` belong to the card the game is on.
+The target is usually a small launch script: pass every location on the
+emulator's command line each time, don't store an absolute mount path, and end
+with `exec` so Leaf supervises the emulator itself.
+
+With `supports_menu` set to `false`, Leaf's **Menu** button ends the emulator.
+Leaf asks **Return to Leaf?** first and quits on a second press, which doesn't
+save the game, so make sure players can save inside the emulator.
+
+A path core in `alternate_cores` starts only for games or systems where the
+player chose it; the system's `default_core` stays the default.
+[ScummVM-pak](https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak)
+ships its standalone ScummVM this way. Its `standalone/` build and
+`launch-game.sh` are a complete example, including checks that the binary only
+needs libraries the device provides, and its corresponding-source archive.
+
 A third-party manifest cannot request direct DRM, legacy flat-core migration,
 arcade name maps, or a core status. The forbidden fields are
 `requires_direct_drm`, `legacy_flat_core`, `name_map`, and `status`; Leaf derives

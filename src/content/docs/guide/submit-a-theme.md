@@ -223,8 +223,10 @@ Leave the issue title as it is and submit.
 Within a few minutes, the bot comments on your issue with one of two results.
 
 **Your theme needs changes** means at least one check failed. The comment is a table
-with a row for each problem: the name of the check, such as `theme-id-mismatch`, and
-what to fix. It lists every problem it found, so you can fix them all in one go. The
+with a row for each problem: the name of the check, such as `theme-image-dimensions`,
+what to fix, and the file in your zip it is about, such as
+`neon-nights/grid/icons/GB.png`. It lists every problem it found, so you can fix them
+all in one go. The
 issue gets the `needs-changes` label. [Common problems](#common-problems) below
 explains the ones people hit most.
 
@@ -280,7 +282,8 @@ so every device gets exactly what was reviewed.
 
 ## Common problems
 
-These are the checks people run into most. The bot's comment names the check, and the
+These are the checks people run into most. The bot's comment names the check and the
+file, and the
 [THEME-1 contract](https://github.com/Utility-Muffin-Research-Kitchen/leaf-contracts/blob/main/docs/themes.md)
 lists every one.
 

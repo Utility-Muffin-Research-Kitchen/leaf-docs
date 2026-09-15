@@ -1,0 +1,56 @@
+name: Pak Rat catalog
+
+# Checks a catalog change before it merges. deploy.yml runs the same
+# validator again on push to main, just before the catalog goes live.
+on:
+  pull_request:
+    paths:
+      - public/pakrat/**
+      - scripts/validate-pakrat-catalog.mjs
+      - scripts/validate-pakrat-catalog-test.mjs
+      - scripts/theme-archive-check.py
+      - .github/workflows/pakrat-catalog.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pakrat-catalog-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  # The THEME-1 reference validator the themes lane is checked against.
+  # Keep in step with the pin in deploy.yml.
+  LEAF_CONTRACTS_SHA: 52996b2a4d11d7c8d42e4488a6ef6cd39285c582
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # The PR merge commit and its first parent, the base branch.
+          fetch-depth: 2
+      - name: Checkout leaf-contracts
+        uses: actions/checkout@v4
+        with:
+          repository: Utility-Muffin-Research-Kitchen/leaf-contracts
+          ref: ${{ env.LEAF_CONTRACTS_SHA }}
+          path: .leaf-contracts
+          persist-credentials: false
+      - name: Validate Pak Rat catalog
+        env:
+          LEAF_CONTRACTS_DIR: ${{ github.workspace }}/.leaf-contracts
+        run: |
+          catalog=public/pakrat/v1/storefront.json
+          git show "HEAD^1:$catalog" > "$RUNNER_TEMP/base-storefront.json"
+          args=(--previous-catalog "$RUNNER_TEMP/base-storefront.json")
+          if ! git diff --quiet HEAD^1 HEAD -- "$catalog"; then
+            args+=(--remote)
+          fi
+          node scripts/validate-pakrat-catalog.mjs "${args[@]}"
+      - name: Test the validator
+        env:
+          LEAF_CONTRACTS_DIR: ${{ github.workspace }}/.leaf-contracts
+        run: node scripts/validate-pakrat-catalog-test.mjs

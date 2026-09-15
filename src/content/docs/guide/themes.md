@@ -228,8 +228,9 @@ Everything else uses the folder name as its code: `GBA.png`, `N64.png`, `SEGACD.
 and so on. Codes are uppercase letters, digits and underscores, and the case has to
 match exactly.
 
-`_apps` is the code for the Apps tile, and you can give it an icon in `grid/icons/`
-and `coverflow/icons/` like any other tile. `_default` is reserved and a theme
+`_apps` is the code for the Apps tile. You can give it an icon in `grid/icons/` and
+`coverflow/icons/` and a label in `grid/labels/`, like any other tile. It has no
+wordmark. `_default` is reserved and a theme
 cannot replace it.
 
 ## Ship only what you want to change

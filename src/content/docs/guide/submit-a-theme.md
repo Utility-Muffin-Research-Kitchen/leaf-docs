@@ -67,7 +67,7 @@ the folder as `Themes/<id>/` on the card.
 `<CODE>` is a system code, as described in
 [Naming the files](/guide/themes/#naming-the-files): 2 to 32 uppercase letters, digits
 and underscores, such as `GBA` or `FC`. `_apps`, in lowercase, is also allowed for the
-Apps tile, but only as an icon. Names are compared exactly, so `grid/icons/FC.PNG` and
+Apps tile's icons and its Grid label, but not as a wordmark. Names are compared exactly, so `grid/icons/FC.PNG` and
 `Grid/icons/FC.png` are both refused.
 
 If you started from a copy of the bundled **Sample** theme, remove the
@@ -296,7 +296,7 @@ lists every one.
 | `theme-missing-preview` | Add a 960 x 720 `preview.png` to the theme folder |
 | `theme-image-dimensions` | An image is outside its limits: `preview.png` must be exactly 960 x 720, wallpapers at most 2048 px per side, and icons, labels and wordmarks at most 1024 px per side |
 | `theme-unsupported-image` | An image is not the format its name says, or is a kind Leaf can't read. Export it again as a real PNG, or as an ordinary JPEG for a wallpaper |
-| `theme-system-id-invalid` | Name art files with a system code in uppercase, such as `GBA.png`. `_apps` works only for icons |
+| `theme-system-id-invalid` | Name art files with a system code in uppercase, such as `GBA.png`. `_apps` works for icons and Grid labels, not wordmarks |
 | `theme-multiple-wallpapers` | Keep one of `wallpaper.png`, `wallpaper.jpg` or `wallpaper.jpeg` in each folder |
 | `theme-malformed-manifest` | `theme.json` is not valid JSON. Look for a missing comma, a duplicate key or a byte order mark |
 | `theme-unknown-schema` | Add `"schema": 1` to `theme.json` |

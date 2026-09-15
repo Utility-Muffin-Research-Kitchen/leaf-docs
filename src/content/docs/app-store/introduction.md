@@ -10,6 +10,7 @@ firmware rather than something bolted on.
 
 These are the apps you add with **Pak Rat**, Leaf's on-device app store. For the
 apps that come pre-installed with Leaf, see [Built-in apps](/apps/introduction/).
+Pak Rat carries themes too, covered in [Themes from Pak Rat](/guide/pak-rat-themes/).
 This section is new and will grow over time.
 
 ## Available apps

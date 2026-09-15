@@ -4,9 +4,9 @@ import { createWriteStream } from 'node:fs';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { get } from 'node:https';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { URL } from 'node:url';
+import { URL, fileURLToPath } from 'node:url';
 
 const checkRemote = process.argv.includes('--remote');
 const catalogArg = process.argv.indexOf('--catalog');
@@ -32,9 +32,28 @@ const previousCatalogPath = previousCatalogArg >= 0
   : null;
 const archivePath = archiveArg >= 0 ? process.argv[archiveArg + 1] : null;
 const errors = [];
+const previews = [];
 const VERSION_RE = /^[0-9]+\.[0-9]+\.[0-9]+$/;
 const MAX_VERSION_COMPONENT = 9999;
 const MAX_PACKAGE_VERSIONS = 16;
+
+// THEME-1 (leaf-contracts docs/themes.md). The themes lane restates the
+// package rules a catalog entry can express; the archive itself is judged by
+// the reference validator in leaf-contracts, never by a copy of it here.
+const THEME_ID_RE = /^[a-z0-9][a-z0-9-]{1,39}$/;
+const THEME_VERSION_RE = /^(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})$/;
+const THEME_MIN_LEAF_VERSION = '0.12.0';
+const THEME_LICENSES = ['CC-BY-4.0', 'CC-BY-SA-4.0', 'CC0-1.0', 'redistribution-permitted'];
+// An allowlist rather than the other lanes' open shape: a misspelled
+// `withdrawn` would otherwise leave a taken-down theme installable.
+const THEME_KEYS = new Set([
+  'id', 'name', 'author', 'owner_github_id', 'summary', 'description', 'license',
+  'preview', 'version', 'min_leaf_version', 'install_name', 'artifact', 'versions',
+  'withdrawn',
+]);
+const THEME_REFUSED_KEYS = new Set(['platform', 'runtime', 'runtime_manifest_path', 'packages']);
+const THEME_VERSION_KEYS = new Set(['version', 'min_leaf_version', 'artifact']);
+const themeArchiveCheck = fileURLToPath(new URL('./theme-archive-check.py', import.meta.url));
 
 function fail(path, message) {
   errors.push(`${path}: ${message}`);
@@ -246,6 +265,216 @@ function validateImmutableHistory(previous, current) {
       }
     }
   }
+  validateImmutableThemes(previous, current);
+}
+
+function requireThemeVersion(value, path) {
+  if (!requireString(value, path)) {
+    return null;
+  }
+  if (!THEME_VERSION_RE.test(value)) {
+    fail(path, 'must be MAJOR.MINOR.PATCH with components 0-9999 and no leading zeros');
+    return null;
+  }
+  return value.split('.').map(Number);
+}
+
+function requireThemeMinimum(value, path) {
+  const parsed = requireThemeVersion(value, path);
+  if (parsed && compareVersions(parsed, THEME_MIN_LEAF_VERSION.split('.').map(Number)) < 0) {
+    fail(path, `must be at least ${THEME_MIN_LEAF_VERSION}`);
+    return null;
+  }
+  return parsed;
+}
+
+function requireKnownKeys(object, allowed, path) {
+  for (const key of Object.keys(object)) {
+    if (THEME_REFUSED_KEYS.has(key)) {
+      fail(`${path}.${key}`, 'themes are platform-independent and have no runtime; this key is refused');
+    } else if (!allowed.has(key)) {
+      fail(`${path}.${key}`, 'is not a themes lane field');
+    }
+  }
+}
+
+function validateTheme(theme, themePath, ids, artifacts) {
+  if (!requireObject(theme, themePath)) {
+    return;
+  }
+  requireKnownKeys(theme, THEME_KEYS, themePath);
+  if (requireString(theme.id, `${themePath}.id`)) {
+    if (!THEME_ID_RE.test(theme.id)) {
+      fail(`${themePath}.id`, `must match ${THEME_ID_RE.source}`);
+    }
+    if (ids.has(theme.id)) {
+      fail(`${themePath}.id`, `duplicate id "${theme.id}" (an id may appear in exactly one lane)`);
+    }
+    ids.add(theme.id);
+  }
+  requireString(theme.name, `${themePath}.name`);
+  requireString(theme.author, `${themePath}.author`);
+  requireString(theme.summary, `${themePath}.summary`);
+  if ('description' in theme) {
+    requireString(theme.description, `${themePath}.description`);
+  }
+  requireInteger(theme.owner_github_id, `${themePath}.owner_github_id`);
+  if (!THEME_LICENSES.includes(theme.license)) {
+    fail(`${themePath}.license`, `must be one of ${THEME_LICENSES.join(', ')}`);
+  }
+  if ('withdrawn' in theme && typeof theme.withdrawn !== 'boolean') {
+    fail(`${themePath}.withdrawn`, 'must be a boolean when present');
+  }
+
+  const previewPath = `${themePath}.preview`;
+  if (requireObject(theme.preview, previewPath)) {
+    const validUrl = requireHttpsUrl(theme.preview.url, `${previewPath}.url`);
+    const validSha = requireSha256(theme.preview.sha256, `${previewPath}.sha256`);
+    const validSize = requireInteger(theme.preview.size, `${previewPath}.size`);
+    if (validUrl && validSha && validSize) {
+      previews.push({ preview: theme.preview, path: previewPath });
+    }
+  }
+
+  requireThemeVersion(theme.version, `${themePath}.version`);
+  requireThemeMinimum(theme.min_leaf_version, `${themePath}.min_leaf_version`);
+  if (typeof theme.install_name !== 'string' || theme.install_name !== theme.id) {
+    fail(`${themePath}.install_name`, 'must equal the theme id (no .pak suffix)');
+  }
+  const artifactPath = `${themePath}.artifact`;
+  validateArtifact(theme.artifact, artifactPath);
+
+  // Unlike apps[] and content[] there is no legacy reader to serve, so the
+  // history is always present and the top-level fields mirror its newest entry.
+  const versionsPath = `${themePath}.versions`;
+  if (!Array.isArray(theme.versions) || theme.versions.length === 0) {
+    fail(versionsPath, 'must be a non-empty array');
+    return;
+  }
+  if (theme.versions.length > MAX_PACKAGE_VERSIONS) {
+    fail(versionsPath, `must contain at most ${MAX_PACKAGE_VERSIONS} entries`);
+  }
+  const seenVersions = new Set();
+  let previousParsed = null;
+  theme.versions.forEach((entry, versionIndex) => {
+    const versionPath = `${versionsPath}[${versionIndex}]`;
+    if (!requireObject(entry, versionPath)) {
+      return;
+    }
+    requireKnownKeys(entry, THEME_VERSION_KEYS, versionPath);
+    const parsed = requireThemeVersion(entry.version, `${versionPath}.version`);
+    if (typeof entry.version === 'string') {
+      if (seenVersions.has(entry.version)) {
+        fail(`${versionPath}.version`, `duplicate theme version "${entry.version}"`);
+      }
+      seenVersions.add(entry.version);
+    }
+    if (parsed && previousParsed && compareVersions(previousParsed, parsed) <= 0) {
+      fail(`${versionPath}.version`, 'versions must be strictly descending newest-first');
+    }
+    if (parsed) {
+      previousParsed = parsed;
+    }
+    let minimum = null;
+    if (!('min_leaf_version' in entry)) {
+      fail(`${versionPath}.min_leaf_version`, 'every theme version must declare min_leaf_version');
+    } else {
+      minimum = requireThemeMinimum(entry.min_leaf_version, `${versionPath}.min_leaf_version`);
+    }
+    const versionArtifactPath = `${versionPath}.artifact`;
+    if (validateArtifact(entry.artifact, versionArtifactPath) && parsed && minimum) {
+      artifacts.push({
+        kind: 'theme',
+        artifact: entry.artifact,
+        path: versionArtifactPath,
+        themeId: theme.id,
+        version: entry.version,
+        minLeafVersion: entry.min_leaf_version,
+        // license and preview describe the newest version only; an older
+        // package may carry the license it was published under.
+        license: versionIndex === 0 ? theme.license : null,
+      });
+    }
+  });
+
+  const newest = theme.versions[0];
+  if (!isObject(newest)) {
+    return;
+  }
+  if (theme.version !== newest.version) {
+    fail(`${themePath}.version`, `must match newest version ${JSON.stringify(newest.version)}`);
+  }
+  if (theme.min_leaf_version !== newest.min_leaf_version) {
+    fail(
+      `${themePath}.min_leaf_version`,
+      `must mirror the newest version's gate ${JSON.stringify(newest.min_leaf_version ?? null)}`,
+    );
+  }
+  if (!artifactsEqual(theme.artifact, newest.artifact)) {
+    fail(artifactPath, `must exactly match newest-version artifact ${versionsPath}[0].artifact`);
+  }
+}
+
+function validateImmutableThemes(previous, current) {
+  const previousThemes = Array.isArray(previous.themes) ? previous.themes : [];
+  const currentThemes = Array.isArray(current.themes) ? current.themes : [];
+  for (const previousTheme of previousThemes) {
+    if (!isObject(previousTheme)) {
+      continue;
+    }
+    const themePath = `$.themes[id=${JSON.stringify(previousTheme.id)}]`;
+    const currentTheme = currentThemes.find(
+      (candidate) => isObject(candidate) && candidate.id === previousTheme.id,
+    );
+    if (!currentTheme) {
+      fail(themePath, 'previously published theme must not be removed or change lanes');
+      continue;
+    }
+    if (!Array.isArray(previousTheme.versions) || !Array.isArray(currentTheme.versions)) {
+      fail(`${themePath}.versions`, 'cannot compare malformed theme history');
+      continue;
+    }
+    // Everything a published version says is fixed. `withdrawn` and the
+    // display fields are not part of a version, so a takedown (or its
+    // reversal) passes here untouched.
+    let newestPublished = null;
+    for (const previousEntry of previousTheme.versions) {
+      if (!isObject(previousEntry)) {
+        continue;
+      }
+      const versionPath = `${themePath}.versions[version=${JSON.stringify(previousEntry.version)}]`;
+      const currentEntry = currentTheme.versions.find(
+        (candidate) => isObject(candidate) && candidate.version === previousEntry.version,
+      );
+      if (!currentEntry) {
+        fail(versionPath, 'previously published version must not be removed');
+      } else if (!historyEntriesEqual(previousEntry, currentEntry)) {
+        fail(versionPath, 'previously published version facts are immutable');
+      }
+      if (typeof previousEntry.version === 'string' && THEME_VERSION_RE.test(previousEntry.version)) {
+        const parsed = previousEntry.version.split('.').map(Number);
+        if (!newestPublished || compareVersions(parsed, newestPublished.parsed) > 0) {
+          newestPublished = { parsed, version: previousEntry.version };
+        }
+      }
+    }
+    if (!newestPublished) {
+      continue;
+    }
+    for (const currentEntry of currentTheme.versions) {
+      if (!isObject(currentEntry) || typeof currentEntry.version !== 'string' ||
+          !THEME_VERSION_RE.test(currentEntry.version) ||
+          previousTheme.versions.some((entry) => isObject(entry) && entry.version === currentEntry.version)) {
+        continue;
+      }
+      if (compareVersions(currentEntry.version.split('.').map(Number), newestPublished.parsed) <= 0) {
+        fail(
+          `${themePath}.versions[version=${JSON.stringify(currentEntry.version)}]`,
+          `a new version must be greater than the newest published version ${JSON.stringify(newestPublished.version)}`,
+        );
+      }
+    }
+  }
 }
 
 function validateCatalog(catalog) {
@@ -274,6 +503,12 @@ function validateCatalog(catalog) {
     return [];
   }
   const contentLane = Array.isArray(catalog.content) ? catalog.content : [];
+  // THEME-1 store lane. Optional for the same reason as content[]: shipped
+  // launchers read only apps and content and ignore this key.
+  if ('themes' in catalog && !Array.isArray(catalog.themes)) {
+    fail('$.themes', 'must be an array when present');
+    return [];
+  }
 
   const ids = new Set();
   const artifacts = [];
@@ -465,6 +700,11 @@ function validateCatalog(catalog) {
       });
     });
   });
+  if (Array.isArray(catalog.themes)) {
+    catalog.themes.forEach((theme, themeIndex) => {
+      validateTheme(theme, `$.themes[${themeIndex}]`, ids, artifacts);
+    });
+  }
   return artifacts;
 }
 
@@ -555,6 +795,68 @@ function validateRuntimeManifest(archivePath, record) {
   }
 }
 
+function leafContractsDir() {
+  const configured = process.env.LEAF_CONTRACTS_DIR;
+  return configured
+    ? resolve(configured)
+    : fileURLToPath(new URL('../../leaf-contracts', import.meta.url));
+}
+
+function validateThemeArchive(archivePath, record) {
+  const contractsDir = leafContractsDir();
+  const checked = spawnSync('python3', [themeArchiveCheck, contractsDir, archivePath], {
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024,
+  });
+  if (checked.error) {
+    fail(record.path, `THEME-1 check could not run: ${checked.error.message}`);
+    return;
+  }
+  if (checked.status !== 0) {
+    fail(
+      record.path,
+      `THEME-1 check could not run (LEAF_CONTRACTS_DIR=${contractsDir}): ${checked.stderr.trim()}`,
+    );
+    return;
+  }
+  let verdict;
+  try {
+    verdict = JSON.parse(checked.stdout);
+  } catch (error) {
+    fail(record.path, `THEME-1 check printed invalid JSON: ${error.message}`);
+    return;
+  }
+  if (verdict.warnings.length > 0) {
+    console.log(`${record.path}: THEME-1 warnings: ${verdict.warnings.join(', ')}`);
+  }
+  if (verdict.reasons.length > 0) {
+    fail(record.path, `THEME-1 archive rejected: ${verdict.reasons.join(', ')}`);
+    return;
+  }
+  const expected = {
+    id: record.themeId,
+    version: record.version,
+    min_leaf_version: record.minLeafVersion,
+    ...(record.license !== null ? { license: record.license } : {}),
+  };
+  for (const [key, value] of Object.entries(expected)) {
+    if (verdict.manifest[key] !== value) {
+      fail(
+        record.path,
+        `theme.json ${key} ${JSON.stringify(verdict.manifest[key])} does not match catalog ${JSON.stringify(value)}`,
+      );
+    }
+  }
+}
+
+function validateArchiveContents(archivePath, record) {
+  if (record.kind === 'theme') {
+    validateThemeArchive(archivePath, record);
+  } else {
+    validateRuntimeManifest(archivePath, record);
+  }
+}
+
 let catalog;
 try {
   catalog = JSON.parse(await readFile(catalogPath, 'utf8'));
@@ -590,7 +892,21 @@ if (checkRemote && errors.length === 0) {
           fail(`${path}.sha256`, `remote sha256 ${remote.sha256} does not match catalog ${artifact.sha256}`);
         }
         if (remote.size === artifact.size && remote.sha256 === artifact.sha256.toLowerCase()) {
-          validateRuntimeManifest(destination, record);
+          validateArchiveContents(destination, record);
+        }
+      } catch (error) {
+        fail(`${path}.url`, `remote validation failed: ${error.message}`);
+      }
+    }
+    for (let index = 0; index < previews.length; index += 1) {
+      const { preview, path } = previews[index];
+      try {
+        const remote = await downloadArtifact(preview.url, join(downloadDir, `preview-${index}.png`));
+        if (remote.size !== preview.size) {
+          fail(`${path}.size`, `remote size ${remote.size} does not match catalog ${preview.size}`);
+        }
+        if (remote.sha256 !== preview.sha256.toLowerCase()) {
+          fail(`${path}.sha256`, `remote sha256 ${remote.sha256} does not match catalog ${preview.sha256}`);
         }
       } catch (error) {
         fail(`${path}.url`, `remote validation failed: ${error.message}`);
@@ -617,7 +933,7 @@ if (archivePath && errors.length === 0) {
       }
       if (bytes.length === record.artifact.size &&
           sha256 === record.artifact.sha256.toLowerCase()) {
-        validateRuntimeManifest(archivePath, record);
+        validateArchiveContents(archivePath, record);
       }
     } catch (error) {
       fail('$', `archive validation failed: ${error.message}`);
@@ -633,4 +949,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Pak Rat catalog valid: ${artifacts.length} artifact(s)${checkRemote ? ' with remote checks' : ''}`);
+const previewCount = previews.length > 0 ? `, ${previews.length} theme preview(s)` : '';
+console.log(`Pak Rat catalog valid: ${artifacts.length} artifact(s)${previewCount}${checkRemote ? ' with remote checks' : ''}`);

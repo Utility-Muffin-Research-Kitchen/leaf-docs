@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260915T072123Z",
-  "generated_at": "2026-09-15T07:21:23Z",
+  "catalog_revision": "prod-20260915T193957Z",
+  "generated_at": "2026-09-15T19:39:57Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -437,58 +437,5 @@
       ]
     }
   ],
-  "themes": [
-    {
-      "id": "t2-sunset",
-      "name": "T2 Sunset",
-      "author": "Leaf Test",
-      "owner_github_id": 735251,
-      "summary": "testing update to theme",
-      "description": "T2 update target: teal accents, icons read SUN 1.1, wallpaper says v1.1.0. Drops coverflow/icons/PSP.png and adds a GBC wordmark.",
-      "license": "CC0-1.0",
-      "preview": {
-        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.1.0/t2-sunset-1.1.0.preview.png",
-        "sha256": "c8e5e61ab6b857d889e889539d918859b7148208347068a0f85f9a9dd9259557",
-        "size": 102713
-      },
-      "version": "1.1.0",
-      "min_leaf_version": "0.12.0",
-      "install_name": "t2-sunset",
-      "artifact": {
-        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.1.0/t2-sunset-1.1.0.zip",
-        "name": "t2-sunset-1.1.0.zip",
-        "archive": "zip",
-        "size": 1325271,
-        "installed_size": 1363792,
-        "sha256": "90edb6d50b67ac3a5a2d25cafb6f423dc381842c7bfe89e9e75eee4fede1d39b"
-      },
-      "versions": [
-        {
-          "version": "1.1.0",
-          "min_leaf_version": "0.12.0",
-          "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.1.0/t2-sunset-1.1.0.zip",
-            "name": "t2-sunset-1.1.0.zip",
-            "archive": "zip",
-            "size": 1325271,
-            "installed_size": 1363792,
-            "sha256": "90edb6d50b67ac3a5a2d25cafb6f423dc381842c7bfe89e9e75eee4fede1d39b"
-          }
-        },
-        {
-          "version": "1.0.0",
-          "min_leaf_version": "0.12.0",
-          "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/t2-sunset-v1.0.0/t2-sunset-1.0.0.zip",
-            "name": "t2-sunset-1.0.0.zip",
-            "archive": "zip",
-            "size": 1328473,
-            "installed_size": 1364183,
-            "sha256": "8ef17f2e0d25e2f0ab4a68889e3b9bea30059d2d0dff98b22fba82c523a210cf"
-          }
-        }
-      ],
-      "withdrawn": true
-    }
-  ]
+  "themes": []
 }

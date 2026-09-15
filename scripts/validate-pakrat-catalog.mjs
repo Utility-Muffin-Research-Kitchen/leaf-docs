@@ -445,7 +445,12 @@ function validateImmutableThemes(previous, current) {
       (candidate) => isObject(candidate) && candidate.id === previousTheme.id,
     );
     if (!currentTheme) {
-      fail(themePath, 'previously published theme must not be removed or change lanes');
+      // A theme can leave the catalog only after a takedown: it must already be
+      // withdrawn in the previous catalog. Removal is then a second, deliberate
+      // change, and devices that installed it keep their copy.
+      if (previousTheme.withdrawn !== true) {
+        fail(themePath, 'previously published theme must not be removed or change lanes unless it was withdrawn first');
+      }
       continue;
     }
     if (!Array.isArray(previousTheme.versions) || !Array.isArray(currentTheme.versions)) {

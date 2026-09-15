@@ -29,7 +29,7 @@ jobs:
           repository: Utility-Muffin-Research-Kitchen/leaf-contracts
           # The THEME-1 reference validator for the themes lane. Keep in
           # step with the pin in pakrat-catalog.yml.
-          ref: a0a2a06e2eb6e80d02daec7a02aaba58d3687ce6
+          ref: b268d6d0a5d2f9bdde13759e8fe26c9b84d77818
           path: .leaf-contracts
           persist-credentials: false
       - name: Validate Pak Rat catalog

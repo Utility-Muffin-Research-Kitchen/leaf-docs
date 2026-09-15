@@ -10,6 +10,9 @@ import { fileURLToPath } from 'node:url';
 const validator = new URL('./validate-pakrat-catalog.mjs', import.meta.url);
 const catalogPath = new URL('../public/pakrat/v1/storefront.json', import.meta.url);
 const source = JSON.parse(await readFile(catalogPath, 'utf8'));
+// The app and content cases count artifacts, so they start from the live
+// catalog without its themes lane; the theme cases below set their own.
+delete source.themes;
 const temp = await mkdtemp(join(tmpdir(), 'leaf-pakrat-validator-'));
 
 function run(path, remote = false, previousPath = null, archivePath = null, env = process.env) {

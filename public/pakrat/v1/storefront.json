@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260915T193957Z",
-  "generated_at": "2026-09-15T19:39:57Z",
+  "catalog_revision": "prod-20260915T195622Z",
+  "generated_at": "2026-09-15T19:56:22Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -402,24 +402,36 @@
         "emulation",
         "content"
       ],
-      "version": "0.1.0",
+      "version": "0.2.0",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.1.0",
+          "version": "0.2.0",
           "min_leaf_version": "0.12.0",
           "install_name": "PICO8.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/PICO-8-pak/releases/download/v0.1.0/PICO8.mlp1.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/PICO-8-pak/releases/download/v0.2.0/PICO8.mlp1.pak.zip",
             "name": "PICO8.mlp1.pak.zip",
             "archive": "zip",
-            "size": 175136,
-            "installed_size": 218631,
-            "sha256": "0e8f97a2f0ed6d100b94fa422c2633644af12f737824e929da08452dc82aca90"
+            "size": 181487,
+            "installed_size": 235921,
+            "sha256": "0f18955ad1869c2e140ef6e16508bbb679571095c008b5b05d6dd157467d9dbe"
           },
           "versions": [
+            {
+              "version": "0.2.0",
+              "min_leaf_version": "0.12.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/PICO-8-pak/releases/download/v0.2.0/PICO8.mlp1.pak.zip",
+                "name": "PICO8.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 181487,
+                "installed_size": 235921,
+                "sha256": "0f18955ad1869c2e140ef6e16508bbb679571095c008b5b05d6dd157467d9dbe"
+              }
+            },
             {
               "version": "0.1.0",
               "min_leaf_version": "0.12.0",

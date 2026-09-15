@@ -38,4 +38,13 @@ Both Nintendo DS front ends run the same closed-source DraStic emulator by
 front ends. Fun DraStic's frontend source is available under a noncommercial
 license; see its [source and credits](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src).
 
+## Experimental optional packages
+
+[DSperate](https://github.com/beebono/DSperate), by
+[beebono](https://github.com/beebono), is an independent Nintendo DS emulator
+under GPL-3.0-or-later. UMRK's [experimental Leaf content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak)
+packages their work for MLP1. It has not yet been released through Pak Rat.
+The pak's console render and wordmark were generated with ChatGPT and supplied
+by UMRK; they are packaging artwork, not an official DSperate logo.
+
 You can [report a missing or incorrect credit](https://github.com/Utility-Muffin-Research-Kitchen/leaf-docs/issues).

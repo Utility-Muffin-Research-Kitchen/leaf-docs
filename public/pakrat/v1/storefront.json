@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260915T071810Z",
-  "generated_at": "2026-09-15T07:18:10Z",
+  "catalog_revision": "prod-20260915T072123Z",
+  "generated_at": "2026-09-15T07:21:23Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -488,7 +488,7 @@
           }
         }
       ],
-      "withdrawn": false
+      "withdrawn": true
     }
   ]
 }

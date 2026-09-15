@@ -44,6 +44,13 @@ const THEME_ID_RE = /^[a-z0-9][a-z0-9-]{1,39}$/;
 const THEME_VERSION_RE = /^(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})$/;
 const THEME_MIN_LEAF_VERSION = '0.12.0';
 const THEME_LICENSES = ['CC-BY-4.0', 'CC-BY-SA-4.0', 'CC0-1.0', 'redistribution-permitted'];
+// THEME-1 reserved install names: the bundled themes a Leaf release replaces
+// on every install. The one list is the "Reserved install names" table in
+// leaf-contracts docs/themes.md; keep this in step with it. The archive check
+// also refuses these (theme-reserved-name), but a catalog-only check must
+// catch them without --remote or --archive. Compared case-insensitively
+// because the card is FAT32; THEME-1 ids are lowercase anyway.
+const THEME_RESERVED_INSTALL_NAMES = ['sample'];
 // An allowlist rather than the other lanes' open shape: a misspelled
 // `withdrawn` would otherwise leave a taken-down theme installable.
 const THEME_KEYS = new Set([
@@ -53,6 +60,8 @@ const THEME_KEYS = new Set([
 ]);
 const THEME_REFUSED_KEYS = new Set(['platform', 'runtime', 'runtime_manifest_path', 'packages']);
 const THEME_VERSION_KEYS = new Set(['version', 'min_leaf_version', 'artifact']);
+const isReservedThemeName = (value) =>
+  typeof value === 'string' && THEME_RESERVED_INSTALL_NAMES.includes(value.toLowerCase());
 const themeArchiveCheck = fileURLToPath(new URL('./theme-archive-check.py', import.meta.url));
 
 function fail(path, message) {
@@ -307,6 +316,9 @@ function validateTheme(theme, themePath, ids, artifacts) {
     if (!THEME_ID_RE.test(theme.id)) {
       fail(`${themePath}.id`, `must match ${THEME_ID_RE.source}`);
     }
+    if (isReservedThemeName(theme.id)) {
+      fail(`${themePath}.id`, `"${theme.id}" is a reserved install name (THEME-1 theme-reserved-name)`);
+    }
     if (ids.has(theme.id)) {
       fail(`${themePath}.id`, `duplicate id "${theme.id}" (an id may appear in exactly one lane)`);
     }
@@ -340,6 +352,12 @@ function validateTheme(theme, themePath, ids, artifacts) {
   requireThemeMinimum(theme.min_leaf_version, `${themePath}.min_leaf_version`);
   if (typeof theme.install_name !== 'string' || theme.install_name !== theme.id) {
     fail(`${themePath}.install_name`, 'must equal the theme id (no .pak suffix)');
+  }
+  if (theme.install_name !== theme.id && isReservedThemeName(theme.install_name)) {
+    fail(
+      `${themePath}.install_name`,
+      `"${theme.install_name}" is a reserved install name (THEME-1 theme-reserved-name)`,
+    );
   }
   const artifactPath = `${themePath}.artifact`;
   validateArtifact(theme.artifact, artifactPath);

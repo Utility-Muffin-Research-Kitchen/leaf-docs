@@ -567,6 +567,15 @@ try {
     theme.install_name = 'neon';
   }), '$.themes[0].install_name: must equal the theme id');
 
+  await expectRejected('theme-id-reserved', withTheme((theme) => {
+    theme.id = 'sample';
+    theme.install_name = theme.id;
+  }), '$.themes[0].id: "sample" is a reserved install name');
+
+  await expectRejected('theme-install-name-reserved', withTheme((theme) => {
+    theme.install_name = 'SAMPLE';
+  }), '$.themes[0].install_name: "SAMPLE" is a reserved install name');
+
   await expectRejected('theme-artifact-http', withTheme((theme) => {
     theme.artifact.url = theme.artifact.url.replace('https:', 'http:');
     theme.versions[0].artifact.url = theme.artifact.url;

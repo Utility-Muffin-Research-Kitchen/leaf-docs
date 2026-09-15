@@ -69,12 +69,14 @@ player 2 again straight away.
 
 ## The Xbox button
 
-The **Xbox button** does the same thing as the Pocket 1's own **Menu** button. Press
-it to open the Leaf menu over your game, or the menus inside PPSSPP, DraStic, Flycast
-and the N64 emulator when you are playing through those.
+The **Xbox button** opens the Leaf menu over a RetroArch game, or the menus
+inside PPSSPP, DraStic, Flycast and the bundled N64 emulator.
 
-That means whoever is holding a controller can reach the menu without asking for the
-device back.
+For an emulator installed by a content pak, it opens the emulator's own menu
+if the pak provides one. Otherwise, it asks the emulator to quit. External
+Guide chords reach these emulators directly, and holding Guide doesn't perform
+Leaf's escape gesture. Use the handheld's **MENU** button for the
+[escape hold](/guide/playing/#standalone-emulators-from-content-paks).
 
 ## If a controller disconnects
 

@@ -1,0 +1,42 @@
+---
+// The gallery's two hints: how to install a theme on the
+// device, and where to go to make and share your own.
+---
+
+<div class="tg-hints">
+  <p class="tg-hint">
+    <span class="tg-hint__label">How to install</span>
+    On your device, press <strong>Menu</strong>, open <strong>Actions</strong>, choose
+    <strong>Pak Rat</strong> and press <strong>Y</strong> for themes.
+    <a href="/guide/pak-rat-themes/">Installing themes from Pak Rat</a>
+  </p>
+  <p class="tg-hint">
+    <span class="tg-hint__label">Make your own</span>
+    Design a theme, then share it with everyone.
+    <a href="/guide/submit-a-theme/">Submit a theme</a>
+  </p>
+</div>
+
+<style is:global>
+  .tg-hints {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 0.75rem;
+    margin-block: 1.5rem;
+  }
+  .tg-hint {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--tg-border);
+    border-left: 3px solid var(--sl-color-accent);
+    border-radius: 8px;
+    font-size: var(--sl-text-sm);
+    background: var(--sl-color-bg);
+  }
+  .tg-hint__label {
+    display: block;
+    margin-bottom: 0.15rem;
+    color: var(--tg-strong);
+    font-weight: 600;
+  }
+  .tg-hint a { display: inline-block; margin-top: 0.2rem; font-weight: 600; }
+</style>

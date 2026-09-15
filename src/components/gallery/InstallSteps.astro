@@ -1,0 +1,36 @@
+---
+// "Install from Pak Rat" steps for one theme. `name` is the theme's name; the
+// gallery, which swaps themes on the client, updates the [data-tg-step-name]
+// spans instead of rendering the steps again.
+interface Props {
+  name: string;
+  minLeaf: string;
+}
+const { name, minLeaf } = Astro.props;
+---
+
+<div class="tg-steps">
+  <h3 class="tg-steps__title">Install from Pak Rat</h3>
+  <ol>
+    <li>Connect your device to Wi-Fi. Themes need Leaf <span data-tg-step-leaf>{minLeaf}</span> or newer.</li>
+    <li>Press <strong>Menu</strong>, open <strong>Actions</strong> and choose <strong>Pak Rat</strong>.</li>
+    <li>Press <strong>Y</strong> for themes and select <strong data-tg-step-name>{name}</strong>.</li>
+    <li>Press <strong>A</strong> for its details, <strong>A</strong> to <strong>Install</strong>, then choose <strong>Apply</strong>.</li>
+  </ol>
+  <a href="/guide/pak-rat-themes/">More about themes from Pak Rat</a>
+</div>
+
+<style is:global>
+  .tg-steps {
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    background: var(--sl-color-accent-low);
+    font-size: var(--sl-text-sm);
+  }
+  :root[data-theme='light'] .tg-steps { color: var(--sl-color-accent-high); }
+  .tg .tg-steps__title { font-size: var(--sl-text-base); margin-bottom: 0.4rem; }
+  :root[data-theme='light'] .tg .tg-steps__title { color: var(--sl-color-accent-high); }
+  .tg-steps ol { padding-left: 1.25rem; display: grid; gap: 0.25rem; }
+  .tg-steps a { display: inline-block; margin-top: 0.5rem; font-weight: 600; }
+  :root[data-theme='light'] .tg-steps a { color: var(--sl-color-accent); }
+</style>

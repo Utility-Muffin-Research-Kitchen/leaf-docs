@@ -1,0 +1,167 @@
+---
+// Wrapper for the Theme gallery. It owns three things so the gallery itself
+// doesn't have to:
+//   - the empty state, shown when the catalog has no visible themes, or when
+//     the page is opened with ?empty=1 to preview that state;
+//   - the install and "make your own" hints;
+//   - the gallery's shared look (chips, buttons, preview images, focus rings),
+//     written with Starlight's color variables so light and dark both work.
+import GalleryHints from './GalleryHints.astro';
+import EmptyState from './EmptyState.astro';
+
+interface Props {
+  count: number;
+  /** Where the hints sit relative to the gallery. */
+  hints?: 'top' | 'bottom';
+  label: string;
+}
+
+const { count, hints = 'bottom', label } = Astro.props;
+---
+
+<section class="tg not-content" data-tg aria-label={label}>
+  {hints === 'top' && <GalleryHints />}
+  <div data-tg-full hidden={count === 0}>
+    <slot />
+  </div>
+  <div data-tg-empty hidden={count > 0}>
+    <EmptyState />
+  </div>
+  {hints === 'bottom' && <GalleryHints />}
+</section>
+<script is:inline>
+  // ?empty=1 previews the empty state. Runs inline, straight after the markup,
+  // so the full gallery never flashes first.
+  (function () {
+    var root = document.currentScript && document.currentScript.previousElementSibling;
+    if (!root || new URLSearchParams(location.search).get('empty') !== '1') return;
+    root.querySelector('[data-tg-full]').hidden = true;
+    root.querySelector('[data-tg-empty]').hidden = false;
+    root.setAttribute('data-tg-state', 'empty');
+  })();
+</script>
+
+<style is:global>
+  .tg {
+    --tg-radius: 12px;
+    --tg-card-bg: var(--sl-color-gray-6);
+    --tg-border: var(--sl-color-gray-5);
+    --tg-muted: var(--sl-color-gray-3);
+    --tg-strong: var(--sl-color-white);
+    margin-top: 1.5rem;
+    color: var(--sl-color-text);
+    line-height: 1.5;
+  }
+  :root[data-theme='light'] .tg {
+    --tg-card-bg: var(--sl-color-gray-7, var(--sl-color-gray-6));
+    --tg-border: var(--sl-color-gray-5);
+  }
+  .tg [hidden] { display: none !important; }
+  .tg h2, .tg h3, .tg h4 { color: var(--tg-strong); margin: 0; line-height: 1.25; }
+  .tg p { margin: 0; }
+  .tg a { color: var(--sl-color-text-accent); }
+  .tg ul, .tg ol { margin: 0; }
+
+  /* Preview images. leaf.css frames every in-content image; gallery previews
+     draw their own edges, so that frame is switched off here. */
+  .tg img.tg-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: var(--tg-card-bg);
+    border: 0 !important;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+
+  .tg-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .tg-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.05rem 0.55rem;
+    border: 1px solid var(--tg-border);
+    border-radius: 999px;
+    font-size: var(--sl-text-2xs);
+    line-height: 1.6;
+    white-space: nowrap;
+    color: var(--sl-color-gray-2);
+    background: var(--sl-color-bg);
+  }
+  .tg-chip--accent {
+    border-color: transparent;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-text-accent);
+    font-weight: 600;
+  }
+  :root[data-theme='light'] .tg-chip--accent { color: var(--sl-color-accent-high); }
+
+  .tg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 2.25rem;
+    padding: 0 0.9rem;
+    border: 1px solid var(--tg-border);
+    border-radius: 8px;
+    background: var(--tg-card-bg);
+    color: var(--tg-strong);
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .tg-btn:hover { border-color: var(--sl-color-accent); }
+  .tg-btn[aria-pressed='true'] {
+    background: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-black);
+  }
+  .tg :is(button, a, input, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .tg-field {
+    min-height: 2.25rem;
+    padding: 0 0.7rem;
+    border: 1px solid var(--tg-border);
+    border-radius: 8px;
+    background: var(--sl-color-bg);
+    color: var(--tg-strong);
+    font: inherit;
+    font-size: var(--sl-text-sm);
+  }
+
+  .tg-muted { color: var(--tg-muted); }
+  .tg-sr {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .tg-desc p { white-space: pre-line; }
+  .tg-desc p + p { margin-top: 0.7rem; }
+
+  .tg-facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3rem 1rem;
+    margin: 0;
+    font-size: var(--sl-text-sm);
+  }
+  .tg-facts dt { color: var(--tg-muted); margin: 0; }
+  .tg-facts dd { margin: 0; color: var(--tg-strong); overflow-wrap: anywhere; }
+  .tg-facts code { font-size: var(--sl-text-xs); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tg *, .tg *::before, .tg *::after { transition: none !important; animation: none !important; }
+  }
+</style>

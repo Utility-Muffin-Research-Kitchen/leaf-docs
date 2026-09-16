@@ -400,3 +400,15 @@ mappings once, on the next PSP launch. It only touches them if they still hold
 those exact original values, so a mapping you set yourself is left alone. If you
 had already worked around the swap with your own remap, that remap survives and
 you may want to undo your workaround in PPSSPP's control settings.
+
+## Native PICO-8
+
+The optional [PICO-8 integration](/guide/pico-8/) lets you return to Leaf by
+pressing **MENU**, then pressing **MENU** again within four seconds to confirm.
+Let the prompt disappear to keep playing. Use **START** to open
+PICO-8's own menu. Choose **Shutdown** for a direct cart, or **Options >
+Shutdown PICO-8** in Splore, to return to Leaf. A Splore cart also offers
+**Exit to Splore**. Volume controls work normally.
+
+Native progress belongs to PICO-8 and is separate from FAKE-08. RetroArch's
+menu, shaders, rewind, achievements, and savestates don't apply to native play.

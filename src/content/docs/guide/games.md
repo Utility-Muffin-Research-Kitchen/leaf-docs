@@ -38,6 +38,9 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
 
 ## System folders
 
+For native PICO-8 carts and Splore, see [Native PICO-8](/guide/pico-8/).
+Both FAKE-08 and native playback use `Roms/PICO8/`.
+
 Each console gets **one** `Roms/` subfolder, grouped by maker below - one folder
 per system, not one per emulator. Different emulators or compatibility modes for
 the same console are a **Core** choice (see Options below), not separate folders.

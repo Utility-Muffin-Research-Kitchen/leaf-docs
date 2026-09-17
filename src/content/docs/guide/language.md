@@ -1,15 +1,19 @@
 ---
 title: Language
-description: Switch the Leaf interface to Simplified Chinese, and how Chinese game names render whatever language you use.
+description: Switch the Leaf interface to another language, and how Chinese game names render whatever language you use.
 ---
 
-Leaf's interface is available in **Simplified Chinese** alongside English. The
-translation was written and reviewed by a native speaker from the community, not run
-through a machine and shipped as-is.
+Leaf's interface is available in **Simplified Chinese**, **French** and **Mexican
+Spanish** alongside English. Every one was written by a speaker from the
+community, not run through a machine and shipped as-is.
+
+French and Mexican Spanish are both new and still being filled in, so some lines
+are English until someone gets to them. If you would like to finish one, or add
+a language of your own, see [Translate Leaf](/guide/translating/).
 
 ## Switching
 
-Go to **Settings > System > Language** and pick **中文**. Leaf restarts on the spot,
+Go to **Settings > System > Language** and pick the one you want. Leaf restarts on the spot,
 about a second, and comes back translated. Pick **English** the same way to switch
 back.
 
@@ -57,6 +61,10 @@ it was.
 
 If a string reads wrong, say so on the [Discord](https://discord.gg/q5F7cZ7KRp). No
 update is needed to test a fix: Leaf reads a plain text override file from
-`.umrk/mlp1/i18n/zh_CN.tsv` on the SD card, one `English<TAB>中文` pair per line,
-which outranks the built-in translation. That file is how the translation was
-reviewed in the first place, and it survives updates.
+`.umrk/mlp1/i18n/<code>.tsv` on the SD card, for example `zh_CN.tsv`, one
+`English<TAB>translation` pair per line, which outranks the built-in translation.
+That file is how the Chinese translation was reviewed in the first place, and it
+survives updates.
+
+Filling in a language rather than correcting a line is a bigger job, and has its
+own page: [Translate Leaf](/guide/translating/).

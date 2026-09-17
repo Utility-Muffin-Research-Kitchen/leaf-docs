@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260917T172023Z",
-  "generated_at": "2026-09-17T17:20:23Z",
+  "catalog_revision": "prod-20260917T212219Z",
+  "generated_at": "2026-09-17T21:22:19Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -454,6 +454,51 @@
                 "size": 175136,
                 "installed_size": 218631,
                 "sha256": "0e8f97a2f0ed6d100b94fa422c2633644af12f737824e929da08452dc82aca90"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "org.umrk.dsperate",
+      "name": "DSperate",
+      "summary": "An optional Nintendo DS standalone emulator, selectable per system or per game.",
+      "description": "Adds DSperate, a standalone Nintendo DS emulator, as an alternate core for the existing Nintendo DS system. There is no app to open and no new tile: installing this pak adds DSperate to the Nintendo DS core picker, and you choose it per system or per game. DraStic stays the default, and your existing DraStic choices keep working. DSperate keeps its own saves and save states, separate from DraStic's.",
+      "author": "Utility Muffin Research Kitchen",
+      "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak",
+      "categories": [
+        "emulation",
+        "content"
+      ],
+      "version": "2.0.0",
+      "packages": [
+        {
+          "platform": "mlp1",
+          "runtime": "leaf",
+          "version": "2.0.0",
+          "min_leaf_version": "0.12.0",
+          "install_name": "DSperate.pak",
+          "runtime_manifest_path": "pak.json",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v2.0.0/DSperate.mlp1.pak.zip",
+            "name": "DSperate.mlp1.pak.zip",
+            "archive": "zip",
+            "size": 3224258,
+            "installed_size": 4676749,
+            "sha256": "488caa451b2639b93d13acafba891b176da2989599fd96c67c775a78e8db6086"
+          },
+          "versions": [
+            {
+              "version": "2.0.0",
+              "min_leaf_version": "0.12.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v2.0.0/DSperate.mlp1.pak.zip",
+                "name": "DSperate.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 3224258,
+                "installed_size": 4676749,
+                "sha256": "488caa451b2639b93d13acafba891b176da2989599fd96c67c775a78e8db6086"
               }
             }
           ]

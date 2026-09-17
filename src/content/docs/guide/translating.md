@@ -24,9 +24,60 @@ in. It is regenerated from the code, which means it is always the complete list 
 if a string is not in there, it is not translatable yet, and that is a bug worth
 reporting rather than something you can fix in the file.
 
-The badges at the top of this page are how complete each language is, live from
-the repository. A language sitting at 70 percent is not stalled, it is waiting
-for someone.
+A language sitting at 70 percent is not stalled, it is waiting for someone.
+These are the languages that exist today, straight from the repository, with the
+current file for each one:
+
+<table id="leaf-translations">
+  <thead>
+    <tr><th>Language</th><th>Covered</th><th>Current file</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>中文</td><td>75%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/zh_CN.po">zh_CN.po</a></td></tr>
+    <tr><td>Français</td><td>67%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/fr_FR.po">fr_FR.po</a></td></tr>
+    <tr><td>Español</td><td>67%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/es_MX.po">es_MX.po</a></td></tr>
+  </tbody>
+</table>
+
+<script>
+/* The table above is written out as real rows so the page is useful with no
+   JavaScript, and is stale only until this runs. Reading coverage.json means a
+   language added to Leaf appears here on its own, with no edit to this page. */
+(async function () {
+  var table = document.getElementById('leaf-translations');
+  if (!table) return;
+  var BASE = 'https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/';
+  /* Endonyms we prefer over what the browser produces ("中文", not "中文（中国）"). */
+  var NAMES = { zh_CN: '中文', fr_FR: 'Français', es_MX: 'Español (México)' };
+  try {
+    var res = await fetch(BASE + 'coverage.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    var data = await res.json();
+    var langs = Object.keys(data.languages || {});
+    if (!langs.length) return;
+    langs.sort(function (a, b) {
+      return data.languages[b].percent - data.languages[a].percent;
+    });
+    var rows = langs.map(function (code) {
+      var name = NAMES[code];
+      if (!name) {
+        try {
+          name = new Intl.DisplayNames([code.replace('_', '-')], { type: 'language' })
+            .of(code.split('_')[0]);
+        } catch (e) { name = code; }
+      }
+      return '<tr><td>' + name + '</td><td>' + data.languages[code].percent +
+             '%</td><td><a href="' + BASE + code + '.po">' + code + '.po</a></td></tr>';
+    });
+    table.querySelector('tbody').innerHTML = rows.join('');
+  } catch (e) {
+    /* Offline, blocked, or GitHub having a moment: the written rows stand. */
+  }
+})();
+</script>
+
+Those files are the live ones. Start from the language's own file rather than
+the template if it already exists, so you keep the work already done.
 
 ## Starting a language
 

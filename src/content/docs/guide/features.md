@@ -168,7 +168,7 @@ The Pocket 1 has a vibration motor, and Leaf uses it two ways. The interface tap
 as you confirm something or run into the end of a list, and games drive the motor
 themselves on RetroArch cores, Dreamcast, and N64.
 
-**Settings → Controls & Feedback** holds the controls: **UI Rumble** for the
+**Settings → Hotkeys & Rumble** holds the controls: **UI Rumble** for the
 interface taps (off by default, since the cursor tap fires constantly while you
 scroll), **Game Rumble** for games (on by default), and a strength slider shared by
 both that also acts as the ceiling for in-game rumble.
@@ -192,7 +192,7 @@ PIN.
 
 ## Screenshots
 
-Turn on **Settings → Controls & Feedback → In-game Shortcuts → Screenshots**, then
+Turn on **Settings → Hotkeys & Rumble → Hotkeys → Screenshots**, then
 press **Menu + L1** to capture whatever is on screen: the launcher, a menu,
 5-Game Mode, or a running RetroArch game. **Menu + L1** is the default; you can
 put it on another button, or turn the shortcut off, on the same page. Files land
@@ -200,11 +200,11 @@ in the top-level `Screenshots/` folder as PNGs, and none of it needs Wi-Fi.
 
 See [Screenshots](/guide/screenshots/).
 
-## In-game shortcuts
+## Hotkeys
 
 Leaf's shortcuts use **MENU** held with a second button. **MENU** is always the
-modifier; the second button is yours to choose in **Settings → Controls & Feedback
-→ In-game Shortcuts**.
+modifier; the second button is yours to choose in **Settings → Hotkeys & Rumble
+→ Hotkeys**.
 
 | Action | Default |
 | --- | --- |

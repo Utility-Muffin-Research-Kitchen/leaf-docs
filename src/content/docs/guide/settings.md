@@ -10,7 +10,7 @@ like System Update and a library rescan) and **Info** (read-only Device, Library
 and Playtime pages) - covered under [The System page](#the-system-page-menu-button)
 at the end.
 
-![The Settings tab of the System page, listing the sections: Appearance, Home Screen, Display & Sound, Lighting, Wi-Fi, Bluetooth, Games, Controls & Feedback, and System](/settings-home.png)
+![The Settings tab of the System page, listing the sections: Appearance, Home Screen, Display & Sound, Lighting, Wi-Fi, Bluetooth, Games, Hotkeys & Rumble, and System](/settings-home.png)
 
 ## Appearance
 
@@ -210,12 +210,12 @@ fit, it scrolls while the row is selected.
   "Saved" until the first scrape verifies the login, then "Signed in as &lt;user&gt;"
   with your thread allowance and daily quota.
 
-## Controls & Feedback
+## Hotkeys & Rumble
 
 - **UI Rumble** - the short buzz the interface makes as you move around it.
 - **Game Rumble** - rumble inside games, handed to the emulator.
 - **Strength** - how strong both are, from 0 to 100 percent.
-- **In-game Shortcuts** - the **Menu** button chords: the game switcher, and
+- **Hotkeys** - the **Menu** button chords: the game switcher, and
   screenshots and game recording with the button each one answers to. See
   [Screenshots and recording](/guide/screenshots/).
 

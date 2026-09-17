@@ -105,7 +105,7 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Automatic shader preset directory and loading | Leaf fixes the automatic-preset directory and enables shader loading on each launch. Remove an unwanted saved preset at its scope; disabling **Video Shaders** lasts only for the session. |
 | Player count and per-player controller order | Set from the controllers connected at launch. See [Controllers](/guide/controllers/). |
 | Save-state compression and thumbnails | Compression is off and thumbnails are on for Leaf's state browser. |
-| Recording driver, preset, quality, and output folder | **Settings → Controls & Feedback → In-game Shortcuts → Recording** controls whether recording is enabled; Leaf fixes the remaining values. See [Recording](/guide/recording/). |
+| Recording driver, preset, quality, and output folder | **Settings → Hotkeys & Rumble → Hotkeys → Recording** controls whether recording is enabled; Leaf fixes the remaining values. See [Recording](/guide/recording/). |
 | Firmware check, built-in image viewer and media player, dummy core on shutdown | Device compatibility. |
 | RetroAchievements enablement, account, password, and token | **Settings → Games → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
 

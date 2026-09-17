@@ -3,6 +3,8 @@ title: Translate Leaf
 description: Start a new language for the Leaf interface, or finish one that is partly done, using the template of every translatable string.
 ---
 
+![中文](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.zh_CN.percent&suffix=%25&label=%E4%B8%AD%E6%96%87&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Français](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.fr_FR.percent&suffix=%25&label=Fran%C3%A7ais&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Español](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.es_MX.percent&suffix=%25&label=Espa%C3%B1ol&color=7FB069&labelColor=0F160E&cacheSeconds=300)
+
 Leaf's interface is translated by people who use it. This page is how to start a
 new language, or fill in one that is partly done. You do not need to build Leaf
 or write any code.
@@ -22,9 +24,9 @@ in. It is regenerated from the code, which means it is always the complete list 
 if a string is not in there, it is not translatable yet, and that is a bug worth
 reporting rather than something you can fix in the file.
 
-The languages that already exist, and how complete each one is, are on the
-[Jawaka repository front page](https://github.com/Utility-Muffin-Research-Kitchen/Jawaka).
-A language sitting at 70 percent is not stalled, it is waiting for someone.
+The badges at the top of this page are how complete each language is, live from
+the repository. A language sitting at 70 percent is not stalled, it is waiting
+for someone.
 
 ## Starting a language
 

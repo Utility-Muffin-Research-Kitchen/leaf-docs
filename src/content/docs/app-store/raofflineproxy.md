@@ -23,7 +23,7 @@ Pocket 1, but expect rough edges.
 
 ## Before you start
 
-1. Sign in to RetroAchievements under **Settings → Accounts**.
+1. Sign in to RetroAchievements under **Settings → Games → Accounts**.
 2. Launch one game **online**, so the pak learns your account token. Nothing
    works offline until it has one.
 3. Open RAOfflineProxy and turn the service on.
@@ -37,7 +37,7 @@ The pak has two separate controls, and they do different things:
   It does not start or stop anything by itself.
 
 Turn on both if you want it always available. Both are also in
-**Settings → Services**.
+**Settings → System → Services**.
 
 ## Preparing games for a trip
 

@@ -9,7 +9,7 @@ through a machine and shipped as-is.
 
 ## Switching
 
-Go to **Settings > General > Language** and pick **中文**. Leaf restarts on the spot,
+Go to **Settings > System > Language** and pick **中文**. Leaf restarts on the spot,
 about a second, and comes back translated. Pick **English** the same way to switch
 back.
 

@@ -248,5 +248,5 @@ It should point to the durable
 folders. Fully exit and relaunch the game so Leaf can refresh the path after an
 SD mount swap.
 
-As a last resort, **Settings > General > Reset RetroArch Config** restores the
+As a last resort, **Settings > Games > Reset RetroArch Config** restores the
 default shader directory, but it also resets your other RetroArch settings.

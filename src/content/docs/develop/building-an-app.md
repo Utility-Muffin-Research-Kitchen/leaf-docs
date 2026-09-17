@@ -209,6 +209,52 @@ You do not always need a custom loop. For a simple "pick one item" screen,
 the `examples/combo/` and `examples/demo/` programs in the Catastrophe repo
 exercise the full widget set.
 
+## Speak the user's language
+
+Leaf itself is translated, and so are Central Scrutinizer and Thing-File. Your app
+is a separate program, so it stays English unless you do this. It is worth doing:
+someone running Leaf in Chinese hits your app and drops back into English.
+
+**Read the language Leaf gives you.** Every pak is launched with `UMRK_LANGUAGE`
+set to the user's choice (`en`, `zh_CN`, `fr_FR`), so nothing has to be configured:
+
+```c
+const char *lang = getenv("UMRK_LANGUAGE");
+```
+
+**Wrap the strings you draw.** The pattern every Leaf program uses is a one-line
+`T()` around each visible literal, which is both the lookup and the marker that
+says "this one is user-facing":
+
+```c
+cat_draw_text(font, T("No files found"), x, y, theme->text);
+```
+
+Paths, log lines and config keys stay unwrapped on purpose. A missed wrap shows up
+as English on the screen, which is a visible, harmless bug rather than a silent one.
+
+**Keep a template and a table per language.** The shape is the same everywhere:
+
+```text
+i18n/your-app.pot       every wrapped string, generated from your source
+i18n/zh_CN.po           one translation, edited by a person
+```
+
+Extract the template from your source, then compile each `.po` into the small
+lookup table your app loads at startup. Thing-File is the smallest complete
+example, at 58 strings: see its `tools/i18n-extract.py` and `tools/i18n-po2tsv.py`,
+which you can copy and point at your own sources.
+
+**Let a translator work without a build.** Load a table from
+`$USERDATA_PATH/<YourApp>/i18n/<lang>.tsv` before the one you ship, and someone
+can drop a file on the card, restart your app, and see their changes. That is how
+Leaf's own translations get reviewed on hardware.
+
+**A partial translation is fine.** Every string is looked up by its English text,
+so anything a translator has not reached simply stays English. There is no
+half-translated broken state to avoid, which means you can ship the first 20
+strings the day someone sends them.
+
 ## Build and run
 
 From the Catastrophe repo, build the examples for your host and run the one above:

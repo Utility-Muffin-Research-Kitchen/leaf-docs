@@ -67,9 +67,9 @@ clear the modifier. Use **Quit** in the in-game menu instead.
 
 ### Where Leaf's shortcuts and RetroArch's overlap
 
-Leaf's own in-game shortcuts also use **MENU**. These are the **defaults** - the
-second button is yours to change, or turn off, in **Settings → Controls &
-Feedback → In-game Shortcuts**:
+Leaf's own hotkeys also use **MENU**. These are the **defaults** - the
+second button is yours to change, or turn off, in **Settings → Hotkeys & Rumble
+→ Hotkeys**:
 
 | Leaf action | Default |
 | --- | --- |
@@ -85,7 +85,7 @@ Leaf only wins when it actually does something. A screenshot shortcut with
 screenshots turned off, or the game switcher outside a RetroArch game, hands the
 whole chord to RetroArch instead - so using a button for a Leaf shortcut does
 not reserve it in every situation. See
-[In-game shortcuts](/guide/features/#in-game-shortcuts).
+[Hotkeys](/guide/features/#hotkeys).
 
 ## Save states
 
@@ -109,7 +109,7 @@ as they always have. Save states are an extra layer on top.
 
 Press **MENU + SELECT** during a RetroArch game to bring up the game switcher: a
 carousel of your recent games laid over the current one. That chord is the
-default - **Settings → Controls & Feedback → In-game Shortcuts** puts it on
+default - **Settings → Hotkeys & Rumble → Hotkeys** puts it on
 another button, or turns it off.
 
 ![The game switcher: a carousel of recent games shown as box art, the centered one named below, with remove, back, and resume hints along the bottom](/screenshot-switcher.png)
@@ -125,7 +125,7 @@ When you do return to the launcher, it reopens exactly where you left off, on th
 same tab and game.
 
 Standalone Nintendo 64 uses **MENU + SELECT** too, but there the chord is fixed
-- it is not controlled by **In-game Shortcuts**. It also works a little differently: Leaf saves the current N64
+- it is not controlled by **Hotkeys**. It also works a little differently: Leaf saves the current N64
 state, returns to the launcher, and opens the same switcher/recents flow there.
 Press **A** on the selected game to resume from that saved state.
 
@@ -141,7 +141,7 @@ game you are playing. The choice is remembered per game.
   of which can be left automatic or pinned to a fixed speed. Raising these can smooth
   out a heavy 3D game at the cost of battery and heat.
 - **Reset Override** clears the per-game setting and returns the game to your global
-  profile (set in **Settings → General → Game Performance**).
+  profile (set in **Settings → Games → Game Performance**).
 
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.
@@ -158,7 +158,7 @@ and the save-and-quit handoff back to the launcher. The RetroArch core remains
 available as an alternate when a particular game behaves better there.
 
 Controls that differ from RetroArch. These are fixed, not the configurable
-[in-game shortcuts](/guide/features/#in-game-shortcuts):
+[hotkeys](/guide/features/#hotkeys):
 
 - **MENU** - open the Leaf N64 overlay.
 - **MENU + SELECT** - save the current state and hand off to Leaf's game
@@ -214,7 +214,7 @@ everything onto the handheld using **MENU** as a modifier you hold together with
 another button.
 
 These chords are **fixed** and belong to DraStic, not to Leaf. They are not the
-configurable [in-game shortcuts](/guide/features/#in-game-shortcuts).
+configurable [hotkeys](/guide/features/#hotkeys).
 **MENU + L1** here quits DraStic regardless
 of what you have set your Leaf screenshot shortcut to.
 

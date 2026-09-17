@@ -189,8 +189,20 @@ Neither location above is replaced by a Leaf update. Your DS username,
 birthday, favourite colour, and language are emulator settings; supplying
 `nds_firmware.bin` does not import those settings from your console.
 
-Both front ends accept `.nds` files, and `.zip` and `.7z` archives containing
-one.
+Both DraStic front ends accept `.nds` files, and `.zip` and `.7z` archives
+containing one.
+
+#### DSperate (optional pak)
+
+[DSperate](https://github.com/beebono/DSperate), by
+[beebono](https://github.com/beebono), is an independent Nintendo DS emulator.
+Install the [DSperate content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/tag/v2.0.0)
+through Pak Rat on Leaf 0.12.0 or newer. On MLP1, it adds another core for the
+same Nintendo DS system. Choose **DSperate** in the system's or game's **Core**
+setting. It keeps your saves separate from both DraStic front ends.
+
+DSperate reads `.nds` and `.zip` files. Launching a `.7z` shows a warning:
+extract it to `.nds`, or choose another Nintendo DS emulator.
 
 ## BIOS (you supply these)
 

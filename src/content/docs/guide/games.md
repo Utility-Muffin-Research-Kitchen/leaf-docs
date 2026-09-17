@@ -291,7 +291,7 @@ formatted out of the box) will not mount at all. Reformat it as FAT32 first.
 
 You can add or remove the second card while the device is running: Leaf notices
 the change and rescans on its own. Before pulling it out, use
-**Settings → General → Unmount Secondary SD** so nothing is mid-write.
+**Settings → System → SD Cards** so nothing is mid-write.
 
 Removing the second card doesn't throw away anything Leaf knows about its games.
 Those games become temporarily unavailable and disappear from the lists, but
@@ -312,13 +312,13 @@ the art in the game list.
 
 **Let Leaf fetch it.** Leaf can download box art from
 [ScreenScraper.fr](https://www.screenscraper.fr/). Sign in once under
-**Settings → Accounts → ScreenScraper.fr**, then start a scrape. For a single
+**Settings → Games → Accounts → ScreenScraper.fr**, then start a scrape. For a single
 game, press **X** on it and choose **Scrape Artwork**. To do whole systems at once
-(or every system), use **Settings → Game Art → Scrape Artwork**, which lists **All
+(or every system), use **Settings → Games → Scrape Artwork**, which lists **All
 Systems** plus each system with its missing-art count. Fetched art lands in
 `Images/<SYSTEM>/` exactly as if you had added it by hand, and appears in the list
 as soon as each download finishes. Which image type and region it picks is set
-under **Settings → Game Art** (Artwork Priority and Region Priority).
+under **Settings → Games** (Artwork Priority and Region Priority).
 
 PC-98, Atomiswave, and the complete Naomi family are supported by live scraping.
 For a Naomi title, Leaf tries the base Naomi catalog first, then Naomi GD-ROM,
@@ -351,7 +351,7 @@ This is where per-item actions live, so they stay out of the main list:
   overrides the global default.
 - **Scrape Artwork** - on a game, fetch and replace its box art. While that scrape
   is queued the row reads **Cancel Scraping**. To scrape a whole system or every
-  system at once, use **Settings → Game Art → Scrape Artwork** instead.
+  system at once, use **Settings → Games → Scrape Artwork** instead.
 - **Reset Overrides** - clear the custom name, core, performance, and Saturn BIOS
   settings you set above.
 

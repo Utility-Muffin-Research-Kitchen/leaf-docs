@@ -11,8 +11,8 @@ recognises generally work, but they are best-effort.
 
 ## Pairing
 
-Go to **Settings > Bluetooth**, put your controller into pairing mode, and pick it
-from the list.
+Go to **Settings > Bluetooth**, put your controller into pairing mode, and pick
+it from the list.
 
 On an Xbox controller, pairing mode is the small button on the top edge next to the
 USB-C port. Hold it for about three seconds until the Xbox button flashes quickly.

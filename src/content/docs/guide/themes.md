@@ -18,7 +18,7 @@ one, browse the [Theme gallery](/themes/).
 
 ## Choosing a theme
 
-Go to **Settings > Appearance > Layout > Theme** and press **Left** or **Right** to
+Go to **Settings > Appearance > Theme** and press **Left** or **Right** to
 step through your themes. **None** turns themes off. The row shows each theme's name,
 and the change takes effect right away.
 
@@ -163,8 +163,8 @@ which means a theme cannot end up with white text on a white panel by accident.
 ### Grid
 
 `cols` (1 to 8) and `rows` (1 to 6) suggest how many tiles fit on a screen. Give both
-or neither. Leaf uses the suggestion while **Settings > Appearance > Layout > Grid
-Size** is on **Automatic**, and your own pick there always wins.
+or neither. Leaf uses the suggestion while **Settings > Home Screen > Grid Size**
+is on **Automatic**, and your own pick there always wins.
 
 ## The art
 

@@ -14,17 +14,17 @@ Reddit, or wherever you like.
 
 ## Turning it on
 
-Recording is off by default. Turn it on in **Settings → Controls & Feedback →
-In-game Shortcuts**, on the **Recording** row. **Split Over 10MB** and
-**Keep Original** stay grayed out until recording is on. **Recording Shortcut**
-can be changed even while recording is off.
+Recording is off by default. Turn it on in **Settings → Hotkeys & Rumble →
+Hotkeys**, on the **Recording** row. **Split Over 10MB** and **Keep Original**
+stay grayed out until recording is on. **Recording Hotkey** can be changed even
+while recording is off.
 
 ## Recording a game
 
 Hold **MENU** and tap **R1** to start, and the same combo again to stop. **R1** is
-the default; the **Recording Shortcut** row on the same page moves it to another
+the default; the **Recording Hotkey** row on the same page moves it to another
 button or turns it off. See
-[In-game shortcuts](/guide/features/#in-game-shortcuts).
+[Hotkeys](/guide/features/#hotkeys).
 
 Neither button reaches the game, so you can record from a title screen or a menu
 without pressing anything in the game itself.

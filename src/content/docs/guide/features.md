@@ -79,13 +79,13 @@ The stick has an RGB ring you can drive from Settings:
 
 ## Achievements
 
-Sign in to RetroAchievements once (**Settings → Accounts**) and RetroArch logs
+Sign in to RetroAchievements once (**Settings → Games → Accounts**) and RetroArch logs
 you in at every game launch; achievements and progress show up in supported
-cores. See [Settings → Accounts](/guide/settings/#accounts).
+cores. See [Settings → Games → Accounts](/guide/settings/#accounts).
 
 ## Performance
 
-**Settings → General → Game Performance** lets you pick how hard the device works
+**Settings → Games → Game Performance** lets you pick how hard the device works
 during gameplay:
 
 - **Auto** - light systems run efficiently; heavier systems automatically boost.
@@ -141,7 +141,7 @@ Press **X** on a game or system to open its **Options** menu, where you can rena
 it, pick a core, or set a performance profile; on a game you can also scrape its
 box art. To scrape a whole system or every system at once, use **Settings → Game
 Art → Scrape Artwork**. Leaf downloads art from ScreenScraper.fr (sign in under
-**Settings → Accounts**), and it runs in the background while you keep browsing or
+**Settings → Games → Accounts**), and it runs in the background while you keep browsing or
 playing. You can always drop images into `Images/` by hand instead. See
 [Adding games → Box art](/guide/games/#box-art).
 
@@ -168,7 +168,7 @@ The Pocket 1 has a vibration motor, and Leaf uses it two ways. The interface tap
 as you confirm something or run into the end of a list, and games drive the motor
 themselves on RetroArch cores, Dreamcast, and N64.
 
-**Settings → Controls & Feedback** holds the controls: **UI Rumble** for the
+**Settings → Hotkeys & Rumble** holds the controls: **UI Rumble** for the
 interface taps (off by default, since the cursor tap fires constantly while you
 scroll), **Game Rumble** for games (on by default), and a strength slider shared by
 both that also acts as the ceiling for in-game rumble.
@@ -192,7 +192,7 @@ PIN.
 
 ## Screenshots
 
-Turn on **Settings → Controls & Feedback → In-game Shortcuts → Screenshots**, then
+Turn on **Settings → Hotkeys & Rumble → Hotkeys → Screenshots**, then
 press **Menu + L1** to capture whatever is on screen: the launcher, a menu,
 5-Game Mode, or a running RetroArch game. **Menu + L1** is the default; you can
 put it on another button, or turn the shortcut off, on the same page. Files land
@@ -200,11 +200,11 @@ in the top-level `Screenshots/` folder as PNGs, and none of it needs Wi-Fi.
 
 See [Screenshots](/guide/screenshots/).
 
-## In-game shortcuts
+## Hotkeys
 
 Leaf's shortcuts use **MENU** held with a second button. **MENU** is always the
-modifier; the second button is yours to choose in **Settings → Controls & Feedback
-→ In-game Shortcuts**.
+modifier; the second button is yours to choose in **Settings → Hotkeys & Rumble
+→ Hotkeys**.
 
 | Action | Default |
 | --- | --- |

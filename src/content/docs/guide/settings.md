@@ -43,9 +43,13 @@ What the launcher's home screen is and what it shows.
 - **Home Layout** - **Tabs** (the default list-and-tabs view), **Coverflow** (a
   box-art carousel with console icons; press **X** on a game for search and its
   Options), or **Grid** (a page of tiles).
-- **Grid Size** - how densely Grid view packs its tiles. **Automatic** follows the
-  active theme's own suggestion. The row reads a dash while Home Layout is not
-  **Grid**, and your choice comes back when it is.
+- **Grid Size** - how densely Grid view packs its tiles: **2 x 2**, **3 x 2**,
+  **4 x 3**, **5 x 3**, **5 x 4**, **6 x 4**, **6 x 5**, or **8 x 6**.
+  **Automatic** follows the active theme's own suggestion, and falls back to
+  **4 x 3** when the theme does not make one. Tiles are artwork rather than text,
+  so the dense settings stay readable; what does suffer is a theme's own label
+  artwork, which is drawn at whatever size you pick. The row reads a dash while
+  Home Layout is not **Grid**, and your choice comes back when it is.
 - **System Icons** - which built-in system artwork Leaf draws: **Automatic**,
   **Flat**, or **Photographic**. A theme's own icons win where it has them, and
   this fills in the rest.

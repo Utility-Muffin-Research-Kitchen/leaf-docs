@@ -141,7 +141,7 @@ game you are playing. The choice is remembered per game.
   of which can be left automatic or pinned to a fixed speed. Raising these can smooth
   out a heavy 3D game at the cost of battery and heat.
 - **Reset Override** clears the per-game setting and returns the game to your global
-  profile (set in **Settings → General → Game Performance**).
+  profile (set in **Settings → Games → Game Performance**).
 
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.

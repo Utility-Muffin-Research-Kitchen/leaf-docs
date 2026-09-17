@@ -98,7 +98,7 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Refresh rate, black frame insertion | **Settings → Display & Sound**. |
 | Aspect ratio, force aspect, integer scaling | Pinned to the core's own aspect with integer scaling off. There is no Leaf setting for these; see [Aspect ratio and integer scaling](#aspect-ratio-and-integer-scaling) below. |
 | Menu driver, menu scale, menu theme, OK/Cancel button order, load-content animation | Device-appropriate defaults; OK/Cancel is matched to the console's own button layout. |
-| Menu language | **Settings → General → Language**. |
+| Menu language | **Settings → System → Language**. |
 | Autoconfig and config-override notifications | Suppressed so Leaf's own messages are not buried. |
 | Configuration File menu | Hidden. See [Alternate configurations](#alternate-configurations) below. |
 | Quit hotkey | Unbound. Quit through Leaf's in-game menu. The **Hotkey Enable** modifier is yours to change and defaults to **MENU**. |
@@ -107,7 +107,7 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Save-state compression and thumbnails | Compression is off and thumbnails are on for Leaf's state browser. |
 | Recording driver, preset, quality, and output folder | **Settings → Controls & Feedback → In-game Shortcuts → Recording** controls whether recording is enabled; Leaf fixes the remaining values. See [Recording](/guide/recording/). |
 | Firmware check, built-in image viewer and media player, dummy core on shutdown | Device compatibility. |
-| RetroAchievements enablement, account, password, and token | **Settings → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
+| RetroAchievements enablement, account, password, and token | **Settings → Games → Accounts**. Leaf hands these to RetroArch per session and keeps your password off the SD card. |
 
 Settings outside this list, including rewind, run-ahead, overlays, cheats,
 per-core options, and input remaps, are yours and persist normally. Shaders are
@@ -169,7 +169,7 @@ hand if you need them.
 
 ## Reset the RetroArch config
 
-**Settings → General → Reset RetroArch Config** replaces the shared config with
+**Settings → Games → Reset RetroArch Config** replaces the shared config with
 Leaf's packaged defaults.
 
 This erases the settings kept in that file, including the active shader setting,

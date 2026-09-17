@@ -58,11 +58,11 @@ whether to apply the theme now. Choose **Apply** to switch to it, or **Not now**
 keep your current look.
 
 To apply an installed theme later, open its details and press **A** on **Apply**. That
-is the same choice as **Settings > Appearance > Layout > Theme**, and you can switch
+is the same choice as **Settings > Appearance > Theme**, and you can switch
 themes from either place.
 
 A theme dresses Grid view and Cover Flow. If your **Home Layout** is **Tabs**, change
-it to **Grid** or **Coverflow** in **Settings > Appearance > Layout** to see the theme.
+it to **Grid** or **Coverflow** in **Settings > Home Screen** to see the theme.
 
 If the theme folder has gone missing from the card since you installed it, **A** reads
 **Reinstall** and puts it back.

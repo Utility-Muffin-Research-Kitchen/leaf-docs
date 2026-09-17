@@ -10,11 +10,11 @@ like System Update and a library rescan) and **Info** (read-only Device, Library
 and Playtime pages) - covered under [The System page](#the-system-page-menu-button)
 at the end.
 
-![The Settings tab of the System page, listing the sections: Appearance, Display & Sound, Lighting, Network, Bluetooth, Game Art, Accounts, and General](/settings-home.png)
+![The Settings tab of the System page, listing the sections: Appearance, Home Screen, Display & Sound, Lighting, Wi-Fi, Bluetooth, Games, Controls & Feedback, and System](/settings-home.png)
 
 ## Appearance
 
-Theme and layout, under **Settings → Appearance**.
+How the interface itself looks, under **Settings → Appearance**.
 
 ![Leaf's fourteen color schemes - seven dark and seven light, paired by spectrum color](/theme-swatches.png)
 
@@ -25,15 +25,37 @@ Theme and layout, under **Settings → Appearance**.
 - **Colors** - fine-tune individual color roles (accent, background, text,
   selection, hints, button label, button background) with a color picker. Editing
   any color switches the scheme to "Custom."
-- **Layout** - **Home Layout** switches the home screen between **Tabs** (the
-  default list-and-tabs view) and **Coverflow** (a box-art carousel with console
-  icons; press **X** on a game for search and its Options). Also here: **List
-  Style** (Rounded, Soft, Square, or the directional Leaf pill), **Font** family
-  (Nunito by default, with eight more to choose from), **Font Size**, and **Tab
-  Switching** (Glide for a sliding page transition, or Snap for an instant cut).
+- **Theme** - a theme from the `Themes` folder on the SD card, or **None**. A theme
+  restyles Grid view and Cover Flow with its own wallpaper, colors, and system art.
+  See [Themes](/guide/themes/).
+- **Font** - the font family, Nunito by default, with eight more to choose from.
+  A Chinese language setting pins the face, and the row says so.
+- **Font Size** - Small, Default, Large, or Extra Large.
+- **List Style** - Rounded, Soft, Square, or the directional Leaf pill.
 - **Status Bar** - toggle the **Button Hints** footer and each status indicator:
   **Clock** (with style options), **Battery**, **Wi-Fi**, **Bluetooth**, and
   **Volume**. With Button Hints off, content expands to fill the screen.
+
+## Home Screen
+
+What the launcher's home screen is and what it shows.
+
+- **Home Layout** - **Tabs** (the default list-and-tabs view), **Coverflow** (a
+  box-art carousel with console icons; press **X** on a game for search and its
+  Options), or **Grid** (a page of tiles).
+- **Grid Size** - how densely Grid view packs its tiles. **Automatic** follows the
+  active theme's own suggestion. The row reads a dash while Home Layout is not
+  **Grid**, and your choice comes back when it is.
+- **System Icons** - which built-in system artwork Leaf draws: **Automatic**,
+  **Flat**, or **Photographic**. A theme's own icons win where it has them, and
+  this fills in the rest.
+- **Tab Switching** - Glide for a sliding page transition, or Snap for an instant
+  cut.
+- **Startup Tab** - which tab the launcher opens on: Recents, Favorites, Games, or
+  Apps. Only tabs you have left visible are offered.
+- **Home Tabs** - hide the tabs you don't use and reorder the rest. **A** switches a
+  tab off or on in place, and **X** grabs a row so Up/Down moves it. At least one
+  tab always stays visible.
 
 ## Display & Sound
 
@@ -124,11 +146,11 @@ Control the RGB ring around the stick:
 A breathing-green glow is the default Leaf identity; the ring can also be toggled
 with a stick click.
 
-## Network
+## Wi-Fi
 
-Wi-Fi management: scan for and join networks, see connection status, signal
-strength, and IP address, and turn the radio on or off. The on/off state persists
-across reboots. (Developers will also find an ADB-over-network toggle here.)
+Scan for and join networks, see connection status, signal strength, and IP
+address, and turn the radio on or off. The on/off state persists across reboots.
+(Developers will also find an ADB-over-network toggle here.)
 
 ## Bluetooth
 
@@ -144,10 +166,11 @@ before its name.
   **Display & Sound → Audio Output**.)
 - Reconnect a paired device from this page whenever you want it; **Y** unpairs it.
 
-## Game Art
+## Games
 
-Download artwork from ScreenScraper.fr and control how Leaf picks it (sign in
-first under [Accounts](#accounts)).
+Artwork, how games run, and the accounts that serve them. Download artwork from
+ScreenScraper.fr and control how Leaf picks it (sign in first under
+[Accounts](#accounts)).
 
 - **Scrape Artwork** - start a scrape for **All Systems** or a single system. Each
   row shows how many of that system's games are missing art. **Y** switches between
@@ -162,8 +185,16 @@ first under [Accounts](#accounts)).
 - **Region Priority** - the order Leaf prefers regions when a game has art for
   several. On each list, A includes or excludes an entry, and X grabs an entry so
   Up/Down reorders it.
+- **Game Performance** - how hard the device works during gameplay: **Auto**,
+  **Balanced**, **Performance**, or **Battery Saver**. See
+  [Features → Performance](/guide/features/).
+- **Reset RetroArch Config** - restore RetroArch to its defaults. This erases
+  settings stored in the shared config, but leaves per-core options, input remaps,
+  games, and saves untouched. See
+  [RetroArch settings](/guide/retroarch-settings/).
+- **Accounts** - opens the sign-ins below.
 
-## Accounts
+### Accounts
 
 Sign-ins for external services. Press A on a row to enter your credentials with
 the on-screen keyboard; press Y to sign out. When a status line is too long to
@@ -174,26 +205,33 @@ fit, it scrolls while the row is selected.
   username, not your email address. If a launch happens to miss the sign-in
   (a Wi-Fi blip), the next one retries.
 - **ScreenScraper.fr** - signs Leaf into screenscraper.fr so it can download
-  artwork (see [Game Art](#game-art) above, and
+  artwork (see [Games](#games) above, and
   [Adding games → Box art](/guide/games/#box-art)). The row reads
   "Saved" until the first scrape verifies the login, then "Signed in as &lt;user&gt;"
   with your thread allowance and daily quota.
 
-## General
+## Controls & Feedback
 
-- **Startup Tab** - which game tab the launcher opens on: Recents, Favorites,
-  Games, or Apps.
-- **Auto Sleep** - idle timeout before the device sleeps (can be turned off).
-- **Boot Splash** - show or hide the Leaf boot animation.
-- **Game Performance** - how hard the device works during gameplay: **Auto**,
-  **Balanced**, **Performance**, or **Battery Saver**. See
-  [Features → Performance](/guide/features/).
+- **UI Rumble** - the short buzz the interface makes as you move around it.
+- **Game Rumble** - rumble inside games, handed to the emulator.
+- **Strength** - how strong both are, from 0 to 100 percent.
+- **In-game Shortcuts** - the **Menu** button chords: the game switcher, and
+  screenshots and game recording with the button each one answers to. See
+  [Screenshots and recording](/guide/screenshots/).
+
+## System
+
+- **Language** - the language Leaf draws itself in. **Left** and **Right** browse
+  the installed languages and **A** applies the one you stopped on, after a
+  confirmation. See [Language](/guide/language/).
 - **Time Zone** - set your local time zone so the clock is correct.
-- **Reset RetroArch Config** - restore RetroArch to its defaults. This erases
-  settings stored in the shared config, but leaves per-core options, input remaps,
-  games, and saves untouched. See
-  [RetroArch settings](/guide/retroarch-settings/).
-- **Unmount Secondary SD** - safely eject a second SD card before removing it.
+- **Auto Sleep** - idle timeout before the device sleeps, or **Never**.
+- **Boot Splash** - show or hide the Leaf boot animation.
+- **SD Cards** - lists both cards, and offers to check, repair, or safely unmount
+  one. Repair needs the charger connected and no game running.
+- **Services** - background helpers an app installed, with what each one is doing
+  and whether it starts with Leaf. The row appears only when something is
+  installed.
 
 ## The System page (Menu button)
 

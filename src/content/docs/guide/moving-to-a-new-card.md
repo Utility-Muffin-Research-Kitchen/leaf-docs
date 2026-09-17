@@ -161,8 +161,8 @@ back up with your games on the first scan.
   entirely - only `.umrk/` and `.userdata/` live on the card Leaf boots from.
   See [A second SD card](/guide/games/#a-second-sd-card).
 - **Power off before pulling a card.** Leaf keeps your library in a database on
-  the card. Shut down properly (or use **Settings → General → Unmount Secondary
-  SD** for the second card) so nothing is copied mid-write.
+  the card. Shut down properly (or use **Settings → System → SD Cards** to unmount
+  the second card) so nothing is copied mid-write.
 - **Keep the old card until you're happy.** Nothing here modifies it, so it stays
   a working fallback: put it back in and you're exactly where you started.
 

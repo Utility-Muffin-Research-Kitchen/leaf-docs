@@ -187,7 +187,7 @@ it to a zip.
 Before you submit, check that:
 
 - The theme works on your own device. Copy the folder into `Themes/`, pick it in
-  **Settings > Appearance > Layout > Theme**, and look at it in Grid view and, if you
+  **Settings > Appearance > Theme**, and look at it in Grid view and, if you
   made Cover Flow icons, in Cover Flow.
 - The folder name is exactly your `id`.
 - `theme.json` has `schema`, `id`, `name`, `author`, `version`, `min_leaf_version` and

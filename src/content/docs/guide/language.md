@@ -3,19 +3,22 @@ title: Language
 description: Switch the Leaf interface to another language, and how Chinese game names render whatever language you use.
 ---
 
-Leaf's interface is available in **Simplified Chinese**, **French** and **Mexican
-Spanish** alongside English. Every one was written by a speaker from the
-community, not run through a machine and shipped as-is.
+Leaf's interface is available in **Simplified Chinese**, **French**, **Mexican
+Spanish** and **Japanese** alongside English. Each one was made or checked by a
+speaker from the community, not run through a machine and shipped as-is.
+Japanese arrives in the next update.
 
-French and Mexican Spanish are both new and still being filled in, so some lines
-are English until someone gets to them. If you would like to finish one, or add
-a language of your own, see [Translate Leaf](/guide/translating/).
+A translation that is still being filled in shows the lines nobody has reached yet
+in English. If you would like to finish one, or add a language of your own, see
+[Translate Leaf](/guide/translating/).
 
 ## Switching
 
-Go to **Settings > System > Language** and pick the one you want. Leaf restarts on the spot,
-about a second, and comes back translated. Pick **English** the same way to switch
-back.
+Go to **Settings > System > Language**, choose one with **Left** and **Right**, and
+press **A**. Leaf asks you to confirm, then switches in place: you stay on the same
+page, and nothing restarts. Choose **English** the same way to switch back.
+
+Languages are listed with English first and the rest in alphabetical order.
 
 The row only appears when a translation is installed, so if you do not see it, your
 Leaf predates the feature.
@@ -25,10 +28,10 @@ Leaf predates the feature.
 Menus, settings, dialogs, button hints, the in-game menu, and system messages are
 translated. **RetroArch and PPSSPP follow too**: their own menus switch with Leaf, so
 you never set the language in three places, and switching back to English brings them
-all with it. The interface also switches to a font that can draw Chinese, since none of
-the nine regular Leaf fonts carry those characters. That is why the **Font** row
-in Settings is locked while Chinese is active: your chosen font comes back when you
-switch to English.
+all with it. For Chinese or Japanese the interface also switches to a font that can
+draw them, since none of the nine regular Leaf fonts carry those characters. That is
+why the **Font** row in Settings is locked while either is active: your chosen font
+comes back when you switch back.
 
 If you would rather run PSP games in a different language from the rest of Leaf, set it
 inside PPSSPP's own settings. Leaf notices you have chosen for yourself and stops
@@ -63,8 +66,9 @@ If a string reads wrong, say so on the [Discord](https://discord.gg/q5F7cZ7KRp).
 update is needed to test a fix: Leaf reads a plain text override file from
 `.umrk/mlp1/i18n/<code>.tsv` on the SD card, for example `zh_CN.tsv`, one
 `English<TAB>translation` pair per line, which outranks the built-in translation.
-That file is how the Chinese translation was reviewed in the first place, and it
-survives updates.
+Restart Leaf after adding or changing it, since the table is read at start. That
+file is how the Chinese translation was reviewed in the first place, and it survives
+updates.
 
 Filling in a language rather than correcting a line is a bigger job, and has its
 own page: [Translate Leaf](/guide/translating/).

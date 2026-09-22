@@ -42,6 +42,9 @@ Themes/
   my-theme/
     theme.json
     wallpaper.png
+    icons/
+      FC.png
+      SFC.png
     grid/
       wallpaper.png
       icons/
@@ -175,6 +178,7 @@ either keep labels short or leave them out and let the icon carry the tile.
 
 | Kind | Where | What it is |
 | --- | --- | --- |
+| Shared icons | `icons/<CODE>.png` | One icon that both Grid and Cover Flow use |
 | Icons | `grid/icons/<CODE>.png` | The picture on a Grid tile |
 | Labels | `grid/labels/<CODE>.png` | A name written across a Grid tile, drawn over the icon |
 | Wordmarks | `grid/wordmarks/<CODE>.png` or `<CODE>.color.png` | The system logo on a system's game list in Grid view |
@@ -183,6 +187,14 @@ either keep labels short or leave them out and let the icon carry the tile.
 
 `<CODE>` is Leaf's code for the system, explained under
 [Naming the files](#naming-the-files).
+
+If your Grid and Cover Flow icons are the same pictures, put them in `icons/` once
+instead of copying them into both `grid/icons/` and `coverflow/icons/`. Copies count
+twice against the store's size limit, so sharing them can halve the size of a theme.
+A view still checks its own folder first, so you can share most icons and give one
+view a different picture for a few systems. Only icons are shared: labels and
+wordmarks stay in `grid/`. Shared icons need Leaf 0.12.0; the 0.12.0 test builds up
+to beta 4 do not accept a theme that has them.
 
 - **Icons** are plain squares. Leaf draws the rounded corners and the border itself, so
   leave the corners alone.
@@ -234,8 +246,9 @@ Everything else uses the folder name as its code: `GBA.png`, `N64.png`, `SEGACD.
 and so on. Codes are uppercase letters, digits and underscores, and the case has to
 match exactly.
 
-`_apps` is the code for the Apps tile. You can give it an icon in `grid/icons/` and
-`coverflow/icons/` and a label in `grid/labels/`, like any other tile. It has no
+`_apps` is the code for the Apps tile. You can give it an icon in `icons/`,
+`grid/icons/` or `coverflow/icons/` and a label in `grid/labels/`, like any other
+tile. It has no
 wordmark. `_default` is reserved and a theme
 cannot replace it.
 
@@ -250,10 +263,11 @@ wins:
 
 1. Your theme, in `Themes/my-theme/grid/icons/FC.png` (or `coverflow/icons/` in Cover
    Flow)
-2. The user's own, in `icon.png` inside the system's ROM folder
-3. Leaf's built-in art, following **System Icons** on the same Layout page, or art
-   shipped with an add-on system
-4. Leaf's fallback art
+2. Your theme's shared icon, in `Themes/my-theme/icons/FC.png`
+3. The user's own, in `icon.png` inside the system's ROM folder
+4. Leaf's built-in art, following **System Icons** in **Settings > Home Screen**, or
+   art shipped with an add-on system
+5. Leaf's fallback art
 
 Labels and wordmarks put the ROM folder first instead, so a card owner's own art
 always beats the theme's:

@@ -146,6 +146,35 @@ game you are playing. The choice is remembered per game.
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.
 
+## Standalone emulators from content paks
+
+An emulator installed by a content pak can use **MENU** for its own menu. Tap
+and release **MENU** to open it. If the pak doesn't provide a menu, tapping
+**MENU** asks the emulator to quit back to Leaf instead.
+
+To leave a stuck session, hold the handheld's **MENU** button alone for three
+seconds. Leaf asks the emulator to quit. If it stays open, keep holding for
+another two seconds to force it to stop. Unsaved progress can be lost.
+There's no Leaf message over the emulator during this hold.
+
+Release **MENU** to cancel the forced stop. Pressing another built-in button,
+moving the D-pad or stick, or using **Volume** or **Power** also cancels it.
+Start with the other controls released and the stick centred. After a
+cancellation, release **MENU** before trying again.
+
+Built-in **MENU** chords never open the emulator's menu. **MENU + Volume**
+still changes brightness. A shortcut the emulator can't use forwards only
+the other button.
+
+On an external controller, **Guide** reaches the emulator directly. Its
+chords aren't filtered, and holding it won't perform Leaf's escape gesture.
+If the pak doesn't provide a menu, **Guide** asks it to quit; pressing it
+again at least two seconds later can force it to stop. Use the handheld's
+**MENU** button for the escape hold.
+
+Native PICO-8 and the bundled standalones keep their controls described on
+their own pages.
+
 ## Nintendo 64 (standalone Mupen64Plus)
 
 Nintendo 64 games default to **Mupen64Plus Standalone** rather than the standard

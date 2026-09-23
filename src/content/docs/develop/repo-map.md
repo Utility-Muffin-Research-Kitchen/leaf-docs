@@ -30,8 +30,8 @@ organization. Each is an independent repo with its own build.
 ## How they fit together
 
 - **Leaf** is the dispatcher: it calls each product repo's own build/package targets
-  and assembles the SD payload. You don't build product repos individually to ship -
-  you stage from Leaf.
+  and assembles the SD payload. You build install and recovery ZIPs or stage to a
+  connected device from Leaf.
 - **Jawaka** depends on **Catastrophe** (header-only toolkit).
 - **retroarch-builds** + **Cores-spruce** produce the RetroArch emulation stack
   that Leaf stages alongside the launcher.

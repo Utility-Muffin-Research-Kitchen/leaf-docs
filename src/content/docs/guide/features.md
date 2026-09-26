@@ -89,6 +89,8 @@ cores. See [Settings → Games → Accounts](/guide/settings/#accounts).
 during gameplay:
 
 - **Auto** - light systems run efficiently; heavier systems automatically boost.
+  At 100 or 120 Hz every game boosts, because each frame has half as long to be
+  ready.
 - **Balanced** / **Performance** / **Battery Saver** - pick a fixed behavior.
 
 Leaf keeps the launcher itself in a low-power state and ramps up the CPU, GPU, and

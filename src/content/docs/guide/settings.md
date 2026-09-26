@@ -78,8 +78,10 @@ What the launcher's home screen is and what it shows.
   better at 100 than at 60. Of the two NTSC rates, 120 shows less motion blur and 60
   is the most power-efficient. At 120 Hz a 60fps game gets two refreshes per frame,
   and each frame has to be ready within the first one: about 8 ms rather than 16.
-  Light systems such as NES, Game Boy, and Genesis have plenty of room. If a
-  demanding game runs at full speed at 60 Hz but slows down at 120, play it at 60.
+  Light systems such as NES, Game Boy, and Genesis have plenty of room, and with
+  **Game Performance** on **Auto** every game gets the Performance profile at 100
+  or 120 Hz so its frames are ready in time. If a demanding game runs at full speed
+  at 60 Hz but slows down at 120, play it at 60.
   On a TV this setting also picks the HDMI mode and the
   sharp-versus-smooth trade-off (see
   [How the TV picture works](#how-the-tv-picture-works)). The panel only advertises

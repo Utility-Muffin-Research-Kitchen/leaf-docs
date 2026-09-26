@@ -116,7 +116,7 @@ These fields are required:
 | `author` | Your name as it should appear, 1 to 60 characters and at most 63 bytes |
 | `version` | Three numbers, such as `1.0.0`. Each number is 0 to 9999, with no leading zeros |
 | `min_leaf_version` | The oldest Leaf your theme works on, written the same way, and at least `0.12.0` |
-| `license` | One of `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC0-1.0` or `redistribution-permitted`. See [Licenses](#licenses) |
+| `license` | One of `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-SA-2.0`, `CC0-1.0` or `redistribution-permitted`. See [Licenses](#licenses) |
 
 These are optional:
 
@@ -309,7 +309,7 @@ lists every one.
 | `theme-id-invalid` | Use 2 to 40 lowercase letters, digits and hyphens for `id`, with no spaces or underscores |
 | `theme-version-invalid` | Write `version` as three numbers, such as `1.0.0`, with no leading zeros |
 | `theme-min-leaf-version` | Set `min_leaf_version` to `0.12.0` or later |
-| `theme-unknown-license` | Set `license` to `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC0-1.0` or `redistribution-permitted` |
+| `theme-unknown-license` | Set `license` to `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-SA-2.0`, `CC0-1.0` or `redistribution-permitted` |
 | `theme-reserved-name` | Your `id` is the name of a theme that comes with Leaf, such as `sample`. Pick another |
 | `submission-missing-attachment` | Attach your zip in the **Theme zip** field |
 | `submission-license-mismatch` | Make the license in the form and in `theme.json` the same |
@@ -357,11 +357,21 @@ Pick one when you submit. The form choice and `license` in `theme.json` must mat
 | --- | --- | --- |
 | CC BY 4.0 | `CC-BY-4.0` | Share and adapt, with credit to you |
 | CC BY-SA 4.0 | `CC-BY-SA-4.0` | Share and adapt, with credit, under the same license |
+| CC BY-NC-SA 2.0 | `CC-BY-NC-SA-2.0` | Share and adapt for noncommercial purposes, with credit, under the same license |
 | CC0 | `CC0-1.0` | Anything, no credit needed |
 | All rights reserved, redistribution permitted | `redistribution-permitted` | Download and use it through Pak Rat. You keep every other right |
 
 Pak Rat shows the license on the theme's details page. You can include the full
 license text as `LICENSE.txt` in your theme folder.
+
+Choose the actual license covering your theme and its artwork. If it is missing
+from the list, ask a maintainer before submitting. Include the source credits and
+any required notices in `LICENSE.txt`; choosing a form option does not change the
+artwork's existing terms.
+
+[CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/) includes
+noncommercial and ShareAlike conditions. Leaf 0.12.0 test builds up to beta 6 do
+not accept themes with this license.
 
 ## Takedowns and contact
 

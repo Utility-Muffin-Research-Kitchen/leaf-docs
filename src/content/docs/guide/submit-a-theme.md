@@ -50,6 +50,7 @@ neon-nights.zip
     preview.png                  required, 960 x 720
     LICENSE.txt                  optional, the full license text
     wallpaper.png                optional, or wallpaper.jpg or wallpaper.jpeg
+    icons/<CODE>.png             optional, shared by Grid and Cover Flow
     grid/
       wallpaper.png              optional, or .jpg or .jpeg
       icons/<CODE>.png           optional
@@ -67,8 +68,12 @@ the folder as `Themes/<id>/` on the card.
 `<CODE>` is a system code, as described in
 [Naming the files](/guide/themes/#naming-the-files): 2 to 32 uppercase letters, digits
 and underscores, such as `GBA` or `FC`. `_apps`, in lowercase, is also allowed for the
-Apps tile's icons and its Grid label, but not as a wordmark. Names are compared exactly, so `grid/icons/FC.PNG` and
-`Grid/icons/FC.png` are both refused.
+Apps tile's icons and its Grid label, but not as a wordmark. Names are compared
+exactly, so `grid/icons/FC.PNG` and `Grid/icons/FC.png` are both refused.
+
+If you use the same icons in Grid and Cover Flow, put them in `icons/` once. Each
+view checks its own folder first, then the shared one. Shared icons need Leaf
+0.12.0; the 0.12.0 test builds up to beta 4 do not accept a theme that has them.
 
 If you started from a copy of the bundled **Sample** theme, remove the
 `GRID-ICON-SOURCE.md` and `commons.json` files from its `grid/icons` folder, and make

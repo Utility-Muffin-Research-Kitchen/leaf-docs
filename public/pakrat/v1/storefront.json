@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260927T080433Z",
-  "generated_at": "2026-09-27T08:04:33Z",
+  "catalog_revision": "prod-20260927T080623Z",
+  "generated_at": "2026-09-27T08:06:23Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -646,6 +646,46 @@
             "size": 5976165,
             "installed_size": 6042396,
             "sha256": "339df3c38491dbf6105661ed395158473582fdbfc12befae96bf2024ce975a9c"
+          }
+        }
+      ],
+      "withdrawn": false
+    },
+    {
+      "id": "vanamoviking-jp",
+      "name": "VanamoViking JP",
+      "author": "TSOLfan",
+      "owner_github_id": 49134456,
+      "summary": "Systems front and center, JP Region.",
+      "description": "Systems front and center, JP Region.\n\nSystem photos courtesey of Evan Amos' Vanamo Online Game Museum, PC photos courtsey of viking's COLORFUL MEDIA SET, logos courtsey of Anthony Caccese's Art Book Next (ES-DE Version).",
+      "license": "CC-BY-NC-SA-2.0",
+      "preview": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-jp-v1.0.0/vanamoviking-jp-1.0.0.preview.png",
+        "sha256": "cf9f6309e543e929ecc5b263384d577fcd54357f69f8b07810d9142bf34d8445",
+        "size": 272694
+      },
+      "version": "1.0.0",
+      "min_leaf_version": "0.12.0",
+      "install_name": "vanamoviking-jp",
+      "artifact": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-jp-v1.0.0/vanamoviking-jp-1.0.0.zip",
+        "name": "vanamoviking-jp-1.0.0.zip",
+        "archive": "zip",
+        "size": 5914439,
+        "installed_size": 5980157,
+        "sha256": "92f16ac4295127be7dc5d3ff6c1a0d0909f7d7065c8b04887e036e3fc1eb461e"
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "min_leaf_version": "0.12.0",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-jp-v1.0.0/vanamoviking-jp-1.0.0.zip",
+            "name": "vanamoviking-jp-1.0.0.zip",
+            "archive": "zip",
+            "size": 5914439,
+            "installed_size": 5980157,
+            "sha256": "92f16ac4295127be7dc5d3ff6c1a0d0909f7d7065c8b04887e036e3fc1eb461e"
           }
         }
       ],

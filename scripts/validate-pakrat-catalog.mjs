@@ -43,7 +43,7 @@ const MAX_PACKAGE_VERSIONS = 16;
 const THEME_ID_RE = /^[a-z0-9][a-z0-9-]{1,39}$/;
 const THEME_VERSION_RE = /^(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})$/;
 const THEME_MIN_LEAF_VERSION = '0.12.0';
-const THEME_LICENSES = ['CC-BY-4.0', 'CC-BY-SA-4.0', 'CC0-1.0', 'redistribution-permitted'];
+const THEME_LICENSES = ['CC-BY-4.0', 'CC-BY-SA-4.0', 'CC-BY-NC-SA-2.0', 'CC0-1.0', 'redistribution-permitted'];
 // THEME-1 reserved install names: the bundled themes a Leaf release replaces
 // on every install. The one list is the "Reserved install names" table in
 // leaf-contracts docs/themes.md; keep this in step with it. The archive check

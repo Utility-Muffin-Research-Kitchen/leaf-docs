@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260927T072910Z",
-  "generated_at": "2026-09-27T07:29:10Z",
+  "catalog_revision": "prod-20260927T080433Z",
+  "generated_at": "2026-09-27T08:04:33Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -606,6 +606,46 @@
             "size": 5994455,
             "installed_size": 6061032,
             "sha256": "1fe9fa9372a2e603b9741aac8dc54dd95c004d0d29860a7f530a09aa4a20cf3d"
+          }
+        }
+      ],
+      "withdrawn": false
+    },
+    {
+      "id": "vanamoviking-eu",
+      "name": "VanamoViking EU",
+      "author": "TSOLfan",
+      "owner_github_id": 49134456,
+      "summary": "Systems front and center, EU Region.",
+      "description": "Systems front and center, EU Region.\n\nSystem photos courtesey of Evan Amos' Vanamo Online Game Museum, PC photos courtsey of viking's COLORFUL MEDIA SET, logos courtsey of Anthony Caccese's Art Book Next (ES-DE Version).",
+      "license": "CC-BY-NC-SA-2.0",
+      "preview": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-eu-v1.0.0/vanamoviking-eu-1.0.0.preview.png",
+        "sha256": "bc9567212b44d7eb50f6703d009dd9c58e07e20526bf5197594ebe67c3105f99",
+        "size": 281374
+      },
+      "version": "1.0.0",
+      "min_leaf_version": "0.12.0",
+      "install_name": "vanamoviking-eu",
+      "artifact": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-eu-v1.0.0/vanamoviking-eu-1.0.0.zip",
+        "name": "vanamoviking-eu-1.0.0.zip",
+        "archive": "zip",
+        "size": 5976165,
+        "installed_size": 6042396,
+        "sha256": "339df3c38491dbf6105661ed395158473582fdbfc12befae96bf2024ce975a9c"
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "min_leaf_version": "0.12.0",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-eu-v1.0.0/vanamoviking-eu-1.0.0.zip",
+            "name": "vanamoviking-eu-1.0.0.zip",
+            "archive": "zip",
+            "size": 5976165,
+            "installed_size": 6042396,
+            "sha256": "339df3c38491dbf6105661ed395158473582fdbfc12befae96bf2024ce975a9c"
           }
         }
       ],

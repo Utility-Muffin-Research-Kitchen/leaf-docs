@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20260926T180508Z",
-  "generated_at": "2026-09-26T18:05:08Z",
+  "catalog_revision": "prod-20260927T072910Z",
+  "generated_at": "2026-09-27T07:29:10Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -566,6 +566,46 @@
             "size": 8035207,
             "installed_size": 8040390,
             "sha256": "b4f4bb67c2acd02cfce29b83e36db9a3b1a46e9ce140cb39aff19b08289c92ca"
+          }
+        }
+      ],
+      "withdrawn": false
+    },
+    {
+      "id": "vanamoviking-us",
+      "name": "VanamoViking US",
+      "author": "TSOLfan",
+      "owner_github_id": 49134456,
+      "summary": "Systems front and center, US Region.",
+      "description": "Systems front and center, US Region.\n\nSystem photos courtesey of Evan Amos' Vanamo Online Game Museum, PC photos courtsey of viking's COLORFUL MEDIA SET, logos courtsey of Anthony Caccese's Art Book Next (ES-DE Version).",
+      "license": "CC-BY-NC-SA-2.0",
+      "preview": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-us-v1.0.0/vanamoviking-us-1.0.0.preview.png",
+        "sha256": "905b56d18e3660af921fef70042a020d2d24d41896589a2e8a5359567b2630ed",
+        "size": 297212
+      },
+      "version": "1.0.0",
+      "min_leaf_version": "0.12.0",
+      "install_name": "vanamoviking-us",
+      "artifact": {
+        "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-us-v1.0.0/vanamoviking-us-1.0.0.zip",
+        "name": "vanamoviking-us-1.0.0.zip",
+        "archive": "zip",
+        "size": 5994455,
+        "installed_size": 6061032,
+        "sha256": "1fe9fa9372a2e603b9741aac8dc54dd95c004d0d29860a7f530a09aa4a20cf3d"
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "min_leaf_version": "0.12.0",
+          "artifact": {
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes/releases/download/vanamoviking-us-v1.0.0/vanamoviking-us-1.0.0.zip",
+            "name": "vanamoviking-us-1.0.0.zip",
+            "archive": "zip",
+            "size": 5994455,
+            "installed_size": 6061032,
+            "sha256": "1fe9fa9372a2e603b9741aac8dc54dd95c004d0d29860a7f530a09aa4a20cf3d"
           }
         }
       ],

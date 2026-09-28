@@ -129,19 +129,22 @@ Standalone Nintendo 64 uses **MENU + SELECT** too, but there the chord is fixed
 state, returns to the launcher, and opens the same switcher/recents flow there.
 Press **A** on the selected game to resume from that saved state.
 
-## Per-game performance
+## In-game performance
 
 Pick **Performance** in the in-game menu to set how hard the device runs for the
-game you are playing. The choice is remembered per game.
+current game session. This choice lasts only until you exit the game; it is not
+saved as a per-game setting.
 
-- **Profile** - **Auto**, **Balanced**, **Performance**, **Battery Saver**, or
-  **Custom**. Auto is a good default; it runs light systems efficiently and boosts
-  for demanding ones.
+- **Profile** - **Balanced**, **Performance**, **Battery Saver**, or **Custom**.
+  Without a session override, the menu shows the profile currently in effect.
+  **Auto** remains available in global, per-system, and per-game settings; while
+  a game runs, it resolves to an active profile.
 - **Custom** reveals individual **CPU**, **GPU**, and **DMC** (memory) controls, each
   of which can be left automatic or pinned to a fixed speed. Raising these can smooth
   out a heavy 3D game at the cost of battery and heat.
-- **Reset Override** clears the per-game setting and returns the game to your global
-  profile (set in **Settings → Games → Game Performance**).
+- **Reset Override** clears the temporary session choice and returns to the
+  applicable per-game, per-system, or global profile (set in **Settings → Games →
+  Game Performance** or in a game's or system's **Options**).
 
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.

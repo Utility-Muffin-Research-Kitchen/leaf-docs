@@ -20,7 +20,7 @@ import { resolve } from 'node:path';
 // so the gallery is always in step with Pak Rat.
 export const GALLERY_CATALOG_PATH = 'public/pakrat/v1/storefront.json';
 
-export type ThemeLicense = 'CC-BY-4.0' | 'CC-BY-SA-4.0' | 'CC-BY-NC-SA-2.0' | 'CC0-1.0' | 'redistribution-permitted';
+export type ThemeLicense = 'CC-BY-4.0' | 'CC-BY-SA-4.0' | 'CC-BY-NC-SA-2.0' | 'CC-BY-NC-SA-4.0' | 'CC0-1.0' | 'redistribution-permitted';
 
 export interface ThemeArtifact {
   url: string;
@@ -71,6 +71,7 @@ export const LICENSES: Record<ThemeLicense, { label: string; short: string; url:
   'CC-BY-4.0': { label: 'CC BY 4.0', short: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by/4.0/' },
   'CC-BY-SA-4.0': { label: 'CC BY-SA 4.0', short: 'CC BY-SA 4.0', url: 'https://creativecommons.org/licenses/by-sa/4.0/' },
   'CC-BY-NC-SA-2.0': { label: 'CC BY-NC-SA 2.0', short: 'CC BY-NC-SA 2.0', url: 'https://creativecommons.org/licenses/by-nc-sa/2.0/' },
+  'CC-BY-NC-SA-4.0': { label: 'CC BY-NC-SA 4.0', short: 'CC BY-NC-SA 4.0', url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/' },
   'CC0-1.0': { label: 'CC0', short: 'CC0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' },
   'redistribution-permitted': {
     label: 'All rights reserved, redistribution permitted',
@@ -80,7 +81,7 @@ export const LICENSES: Record<ThemeLicense, { label: string; short: string; url:
 };
 
 /** The order license filters are offered in. */
-export const LICENSE_ORDER: ThemeLicense[] = ['CC0-1.0', 'CC-BY-4.0', 'CC-BY-SA-4.0', 'CC-BY-NC-SA-2.0', 'redistribution-permitted'];
+export const LICENSE_ORDER: ThemeLicense[] = ['CC0-1.0', 'CC-BY-4.0', 'CC-BY-SA-4.0', 'CC-BY-NC-SA-2.0', 'CC-BY-NC-SA-4.0', 'redistribution-permitted'];
 
 function isTheme(value: unknown): value is CatalogTheme {
   if (value === null || typeof value !== 'object') return false;

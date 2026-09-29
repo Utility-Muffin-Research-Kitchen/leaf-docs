@@ -524,12 +524,18 @@ try {
 
   await expectRejected('theme-license-unknown', withTheme((theme) => {
     theme.license = 'MIT';
-  }), '$.themes[0].license: must be one of CC-BY-4.0, CC-BY-SA-4.0, CC-BY-NC-SA-2.0, CC0-1.0, redistribution-permitted');
+  }), '$.themes[0].license: must be one of CC-BY-4.0, CC-BY-SA-4.0, CC-BY-NC-SA-2.0, CC-BY-NC-SA-4.0, CC0-1.0, redistribution-permitted');
 
   {
     const theme = themeEntry();
     theme.license = 'CC-BY-NC-SA-2.0';
     await expectAccepted('theme-license-cc-by-nc-sa', catalogWithTheme(theme));
+  }
+
+  {
+    const theme = themeEntry();
+    theme.license = 'CC-BY-NC-SA-4.0';
+    await expectAccepted('theme-license-cc-by-nc-sa-4', catalogWithTheme(theme));
   }
 
   await expectRejected('theme-preview-missing', withTheme((theme) => {

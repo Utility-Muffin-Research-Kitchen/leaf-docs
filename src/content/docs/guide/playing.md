@@ -131,17 +131,27 @@ Press **A** on the selected game to resume from that saved state.
 
 ## Per-game performance
 
-Pick **Performance** in the in-game menu to set how hard the device runs for the
-game you are playing. The choice is remembered per game.
+Pick **Performance** in the in-game menu to change how hard the device runs while
+you play. A change here lasts until you quit the game. To keep a profile for a game
+or a whole system, set it in that game's or system's **Options** instead: press
+**X** on it in the launcher (see [Options menu](/guide/games/#options-menu)).
 
-- **Profile** - **Auto**, **Balanced**, **Performance**, **Battery Saver**, or
-  **Custom**. Auto is a good default; it runs light systems efficiently and boosts
-  for demanding ones.
-- **Custom** reveals individual **CPU**, **GPU**, and **DMC** (memory) controls, each
-  of which can be left automatic or pinned to a fixed speed. Raising these can smooth
-  out a heavy 3D game at the cost of battery and heat.
-- **Reset Override** clears the per-game setting and returns the game to your global
-  profile (set in **Settings → Games → Game Performance**).
+The line at the top shows the profile in use and how warm the chip is.
+
+- **Profile** - **Balanced**, **Performance**, **Battery Saver**, or **Custom**. It
+  starts on the profile in use, whether that comes from **Settings → Games → Game
+  Performance** or from the game's or system's **Options**.
+- **CPU**, **GPU**, and **DMC** (memory) - leave each one automatic or pin it to a
+  fixed speed. Changing any of them switches **Profile** to **Custom**. Raising these
+  can smooth out a heavy 3D game at the cost of battery and heat.
+- **Reset Override** - drop the change you made here and go back to the game's usual
+  profile.
+
+There's no **Auto** in this list. For a game that is already running, Auto always
+means either Balanced or Performance, so **Profile** shows that one instead. Auto is
+still there in **Settings** and in a game's or system's **Options**. Leaf 0.11.0
+still lists **Auto** here, and its **Profile** row shows your **Settings** choice
+rather than the one in use.
 
 If a game runs slowly, try **Performance** here first. See also
 [BIOS & cores](/guide/bios-and-cores/) for which systems are demanding on this hardware.

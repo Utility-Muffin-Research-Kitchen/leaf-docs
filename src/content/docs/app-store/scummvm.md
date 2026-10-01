@@ -13,7 +13,8 @@ ScummVM. The pak does not add an app to the **Apps** tab.
 The ScummVM pak requires Leaf 0.11, including compatible 0.11 beta builds, or
 newer. Leaf 0.10 and earlier do not offer it in Pak Rat because they cannot
 activate its system and core safely. Pak Rat offers each newer version of the pak
-only to Leaf versions that can run it.
+only to Leaf versions that can run it: the standalone ScummVM arrives in pak 1.4.0,
+which needs Leaf 0.12 or newer.
 :::
 
 ## Install
@@ -67,7 +68,7 @@ button mapping, and virtual keyboard.
 To use it for one game, press **X** on that game, choose **Core**, then choose
 **ScummVM (Standalone)**. To use it for every ScummVM game, do the same on the
 **ScummVM** system. To go back, choose **ScummVM (Libretro)**, or use
-**Reset Overrides** on a game to return it to the system's choice. See
+**Reset Game Overrides** on a game to return it to the system's choice. See
 [Adding games](/guide/games/#options-menu) for the options menu.
 
 ### Standalone controls

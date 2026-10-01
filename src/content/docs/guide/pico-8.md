@@ -8,17 +8,16 @@ Native PICO-8 lets you browse Splore and play PICO-8 carts on your MLP1.
 from [Joseph White / Lexaloffle](https://www.lexaloffle.com/pico-8.php).
 FAKE-08 remains available and stays your default until you choose native PICO-8.
 
-:::note[Development preview]
-This integration is still being qualified and isn't available in Pak Rat yet.
-The instructions below accompany the development build. Install the supporting
-Leaf release before the integration when it becomes available.
+:::note[Requires Leaf 0.12.0]
+PICO-8 for Leaf needs Leaf 0.12.0 or newer. Pak Rat doesn't offer it to older
+versions.
 :::
 
 ## Set up PICO-8
 
 1. Purchase PICO-8 from Lexaloffle and download the **Raspberry Pi** ZIP.
-2. Install **PICO-8 for Leaf** on your primary card. Its folder is
-   `Apps/mlp1/PICO8.pak/`.
+2. Press **MENU**, open **Actions > Pak Rat**, choose **PICO-8 for Leaf**, and
+   install it. It lives on your primary card as `Apps/mlp1/PICO8.pak/`.
 3. Extract `pico8_64` and `pico8.dat` from the ZIP's `pico-8` folder. Copy both
    files from the same download to `BIOS/PICO8/` on your primary card:
 
@@ -76,7 +75,7 @@ Extract archives first. An ordinary PNG picture isn't a PICO-8 cartridge.
 
 Press **X** on a game or on the PICO-8 system, choose **Core**, then choose
 **PICO-8 (native)**. A game choice overrides the system choice. Choose
-**FAKE-08** to switch back, or use **Reset Overrides** to remove a custom
+**FAKE-08** to switch back, or use **Reset Game Overrides** to remove a custom
 choice and inherit the default.
 
 If the native runtime is missing or can't start, Leaf uses its normal FAKE-08

@@ -13,9 +13,6 @@ apps that come pre-installed with Leaf, see [Built-in apps](/apps/introduction/)
 Pak Rat carries themes too, covered in [Themes from Pak Rat](/guide/pak-rat-themes/).
 This section is new and will grow over time.
 
-You can also preview the [native PICO-8 setup guide](/guide/pico-8/). That
-integration is still being qualified and isn't listed in Pak Rat yet.
-
 ## Available apps
 
 - **[Itch.io](/app-store/itchio/)** - browse compatible homebrew and add
@@ -23,6 +20,8 @@ integration is still being qualified and isn't listed in Pak Rat yet.
 - **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
 - **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.
+- **[PICO-8 for Leaf](/guide/pico-8/)** - browse Splore and play PICO-8 carts
+  natively with the runtime you buy from Lexaloffle.
 - **[PortMaster](/app-store/portmaster/)** - an unofficial PortMaster integration
   for installing compatible native game ports.
 - **[RAOfflineProxy](/app-store/raofflineproxy/)** - earn casual

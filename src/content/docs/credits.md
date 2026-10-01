@@ -48,4 +48,8 @@ or newer.
 The pak's console render and wordmark were generated with ChatGPT and supplied
 by UMRK; they are packaging artwork, not an official DSperate logo.
 
+[PICO-8 and Splore](https://www.lexaloffle.com/pico-8.php) are by Joseph White
+/ Lexaloffle. The optional [Leaf integration](/guide/pico-8/) doesn't include
+the paid runtime; you purchase and supply it yourself.
+
 You can [report a missing or incorrect credit](https://github.com/Utility-Muffin-Research-Kitchen/leaf-docs/issues).

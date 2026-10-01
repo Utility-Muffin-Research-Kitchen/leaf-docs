@@ -20,3 +20,6 @@ themes, and controls. You will find them on the **Apps** tab.
 
 These are installed and updated with Leaf itself. For apps you download and add
 yourself, see the [App store](/app-store/introduction/).
+
+The optional [PICO-8 integration](/guide/pico-8/) adds Splore to **Apps** and
+native playback to the PICO-8 **Core** picker. You supply its paid runtime.

@@ -9,10 +9,12 @@ BIOS files you must supply yourself.
 
 ## Cores (the emulators)
 
-A *core* is the emulator for a given system. Every supported system's emulator
-ships in the release, so games are ready to play as soon as your ROMs are in
-place; a system shows up in the launcher once its emulator is present on the
-device. Each emulator is the work of its own authors: the full license text and
+A *core* is the emulator for a given system. Leaf bundles the default emulators;
+optional integrations can add other choices. For example,
+[native PICO-8](/guide/pico-8/) uses a runtime you purchase separately, while
+the bundled FAKE-08 remains the default. A system shows up in the launcher once
+its emulator is present on the device. Each bundled emulator is the work of its
+own authors: the full license text and
 a pointer to the source for every one ships inside the install under
 `licenses/`.
 

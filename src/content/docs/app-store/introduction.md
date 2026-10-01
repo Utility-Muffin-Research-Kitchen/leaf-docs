@@ -20,6 +20,8 @@ This section is new and will grow over time.
 - **[Disco Boy](/app-store/disco-boy/)** - a music player for your
   headphones.
 - **[Nimbus](/app-store/nimbus/)** - a weather app, big and glanceable.
+- **[PICO-8 for Leaf](/guide/pico-8/)** - browse Splore and play PICO-8 carts
+  natively with the runtime you buy from Lexaloffle.
 - **[PortMaster](/app-store/portmaster/)** - an unofficial PortMaster integration
   for installing compatible native game ports.
 - **[RAOfflineProxy](/app-store/raofflineproxy/)** - earn casual

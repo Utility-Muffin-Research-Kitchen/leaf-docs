@@ -95,7 +95,7 @@ otherwise disagree with it, or it is part of how Leaf talks to RetroArch at all.
 | Save-on-exit, the network command port, and pause-when-inactive | How Leaf saves your settings and drives RetroArch's menu, save states, and clean quit. Turning these off would break the in-game menu. |
 | Audio device, driver, latency, and block size | Choose the output in **Settings → Display & Sound**. Leaf fixes the driver and buffering values. |
 | Video driver, graphics context, threaded video | The working renderer for this device. |
-| Refresh rate, black frame insertion | **Settings → Display & Sound**. |
+| Refresh rate, black frame insertion, swap interval, dark frames | **Settings → Display & Sound**. Swap interval stays on Auto and dark frames on 1, so 120 Hz paces 60fps games evenly and Black Frame Insertion always shows a black frame. |
 | Aspect ratio, force aspect, integer scaling | Pinned to the core's own aspect with integer scaling off. There is no Leaf setting for these; see [Aspect ratio and integer scaling](#aspect-ratio-and-integer-scaling) below. |
 | Menu driver, menu scale, menu theme, OK/Cancel button order, load-content animation | Device-appropriate defaults; OK/Cancel is matched to the console's own button layout. |
 | Menu language | **Settings → System → Language**. |

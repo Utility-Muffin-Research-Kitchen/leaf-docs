@@ -126,9 +126,11 @@ The target is usually a small launch script: pass every location on the
 emulator's command line each time, don't store an absolute mount path, and end
 with `exec` so Leaf supervises the emulator itself.
 
-With `supports_menu` set to `false`, Leaf's **Menu** button ends the emulator.
-Leaf asks **Return to Leaf?** first and quits on a second press, which doesn't
-save the game, so make sure players can save inside the emulator.
+With `supports_menu` set to `false`, a tap on Leaf's **Menu** button sends the
+emulator `SIGTERM` straight away, without a prompt. With it set to `true`, the tap
+reaches the emulator as its own menu button. Either way, holding **Menu** for
+three seconds sends `SIGTERM`, and two more seconds send `SIGKILL`. Neither saves
+the game, so make sure players can save inside the emulator.
 
 A path core in `alternate_cores` starts only for games or systems where the
 player chose it; the system's `default_core` stays the default.

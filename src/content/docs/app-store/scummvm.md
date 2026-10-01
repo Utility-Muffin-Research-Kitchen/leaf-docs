@@ -80,8 +80,10 @@ To use it for one game, press **X** on that game, choose **Core**, then choose
   Queen, **X** opens the journal, which also skips the current scene, and **Y**
   switches fast mode. To change a game's buttons, press **Start** and open
   **Options → Keymaps**.
-- **Menu** asks **Return to Leaf?**. Press **Menu** again to leave the game.
-  Leaving this way doesn't save, so save from ScummVM's menu first.
+- **Menu** leaves the game and returns to Leaf straight away, without asking.
+  Leaving this way doesn't save, so save from ScummVM's menu first. If ScummVM
+  doesn't close, hold **Menu** for three seconds, and keep holding for two more
+  to force it.
 - **Return to Launcher** in ScummVM's menu opens ScummVM's own game list. Choose
   **Quit** there, or press **Menu**, to get back to Leaf.
 

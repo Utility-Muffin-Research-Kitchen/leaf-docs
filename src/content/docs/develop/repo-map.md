@@ -17,7 +17,7 @@ organization. Each is an independent repo with its own build.
 | **retroarch-builds** | RetroArch fetch/build/packaging |
 | **Cores-spruce** | libretro core builder, forked from spruceOS's build lane (downstream of libretro-super) |
 | **leaf-contracts** | Public schemas, fixtures, and normative contracts for third-party integrations |
-| **ScummVM-pak** | Buildable reference content pak: adds the ScummVM system and its libretro core |
+| **ScummVM-pak** | Buildable reference content pak: adds the ScummVM system, its libretro core, and the standalone ScummVM |
 | **leaf-n64-standalone** | Standalone Mupen64Plus package for Nintendo 64 on MLP1 |
 | **Yabasanshiro-standalone** | Optional standalone Saturn emulator package for MLP1, including corresponding-source publication |
 | **ssh-server** | The SSH Server app (a `.pak`) |

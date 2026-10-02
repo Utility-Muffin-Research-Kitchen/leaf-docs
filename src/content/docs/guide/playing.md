@@ -160,7 +160,8 @@ If a game runs slowly, try **Performance** here first. See also
 
 An emulator installed by a content pak can use **MENU** for its own menu. Tap
 and release **MENU** to open it. If the pak doesn't provide a menu, tapping
-**MENU** asks the emulator to quit back to Leaf instead.
+**MENU** shows **Return to Leaf?** instead. Tap **MENU** again within four
+seconds to quit back to Leaf, or let the prompt disappear to keep playing.
 
 To leave a stuck session, hold the handheld's **MENU** button alone for three
 seconds. Leaf asks the emulator to quit. If it stays open, keep holding for
@@ -178,8 +179,9 @@ the other button.
 
 On an external controller, **Guide** reaches the emulator directly. Its
 chords aren't filtered, and holding it won't perform Leaf's escape gesture.
-If the pak doesn't provide a menu, **Guide** asks it to quit; pressing it
-again at least two seconds later can force it to stop. Use the handheld's
+If the pak doesn't provide a menu, **Guide** shows **Return to Leaf?** too,
+and a second press quits. If the emulator stays open, confirm again at least
+two seconds later to force it to stop. Use the handheld's
 **MENU** button for the escape hold.
 
 Native PICO-8 and the bundled standalones keep their controls described on

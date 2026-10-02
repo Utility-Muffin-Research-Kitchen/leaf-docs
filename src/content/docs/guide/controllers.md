@@ -73,7 +73,8 @@ The **Xbox button** opens the Leaf menu over a RetroArch game, or the menus
 inside PPSSPP, DraStic, Flycast and the bundled N64 emulator.
 
 For an emulator installed by a content pak, it opens the emulator's own menu
-if the pak provides one. Otherwise, it asks the emulator to quit. External
+if the pak provides one. Otherwise, it asks **Return to Leaf?** before the
+emulator quits. External
 Guide chords reach these emulators directly, and holding Guide doesn't perform
 Leaf's escape gesture. Use the handheld's **MENU** button for the
 [escape hold](/guide/playing/#standalone-emulators-from-content-paks).

@@ -236,6 +236,17 @@ fit, it scrolls while the row is selected.
   confirmation. See [Language](/guide/language/).
 - **Time Zone** - set your local time zone so the clock is correct.
 - **Auto Sleep** - idle timeout before the device sleeps, or **Never**.
+- **Force Off Hold** - how long you hold the power button before the hardware
+  cuts power regardless of what is running: **6**, **8**, **10**, or **12 sec**,
+  10 by default. A normal power off is still a 2 second hold. The longer time
+  gives Leaf room to finish writing to the SD card before the cut. Miniloong
+  Pocket 1 only.
+- **Save Before Power Off** - off by default. When it is on and you hold the
+  power button to shut down while a RetroArch game is running, Leaf asks you to
+  release the button, saves the game to its quick-save slot, and then powers off.
+  You resume it from Recents or the Game Switcher. Let go when the prompt appears:
+  the save only starts after you release. Standalone emulators and apps do not
+  save. Miniloong Pocket 1 only.
 - **Boot Splash** - show or hide the Leaf boot animation.
 - **SD Cards** - lists both cards, and offers to check, repair, or safely unmount
   one. Repair needs the charger connected and no game running.

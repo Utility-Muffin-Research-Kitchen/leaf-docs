@@ -148,13 +148,40 @@ is how you choose between them.
 
 ## Lighting
 
+![The Lighting settings page: Enable on, Mode set to Breath, a green Color swatch, Brightness 5, and Speed 5](/settings-lighting.png)
+
 Control the RGB ring around the stick:
 
-- **Mode** - solid, breathing, and rainbow, plus a few animated effects.
+- **Mode** - solid, breathing, and rainbow, plus a few animated effects, and
+  [Battery Level](#battery-level), which shows how much charge is left.
 - **Color**, **Brightness**, and **Speed**.
 
 A breathing-green glow is the default Leaf identity; the ring can also be toggled
 with a stick click.
+
+### Battery Level
+
+![The Lighting settings page with Mode set to Battery Level: Color reads Automatic and Speed reads Fixed, while Brightness can still be changed](/settings-lighting-battery.png)
+
+With **Mode** set to **Battery Level**, the ring's color follows the battery, in
+games as well as in the launcher:
+
+- **Blue** - 81 to 100%
+- **Green** - 61 to 80%
+- **Orange** - 41 to 60%
+- **Red** - 21 to 40%
+- **Flashing red** - 20% and below
+
+The ring changes within about 5 seconds of the charge moving into a new band, and
+straight away when the device wakes from sleep. Charging uses the same colors. If
+the battery can't be read, the ring stays dark until it can.
+
+In this mode **Color** reads **Automatic** and **Speed** reads **Fixed**.
+**Brightness** still works, and 0 keeps the ring dark, flash included. Your chosen
+color isn't lost: switch to **Static** or any other mode and it comes back.
+
+The flashing ring is only a reminder. Low-battery warnings and shutdown work the
+same in every mode.
 
 ## Wi-Fi
 

@@ -198,6 +198,21 @@ ScreenScraper.fr and control how Leaf picks it (sign in first under
 - **Game Performance** - how hard the device works during gameplay: **Auto**,
   **Balanced**, **Performance**, or **Battery Saver**. See
   [Features → Performance](/guide/features/).
+- **Save Before Power Off** - off by default. When it is on and you hold the
+  power button to shut down while a RetroArch game is running, Leaf asks you to
+  release the button, saves the game to its quick-save slot, and then powers off.
+  You resume it from Recents or the Game Switcher, or at startup with **Resume
+  Game on Boot**. Let go when the prompt appears: the save only starts after you
+  release. Standalone emulators and apps do not save. Miniloong Pocket 1 only.
+- **Resume Game on Boot** - off by default, and needs **Save Before Power Off**.
+  The next time you turn the device on after one of those saves, Leaf opens the
+  game and loads it where you left off, with a "Resuming your game" banner. Hold
+  **B** while Leaf starts to skip it and go to the launcher instead; the save stays
+  where it is. If the save can't be loaded (the game's core changed, its SD card
+  is missing, or RetroAchievements hardcore mode refuses it), Leaf opens the
+  launcher with a notice, and you can open the game from Recents or the Game
+  Switcher to try the save again. Leaf tries once per power off. Miniloong
+  Pocket 1 only.
 - **Reset RetroArch Config** - restore RetroArch to its defaults. This erases
   settings stored in the shared config, but leaves per-core options, input remaps,
   games, and saves untouched. See
@@ -241,12 +256,6 @@ fit, it scrolls while the row is selected.
   10 by default. A normal power off is still a 2 second hold. The longer time
   gives Leaf room to finish writing to the SD card before the cut. Miniloong
   Pocket 1 only.
-- **Save Before Power Off** - off by default. When it is on and you hold the
-  power button to shut down while a RetroArch game is running, Leaf asks you to
-  release the button, saves the game to its quick-save slot, and then powers off.
-  You resume it from Recents or the Game Switcher. Let go when the prompt appears:
-  the save only starts after you release. Standalone emulators and apps do not
-  save. Miniloong Pocket 1 only.
 - **Boot Splash** - show or hide the Leaf boot animation.
 - **SD Cards** - lists both cards, and offers to check, repair, or safely unmount
   one. Repair needs the charger connected and no game running.

@@ -4,9 +4,9 @@ description: Switch the Leaf interface to another language, and how Chinese game
 ---
 
 Leaf's interface is available in **Simplified Chinese**, **French**, **Mexican
-Spanish**, **Japanese** and **Vietnamese** alongside English. Each one was made or
-checked by a speaker from the community, not run through a machine and shipped
-as-is. Japanese and Vietnamese arrive in the next update.
+Spanish**, **Japanese**, **Vietnamese** and **Russian** alongside English. Each one
+was made or checked by a speaker from the community, not run through a machine and
+shipped as-is. Japanese, Vietnamese and Russian arrive in the next update.
 
 A translation that is still being filled in shows the lines nobody has reached yet
 in English. If you would like to finish one, or add a language of your own, see
@@ -37,6 +37,11 @@ Vietnamese works with every regular font except **Fredoka**, which is missing it
 letters. While Vietnamese is active, Leaf uses Nunito in its place and skips Fredoka
 in the **Font** row. If you had chosen Fredoka, it comes back when you switch
 language.
+
+Russian works the same way with four fonts that have no Cyrillic letters: **Space
+Grotesk**, **Lexend**, **Baloo 2** and **Fredoka**. While Russian is active, Leaf
+uses Nunito in place of any of them and skips them in the **Font** row. Your choice
+comes back when you switch language.
 
 If you would rather run PSP games in a different language from the rest of Leaf, set it
 inside PPSSPP's own settings. Leaf notices you have chosen for yourself and stops

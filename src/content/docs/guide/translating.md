@@ -3,7 +3,7 @@ title: Translate Leaf
 description: Start a new language for the Leaf interface, or finish one that is partly done, using the template of every translatable string.
 ---
 
-![Español](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.es_MX.percent&suffix=%25&label=Espa%C3%B1ol&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Français](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.fr_FR.percent&suffix=%25&label=Fran%C3%A7ais&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Tiếng Việt](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.vi_VN.percent&suffix=%25&label=Ti%E1%BA%BFng%20Vi%E1%BB%87t&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![中文](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.zh_CN.percent&suffix=%25&label=%E4%B8%AD%E6%96%87&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![日本語](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.ja_JP.percent&suffix=%25&label=%E6%97%A5%E6%9C%AC%E8%AA%9E&color=7FB069&labelColor=0F160E&cacheSeconds=300)
+![Español](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.es_MX.percent&suffix=%25&label=Espa%C3%B1ol&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Français](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.fr_FR.percent&suffix=%25&label=Fran%C3%A7ais&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Tiếng Việt](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.vi_VN.percent&suffix=%25&label=Ti%E1%BA%BFng%20Vi%E1%BB%87t&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Русский](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.ru_RU.percent&suffix=%25&label=%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![中文](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.zh_CN.percent&suffix=%25&label=%E4%B8%AD%E6%96%87&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![日本語](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.ja_JP.percent&suffix=%25&label=%E6%97%A5%E6%9C%AC%E8%AA%9E&color=7FB069&labelColor=0F160E&cacheSeconds=300)
 
 Leaf's interface is translated by people who use it. This page is how to start a
 new language, or fill in one that is partly done. You do not need to build Leaf
@@ -36,6 +36,7 @@ current file for each one:
     <tr><td>Español (México)</td><td>94%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/es_MX.po">es_MX.po</a></td></tr>
     <tr><td>Français</td><td>94%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/fr_FR.po">fr_FR.po</a></td></tr>
     <tr><td>Tiếng Việt</td><td>97%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/vi_VN.po">vi_VN.po</a></td></tr>
+    <tr><td>Русский</td><td>99%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/ru_RU.po">ru_RU.po</a></td></tr>
     <tr><td>中文</td><td>85%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/zh_CN.po">zh_CN.po</a></td></tr>
     <tr><td>日本語</td><td>60%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/ja_JP.po">ja_JP.po</a></td></tr>
   </tbody>
@@ -51,7 +52,7 @@ current file for each one:
   var BASE = 'https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/';
   /* Endonyms we prefer over what the browser produces ("中文", not "中文（中国）"). */
   var NAMES = { zh_CN: '中文', fr_FR: 'Français', es_MX: 'Español (México)', ja_JP: '日本語',
-                vi_VN: 'Tiếng Việt' };
+                vi_VN: 'Tiếng Việt', ru_RU: 'Русский' };
   try {
     var res = await fetch(BASE + 'coverage.json', { cache: 'no-cache' });
     if (!res.ok) return;

@@ -3,7 +3,7 @@ title: Itch.io
 description: 'Browse itch.io and add compatible homebrew games and soundtracks directly to Leaf.'
 ---
 
-![The Itch.io app browsing Game Boy homebrew, with a game list, cover art, title, author, and Catastrophe button hints](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.1.0/docs/screenshots/main-list.png)
+![The Itch.io app browsing Game Boy homebrew, with a game list, cover art, title, author, and Catastrophe button hints](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.2.0/docs/screenshots/main-list.png)
 
 The Itch.io app brings compatible console homebrew into Leaf without needing a
 computer. Browse, search, filter, and sort the public catalog, inspect a
@@ -39,8 +39,8 @@ required.
 - Animated catalog artwork, launcher artwork, and itch.io titles in the Leaf
   library.
 - Either SD card for ROMs, artwork, and optional soundtracks.
-- Free downloads without an account and owned paid downloads with an optional
-  itch.io API key.
+- Free downloads without an account, and paid games you own once you sign in
+  with itch.io.
 - App-managed rename, save/state rename, artwork repair, and deletion flows.
 
 New downloads publish their itch.io title as Leaf display metadata. Your manual
@@ -64,20 +64,20 @@ Existing downloads are not renamed or backfilled automatically.
 | Y | clear staged values on the Filter screen |
 | Menu | reserved for Leaf; it does not exit the app |
 
-Search and API-key entry use the full Catastrophe keyboard.
+Search uses the full Catastrophe keyboard.
 
 ## Both SD cards
 
-With **ROM Location = auto**, downloads go to the primary card's canonical
-system folder. Set it to **ask** to choose either mounted card and, if desired,
-a safe subfolder below that card's ROM root. A configured but absent second card
+With **ROM Location** set to **Auto**, downloads go to the primary card's
+canonical system folder. Set it to **Ask** to choose either mounted card and, if
+desired, a safe subfolder below that card's ROM root. A configured but absent second card
 is shown as unavailable and cannot be selected. Artwork remains on the same card
 as its ROM.
 
-Music uses the same source-aware picker. **Music Download** is off by default;
-set it to **auto** or **ask** before downloading soundtrack files.
+Music uses the same source-aware picker. **Music Download** is **Off** by
+default; set it to **Auto** or **Ask** before downloading soundtrack files.
 
-![The Itch.io destination picker showing the mounted primary and secondary SD-card choices](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.1.0/docs/screenshots/dual-sd-destination.png)
+![The Itch.io destination picker showing the mounted primary and secondary SD-card choices](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.2.0/docs/screenshots/dual-sd-destination.png)
 
 ## Soundtracks and Disco Boy
 
@@ -86,21 +86,31 @@ does not install or launch a player. Install
 **[Disco Boy](/app-store/disco-boy/)** separately, then open or relaunch it so
 its normal scan sees music on both cards.
 
-## API key and privacy
+## Sign in and privacy
 
-Browsing and free downloads need no key. A key is required only for games
-already owned by the account:
+Browsing and free downloads need no account. Sign in to download paid games you
+own:
 
-1. Open **Start → Settings → API Key**.
-2. Read and accept the physical-access warning.
-3. Enter the complete key with the Catastrophe keyboard.
-4. Wait for validation before using the **Owned** filter.
+1. Open **Start → Settings → itch.io Account**, or press **A** on a paid game.
+2. Read and accept the physical-access warning (first time only).
+3. Scan the QR code with your phone. The code expires after a few minutes;
+   press **A** for a new one.
+4. Check that itch.io shows the same short code as the handheld, then approve
+   Leaf. The app loads the games you own and shows your account name.
 
-The key is stored in app data on the SD card and is not encrypted. FAT32 cannot
-protect it from someone with physical access to the card. Settings displays
-only a short suffix after saving; editing starts blank. Local logs redact known
-credentials, account identifiers, cookies, and signed download URLs. Removing
-the key clears authenticated cache data without deleting installed games.
+Signed in, free and pay-what-you-want games also download through the itch.io
+API, with the web download page as a fallback.
+
+itch.io gives the app a key, which is stored in app data on the SD card and is
+not encrypted. FAT32 cannot protect it from someone with physical access to the
+card. The key never appears on screen, and local logs redact credentials,
+account identifiers, cookies, and signed download URLs. **Sign Out** clears the
+key and the list of games you own without deleting installed games. The app
+cannot revoke the key on itch.io, so delete it from your itch.io account's API
+keys if you lose the card.
+
+Updating from 0.1.0 removes a typed API key saved by that version and opens
+Settings so you can sign in again.
 
 ## Content warnings
 

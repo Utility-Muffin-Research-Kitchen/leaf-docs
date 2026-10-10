@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20261007T205458Z",
-  "generated_at": "2026-10-07T20:54:58Z",
+  "catalog_revision": "prod-20261010T135928Z",
+  "generated_at": "2026-10-10T13:59:28Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -16,22 +16,46 @@
         "homebrew",
         "downloads"
       ],
-      "version": "0.1.0",
+      "version": "0.2.0",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.1.0",
+          "version": "0.2.0",
           "install_name": "Itch-io.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/releases/download/v0.1.0/Itch-io.mlp1.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/releases/download/v0.2.0/Itch-io.mlp1.pak.zip",
             "name": "Itch-io.mlp1.pak.zip",
             "archive": "zip",
-            "size": 8550639,
-            "installed_size": 15688794,
-            "sha256": "defcf3dde1722e049996c45743bddcceada201bf9cedb4b5f146d76f39e06ef5"
-          }
+            "size": 9075497,
+            "installed_size": 16842756,
+            "sha256": "fd838c1de61a06082c627018bb1417c78eff72af3aeb4721760d0278f8c0ed8a"
+          },
+          "versions": [
+            {
+              "version": "0.2.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/releases/download/v0.2.0/Itch-io.mlp1.pak.zip",
+                "name": "Itch-io.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 9075497,
+                "installed_size": 16842756,
+                "sha256": "fd838c1de61a06082c627018bb1417c78eff72af3aeb4721760d0278f8c0ed8a"
+              }
+            },
+            {
+              "version": "0.1.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/releases/download/v0.1.0/Itch-io.mlp1.pak.zip",
+                "name": "Itch-io.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 8550639,
+                "installed_size": 15688794,
+                "sha256": "defcf3dde1722e049996c45743bddcceada201bf9cedb4b5f146d76f39e06ef5"
+              }
+            }
+          ]
         }
       ]
     },

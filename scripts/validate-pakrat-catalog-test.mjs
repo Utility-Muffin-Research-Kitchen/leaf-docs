@@ -194,8 +194,14 @@ try {
   await expectRejected('incorrect-sha', (catalog) => {
     const app = catalog.apps.find((candidate) => candidate.id === 'org.umrk.itchio');
     catalog.apps = [app];
-    const sha = app.packages[0].artifact.sha256;
-    app.packages[0].artifact.sha256 = `${sha[0] === '0' ? '1' : '0'}${sha.slice(1)}`;
+    const pkg = app.packages[0];
+    const sha = pkg.artifact.sha256;
+    const wrong = `${sha[0] === '0' ? '1' : '0'}${sha.slice(1)}`;
+    // The legacy artifact mirrors the safe floor in versions[]. Corrupt both,
+    // so the remote download rejects the hash rather than the mirror rule.
+    for (const artifact of [pkg.artifact, ...(pkg.versions ?? []).map((entry) => entry.artifact)]) {
+      if (artifact.sha256 === sha) artifact.sha256 = wrong;
+    }
   }, 'remote sha256', true);
 
   // ---- STORE-CONTENT-1: the content[] lane --------------------------------
@@ -315,6 +321,8 @@ try {
     catalog.apps = [structuredClone(source.apps[0])];
     delete catalog.content;
     const pkg = catalog.apps[0].packages[0];
+    // --archive checks a one-artifact catalog; keep only the legacy package.
+    delete pkg.versions;
     const { archive, path } = await writeArchiveCase(
       'apps-runtime-declares-provides',
       catalog,

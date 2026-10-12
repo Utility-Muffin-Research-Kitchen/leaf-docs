@@ -112,6 +112,7 @@ export default defineConfig({
             { label: 'SDLReader', slug: 'app-store/sdlreader' },
             { label: 'Syncthing', slug: 'app-store/syncthing' },
             { label: 'Video From Hell', slug: 'app-store/video-from-hell' },
+            { label: 'Yabadabadoo', slug: 'app-store/yabadabadoo' },
           ],
         },
         {

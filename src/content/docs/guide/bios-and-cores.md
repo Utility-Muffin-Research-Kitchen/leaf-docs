@@ -138,6 +138,11 @@ The two routes use different save-state formats, which are not compatible. Stand
 `States/YabaSanshiro/`; switch back to the emulator that created a state rather
 than moving states between them.
 
+**Yabadabadoo** is an experimental alternate Saturn core you can add from Pak
+Rat. It's tuned for low-power handhelds, needs a real BIOS in `BIOS/SATURN/`,
+and keeps its own saves and states in `Saves/Yabadabadoo/` and
+`States/Yabadabadoo/`. See [Yabadabadoo](/app-store/yabadabadoo/).
+
 :::note
 The heaviest systems (PSP, Dreamcast, N64) are demanding on this hardware. Whether
 a given game runs at full speed varies by title; treat these as "best effort,"

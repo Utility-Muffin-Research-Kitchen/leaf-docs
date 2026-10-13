@@ -64,6 +64,20 @@ BIOS** option applies to YabaSanshiro Standalone only.
 
 ## Controls
 
+The face buttons follow the shape of a Saturn pad. **Y**, **B**, and **A**, left
+to right around your thumb, are the Saturn's A, B, and C buttons, and **L1**,
+**X**, and **R1** are its X, Y, and Z:
+
+| Saturn | MLP1 |
+| --- | --- |
+| A, B, C | **Y**, **B**, **A** |
+| X, Y, Z | **L1**, **X**, **R1** |
+| L, R | **L2**, **R2** |
+| Start | **Start** |
+
+To move a button for one game or for all of them, change it in RetroArch's
+**Quick Menu > Controls** and save a remap file there.
+
 - **Menu** opens RetroArch's menu. Save states and core options are in
   **Quick Menu**. To leave the game, choose **Quit RetroArch** from the main
   menu.

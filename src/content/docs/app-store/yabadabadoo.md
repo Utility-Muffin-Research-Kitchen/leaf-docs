@@ -23,8 +23,11 @@ YabaSanshiro for the games it already runs well. The
 list the games known to have problems.
 :::
 
-:::note[Requires Leaf 0.12]
-The pak needs Leaf 0.12 or newer. Older releases don't offer it in Pak Rat.
+:::note[Requires Leaf 0.14]
+This version of the pak needs Leaf 0.14 or newer. On Leaf 0.12 and 0.13, Pak Rat
+offers the earlier version instead. In that version **Menu** opens RetroArch's
+own menu, and Leaf's in-game menu, the Game Switcher, and **Menu** hotkeys aren't
+available. Releases older than 0.12 don't offer the pak at all.
 :::
 
 ## Install
@@ -64,39 +67,57 @@ BIOS** option applies to YabaSanshiro Standalone only.
 
 ## Controls
 
-- **Menu** opens RetroArch's menu. Save states and core options are in
-  **Quick Menu**. To leave the game, choose **Quit RetroArch** from the main
-  menu.
-- Hold **Menu** for three seconds to leave the game straight away. Your in-game
-  saves are kept.
+Controls match Leaf's other RetroArch cores.
+
+- **Menu** opens Leaf's in-game menu over the game, with save states, reset, and
+  the rest; see [The in-game menu](/guide/playing/#the-in-game-menu). Choose
+  **Quit** there to leave the game. RetroArch's own menu is under **RetroArch
+  Settings**, and core options are in its **Quick Menu**.
+- **Menu** held with another button works as it does on other cores. By default,
+  **Menu + Select** opens the [Game Switcher](/guide/playing/#the-game-switcher),
+  **Menu + L1** takes a screenshot, and any RetroArch hotkey you've bound works
+  the same way. See [Hotkeys](/guide/features/#hotkeys) and
+  [RetroArch hotkeys](/guide/playing/#retroarch-hotkeys).
 - With a controller connected, it's player 1, as everywhere else in Leaf, and
-  its Guide or Home button opens RetroArch's menu instead.
-
-Leaf's in-game menu, the Switcher, save states on power hold, and resuming after
-power-off aren't available with Yabadabadoo, because it runs in its own
-RetroArch rather than Leaf's.
-
-## Settings
-
-The button mapping and display settings you choose in Leaf's **RetroArch
-Settings**, such as aspect ratio and the FPS counter, apply to Yabadabadoo too.
-Hotkeys you set there don't, because Yabadabadoo has no hotkey button. Settings
-you save from inside Yabadabadoo's RetroArch menu aren't kept, but core options
-and remaps are.
+  its Guide or Home button opens Leaf's in-game menu.
 
 ## Saves and states
 
 - In-game saves go to `Saves/Yabadabadoo/` on the game's card. They're written a
   moment after the game saves, so a crash or a flat battery doesn't lose them.
-- Save states go to `States/Yabadabadoo/` on the game's card.
-- RetroArch settings, core options, and remaps for Yabadabadoo live in
-  `.userdata/mlp1/Yabadabadoo/` on your main card.
+- Save states go to `States/Yabadabadoo/` on the game's card. Each slot in
+  Leaf's in-game menu shows a thumbnail.
+- Saving a state when you hold the power button, and resuming after power-off,
+  work as they do on other cores.
+- RetroArch settings, core options, and remaps for Yabadabadoo are kept with the
+  rest of Leaf's RetroArch settings, in `.umrk/mlp1/retroarch/` on your main
+  card.
+
+These are the same save and state folders the earlier version of the pak used,
+so your existing saves and states carry over. The first time it starts, the new
+version also copies the earlier version's core options, overrides, and remaps
+from `.userdata/mlp1/Yabadabadoo/config/` to their new place.
 
 Yabadabadoo's saves and states are separate from YabaSanshiro's, so switch back
 to the core that made a save rather than moving files between them.
 
 Removing the pak removes the core on the next rescan. It doesn't remove your
 files under `Roms/`, `BIOS/`, `Saves/`, `States/`, or `.userdata/`.
+
+## Settings
+
+Yabadabadoo runs with the same RetroArch settings as Leaf's other cores, so a
+change you made in **RetroArch Settings** for another game applies here too. Leaf
+still sets a few things itself on every launch; see
+[RetroArch settings](/guide/retroarch-settings/).
+
+A change you make from inside Yabadabadoo's RetroArch is saved to Leaf's shared
+settings only when its RetroArch is the same version as Leaf's. If a change
+doesn't carry over to your other games, make it from a game on another core.
+
+## Limits
+
+Recording and Bluetooth audio aren't available with this core.
 
 ## How it works
 
@@ -105,3 +126,7 @@ into ARM code as the game runs. That recompiler only exists for 32-bit ARM. The
 MLP1 can run 32-bit programs, but Leaf and its RetroArch are 64-bit, so the pak
 brings its own 32-bit RetroArch and every library it needs, including a 32-bit
 build of the MLP1's graphics driver. It doesn't need PortMaster or any other pak.
+
+Leaf runs that RetroArch in place of its own, with the same settings, and controls
+it the way it controls its own. That's why the in-game menu, the Game Switcher,
+and hotkeys work, and why this version needs Leaf 0.14.

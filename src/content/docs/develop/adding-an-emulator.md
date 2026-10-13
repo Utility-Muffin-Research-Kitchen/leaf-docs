@@ -200,7 +200,7 @@ repository (see the [repo map](/develop/repo-map/)), are the reference
 implementation.
 
 Set `min_leaf_version` to the first Leaf release that supports `frontend`, which
-is Leaf 0.14. A Leaf that predates the field refuses the pak rather than run
+is Leaf 0.13. A Leaf that predates the field refuses the pak rather than run
 the core in the wrong RetroArch, and the gate keeps the store from offering the
 pak to it. To keep working on older Leaf, publish an earlier version without
 `frontend` and gate the two versions separately.

@@ -23,9 +23,9 @@ YabaSanshiro for the games it already runs well. The
 list the games known to have problems.
 :::
 
-:::note[Requires Leaf 0.14]
-This version of the pak needs Leaf 0.14 or newer. On Leaf 0.12 and 0.13, Pak Rat
-offers the earlier version instead. In that version **Menu** opens RetroArch's
+:::note[Requires Leaf 0.13]
+This version of the pak needs Leaf 0.13 or newer. On Leaf 0.12, Pak Rat offers
+the earlier version instead. In that version **Menu** opens RetroArch's
 own menu, and Leaf's in-game menu, the Game Switcher, and **Menu** hotkeys aren't
 available. Releases older than 0.12 don't offer the pak at all.
 :::
@@ -144,4 +144,4 @@ build of the MLP1's graphics driver. It doesn't need PortMaster or any other pak
 
 Leaf runs that RetroArch in place of its own, with the same settings, and controls
 it the way it controls its own. That's why the in-game menu, the Game Switcher,
-and hotkeys work, and why this version needs Leaf 0.14.
+and hotkeys work, and why this version needs Leaf 0.13.

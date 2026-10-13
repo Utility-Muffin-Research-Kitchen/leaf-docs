@@ -76,6 +76,14 @@ Leaf's in-game menu, the Switcher, save states on power hold, and resuming after
 power-off aren't available with Yabadabadoo, because it runs in its own
 RetroArch rather than Leaf's.
 
+## Settings
+
+The button mapping and display settings you choose in Leaf's **RetroArch
+Settings**, such as aspect ratio and the FPS counter, apply to Yabadabadoo too.
+Hotkeys you set there don't, because Yabadabadoo has no hotkey button. Settings
+you save from inside Yabadabadoo's RetroArch menu aren't kept, but core options
+and remaps are.
+
 ## Saves and states
 
 - In-game saves go to `Saves/Yabadabadoo/` on the game's card. They're written a

@@ -24,10 +24,7 @@ list the games known to have problems.
 :::
 
 :::note[Requires Leaf 0.13]
-This version of the pak needs Leaf 0.13 or newer. On Leaf 0.12, Pak Rat offers
-the earlier version instead. In that version **Menu** opens RetroArch's
-own menu, and Leaf's in-game menu, the Game Switcher, and **Menu** hotkeys aren't
-available. Releases older than 0.12 don't offer the pak at all.
+The pak needs Leaf 0.13 or newer. Older releases don't offer it in Pak Rat.
 :::
 
 ## Install
@@ -107,11 +104,6 @@ Everything else matches Leaf's other RetroArch cores.
 - RetroArch settings, core options, and remaps for Yabadabadoo are kept with the
   rest of Leaf's RetroArch settings, in `.umrk/mlp1/retroarch/` on your main
   card.
-
-These are the same save and state folders the earlier version of the pak used,
-so your existing saves and states carry over. The first time it starts, the new
-version also copies the earlier version's core options, overrides, and remaps
-from `.userdata/mlp1/Yabadabadoo/config/` to their new place.
 
 Yabadabadoo's saves and states are separate from YabaSanshiro's, so switch back
 to the core that made a save rather than moving files between them.

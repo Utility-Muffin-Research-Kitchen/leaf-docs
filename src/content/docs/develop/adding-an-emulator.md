@@ -146,6 +146,82 @@ arcade name maps, or a core status. The forbidden fields are
 `requires_direct_drm`, `legacy_flat_core`, `name_map`, and `status`; Leaf derives
 runtime status from the installed files.
 
+## Ship your own RetroArch build
+
+A `retroarch` core runs in the RetroArch that Leaf ships. A core that can't load
+there, such as one that only exists for 32-bit ARM, can still get Leaf's in-game
+menu, save states, and Game Switcher if your pak ships its own RetroArch build
+and declares it as the core's `frontend`. Leaf then runs your build in place of
+its own, with the same command line and the same generated configuration, and
+treats the game as an ordinary RetroArch game.
+[Yabadabadoo](/app-store/yabadabadoo/) does this for its 32-bit Saturn core.
+
+```json
+{
+  "id": "mysaturn",
+  "display_name": "My Saturn Core",
+  "type": "retroarch",
+  "libretro_name": "mysaturn",
+  "file_name": "cores/mysaturn_libretro.so",
+  "info_name": "info/mysaturn_libretro.info",
+  "config_folder": "MySaturn",
+  "frontend": {
+    "path": "frontend/retroarch.sh",
+    "protocol": "leaf-ra-1"
+  }
+}
+```
+
+`frontend.path` is a pak-relative executable. It is usually a short script that
+sets up what your build needs, such as a 32-bit loader and libraries, and then
+`exec`s RetroArch. `protocol` is exactly `leaf-ra-1`. The rest of the core is
+unchanged: you still ship the core file and its `.info`, and `config_folder`
+must be the name the core reports to RetroArch as its library name. RetroArch
+files saves, states, and thumbnails under that name, and Leaf's menu looks for
+states there, so a mismatch hides the player's saves. The validator can't check
+this for you.
+
+Your frontend takes on a few obligations. The
+[LEAF-RA-1 contract](https://github.com/Utility-Muffin-Research-Kitchen/leaf-contracts/blob/main/docs/leaf-retroarch-frontend.md)
+specifies them all; in short, it must:
+
+- run with Leaf's arguments unchanged and `exec` RetroArch, so the process Leaf
+  tracks is the one holding the game;
+- honor the generated config file in full, without filtering it, merging
+  settings into it, or logging it, because it can hold the player's
+  RetroAchievements login;
+- listen for Leaf's commands on the UDP port the config names, and answer
+  `GET_INFO` early, before content has loaded;
+- exit cleanly on the `QUIT` command and on `SIGTERM`.
+
+Upstream RetroArch answers only a few of those commands, so your build needs
+patches for the rest. Leaf's own RetroArch patches, in the **retroarch-builds**
+repository (see the [repo map](/develop/repo-map/)), are the reference
+implementation.
+
+Set `min_leaf_version` to the first Leaf release that supports `frontend`, which
+is Leaf 0.13. A Leaf that predates the field refuses the pak rather than run
+the core in the wrong RetroArch, and the gate keeps the store from offering the
+pak to it. To keep working on older Leaf, publish an earlier version without
+`frontend` and gate the two versions separately.
+
+### What players get
+
+When your frontend answers `GET_INFO`, players get Leaf's in-game menu for it as
+for any core: save states with thumbnails, load, reset, disc swapping, shaders,
+and **RetroArch Settings**. They also get the Game Switcher, saving on power
+hold and resuming after power-off, and **Menu** hotkeys. If it doesn't answer,
+**Menu** opens RetroArch's own menu instead and those features stay off for that
+game.
+
+Some things don't come with it:
+
+- Leaf doesn't ask a frontend to record or to switch to Bluetooth audio, so
+  don't depend on either.
+- Settings a player changes in your RetroArch are saved back to Leaf's shared
+  RetroArch settings only when its version matches the RetroArch Leaf ships.
+  Build the same upstream version if you want them kept.
+
 ## Add a core to an existing system
 
 Do not copy an existing system into `systems[]`. Use `system_extensions[]`,
@@ -272,6 +348,8 @@ inspect:
 Common failures are:
 
 - a declared file is missing, not regular, or not executable;
+- the pak declares a `frontend` and Leaf is older than the release that supports
+  it;
 - a path is absolute, traverses with `..`, or escapes through a symlink;
 - the pak is under `Apps/shared/` or on a secondary card;
 - a system/core id, ROM folder, image folder, config folder, or `.info` filename

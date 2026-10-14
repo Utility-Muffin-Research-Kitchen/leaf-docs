@@ -83,6 +83,7 @@ For `type: "retroarch"`:
 | `file_name` | yes | pak-relative core binary |
 | `info_name` | yes | pak-relative `.info` file |
 | `config_folder` | yes | FAT32-safe Saves/States directory component |
+| `frontend` | no | object that runs the core in a RetroArch the pak ships; see [`frontend`](#frontend) |
 
 For `type: "path"`:
 
@@ -90,11 +91,51 @@ For `type: "path"`:
 |---|---|---|
 | `path` | yes | pak-relative existing executable |
 
+A `retroarch` core may not carry `path`, and a `path` core may not carry
+`libretro_name`, `file_name`, `info_name`, `config_folder`, or `frontend`; either
+mix is refused with `core-type-field-mismatch`.
+
 Both types may declare boolean `supports_menu`, `supports_savestate`,
 `supports_disk_control`, and `needs_swap`; each defaults to `false`.
 
 The fields `requires_direct_drm`, `legacy_flat_core`, `name_map`, and `status`
 are forbidden.
+
+## `frontend`
+
+An optional object on a `retroarch` core. It makes Leaf run the pak's own
+RetroArch build for that core in place of the RetroArch Leaf ships, for cores
+that can't load there. [Adding a system or emulator](/develop/adding-an-emulator/#ship-your-own-retroarch-build)
+walks through it, and the
+[LEAF-RA-1 contract](https://github.com/Utility-Muffin-Research-Kitchen/leaf-contracts/blob/main/docs/leaf-retroarch-frontend.md)
+says what the build has to do.
+
+```json
+"frontend": { "path": "frontend/retroarch.sh", "protocol": "leaf-ra-1" }
+```
+
+| Field | Required | Value |
+|---|---|---|
+| `path` | yes | pak-relative existing executable |
+| `protocol` | yes | exactly `leaf-ra-1` |
+
+The object has exactly those two fields. `frontend` doesn't replace anything:
+`libretro_name`, `file_name`, `info_name`, and `config_folder` are still
+required.
+
+| Rejection reason | When |
+|---|---|
+| `malformed-frontend` | `frontend` isn't an object, has a key besides `path` and `protocol`, or `path` is missing, empty, or not a string |
+| `unknown-frontend-protocol` | `protocol` is missing or is anything but `leaf-ra-1` |
+| `core-type-field-mismatch` | `frontend` is on a `type: "path"` core |
+| `absolute-path`, `path-traversal`, `escaping-symlink`, `missing-file`, `non-regular-file`, `not-executable` | `path` breaks the [path rules](#path-rules) |
+
+`provides.schema` stays `1`. A Leaf that predates `frontend` refuses the pak with
+`unknown-field`, so a pak that declares it must set `min_leaf_version` to the
+first Leaf release that supports it. Leaf copies the core into its catalog as
+written and fingerprints the frontend file with the pak's other declared files,
+so replacing the frontend without editing `provides` still refreshes the
+catalog.
 
 ## `system_extensions[]`
 
@@ -118,7 +159,7 @@ Every declared file path is relative to the pak root and must:
 - contain no `..` component;
 - remain inside the pak after resolving every symlink component;
 - exist as a regular file;
-- be executable when it is a standalone `path` core.
+- be executable when it is a standalone `path` core or a `frontend`.
 
 Do not persist an SD-card mount point in a manifest. Leaf resolves the provider
 pak at runtime so `/mnt/sdcard` and `/media/sdcard1` swaps remain safe.

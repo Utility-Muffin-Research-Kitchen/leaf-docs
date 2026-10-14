@@ -6,7 +6,7 @@ description: Switch the Leaf interface to another language, and how Chinese game
 Leaf's interface is available in **Simplified Chinese**, **French**, **Mexican
 Spanish**, **Japanese**, **Vietnamese** and **Russian** alongside English. Each one
 was made or checked by a speaker from the community, not run through a machine and
-shipped as-is. Japanese, Vietnamese and Russian arrive in the next update.
+shipped as-is.
 
 A translation that is still being filled in shows the lines nobody has reached yet
 in English. If you would like to finish one, or add a language of your own, see

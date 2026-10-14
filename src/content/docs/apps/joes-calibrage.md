@@ -11,7 +11,7 @@ reaches, so your stick works without calibrating. Calibrate if it still feels li
 will not push all the way (characters walk when they should run, or aiming feels
 clipped), or to tune the full throw to your own stick.
 
-![Joe's Calibrage on the Calibrate screen: a circular target with a live dot tracking the analog stick, the captured range and sample count below, and cancel, reset, and next hints](/joes-calibrage.png)
+![Joe's Calibrage on the Calibrate screen: a circular target with a live dot tracking the analog stick, the captured range and sample count below, and cancel, reset, and save hints](/joes-calibrage.png)
 
 ## Using it
 

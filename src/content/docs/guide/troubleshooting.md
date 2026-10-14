@@ -36,6 +36,17 @@ See [Naomi and Atomiswave arcade sets](/guide/games/#naomi-and-atomiswave-arcade
 [Adding games & ROMs](/guide/games/), and
 [BIOS & cores](/guide/bios-and-cores/).
 
+## A game is missing from its list
+
+- **You hid it.** Hidden games are listed in **Settings → Games → Hidden Games**.
+  Pick the game and press **A** to bring it back. See
+  [Hiding a game](/guide/games/#hiding-a-game).
+- **Its card is out.** Games on the second SD card leave your lists while that card
+  is out, and come back when you put it in.
+- **Wrong folder or format.** Check that the game is in the right `Roms/<SYSTEM>/`
+  folder and uses one of the
+  [supported formats](/guide/games/#supported-game-formats).
+
 ## Wi-Fi connects but there's no internet
 
 The network can associate without finishing address setup, especially on

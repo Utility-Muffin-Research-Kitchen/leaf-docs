@@ -203,6 +203,13 @@ ScreenScraper.fr and control how Leaf picks it (sign in first under
   games, and saves untouched. See
   [RetroArch settings](/guide/retroarch-settings/).
 - **Accounts** - opens the sign-ins below.
+- **Hidden Games** - every game you hid with **Hide Game**, by name, with its card
+  and path. Press **A** to unhide the selected game, and it's back in your lists
+  right away. A game whose file is no longer on the card reads **Not in your
+  library**, and unhiding it clears it from the list. Discs you hid in a 0.13.0 beta
+  are listed by their path, and unhide the same way. This page only unhides: to
+  delete a hidden game, unhide it, then choose **Delete Game** from its **Options**.
+  See [Hiding a game](/guide/games/#hiding-a-game).
 
 ### Accounts
 

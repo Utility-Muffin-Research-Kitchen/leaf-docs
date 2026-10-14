@@ -368,9 +368,106 @@ This is where per-item actions live, so they stay out of the main list:
   system at once, use **Settings → Games → Scrape Artwork** instead.
 - **Reset Overrides** - clear the custom name, core, performance, and Saturn BIOS
   settings you set above.
+- **Hide Game** - on a game, take it out of your lists without deleting anything.
+  See [Hiding a game](#hiding-a-game).
+- **Delete Game** - on a game, delete its files from your SD card. It isn't offered
+  on every system. See [Deleting a game](#deleting-a-game).
 
 Scraping runs in the background, so you can leave the menu, keep browsing, or
 even play a game while art downloads.
+
+### Hiding a game
+
+**Hide Game** takes a game out of your library without touching its files. It
+disappears right away from its system's list and game count, **Favorites**,
+**Recents**, **Search**, and the game switcher, and a message tells you where to
+find it again. Its file, saves, states, artwork, favorite, and **Options** settings all stay
+as they were, and come back with it when you unhide it.
+
+To bring a game back, open **Settings → Games → Hidden Games**, pick it, and press
+**A** (**Unhide**). See [Settings → Games](/guide/settings/#games).
+
+- **Hide Game** works on every system.
+- Hiding is per card. A copy of the same game on your other SD card stays visible.
+- A game stays hidden through rescans, and while its card is out.
+- A game you already picked for [5-Game Mode](/guide/five-game-mode/) stays on the
+  focus screen after you hide it, but you can't pick a hidden game.
+- Leaf versions before 0.13.0 don't know about hidden games. If you go back to
+  one, your hidden games show up again, and they're hidden again when you update.
+
+### Deleting a game
+
+**Delete Game** removes a game from your SD card: the file you launch, and every file
+that file names. Use it to free space without taking the card out.
+
+:::caution[There is no undo]
+Deleted files are gone. There is no undo and no Trash. Leaf doesn't check whether
+another game uses the same files, so read the file list before you confirm.
+:::
+
+Choose **Options → Delete Game** and Leaf checks the game's files, then shows you:
+
+- how many files the game has, how much space they take, and which card it's on
+- that deletion is permanent, and might not delete every file your game uses
+- that your saves, states, and artwork are kept
+
+Press **X** (**Files**) to see each file with its card and size, and **X** again to
+go back. **Cancel** is selected first. To go ahead, press **Right** to select
+**Delete Game**, then press **A**. Keep your cards in while Leaf deletes. When it's
+done, Leaf tells you how many files it deleted. If a file can't be deleted, Leaf
+stops, tells you which one, and **Files** shows what was removed. The file you
+launch goes last, so you can open **Delete Game** again to delete the rest.
+
+#### What it deletes
+
+Leaf reads the file you launch and follows the files it names:
+
+- A `.m3u` playlist takes every disc it lists, and each disc's tracks.
+- A `.cue` takes its tracks, usually `.bin` files.
+- A `.gdi` or `.toc` takes the tracks it lists.
+- A PC-98 `.cmd` takes the disk images it names.
+- Any other file, such as a `.chd`, `.zip`, or `.sfc`, is deleted on its own.
+
+The game also leaves your library. Its favorite, its place in **Recents** and
+5-Game Mode, and its **Options** settings go with it, and putting the file back
+later doesn't bring them back.
+
+#### What stays
+
+- **Your saves, states, and artwork.** They stay in `Saves/`, `States/`, and
+  `Images/`. Delete them from your computer if you don't want them.
+- **Files the game doesn't name.** A `.sub` or `.sbi` file beside a PlayStation
+  image stays. A `.ccd`, `.mds`, `.uae`, or `.conf` file is deleted on its own,
+  and the images it uses stay.
+- **Folders.** Leaf never removes a folder, so a game's own folder stays on the
+  card, even when it's empty.
+
+#### Shared files aren't protected
+
+If two games use the same file, deleting one deletes that file, and the other game
+stops working. For example, two playlists that list the same disc share it. The
+**Files** list shows exactly what goes, so check it before you confirm.
+
+#### Games that can't be deleted
+
+**Delete Game** isn't in the menu for:
+
+- arcade systems, including `ARCADE`, `MAME`, `NEOGEO`, `NAOMI`, and `ATOMISWAVE`,
+  because deleting a parent ROM set breaks the clones that need it
+- **Ports**, because PortMaster installs and removes those
+- systems a content pak adds, such as [ScummVM](/app-store/scummvm/), because the
+  pak manages its own games
+- EasyRPG, because each game is a folder
+
+Use **Hide Game** for those, or delete the files from your computer.
+
+DOS, Amiga, and PC-98 games can store your progress inside their own disk or
+hard-drive images. For those systems, the confirmation also warns that this
+progress is erased with the image.
+
+Leaf won't delete while your library is scanning, or while the game's card or your
+launcher card is read-only. A read-only card gets the same SD card check and repair
+offer you see elsewhere.
 
 ## Multi-disc games
 
@@ -382,6 +479,10 @@ disc, and RetroArch reads that playlist to swap discs from its in-game menu.
 
 Prefer to manage it yourself? Add your own `.m3u` listing the disc files and Leaf
 uses it as-is - it never overwrites a playlist you made by hand.
+
+**Hide Game** and **Delete Game** work on the whole game, never on one disc.
+Deleting a multi-disc game deletes its playlist and every disc in it, so a rescan
+doesn't bring it back. See [Deleting a game](#deleting-a-game).
 
 ## Arcade names
 

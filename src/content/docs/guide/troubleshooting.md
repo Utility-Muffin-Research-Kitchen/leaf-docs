@@ -148,7 +148,9 @@ between a config override and a saved shader preset.
 ## Games, saves, or box art don't stick after a reboot
 
 This is almost always a confused SD card, usually from losing power without a clean
-shutdown. To avoid it, power the device down with **MENU → Power Off** rather than
-yanking the charger or holding the power button. If files seem to be missing or the
+shutdown. To avoid it, power the device down with **MENU → Power Off** or a 2 second
+hold of the power button, and let go when the screen changes. Holding it for the
+**Force Off Hold** time (10 seconds by default) cuts power with no clean shutdown, so
+keep that for a frozen device. If files seem to be missing or the
 launcher behaves oddly, put the card in a computer and let it repair the volume (on
 Windows, "check disk"; on macOS, Disk Utility's "First Aid"), then reinsert it.

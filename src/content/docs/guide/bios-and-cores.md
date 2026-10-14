@@ -203,13 +203,16 @@ containing one.
 
 [DSperate](https://github.com/beebono/DSperate), by
 [beebono](https://github.com/beebono), is an independent Nintendo DS emulator.
-Install the [DSperate content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/tag/v2.0.0)
+Install the [DSperate content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/tag/v3.0.3)
 through Pak Rat on Leaf 0.12.0 or newer. On MLP1, it adds another core for the
 same Nintendo DS system. Choose **DSperate** in the system's or game's **Core**
 setting. It keeps your saves separate from both DraStic front ends.
 
 DSperate reads `.nds` and `.zip` files. Launching a `.7z` shows a warning:
 extract it to `.nds`, or choose another Nintendo DS emulator.
+
+DSperate 3 can't load save states made in DSperate 2.x. In-game saves carry
+over, so save in the game before you update.
 
 ## BIOS (you supply these)
 

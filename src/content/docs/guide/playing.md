@@ -219,6 +219,21 @@ files.
 
 YabaSanshiro is developed by [devMiyax](https://github.com/devmiyax/yabause).
 
+In RetroArch, the face buttons follow the shape of a Saturn pad. **Y**, **B**,
+and **A**, left to right around your thumb, are the Saturn's A, B, and C
+buttons, and **L1**, **X**, and **R1** are its X, Y, and Z:
+
+| Saturn | MLP1 |
+| --- | --- |
+| A, B, C | **Y**, **B**, **A** |
+| X, Y, Z | **L1**, **X**, **R1** |
+| L, R | **L2**, **R2** |
+| Start | **Start** |
+
+To move a button for one game or for all of them, open **RetroArch Settings**
+in the in-game menu, change it in **Quick Menu > Controls**, and save a remap
+file there.
+
 Standalone runs its own session, so Leaf's in-game menu, game switcher, and
 RetroArch save states do not apply:
 

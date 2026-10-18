@@ -138,6 +138,11 @@ Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
 `BIOS/dc/naomi.zip` serves base Naomi and Naomi GD-ROM, while
 `BIOS/dc/naomi2.zip` serves Naomi 2.
 
+Content paks from Pak Rat add systems of their own, each with its own folder.
+[ScummVM](/app-store/scummvm/) uses `Roms/SCUMMVM/`, and [J2ME](/app-store/j2me/)
+uses `Roms/J2ME/` for Java phone games. These folders work once the pak is
+installed.
+
 ### Supported game formats
 
 These are the accepted game-file formats per folder:
@@ -455,8 +460,8 @@ stops working. For example, two playlists that list the same disc share it. The
 - arcade systems, including `ARCADE`, `MAME`, `NEOGEO`, `NAOMI`, and `ATOMISWAVE`,
   because deleting a parent ROM set breaks the clones that need it
 - **Ports**, because PortMaster installs and removes those
-- systems a content pak adds, such as [ScummVM](/app-store/scummvm/), because the
-  pak manages its own games
+- systems a content pak adds, such as [ScummVM](/app-store/scummvm/) and
+  [J2ME](/app-store/j2me/), because the pak manages its own games
 - EasyRPG, because each game is a folder
 
 Use **Hide Game** for those, or delete the files from your computer.

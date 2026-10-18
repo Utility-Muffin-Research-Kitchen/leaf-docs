@@ -16,15 +16,15 @@ FreeJ2ME-Plus is the work of Paulo Sousa
 [FreeJ2ME-Plus contributors](https://github.com/TASEmulators/freej2me-plus). The
 pak builds their code with a small patch so it runs from inside a pak.
 
-:::note[Requires Leaf 0.12]
-The pak needs Leaf 0.12 or newer. Older releases don't offer it in Pak Rat.
+:::note[Requires Leaf 0.13]
+The pak needs Leaf 0.13 or newer. Older releases don't offer it in Pak Rat.
 :::
 
 ## Install
 
 Open **System** with the **Menu** button, go to **Actions**, then choose
 **Pak Rat**. Pick **J2ME** and install it over Wi-Fi. The download is about
-38 MB, and the pak takes about 68 MB on the card, most of it Java. When the
+38 MB, and the pak takes about 70 MB on the card, most of it Java. When the
 install finishes, **J2ME** appears with your other systems rather than in
 **Apps**.
 
@@ -49,7 +49,13 @@ and the core reads it as it is.
 
 Press **MENU**, then choose **Actions → Rescan Library** after copying games.
 For box art, put `Images/J2ME/Diamond Rush.png` beside the example above, named
-like the game. A game without box art shows the J2ME system icon.
+like the game, or let Leaf [fetch it from ScreenScraper](/guide/games/#box-art).
+ScreenScraper finds J2ME games by file name, so name each `.jar` after the
+game's full title: `Asphalt 4 Elite Racing.jar` finds its art, but
+`Asphalt 4.jar` doesn't. Anything in parentheses is ignored, so a name such as
+`Diamond Rush (Gameloft) (1.0.1).jar` works too. Phone games never came in
+boxes, so the box art ScreenScraper has for them is one it made from a
+screenshot. A game without box art shows the J2ME system icon.
 
 A game takes about 6 to 9 seconds to start, because Java starts with it.
 

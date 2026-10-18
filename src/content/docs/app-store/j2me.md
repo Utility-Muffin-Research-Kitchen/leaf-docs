@@ -104,10 +104,11 @@ move the pointer to that stick:
    **Save Game Options**, so the change applies to this game only.
 
 The left stick now moves the pointer, and pressing the stick (**L3**) taps where
-it points. Tap right after you aim: the pointer hides about half a second after
-the stick stops, and then **L3** presses 5 instead. While **Pointer Stick** is
-set, the left stick no longer presses 2, 4, 6, and 8, and the D-pad works as
-before.
+it points. Aim with the left stick, let go, then press **L3** within about 3
+seconds to tap. After that the pointer hides and **L3** presses 5 again.
+Pressing any other button hides the pointer at once, so you can go back to the
+keys without waiting. While **Pointer Stick** is set, the left stick no longer
+presses 2, 4, 6, and 8, and the D-pad works as before.
 
 ## A game is cut off or too small
 

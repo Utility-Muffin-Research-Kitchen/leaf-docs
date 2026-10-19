@@ -45,7 +45,8 @@ Roms/J2ME/
 A J2ME game is a single `.jar`, sometimes with a `.jad` file beside it. You only
 need the `.jar`; Leaf ignores the `.jad`. Japanese KDDI games come as `.kjx`,
 which the core reads too. Don't unzip either one: a `.jar` already is a zip,
-and the core reads it as it is.
+and the core reads it as it is. File names can be in any language: a game
+named in Chinese, Japanese, or Korean starts like any other.
 
 Press **MENU**, then choose **Actions → Rescan Library** after copying games.
 For box art, put `Images/J2ME/Diamond Rush.png` beside the example above, named

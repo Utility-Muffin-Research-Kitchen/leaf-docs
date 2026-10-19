@@ -7,6 +7,14 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { URL, fileURLToPath } from 'node:url';
+import {
+  MAX_VERSION_COMPONENT,
+  STRICT_VERSION_RE,
+  compareVersions,
+  parseExtendedVersion,
+  parseStrictVersion,
+} from './lib/pakrat-version.mjs';
+import { checkPakLayout, inspectZip, readZipEntry } from './lib/zip-inspect.mjs';
 
 const checkRemote = process.argv.includes('--remote');
 const catalogArg = process.argv.indexOf('--catalog');
@@ -33,9 +41,20 @@ const previousCatalogPath = previousCatalogArg >= 0
 const archivePath = archiveArg >= 0 ? process.argv[archiveArg + 1] : null;
 const errors = [];
 const previews = [];
-const VERSION_RE = /^[0-9]+\.[0-9]+\.[0-9]+$/;
-const MAX_VERSION_COMPONENT = 9999;
 const MAX_PACKAGE_VERSIONS = 16;
+const MAX_MANIFEST_BYTES = 1024 * 1024;
+// The catalog's top-level fields. Anything else is refused so a misspelled or
+// unvalidated lane can't go live: launchers silently ignore keys they don't
+// know, and so did this validator before apps_v2.
+const CATALOG_KEYS = new Set([
+  'schema', 'product', 'catalog_revision', 'generated_at', 'apps', 'content', 'themes',
+  'apps_v2',
+]);
+// apps_v2 version entries are an allowlist: an extra key (say, a `prerelease`
+// flag) would not be covered by the immutability check.
+const APPS_V2_VERSION_KEYS = new Set(['version', 'min_leaf_version', 'artifact']);
+const EXTENDED_VERSION_MESSAGE =
+  'must be MAJOR.MINOR.PATCH[.BUILD][-(alpha|beta|rc).N] with components 0-9999 and no leading zeros';
 
 // THEME-1 (leaf-contracts docs/themes.md). The themes lane restates the
 // package rules a catalog entry can express; the archive itself is judged by
@@ -144,25 +163,28 @@ function requireVersion(value, path) {
   if (!requireString(value, path)) {
     return null;
   }
-  if (!VERSION_RE.test(value)) {
+  if (!STRICT_VERSION_RE.test(value)) {
     fail(path, 'must be a bare MAJOR.MINOR.PATCH version');
     return null;
   }
-  const parsed = value.split('.').map(Number);
-  if (parsed.some((component) => component > MAX_VERSION_COMPONENT)) {
+  const parsed = parseStrictVersion(value);
+  if (!parsed) {
     fail(path, `components must be <= ${MAX_VERSION_COMPONENT}`);
     return null;
   }
   return parsed;
 }
 
-function compareVersions(left, right) {
-  for (let index = 0; index < 3; index += 1) {
-    if (left[index] !== right[index]) {
-      return left[index] - right[index];
-    }
+function requireExtendedVersion(value, path) {
+  if (!requireString(value, path)) {
+    return null;
   }
-  return 0;
+  const parsed = parseExtendedVersion(value);
+  if (!parsed) {
+    fail(path, EXTENDED_VERSION_MESSAGE);
+    return null;
+  }
+  return parsed;
 }
 
 function requireStringArray(value, path) {
@@ -275,6 +297,7 @@ function validateImmutableHistory(previous, current) {
     }
   }
   validateImmutableThemes(previous, current);
+  validateImmutableAppsV2(previous, current);
 }
 
 function requireThemeVersion(value, path) {
@@ -285,12 +308,12 @@ function requireThemeVersion(value, path) {
     fail(path, 'must be MAJOR.MINOR.PATCH with components 0-9999 and no leading zeros');
     return null;
   }
-  return value.split('.').map(Number);
+  return parseStrictVersion(value);
 }
 
 function requireThemeMinimum(value, path) {
   const parsed = requireThemeVersion(value, path);
-  if (parsed && compareVersions(parsed, THEME_MIN_LEAF_VERSION.split('.').map(Number)) < 0) {
+  if (parsed && compareVersions(parsed, parseStrictVersion(THEME_MIN_LEAF_VERSION)) < 0) {
     fail(path, `must be at least ${THEME_MIN_LEAF_VERSION}`);
     return null;
   }
@@ -475,7 +498,7 @@ function validateImmutableThemes(previous, current) {
         fail(versionPath, 'previously published version facts are immutable');
       }
       if (typeof previousEntry.version === 'string' && THEME_VERSION_RE.test(previousEntry.version)) {
-        const parsed = previousEntry.version.split('.').map(Number);
+        const parsed = parseStrictVersion(previousEntry.version);
         if (!newestPublished || compareVersions(parsed, newestPublished.parsed) > 0) {
           newestPublished = { parsed, version: previousEntry.version };
         }
@@ -490,7 +513,7 @@ function validateImmutableThemes(previous, current) {
           previousTheme.versions.some((entry) => isObject(entry) && entry.version === currentEntry.version)) {
         continue;
       }
-      if (compareVersions(currentEntry.version.split('.').map(Number), newestPublished.parsed) <= 0) {
+      if (compareVersions(parseStrictVersion(currentEntry.version), newestPublished.parsed) <= 0) {
         fail(
           `${themePath}.versions[version=${JSON.stringify(currentEntry.version)}]`,
           `a new version must be greater than the newest published version ${JSON.stringify(newestPublished.version)}`,
@@ -500,9 +523,270 @@ function validateImmutableThemes(previous, current) {
   }
 }
 
+// apps_v2: store apps whose versions shipped launchers can't parse (four
+// components, pre-release suffixes). Shipped launchers ignore the key, and the
+// launchers that read it skip a bad entry instead of failing the store, so
+// this is the only place the lane's rules are enforced in full.
+function validateAppsV2(app, appPath, ids, artifacts) {
+  if (!requireObject(app, appPath)) {
+    return;
+  }
+  if (requireString(app.id, `${appPath}.id`)) {
+    if (ids.has(app.id)) {
+      fail(`${appPath}.id`, `duplicate app id "${app.id}" (an id may appear in exactly one lane)`);
+    }
+    ids.add(app.id);
+  }
+  requireString(app.name, `${appPath}.name`);
+  requireString(app.summary, `${appPath}.summary`);
+  requireExtendedVersion(app.version, `${appPath}.version`);
+  if ('description' in app) {
+    requireString(app.description, `${appPath}.description`);
+  }
+  if ('author' in app) {
+    requireString(app.author, `${appPath}.author`);
+  }
+  if ('repo_url' in app) {
+    requireHttpsUrl(app.repo_url, `${appPath}.repo_url`);
+  }
+  if ('categories' in app) {
+    requireStringArray(app.categories, `${appPath}.categories`);
+  }
+  if (!Array.isArray(app.packages) || app.packages.length === 0) {
+    fail(`${appPath}.packages`, 'must be a non-empty array');
+    return;
+  }
+
+  app.packages.forEach((pkg, pkgIndex) => {
+    const pkgPath = `${appPath}.packages[${pkgIndex}]`;
+    if (!requireObject(pkg, pkgPath)) {
+      return;
+    }
+    if (requireString(pkg.platform, `${pkgPath}.platform`) && pkg.platform !== 'mlp1') {
+      fail(`${pkgPath}.platform`, 'must be "mlp1"');
+    }
+    if (pkg.runtime !== 'leaf') {
+      fail(`${pkgPath}.runtime`, 'must be "leaf"');
+    }
+    requireExtendedVersion(pkg.version, `${pkgPath}.version`);
+    if ('min_leaf_version' in pkg) {
+      requireVersion(pkg.min_leaf_version, `${pkgPath}.min_leaf_version`);
+    }
+    if (requireSafeRelativePath(pkg.install_name, `${pkgPath}.install_name`) &&
+        !pkg.install_name.endsWith('.pak')) {
+      fail(`${pkgPath}.install_name`, 'must end with .pak');
+    }
+    // Leaf reads an app's runtime manifest only from pak.json.
+    if (pkg.runtime_manifest_path !== 'pak.json') {
+      fail(`${pkgPath}.runtime_manifest_path`, 'must be "pak.json"');
+    }
+    const artifactPath = `${pkgPath}.artifact`;
+    validateArtifact(pkg.artifact, artifactPath);
+
+    const versionsPath = `${pkgPath}.versions`;
+    if (!Array.isArray(pkg.versions) || pkg.versions.length === 0) {
+      fail(versionsPath, 'must be a non-empty array');
+      return;
+    }
+    if (pkg.versions.length > MAX_PACKAGE_VERSIONS) {
+      fail(versionsPath, `must contain at most ${MAX_PACKAGE_VERSIONS} entries`);
+    }
+
+    const validatedVersions = [];
+    let previous = null;
+    pkg.versions.forEach((entry, versionIndex) => {
+      const versionPath = `${versionsPath}[${versionIndex}]`;
+      if (!requireObject(entry, versionPath)) {
+        return;
+      }
+      for (const key of Object.keys(entry)) {
+        if (!APPS_V2_VERSION_KEYS.has(key)) {
+          fail(`${versionPath}.${key}`, 'is not an apps_v2 version field');
+        }
+      }
+      const parsed = requireExtendedVersion(entry.version, `${versionPath}.version`);
+      if (parsed) {
+        // 5.4.0 and 5.4.0.0 are one version spelled two ways; devices compare,
+        // they don't match strings, so both spellings can't be listed.
+        const twin = validatedVersions.find(
+          (candidate) => candidate.parsed && compareVersions(candidate.parsed, parsed) === 0,
+        );
+        if (twin) {
+          fail(
+            `${versionPath}.version`,
+            `"${entry.version}" compares equal to "${twin.entry.version}" (duplicate package version)`,
+          );
+        } else if (previous && compareVersions(previous, parsed) <= 0) {
+          fail(`${versionPath}.version`, 'versions must be strictly descending newest-first');
+        }
+        previous = parsed;
+      }
+      let minimumValid = true;
+      if ('min_leaf_version' in entry) {
+        minimumValid = requireVersion(entry.min_leaf_version, `${versionPath}.min_leaf_version`) !== null;
+      }
+      const versionArtifactPath = `${versionPath}.artifact`;
+      const artifactValid = validateArtifact(entry.artifact, versionArtifactPath);
+      validatedVersions.push({ entry, path: versionPath, parsed });
+      if (artifactValid && parsed && minimumValid) {
+        artifacts.push({
+          lane: 'apps_v2',
+          appId: app.id,
+          platform: pkg.platform,
+          artifact: entry.artifact,
+          path: versionArtifactPath,
+          installName: pkg.install_name,
+          runtimeManifestPath: 'pak.json',
+          version: entry.version,
+          minLeafVersion: Object.hasOwn(entry, 'min_leaf_version') ? entry.min_leaf_version : null,
+          isContent: false,
+        });
+      }
+    });
+
+    // The legacy fields describe the newest stable version, so anything that
+    // shows "the" version of an app never shows a beta.
+    const mirror = validatedVersions.reduce(
+      (newest, candidate) =>
+        candidate.parsed && !candidate.parsed.prerelease &&
+        (!newest || compareVersions(candidate.parsed, newest.parsed) > 0)
+          ? candidate
+          : newest,
+      null,
+    );
+    if (!mirror) {
+      fail(versionsPath, 'must contain at least one stable version');
+      return;
+    }
+    if (pkg.version !== mirror.entry.version || app.version !== mirror.entry.version) {
+      fail(
+        `${pkgPath}.version`,
+        `legacy app/package versions must match newest stable version ${JSON.stringify(mirror.entry.version)}`,
+      );
+    }
+    if (!artifactsEqual(pkg.artifact, mirror.entry.artifact)) {
+      fail(artifactPath, `must exactly match newest-stable artifact ${mirror.path}.artifact`);
+    }
+    if ((pkg.min_leaf_version ?? null) !== (mirror.entry.min_leaf_version ?? null)) {
+      fail(
+        `${pkgPath}.min_leaf_version`,
+        `must mirror the newest stable version's gate ${JSON.stringify(mirror.entry.min_leaf_version ?? null)}`,
+      );
+    }
+  });
+}
+
+// apps_v2 keeps a rolling window instead of a lifetime history, judged per
+// channel (stable and pre-release) so a stable fix can still land after a
+// newer beta. Within a channel: surviving versions never change, only the
+// oldest may be dropped, and a new version must be newer than every version
+// the channel ever published here. That also stops a dropped version from
+// coming back, since it would be older than what survived it.
+function validateImmutableAppsV2(previous, current) {
+  const previousApps = Array.isArray(previous.apps_v2) ? previous.apps_v2 : [];
+  const currentApps = Array.isArray(current.apps_v2) ? current.apps_v2 : [];
+  for (const previousApp of previousApps) {
+    if (!isObject(previousApp)) {
+      continue;
+    }
+    const appPath = `$.apps_v2[id=${JSON.stringify(previousApp.id)}]`;
+    const currentApp = currentApps.find(
+      (candidate) => isObject(candidate) && candidate.id === previousApp.id,
+    );
+    if (!currentApp) {
+      fail(appPath, 'previously published app must not be removed or change lanes');
+      continue;
+    }
+    if (!Array.isArray(previousApp.packages) || !Array.isArray(currentApp.packages)) {
+      fail(`${appPath}.packages`, 'cannot compare malformed package history');
+      continue;
+    }
+    for (const previousPackage of previousApp.packages) {
+      if (!isObject(previousPackage)) {
+        continue;
+      }
+      const pkgPath = `${appPath}.packages[platform=${JSON.stringify(previousPackage.platform)},install_name=${JSON.stringify(previousPackage.install_name)}]`;
+      const currentPackage = currentApp.packages.find((candidate) =>
+        isObject(candidate) &&
+        candidate.platform === previousPackage.platform &&
+        candidate.install_name === previousPackage.install_name);
+      if (!currentPackage) {
+        fail(pkgPath, 'previously published package must not be removed');
+        continue;
+      }
+      if (!Array.isArray(previousPackage.versions) || !Array.isArray(currentPackage.versions)) {
+        fail(`${pkgPath}.versions`, 'cannot compare malformed package history');
+        continue;
+      }
+      const withParsed = (entries) => entries
+        .filter((entry) => isObject(entry))
+        .map((entry) => ({ entry, parsed: parseExtendedVersion(entry.version) }))
+        .filter(({ parsed }) => parsed);
+      const before = withParsed(previousPackage.versions);
+      const after = withParsed(currentPackage.versions);
+      for (const prerelease of [false, true]) {
+        const channel = prerelease ? 'pre-release' : 'stable';
+        const published = before.filter(({ parsed }) => parsed.prerelease === prerelease);
+        const listed = after.filter(({ parsed }) => parsed.prerelease === prerelease);
+        const survivors = [];
+        const dropped = [];
+        for (const old of published) {
+          const versionPath = `${pkgPath}.versions[version=${JSON.stringify(old.entry.version)}]`;
+          const kept = listed.find(({ entry }) => entry.version === old.entry.version);
+          if (!kept) {
+            dropped.push(old);
+          } else {
+            survivors.push(old);
+            if (!historyEntriesEqual(old.entry, kept.entry)) {
+              fail(versionPath, 'previously published version facts are immutable');
+            }
+          }
+        }
+        const oldestSurvivor = survivors.reduce(
+          (oldest, candidate) =>
+            !oldest || compareVersions(candidate.parsed, oldest.parsed) < 0 ? candidate : oldest,
+          null,
+        );
+        for (const old of dropped) {
+          if (oldestSurvivor && compareVersions(old.parsed, oldestSurvivor.parsed) > 0) {
+            fail(
+              `${pkgPath}.versions[version=${JSON.stringify(old.entry.version)}]`,
+              `only the oldest ${channel} versions may be dropped; ${JSON.stringify(oldestSurvivor.entry.version)} is older and still listed`,
+            );
+          }
+        }
+        const newestPublished = published.reduce(
+          (newest, candidate) =>
+            !newest || compareVersions(candidate.parsed, newest.parsed) > 0 ? candidate : newest,
+          null,
+        );
+        if (!newestPublished) {
+          continue;
+        }
+        for (const added of listed) {
+          if (published.some(({ entry }) => entry.version === added.entry.version)) {
+            continue;
+          }
+          if (compareVersions(added.parsed, newestPublished.parsed) <= 0) {
+            fail(
+              `${pkgPath}.versions[version=${JSON.stringify(added.entry.version)}]`,
+              `a new ${channel} version must be newer than the newest published one ${JSON.stringify(newestPublished.entry.version)}`,
+            );
+          }
+        }
+      }
+    }
+  }
+}
+
 function validateCatalog(catalog) {
   if (!requireObject(catalog, '$')) {
     return [];
+  }
+  for (const key of Object.keys(catalog)) {
+    if (!CATALOG_KEYS.has(key)) {
+      fail(`$.${key}`, 'is not a known catalog field');
+    }
   }
   if (catalog.schema !== 1) {
     fail('$.schema', 'must be 1');
@@ -530,6 +814,12 @@ function validateCatalog(catalog) {
   // launchers read only apps and content and ignore this key.
   if ('themes' in catalog && !Array.isArray(catalog.themes)) {
     fail('$.themes', 'must be an array when present');
+    return [];
+  }
+  // Optional like content[] and themes[]: only launchers that understand the
+  // extended version grammar read it.
+  if ('apps_v2' in catalog && !Array.isArray(catalog.apps_v2)) {
+    fail('$.apps_v2', 'must be an array when present');
     return [];
   }
 
@@ -688,7 +978,8 @@ function validateCatalog(catalog) {
         const mirror = isContent
           ? validatedVersions.reduce(
               (newest, candidate) =>
-                !newest || compareVersions(candidate.entry.version, newest.entry.version) > 0
+                candidate.parsed &&
+                (!newest || compareVersions(candidate.parsed, newest.parsed) > 0)
                   ? candidate
                   : newest,
               null,
@@ -726,6 +1017,11 @@ function validateCatalog(catalog) {
   if (Array.isArray(catalog.themes)) {
     catalog.themes.forEach((theme, themeIndex) => {
       validateTheme(theme, `$.themes[${themeIndex}]`, ids, artifacts);
+    });
+  }
+  if (Array.isArray(catalog.apps_v2)) {
+    catalog.apps_v2.forEach((app, appIndex) => {
+      validateAppsV2(app, `$.apps_v2[${appIndex}]`, ids, artifacts);
     });
   }
   return artifacts;
@@ -795,6 +1091,12 @@ function validateRuntimeManifest(archivePath, record) {
     fail(record.path, `${manifestPath} is not valid JSON: ${error.message}`);
     return;
   }
+  checkManifestFacts(manifest, record, manifestPath);
+}
+
+// What the catalog says about a version must be what the package says about
+// itself: devices compare these strings exactly before they promote an install.
+function checkManifestFacts(manifest, record, manifestPath) {
   if (manifest.pak_version !== record.version) {
     fail(
       record.path,
@@ -814,7 +1116,59 @@ function validateRuntimeManifest(archivePath, record) {
   if (record.isContent && !declaresProvides) {
     fail(record.path, `${manifestPath} must declare a provides object for content[]`);
   } else if (!record.isContent && Object.hasOwn(manifest, 'provides')) {
-    fail(record.path, `${manifestPath} must not declare provides for apps[]`);
+    fail(record.path, `${manifestPath} must not declare provides for ${record.lane === 'apps_v2' ? 'apps_v2[]' : 'apps[]'}`);
+  }
+}
+
+// apps_v2 artifacts come from upstream release pipelines we don't run, so the
+// whole archive is checked against what the device's installer will do with
+// it, not just the manifest.
+async function validateAppsV2Archive(archivePath, record) {
+  const manifestPath = `${record.installName}/pak.json`;
+  let entries;
+  try {
+    entries = await inspectZip(archivePath);
+  } catch (error) {
+    fail(record.path, `archive could not be read: ${error.message}`);
+    return;
+  }
+  const layout = checkPakLayout(entries, record.installName);
+  for (const problem of layout.problems) {
+    fail(record.path, `archive layout: ${problem}`);
+  }
+  if (layout.installedSize !== record.artifact.installed_size) {
+    fail(
+      `${record.path}.installed_size`,
+      `archive unpacks to ${layout.installedSize} bytes, catalog says ${record.artifact.installed_size}`,
+    );
+  }
+  if (!layout.manifest) {
+    return;
+  }
+  let manifest;
+  try {
+    const bytes = await readZipEntry(archivePath, layout.manifest, MAX_MANIFEST_BYTES);
+    manifest = JSON.parse(bytes.toString('utf8'));
+  } catch (error) {
+    fail(record.path, `${manifestPath} could not be read: ${error.message}`);
+    return;
+  }
+  if (!isObject(manifest)) {
+    fail(record.path, `${manifestPath} must be a JSON object`);
+    return;
+  }
+  checkManifestFacts(manifest, record, manifestPath);
+  if (manifest.platform !== record.platform) {
+    fail(
+      record.path,
+      `${manifestPath} platform ${JSON.stringify(manifest.platform)} does not match catalog ${JSON.stringify(record.platform)}`,
+    );
+  }
+  if (Object.hasOwn(manifest, 'id') && manifest.id !== record.appId) {
+    fail(
+      record.path,
+      `${manifestPath} id ${JSON.stringify(manifest.id)} does not match catalog ${JSON.stringify(record.appId)}`,
+    );
   }
 }
 
@@ -872,9 +1226,11 @@ function validateThemeArchive(archivePath, record) {
   }
 }
 
-function validateArchiveContents(archivePath, record) {
+async function validateArchiveContents(archivePath, record) {
   if (record.kind === 'theme') {
     validateThemeArchive(archivePath, record);
+  } else if (record.lane === 'apps_v2') {
+    await validateAppsV2Archive(archivePath, record);
   } else {
     validateRuntimeManifest(archivePath, record);
   }
@@ -915,7 +1271,7 @@ if (checkRemote && errors.length === 0) {
           fail(`${path}.sha256`, `remote sha256 ${remote.sha256} does not match catalog ${artifact.sha256}`);
         }
         if (remote.size === artifact.size && remote.sha256 === artifact.sha256.toLowerCase()) {
-          validateArchiveContents(destination, record);
+          await validateArchiveContents(destination, record);
         }
       } catch (error) {
         fail(`${path}.url`, `remote validation failed: ${error.message}`);
@@ -956,7 +1312,7 @@ if (archivePath && errors.length === 0) {
       }
       if (bytes.length === record.artifact.size &&
           sha256 === record.artifact.sha256.toLowerCase()) {
-        validateArchiveContents(archivePath, record);
+        await validateArchiveContents(archivePath, record);
       }
     } catch (error) {
       fail('$', `archive validation failed: ${error.message}`);

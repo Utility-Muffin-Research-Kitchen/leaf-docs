@@ -6,13 +6,19 @@ import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import {
+  compareVersions,
+  parseExtendedVersion,
+  parseStrictVersion,
+} from './lib/pakrat-version.mjs';
 
 const validator = new URL('./validate-pakrat-catalog.mjs', import.meta.url);
 const catalogPath = new URL('../public/pakrat/v1/storefront.json', import.meta.url);
 const source = JSON.parse(await readFile(catalogPath, 'utf8'));
 // The app and content cases count artifacts, so they start from the live
-// catalog without its themes lane; the theme cases below set their own.
+// catalog without its themes and apps_v2 lanes; those cases set their own.
 delete source.themes;
+delete source.apps_v2;
 const temp = await mkdtemp(join(tmpdir(), 'leaf-pakrat-validator-'));
 
 function run(path, remote = false, previousPath = null, archivePath = null, env = process.env) {
@@ -891,6 +897,301 @@ try {
     'THEME-1 check could not run',
     { ...process.env, LEAF_CONTRACTS_DIR: join(temp, 'no-leaf-contracts') },
   );
+
+  // ---- apps_v2: extended versions and per-channel retention -------------
+
+  {
+    // The grammars themselves, before any catalog. Grout's real tags are the
+    // reason the extended grammar exists.
+    const accepted = ['5.4.0', '5.4.0.0', '4.9.0-beta.4', '4.8.1.1-beta.7', '1.0.0-rc.0', '9999.0.0.9999'];
+    const rejected = [
+      'v5.4.0.0', '5.4', '5.4.0.0.0', '05.4.0', '5.04.0', '5.4.0-beta', '5.4.0-beta.01',
+      '5.4.0-Beta.1', '5.4.0-dev.1', '5.4.0+b', '5.4.0-beta.1.2', '10000.0.0', '5.4.0 ', '',
+    ];
+    for (const value of accepted) {
+      if (!parseExtendedVersion(value)) {
+        throw new Error(`extended grammar rejected ${JSON.stringify(value)}`);
+      }
+    }
+    for (const value of [...rejected, null, 5]) {
+      if (parseExtendedVersion(value)) {
+        throw new Error(`extended grammar accepted ${JSON.stringify(value)}`);
+      }
+    }
+    for (const value of ['5.4.0.0', '4.9.0-beta.4', '4.8.1.1-beta.7']) {
+      if (parseStrictVersion(value)) {
+        throw new Error(`strict grammar accepted ${JSON.stringify(value)}`);
+      }
+    }
+    const chain = [
+      '4.8.1.1-beta.7', '4.8.1.1', '4.9.0-alpha.1', '4.9.0-beta.2', '4.9.0-beta.10',
+      '4.9.0-rc.1', '4.9.0', '4.9.0.1',
+    ].map(parseExtendedVersion);
+    for (let index = 1; index < chain.length; index += 1) {
+      if (compareVersions(chain[index - 1], chain[index]) >= 0) {
+        throw new Error(`version order broken at position ${index}`);
+      }
+    }
+    if (compareVersions(parseExtendedVersion('4.9.0'), parseExtendedVersion('4.9.0.0')) !== 0) {
+      throw new Error('4.9.0 and 4.9.0.0 must compare equal');
+    }
+    console.log('PASS apps-v2-grammar');
+  }
+
+  // Derived from the version alone, so one version has identical facts in
+  // every catalog a case builds.
+  const groutArtifact = (version) => {
+    const sha256 = createHash('sha256').update(`grout-${version}`).digest('hex');
+    const seed = parseInt(sha256.slice(0, 4), 16);
+    return {
+      url: `https://github.com/rommapp/grout/releases/download/v${version}/Grout-Leaf.zip`,
+      name: 'Grout-Leaf.zip',
+      archive: 'zip',
+      size: 24000000 + seed,
+      installed_size: 49000000 + seed,
+      sha256,
+    };
+  };
+
+  // Versions newest first. The legacy fields mirror the newest stable one.
+  const groutEntry = (versions = ['5.4.0.0']) => {
+    const entries = versions.map((version) => ({
+      version,
+      artifact: groutArtifact(version),
+    }));
+    const stable = entries.find((entry) => !entry.version.includes('-')) ?? entries[0];
+    return {
+      id: 'org.rommapp.grout',
+      name: 'Grout',
+      summary: 'Browse your RomM library and download games.',
+      author: 'The RomM Team',
+      repo_url: 'https://github.com/rommapp/grout',
+      version: stable.version,
+      packages: [{
+        platform: 'mlp1',
+        runtime: 'leaf',
+        version: stable.version,
+        install_name: 'Grout.pak',
+        runtime_manifest_path: 'pak.json',
+        artifact: structuredClone(stable.artifact),
+        versions: entries,
+      }],
+    };
+  };
+  const catalogWithGrout = (versions) => {
+    const catalog = structuredClone(source);
+    catalog.apps_v2 = [groutEntry(versions)];
+    return catalog;
+  };
+  const withGrout = (versions, mutate) => (catalog) => {
+    catalog.apps_v2 = [groutEntry(versions)];
+    mutate(catalog.apps_v2[0], catalog.apps_v2[0].packages[0], catalog);
+  };
+
+  await expectAccepted('apps-v2-valid', catalogWithGrout(['5.5.0-beta.1', '5.4.0.0', '5.3.1.4']));
+  await expectAccepted('apps-v2-three-part', catalogWithGrout(['5.4.0']));
+  {
+    const catalog = catalogWithGrout(['5.4.0.0']);
+    const pkg = catalog.apps_v2[0].packages[0];
+    pkg.versions[0].min_leaf_version = '0.14.0';
+    pkg.min_leaf_version = '0.14.0';
+    await expectAccepted('apps-v2-gated', catalog);
+  }
+
+  await expectRejected('apps-v2-not-an-array', (catalog) => {
+    catalog.apps_v2 = {};
+  }, '$.apps_v2: must be an array when present');
+  await expectRejected('catalog-unknown-key', (catalog) => {
+    catalog.apps_v3 = [];
+  }, '$.apps_v3: is not a known catalog field');
+  for (const bad of ['v5.4.0.0', '05.4.0', '5.4.0-Beta.1', '5.4.0.0.0', '5.4.0-dev.1', '10000.0.0']) {
+    await expectRejected(`apps-v2-grammar-${bad}`, withGrout(['5.4.0.0'], (app, pkg) => {
+      pkg.versions[0].version = bad;
+    }), 'must be MAJOR.MINOR.PATCH[.BUILD][-(alpha|beta|rc).N]');
+  }
+  await expectRejected('apps-v2-equal-spellings', withGrout(['5.4.0.0', '5.4.0'], () => {}),
+    '"5.4.0" compares equal to "5.4.0.0"');
+  await expectRejected('apps-v2-order', withGrout(['5.3.1.4', '5.4.0.0'], () => {}),
+    'versions must be strictly descending newest-first');
+  await expectRejected('apps-v2-no-stable', withGrout(['5.5.0-beta.1'], () => {}),
+    'must contain at least one stable version');
+  await expectRejected('apps-v2-mirror-beta', withGrout(['5.5.0-beta.1', '5.4.0.0'], (app, pkg) => {
+    app.version = '5.5.0-beta.1';
+    pkg.version = '5.5.0-beta.1';
+    pkg.artifact = structuredClone(pkg.versions[0].artifact);
+  }), 'must match newest stable version "5.4.0.0"');
+  await expectRejected('apps-v2-mirror-artifact', withGrout(['5.4.0.0', '5.3.1.4'], (app, pkg) => {
+    pkg.artifact = structuredClone(pkg.versions[1].artifact);
+  }), 'must exactly match newest-stable artifact');
+  await expectRejected('apps-v2-mirror-gate', withGrout(['5.4.0.0'], (app, pkg) => {
+    pkg.versions[0].min_leaf_version = '0.14.0';
+  }), "must mirror the newest stable version's gate");
+  await expectRejected('apps-v2-version-unknown-key', withGrout(['5.4.0.0'], (app, pkg) => {
+    pkg.versions[0].prerelease = false;
+  }), 'is not an apps_v2 version field');
+  await expectRejected('apps-v2-manifest-path', withGrout(['5.4.0.0'], (app, pkg) => {
+    pkg.runtime_manifest_path = 'leaf/pak.json';
+  }), 'runtime_manifest_path: must be "pak.json"');
+  await expectRejected('apps-v2-gate-grammar', withGrout(['5.4.0.0'], (app, pkg) => {
+    pkg.versions[0].min_leaf_version = '0.14.0.0';
+    pkg.min_leaf_version = '0.14.0.0';
+  }), 'must be a bare MAJOR.MINOR.PATCH version');
+  await expectRejected('apps-v2-versions-missing', withGrout(['5.4.0.0'], (app, pkg) => {
+    delete pkg.versions;
+  }), 'versions: must be a non-empty array');
+  await expectRejected('apps-v2-too-long', withGrout(
+    Array.from({ length: 17 }, (_, index) => `5.4.0.${16 - index}`), () => {},
+  ), 'must contain at most 16 entries');
+  await expectRejected('apps-v2-id-shared-with-app', withGrout(['5.4.0.0'], (app, pkg, catalog) => {
+    app.id = catalog.apps[0].id;
+  }), 'an id may appear in exactly one lane');
+  await expectRejected('apps-v2-id-shared-with-theme', withGrout(['5.4.0.0'], (app, pkg, catalog) => {
+    catalog.themes = [themeEntry()];
+    app.id = catalog.themes[0].id;
+  }), 'an id may appear in exactly one lane');
+  await expectRejected('apps-lane-still-strict', (catalog) => {
+    catalog.apps[0].version = '5.4.0.0';
+    catalog.apps[0].packages[0].version = '5.4.0.0';
+  }, 'must be a bare MAJOR.MINOR.PATCH version');
+
+  {
+    // The newest content version is picked by comparing versions, not text:
+    // "0.10.0" is newer than "0.9.0" even though "1" sorts before "9".
+    const catalog = structuredClone(source);
+    const entry = asContentPackage(catalog);
+    const pkg = entry.packages[0];
+    const older = structuredClone(pkg.versions[0]);
+    older.version = '0.9.0';
+    older.artifact.sha256 = '2'.repeat(64);
+    entry.version = '0.10.0';
+    pkg.version = '0.10.0';
+    pkg.versions = [{ ...structuredClone(pkg.versions[0]), version: '0.10.0' }, older];
+    catalog.content = [entry];
+    await expectAccepted('content-mirror-compares-versions', catalog);
+  }
+
+  // Retention: each channel keeps a window of its newest versions.
+  const groutHistory = (previousVersions, currentVersions) =>
+    [catalogWithGrout(currentVersions), catalogWithGrout(previousVersions)];
+  await expectAccepted('apps-v2-add-stable',
+    ...groutHistory(['5.4.0.0'], ['5.4.1.0', '5.4.0.0']));
+  await expectAccepted('apps-v2-trim-oldest',
+    ...groutHistory(['5.4.1.0', '5.4.0.0', '5.3.1.4'], ['5.4.1.0', '5.4.0.0']));
+  await expectAccepted('apps-v2-stable-after-newer-beta',
+    ...groutHistory(['5.5.0-beta.1', '5.4.0.0'], ['5.5.0-beta.1', '5.4.1.0', '5.4.0.0']));
+  await expectAccepted('apps-v2-drop-superseded-betas',
+    ...groutHistory(['5.5.0-beta.2', '5.5.0-beta.1', '5.4.0.0'], ['5.5.0.0', '5.4.0.0']));
+  await expectImmutableRejected('apps-v2-drop-not-oldest',
+    ...groutHistory(['5.4.1.0', '5.4.0.0', '5.3.1.4'], ['5.4.1.0', '5.3.1.4']),
+    'only the oldest stable versions may be dropped');
+  await expectImmutableRejected('apps-v2-readd-trimmed',
+    ...groutHistory(['5.4.1.0', '5.4.0.0'], ['5.4.1.0', '5.4.0.0', '5.3.1.4']),
+    'a new stable version must be newer than the newest published one "5.4.1.0"');
+  await expectImmutableRejected('apps-v2-older-beta',
+    ...groutHistory(['5.5.0-beta.2', '5.4.0.0'], ['5.5.0-beta.2', '5.5.0-beta.1', '5.4.0.0']),
+    'a new pre-release version must be newer than the newest published one "5.5.0-beta.2"');
+  await expectImmutableRejected('apps-v2-respelled',
+    ...groutHistory(['5.4.0.0'], ['5.4.0']),
+    'a new stable version must be newer than the newest published one "5.4.0.0"');
+  {
+    const [current, previous] = groutHistory(['5.4.0.0'], ['5.4.0.0']);
+    current.apps_v2[0].packages[0].versions[0].artifact.sha256 = '3'.repeat(64);
+    current.apps_v2[0].packages[0].artifact.sha256 = '3'.repeat(64);
+    await expectImmutableRejected('apps-v2-facts-immutable', current, previous,
+      'previously published version facts are immutable');
+  }
+  {
+    const previous = catalogWithGrout(['5.4.0.0']);
+    const current = structuredClone(source);
+    await expectImmutableRejected('apps-v2-app-removed', current, previous,
+      'previously published app must not be removed or change lanes');
+  }
+
+  // Archives: the whole pak is checked, the way the device will unpack it.
+  const writeGroutArchive = async (name, {
+    manifest = { name: 'Grout', platform: 'mlp1', pak_version: '5.4.0.0' },
+    launchMode = 0o755,
+    symlink = false,
+    stray = false,
+    installedSizeDelta = 0,
+  } = {}) => {
+    const root = join(temp, `${name}-grout-root`);
+    const pakRoot = join(root, 'Grout.pak');
+    await mkdir(join(pakRoot, 'lib'), { recursive: true });
+    await writeFile(join(pakRoot, 'launch.sh'), '#!/bin/sh\nexec ./grout\n', { mode: launchMode });
+    spawnSync('chmod', [launchMode.toString(8), join(pakRoot, 'launch.sh')]);
+    await writeFile(join(pakRoot, 'pak.json'), `${JSON.stringify(manifest)}\n`, 'utf8');
+    await writeFile(join(pakRoot, 'lib', 'libSDL2_gfx-1.0.so.0'), 'x'.repeat(4096), 'utf8');
+    const members = ['Grout.pak'];
+    if (symlink) {
+      spawnSync('ln', ['-s', '/etc/passwd', join(pakRoot, 'passwd')]);
+    }
+    if (stray) {
+      await writeFile(join(root, 'README.md'), 'stray\n', 'utf8');
+      members.push('README.md');
+    }
+    const archive = join(temp, `${name}.zip`);
+    const zipped = spawnSync('zip', ['-q', '-r', '-X', '-y', archive, ...members], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    if (zipped.status !== 0) {
+      throw new Error(`${name}: zip failed: ${zipped.stderr}`);
+    }
+    const listing = spawnSync('zipinfo', ['-l', archive], { encoding: 'utf8' });
+    const installedSize = listing.stdout.split('\n')
+      .filter((line) => /^[-l]/.test(line))
+      .reduce((total, line) => total + Number(line.trim().split(/\s+/)[3]), 0);
+    const bytes = await readFile(archive);
+    const catalog = structuredClone(source);
+    catalog.apps = [];
+    delete catalog.content;
+    catalog.apps_v2 = [groutEntry(['5.4.0.0'])];
+    const pkg = catalog.apps_v2[0].packages[0];
+    const artifact = {
+      ...pkg.artifact,
+      size: bytes.length,
+      installed_size: installedSize + installedSizeDelta,
+      sha256: createHash('sha256').update(bytes).digest('hex'),
+    };
+    pkg.artifact = structuredClone(artifact);
+    pkg.versions[0].artifact = structuredClone(artifact);
+    const path = join(temp, `${name}-catalog.json`);
+    await writeFile(path, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8');
+    return { archive, path };
+  };
+  const expectGroutArchive = async (name, options, expected) => {
+    const { archive, path } = await writeGroutArchive(name, options);
+    const result = run(path, false, null, archive);
+    const output = `${result.stdout}\n${result.stderr}`;
+    if (expected === null ? result.status !== 0 : result.status === 0 || !output.includes(expected)) {
+      throw new Error(`${name}: expected ${expected === null ? 'acceptance' : JSON.stringify(expected)} in:\n${output}`);
+    }
+    console.log(`PASS ${name}`);
+  };
+
+  await expectGroutArchive('apps-v2-archive-valid', {}, null);
+  await expectGroutArchive('apps-v2-archive-as-shipped', {
+    // Grout v5.4.0.0's Leaf manifest: version with a v, no pak_version.
+    manifest: { name: 'Grout', version: 'v5.4.0.0', platform: 'mlp1', type: 'TOOL' },
+  }, 'pak_version undefined does not match catalog "5.4.0.0"');
+  await expectGroutArchive('apps-v2-archive-not-executable', { launchMode: 0o644 },
+    'Grout.pak/launch.sh is not executable in the archive');
+  await expectGroutArchive('apps-v2-archive-symlink', { symlink: true },
+    '"Grout.pak/passwd" is a symlink');
+  await expectGroutArchive('apps-v2-archive-stray-file', { stray: true },
+    '"README.md" is outside the single top folder "Grout.pak"');
+  await expectGroutArchive('apps-v2-archive-installed-size', { installedSizeDelta: 1 },
+    'installed_size: archive unpacks to');
+  await expectGroutArchive('apps-v2-archive-platform', {
+    manifest: { name: 'Grout', platform: 'tg5040', pak_version: '5.4.0.0' },
+  }, 'pak.json platform "tg5040" does not match catalog "mlp1"');
+  await expectGroutArchive('apps-v2-archive-id', {
+    manifest: { name: 'Grout', platform: 'mlp1', pak_version: '5.4.0.0', id: 'grout' },
+  }, 'pak.json id "grout" does not match catalog "org.rommapp.grout"');
+  await expectGroutArchive('apps-v2-archive-provides', {
+    manifest: { name: 'Grout', platform: 'mlp1', pak_version: '5.4.0.0', provides: {} },
+  }, 'must not declare provides for apps_v2[]');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

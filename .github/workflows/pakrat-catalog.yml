@@ -8,6 +8,7 @@ on:
       - public/pakrat/**
       - scripts/validate-pakrat-catalog.mjs
       - scripts/validate-pakrat-catalog-test.mjs
+      - scripts/lib/**
       - scripts/theme-archive-check.py
       - .github/workflows/pakrat-catalog.yml
 

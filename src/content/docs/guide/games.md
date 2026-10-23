@@ -186,7 +186,7 @@ These are the accepted game-file formats per folder:
 | `VECTREX` | `.bin`, `.vec`, `.7z`, `.zip` |  |
 | `PICO8` | `.p8`, `.png` |  |
 | `DOS` | `.bat`, `.com`, `.conf`, `.dosz`, `.exe`, `.ima`, `.img`, `.ins`, `.iso`, `.jrc`, `.tc`, `.vhd`, `.zip`, `.m3u`, `.m3u8` |  |
-| `EASYRPG` | `.easyrpg`, `.ldb`, `.zip` | `RPG_RT.ldb` is the expected project entry file |
+| `EASYRPG` | `.easyrpg`, `.ldb`, `.zip` | One folder per game, launched through its `RPG_RT.ldb`; see [RPG Maker 2000 and 2003 games](#rpg-maker-2000-and-2003-games) |
 | `ARCADE` | `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
 | `PORTS` | `.sh` |  |
 | `MAME` | `.zip` | Optional advanced folder for MAME 03+ sets |
@@ -277,6 +277,65 @@ Leaf deliberately does not list `.ipf`, loose `.slave`, or loose `.info` files.
 IPF needs a separately packaged CAPSIMG library that this release does not ship;
 preinstalled WHDLoad games should remain in `.lha` archives.
 
+### RPG Maker 2000 and 2003 games
+
+**EasyRPG Player** runs games made with RPG Maker 2000 and 2003 from
+`Roms/EASYRPG/`. An RPG Maker game is a whole folder of files rather than one
+file, so give each game its own folder and copy the folder across as it is:
+
+```text
+Roms/EASYRPG/Yume Nikki/RPG_RT.ldb
+Roms/EASYRPG/Yume Nikki/RPG_RT.lmt
+Roms/EASYRPG/Yume Nikki/Map0001.lmu
+Roms/EASYRPG/Yume Nikki/CharSet/
+...
+```
+
+Leaf lists the game under its folder name, so name the folder after the game.
+It launches the game through `RPG_RT.ldb`, which has to stay in that folder with
+the rest of the game's files. Don't rename it.
+
+Your progress from the game's own save menu is written into the game's folder,
+next to `RPG_RT.ldb` (`Save01.lsd` and so on). Keep those files if you replace
+the folder with a newer version of the game. EasyRPG has no save states, so the
+in-game menu has none to save or load.
+
+A game packed as a `.zip`, or as an `.easyrpg` file, also works as a single file
+in `Roms/EASYRPG/`, and is listed under its filename. EasyRPG can't write inside
+those, so the game saves to a folder next to it instead, such as
+`Yume Nikki.zip.save`. Prefer a folder or a `.zip`: ScreenScraper rarely
+recognizes `.easyrpg` names, so those games seldom get box art.
+
+For box art, name the image after the folder: `Images/EASYRPG/Yume Nikki.png`.
+**Scrape Artwork** searches ScreenScraper by the folder name too, so a folder
+named with the game's plain title finds its art most often.
+
+#### The RPG Maker RTP
+
+Many RPG Maker games rely on the **RTP** (Run Time Package), the shared graphics,
+music, and sound that RPG Maker installed on the player's PC. A game that ships
+all of its own files doesn't need it. Without the RTP, a game that does need it
+shows blank graphics, plays without music, or stops with an error about a missing
+file.
+
+The RTP isn't included with Leaf. Install the RPG Maker 2000 or 2003 RTP on a
+Windows PC, then copy the folders it installs (`Backdrop`, `Battle`, `CharSet`,
+`ChipSet`, `Music`, `Sound`, and the rest) into a folder named after its version
+in `BIOS/rtp/`:
+
+```text
+BIOS/rtp/2000/CharSet/
+BIOS/rtp/2000/Music/
+...
+BIOS/rtp/2003/CharSet/
+BIOS/rtp/2003/Music/
+...
+```
+
+EasyRPG works out which version a game was made with and looks in the matching
+folder, so you can keep both. Games on a second SD card use that card's `BIOS/`
+folder, so give that card its own copy.
+
 A system appears in the launcher once its emulator core is available on the
 device. If a folder's system isn't showing up, its core may not be installed;
 see [BIOS & cores](/guide/bios-and-cores/).
@@ -317,7 +376,8 @@ You can add box art two ways: drop it in yourself, or let Leaf fetch it.
 **Add it yourself.** Name each image to match its game file (same name, image
 extension) and place it in `Images/<SYSTEM>/`. For `Roms/SNES/Chrono Trigger.sfc`,
 use `Images/SNES/Chrono Trigger.png`. Leaf pairs them up automatically and shows
-the art in the game list.
+the art in the game list. An RPG Maker game is named after its folder instead, so
+`Roms/EASYRPG/Yume Nikki/` uses `Images/EASYRPG/Yume Nikki.png`.
 
 Your art can be PNG or JPEG (`.png`, `.jpg`, or `.jpeg`), and the extension's
 case doesn't matter: `.jpg`, `.JPG`, and `.JpG` all work. If a game has more than
@@ -354,6 +414,10 @@ Amiga scraping follows the same pattern. Leaf tries the general Amiga catalog,
 then AGA, CDTV, and CD32, stopping on the first match. You keep one
 `Images/AMIGA/` artwork folder and do not need to choose the hardware family by
 hand.
+
+An RPG Maker game in its own folder is searched by the folder's name, and its art
+is saved under that name in `Images/EASYRPG/`. See
+[RPG Maker 2000 and 2003 games](#rpg-maker-2000-and-2003-games).
 
 ## Options menu
 

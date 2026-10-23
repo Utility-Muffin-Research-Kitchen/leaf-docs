@@ -339,6 +339,16 @@ Systems** plus each system with its missing-art count. Fetched art lands in
 as soon as each download finishes. Which image type and region it picks is set
 under **Settings → Games** (Artwork Priority and Region Priority).
 
+**When a game isn't found.** Leaf looks a game up by its file name, so a file
+ScreenScraper doesn't know, such as `smb.nes` or a fan translation with a name
+of its own, can come back with no art. Set the game's real title with **Display
+Name** in its [Options menu](/guide/games/#options-menu), then scrape it again.
+If the file name still isn't found, Leaf tries the name you set, once. It
+doesn't guess at a close match, so if ScreenScraper doesn't recognize that name
+either, the game stays without art. Only a name you set yourself is tried, and
+the art is still saved under the file's name (`smb.png`), so it keeps pairing
+with the game.
+
 PC-98, Atomiswave, and the complete Naomi family are supported by live scraping.
 For a Naomi title, Leaf tries the base Naomi catalog first, then Naomi GD-ROM,
 then Naomi 2. It computes the game hash once and stops as soon as the correct
@@ -360,7 +370,8 @@ hand.
 Press **X** on a game or a system in the launcher to open its **Options** menu.
 This is where per-item actions live, so they stay out of the main list:
 
-- **Display Name** - rename how the game or system shows in the launcher.
+- **Display Name** - rename how the game or system shows in the launcher. When
+  scraping can't find a game by its file name, it tries this name too.
 - **Core** - choose which emulator core runs this game or system, when more than
   one is available.
 - **Saturn BIOS** - appears only when **YabaSanshiro Standalone** is the emulator

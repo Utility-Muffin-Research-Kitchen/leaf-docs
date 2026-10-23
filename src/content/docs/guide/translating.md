@@ -83,8 +83,12 @@ current file for each one:
 })();
 </script>
 
-Those files are the live ones. Start from the language's own file rather than
-the template if it already exists, so you keep the work already done.
+Those files are the live ones, and each one lists every string in the template.
+Anything nobody has translated yet is there with an empty `msgstr ""`, so to
+finish a language, download its file from the table and fill in the empty lines.
+Start from a fresh copy each time, since every new string Leaf gains is added to
+every file. If you are partway through an older copy, Poedit's **Translation >
+Update from POT File** with `leaf.pot` brings in the strings added since.
 
 ## Starting a language
 

@@ -203,10 +203,22 @@ containing one.
 
 [DSperate](https://github.com/beebono/DSperate), by
 [beebono](https://github.com/beebono), is an independent Nintendo DS emulator.
-Install the [DSperate content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/tag/v3.0.3)
-through Pak Rat on Leaf 0.12.0 or newer. On MLP1, it adds another core for the
-same Nintendo DS system. Choose **DSperate** in the system's or game's **Core**
-setting. It keeps your saves separate from both DraStic front ends.
+Install the [DSperate content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/tag/v3.0.5)
+through Pak Rat on Leaf 0.12.0 or newer. On MLP1, it adds two more cores for
+the same Nintendo DS system: **DSperate** and **DSperate TATE**. Choose one in
+the system's or game's **Core** setting. DSperate keeps your saves separate
+from both DraStic front ends.
+
+**DSperate TATE** stacks the two screens down the long side of the screen, so
+they're about a third bigger. Turn the MLP1 a quarter clockwise, with the d-pad
+at the top: the d-pad, face buttons and stick turn with it. TATE uses
+DSperate's saves, save states and settings, so you can switch between the two
+in the middle of a game. It doesn't use the RetroAchievements account saved in
+Leaf yet; plain DSperate does.
+
+To play TATE on a TV, turn the TV a quarter clockwise instead and hold the MLP1
+as usual. This needs Leaf 0.14 or newer. On Leaf 0.12 and 0.13, TATE can't
+tell it's on a TV, so it turns the controls there too.
 
 DSperate reads `.nds` and `.zip` files. Launching a `.7z` shows a warning:
 extract it to `.nds`, or choose another Nintendo DS emulator.

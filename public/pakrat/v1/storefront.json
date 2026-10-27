@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20261026T211153Z",
-  "generated_at": "2026-10-26T21:11:53Z",
+  "catalog_revision": "prod-20261027T201222Z",
+  "generated_at": "2026-10-27T20:12:22Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -500,31 +500,43 @@
       "id": "org.umrk.dsperate",
       "name": "DSperate",
       "summary": "An optional Nintendo DS standalone emulator, selectable per system or per game.",
-      "description": "Adds DSperate, a standalone Nintendo DS emulator, as an alternate core for the existing Nintendo DS system. There is no app to open and no new tile: installing this pak adds DSperate to the Nintendo DS core picker, and you choose it per system or per game. DraStic stays the default, and your existing DraStic choices keep working. DSperate keeps its own saves and save states, separate from DraStic's. On Leaf 0.12.0-beta.6 or newer it signs in to RetroAchievements with the account saved in Leaf.",
+      "description": "Adds DSperate, a standalone Nintendo DS emulator, as an alternate core for the existing Nintendo DS system. There is no app to open and no new tile: installing this pak adds DSperate to the Nintendo DS core picker, and you choose it per system or per game. DraStic stays the default, and your existing DraStic choices keep working. DSperate keeps its own saves and save states, separate from DraStic's. It also adds DSperate TATE, which stacks the two screens down the long side for playing with the MLP1 or a TV turned on its side. On Leaf 0.12.0-beta.6 or newer it signs in to RetroAchievements with the account saved in Leaf.",
       "author": "Utility Muffin Research Kitchen",
       "repo_url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak",
       "categories": [
         "emulation",
         "content"
       ],
-      "version": "3.0.3",
+      "version": "3.0.5",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "3.0.3",
+          "version": "3.0.5",
           "min_leaf_version": "0.12.0",
           "install_name": "DSperate.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v3.0.3/DSperate.mlp1.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v3.0.5/DSperate.mlp1.pak.zip",
             "name": "DSperate.mlp1.pak.zip",
             "archive": "zip",
-            "size": 3341424,
-            "installed_size": 4980942,
-            "sha256": "bb86f3ecc6e54447a0079dac69c3a1edd1fb23e23576e40671f0e4d998dcddde"
+            "size": 3347780,
+            "installed_size": 5003743,
+            "sha256": "b4ee53fb5abd64c92dde882640ed615298bb4175a3765af446017820e65ef37e"
           },
           "versions": [
+            {
+              "version": "3.0.5",
+              "min_leaf_version": "0.12.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v3.0.5/DSperate.mlp1.pak.zip",
+                "name": "DSperate.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 3347780,
+                "installed_size": 5003743,
+                "sha256": "b4ee53fb5abd64c92dde882640ed615298bb4175a3765af446017820e65ef37e"
+              }
+            },
             {
               "version": "3.0.3",
               "min_leaf_version": "0.12.0",

@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20261027T201222Z",
-  "generated_at": "2026-10-27T20:12:22Z",
+  "catalog_revision": "prod-20261030T191338Z",
+  "generated_at": "2026-10-30T19:13:38Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -588,24 +588,36 @@
         "emulation",
         "content"
       ],
-      "version": "0.3.1",
+      "version": "0.4.0",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.3.1",
+          "version": "0.4.0",
           "min_leaf_version": "0.13.0",
           "install_name": "Yabadabadoo.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Yabadabadoo-pak/releases/download/v0.3.1/Yabadabadoo.mlp1.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/Yabadabadoo-pak/releases/download/v0.4.0/Yabadabadoo.mlp1.pak.zip",
             "name": "Yabadabadoo.mlp1.pak.zip",
             "archive": "zip",
-            "size": 33203584,
-            "installed_size": 70967460,
-            "sha256": "924c56aae284327bb563f54d26bdacbd569850c707348c161f5d2698ac89c305"
+            "size": 33253352,
+            "installed_size": 71066284,
+            "sha256": "095467cc9ea5d8b9b8d46dfb465a86cd389601221e1de278f47ba987c51ab272"
           },
           "versions": [
+            {
+              "version": "0.4.0",
+              "min_leaf_version": "0.13.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/Yabadabadoo-pak/releases/download/v0.4.0/Yabadabadoo.mlp1.pak.zip",
+                "name": "Yabadabadoo.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 33253352,
+                "installed_size": 71066284,
+                "sha256": "095467cc9ea5d8b9b8d46dfb465a86cd389601221e1de278f47ba987c51ab272"
+              }
+            },
             {
               "version": "0.3.1",
               "min_leaf_version": "0.13.0",

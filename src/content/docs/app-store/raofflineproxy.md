@@ -23,10 +23,19 @@ Pocket 1, but expect rough edges.
 
 ## Before you start
 
+Do these in order. The pak learns your account token from a game launched
+through it, so the service has to be on and Hardcore has to be off first.
+Nothing works offline until it has that token.
+
 1. Sign in to RetroAchievements under **Settings → Games → Accounts**.
-2. Launch one game **online**, so the pak learns your account token. Nothing
-   works offline until it has one.
+2. Turn off Hardcore. RetroArch turns it on by default. Start a RetroArch game,
+   open **MENU → RetroArch Settings → Settings → Achievements**, and turn off
+   **Hardcore Mode**. RetroArch restarts the game when you change this, so save
+   first. Then exit through **MENU → Save & Quit** so the setting is kept.
 3. Open RAOfflineProxy and turn the service on.
+4. With a network connection, launch a game that runs in RetroArch and let it
+   log in. Standalone emulators like N64, DraStic, and PPSSPP don't teach the
+   pak your token.
 
 ## Turning it on
 
@@ -41,9 +50,10 @@ Turn on both if you want it always available. Both are also in
 
 ## Preparing games for a trip
 
-Playing a game online caches it automatically. Anything you have *not* played
-online has nothing cached, so it will not have achievements offline. You
-usually find that out once you are already away from a network.
+Playing a game online with the service on and Hardcore off caches it
+automatically. Anything else has nothing cached, so it will not have
+achievements offline. You usually find that out once you are already away from
+a network.
 
 To prepare in advance:
 
@@ -87,8 +97,12 @@ You do not need to open the pak.
 
 ## If something looks wrong
 
-- **Nothing is cached for a game.** It was never played online and never
-  prepared. Prepare it while you have a network.
+- **The pak won't prepare a game and says it has no token, even though
+  achievements work online.** Your games are probably launching directly, which
+  happens when Hardcore is on or the service was off when you launched. Follow
+  [Before you start](#before-you-start) again, in order.
+- **Nothing is cached for a game.** It was never played online through the pak
+  and never prepared. Prepare it while you have a network.
 - **Achievements did not appear after reconnecting.** Open the pak; the flush
   happens on its own once connectivity returns, and the run status shows what
   is left.

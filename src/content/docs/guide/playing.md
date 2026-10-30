@@ -366,6 +366,24 @@ For software that needs two floppy drives populated at startup, use a
 [PC-98 `.cmd` launch file](/guide/games/#pc-98-games-that-need-multiple-disks-at-startup).
 Later disk changes can be made from RetroArch's **Disc Control** menu.
 
+## Pokémon mini (PokeMini)
+
+Pokémon mini games run through the PokeMini RetroArch core. The console's
+buttons map to the Pocket 1 like this:
+
+- **D-pad**, **A**, and **B** - the same buttons on the Pokémon mini.
+- **R1** - the **C** button.
+- **L1** - **Shake**, for games that react to you shaking the console, such as
+  nudging the table in Pokémon Pinball Mini.
+- **X** - **A** with turbo.
+- **SELECT** - the console's **Power** button. Pressing it switches the
+  emulated Pokémon mini off, which leaves a blank screen; press **SELECT**
+  again to switch it back on.
+
+The first time you start a game it asks you to set the clock, just as a
+new console did. The game keeps that, along with your progress, in its own
+save file in `Saves/PokeMini/`, which is written when you quit the game.
+
 ## Amiga (PUAE)
 
 Amiga games run through **PUAE 2021** in RetroArch by default. You can choose

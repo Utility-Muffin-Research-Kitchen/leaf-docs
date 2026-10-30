@@ -63,6 +63,7 @@ already have them, but new games and box art should go in the recommended folder
 | `NDS` | Nintendo DS |
 | `VB` | Virtual Boy |
 | `GW` | Game & Watch |
+| `POKEMINI` | Pokémon mini |
 
 **Sega**
 
@@ -132,6 +133,9 @@ Use that only when your set is built for that core; otherwise put arcade games
 in `Roms/ARCADE/`. The one exception is Neo Geo: FinalBurn Neo runs those too,
 but they belong in `Roms/NEOGEO/` so they get their own system in the launcher.
 
+Pokémon mini games go in `Roms/POKEMINI/`. If your collection comes from
+another handheld, a `Roms/POKE/` or `Roms/PKM/` folder works too.
+
 Naomi, Naomi GD-ROM, and Naomi 2 are one system in Leaf. Put content from all
 three hardware families in `Roms/NAOMI/`; do not create separate GD-ROM or
 Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
@@ -159,6 +163,7 @@ These are the accepted game-file formats per folder:
 | `NDS` | `.nds`, `.7z`, `.zip` |  |
 | `VB` | `.vb`, `.vboy`, `.7z`, `.zip` |  |
 | `GW` | `.mgw`, `.7z`, `.zip` |  |
+| `POKEMINI` | `.min`, `.7z`, `.zip` | A `bios.min` here is not listed as a game |
 | `MS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
 | `GG` | `.bin`, `.gg`, `.7z`, `.zip` |  |
 | `GENESIS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |

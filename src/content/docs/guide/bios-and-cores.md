@@ -256,6 +256,7 @@ BIOS/
   np2kai/
     font.bmp
   neogeo.zip
+  bios.min
   ...
 ```
 
@@ -275,6 +276,12 @@ BIOS/
   in the launcher but won't launch. **YabaSanshiro Standalone** is different: it
   starts without a BIOS by default, and you pick one per game or per system - see
   [Saturn: choosing a BIOS](#saturn-choosing-a-bios).
+- **Pokémon mini** - optional. The PokeMini core boots every game with its own
+  built-in BIOS. If you have a dump of the real one, name it `bios.min` (4 KB)
+  and put it directly in `BIOS/`, not in a subfolder; PokeMini uses it
+  instead. Central Scrutinizer's Pokémon mini card has no BIOS view because
+  of that root location, so copy the file with **Files** or straight onto
+  the card.
 - **PlayStation** - games generally run without one, but a real BIOS in `BIOS/`
   (for example `scph5501.bin` for US titles) improves compatibility.
 - **NEC PC-98** - put np2kai firmware in `BIOS/np2kai/`. Provide either

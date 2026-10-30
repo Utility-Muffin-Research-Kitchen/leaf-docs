@@ -303,12 +303,34 @@ the change and rescans on its own. Before pulling it out, use
 **Settings → System → SD Cards** so nothing is mid-write.
 
 Removing the second card doesn't throw away anything Leaf knows about its games.
-Those games become temporarily unavailable and disappear from the lists, but
-their favorites, recents, playtime, artwork, and per-game settings are kept.
-Put the card back and the same entries return. That also holds if the two cards
-change places or content moves between them, because Leaf identifies a game by
-its card and its path within that card rather than by wherever it happened to be
-mounted.
+They stay in your lists, but they won't launch while the card is out. Their
+favorites, recents, playtime, and per-game settings are kept, and work again when
+you put the same card back.
+
+Leaf tracks these games by the slot and their path on the card, not by the physical
+card. A different card in the second slot replaces the previous card's entries on
+its first scan, and their favorites, recents, playtime, and per-game settings go
+with them. If you put the old card back later, its games return as new entries,
+without any of that.
+
+### Moving games off the second card
+
+A game you move to the main card becomes a new entry, so its favorite, playtime, and
+per-game settings don't follow it. The old entry also stays in your lists, which
+makes the game show up twice. Rescanning with the second card out won't remove it,
+because Leaf keeps a missing card's entries in case it comes back.
+
+To move your games and clear the old entries:
+
+1. On a computer, copy `Roms/`, `Images/`, `Saves/`, and `States/` from the second
+   card to the main card. Games on the second card keep their saves on that card, so
+   the copies on the main card won't find them otherwise.
+2. Empty the second card's `Roms/` folder, but keep the folder. Any FAT32 card with
+   an empty `Roms/` folder at its root also works.
+3. Put the card in the second slot, press **MENU**, and choose
+   **Actions → Rescan Library**. The old entries disappear.
+4. If you don't want the card in the device, unmount it with
+   **Settings → System → SD Cards** and take it out. The old entries stay gone.
 
 ## Box art
 

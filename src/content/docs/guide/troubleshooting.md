@@ -31,6 +31,8 @@ older folder's files there whenever you like, or just leave them.
   preserve the required shortname and any CHD subfolder. A wrong-version or
   renamed set silently fails to load.
 - **Wrong folder.** Make sure the game is in the correct `Roms/<SYSTEM>/` folder.
+- **Its card is out.** Games on the second SD card stay in your lists while that
+  card is out, but won't start until you put it back.
 
 See [Naomi and Atomiswave arcade sets](/guide/games/#naomi-and-atomiswave-arcade-sets),
 [Adding games & ROMs](/guide/games/), and
@@ -41,11 +43,16 @@ See [Naomi and Atomiswave arcade sets](/guide/games/#naomi-and-atomiswave-arcade
 - **You hid it.** Hidden games are listed in **Settings → Games → Hidden Games**.
   Pick the game and press **A** to bring it back. See
   [Hiding a game](/guide/games/#hiding-a-game).
-- **Its card is out.** Games on the second SD card leave your lists while that card
-  is out, and come back when you put it in.
 - **Wrong folder or format.** Check that the game is in the right `Roms/<SYSTEM>/`
   folder and uses one of the
   [supported formats](/guide/games/#supported-game-formats).
+
+## My games show up twice after moving them off the second card
+
+Leaf keeps a missing card's entries, so the old copies stay listed even with the
+card out, and **Rescan Library** won't remove them. Follow
+[Moving games off the second card](/guide/games/#moving-games-off-the-second-card)
+to clear them.
 
 ## Wi-Fi connects but there's no internet
 

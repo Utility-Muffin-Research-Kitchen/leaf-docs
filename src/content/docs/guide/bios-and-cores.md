@@ -336,6 +336,10 @@ download, or redistribute them.
 Handheld systems like Neo Geo Pocket / Color need no BIOS; plain ROMs
 just work.
 
+RPG Maker 2000 and 2003 games need no BIOS either, but many need the RPG Maker
+**RTP**, which goes in `BIOS/rtp/2000/` or `BIOS/rtp/2003/`. See
+[The RPG Maker RTP](/guide/games/#the-rpg-maker-rtp).
+
 ### Saturn: choosing a BIOS
 
 **YabaSanshiro Standalone** can start a Saturn game two ways: with **HLE**, a

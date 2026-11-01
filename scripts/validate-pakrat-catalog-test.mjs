@@ -89,15 +89,15 @@ try {
   }, 'must be a bare MAJOR.MINOR.PATCH version');
 
   const addValidHistory = (catalog) => {
-    const app = catalog.apps.find((candidate) => candidate.id === 'org.umrk.nimbus');
+    const app = catalog.apps.find((candidate) => candidate.id === 'org.umrk.videofromhell');
     const pkg = app.packages[0];
     pkg.versions = [
       {
-        version: '0.2.0',
+        version: '0.4.0',
         min_leaf_version: '0.7.0',
         artifact: {
           ...structuredClone(pkg.artifact),
-          url: 'https://example.invalid/v0.2.0/Nimbus.pak.zip',
+          url: 'https://example.invalid/v0.4.0/VideoFromHell.pak.zip',
           size: pkg.artifact.size + 1,
           installed_size: pkg.artifact.installed_size + 1,
           sha256: '1'.repeat(64),
@@ -127,7 +127,7 @@ try {
   console.log('PASS valid-append-only-history');
 
   const removedHistory = structuredClone(validHistory);
-  removedHistory.apps.find((app) => app.id === 'org.umrk.nimbus')
+  removedHistory.apps.find((app) => app.id === 'org.umrk.videofromhell')
     .packages[0].versions.pop();
   await expectImmutableRejected(
     'history-removal',
@@ -137,7 +137,7 @@ try {
   );
 
   const mutatedHistory = structuredClone(validHistory);
-  mutatedHistory.apps.find((app) => app.id === 'org.umrk.nimbus')
+  mutatedHistory.apps.find((app) => app.id === 'org.umrk.videofromhell')
     .packages[0].versions[0].artifact.sha256 = '2'.repeat(64);
   await expectImmutableRejected(
     'history-mutation',

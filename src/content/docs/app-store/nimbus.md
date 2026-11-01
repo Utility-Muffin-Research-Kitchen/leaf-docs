@@ -33,8 +33,9 @@ open source ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/Nimbus)).
   and **Astro** for sunrise, sunset, day length, and the moon phase. Switch views
   with **L1 / R1**.
 - **Big and glanceable** - a large weather glyph beside a huge temperature, then the
-  stats that matter: humidity, wind, UV, and air quality, with a details line for
-  gusts, pressure, and dew point. Built for the handheld, not shrunk down from a phone.
+  stats that matter: humidity, wind, UV, and air quality. With Show Hints off, a details
+  line adds gusts, pressure, and dew point. Built for the handheld, not shrunk down from
+  a phone.
 - **Looks like Leaf** - it inherits your color scheme, font, and selection style, and
   the weather glyphs pick up your theme color.
 - **Many places** - search by city or postal code, or let it find you automatically.

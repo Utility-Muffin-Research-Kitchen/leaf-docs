@@ -125,8 +125,9 @@ Leaf ships with a few built-in apps (under the **Apps** tab). Each has its own p
 under [Built-in apps](/apps/introduction/):
 
 - **[Central Scrutinizer](/apps/central-scrutinizer/)** - manage your library over
-  Wi-Fi from a web browser: upload ROMs and box art, manage saves and BIOS files, and
-  browse the SD card, all without pulling the card.
+  Wi-Fi from a web browser: upload ROMs and box art, manage saves and BIOS files,
+  edit game titles and descriptions, pin games to the top of a list, and browse the
+  SD card, all without pulling the card.
 - **[Fugazi](/apps/fugazi/)** - a live CRT-shader tuner. Dial in a retro look
   (scanlines, screen curvature, a phosphor mask, glow, and more) against a full-screen
   preview, then deliberately install it as the global RetroArch shader. Fugazi

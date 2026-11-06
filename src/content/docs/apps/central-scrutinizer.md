@@ -29,6 +29,9 @@ From the browser you can:
   count rather than duplicate cards.
 - **Manage files** - download, rename, delete, and make folders.
 - **Sort box art** - replace or tidy up game artwork.
+- **Edit game info** - change the titles and descriptions the handheld shows, many
+  at once if you like, and pin games and folders to the top of a list. See
+  [Game Info](#game-info).
 - **Browse logs** - read Leaf's app logs, with a live tail, which is handy when
   something is not working.
 - **Clean up** - remove stray Mac metadata files (`.DS_Store` and friends) that sneak
@@ -36,6 +39,61 @@ From the browser you can:
 
 After uploading games, run **Rescan Library** from the launcher's **MENU** (or just
 reboot) so the new games appear.
+
+## Game Info
+
+Open a console's card and choose **Game Info** to change how its games show on the
+handheld. Your files are never renamed, so saves keep working. The launcher picks up
+each change you save, and stays on the game you had selected.
+
+### Titles and descriptions
+
+Search for a game and select it to change its **Title** and **Description**.
+**Reset title** and **Reset description** go back to the name and description the
+game had before you changed it.
+
+- A description you write stays when you scrape the game's artwork again.
+- The handheld only shows descriptions in the **Grid** home layout, and shows line
+  breaks as spaces.
+- A description can be up to 1,199 bytes. That's fewer characters in Chinese,
+  Japanese, or Korean, which take 3 bytes each.
+
+### Changing many titles at once
+
+**Find and replace** and **Strip region and version tags** change every game in the
+list below them, so search first to narrow the list. **Find and replace** can use a
+regular expression, and can match case.
+
+Neither one saves straight away. **Preview changes** shows every title that would
+change, with a checkbox for each, and **Apply changes** saves the ones you leave
+ticked. The preview also warns you about titles that more than one game would share.
+
+To edit titles and descriptions in a spreadsheet, choose **Export CSV**, edit the
+file, and bring it back with **Import CSV**. Keep the `source` and `rom_relpath`
+columns, since they say which game each row is. The import goes through the same
+preview. An empty cell resets that title or description. Rows that match no game, or
+belong to a different second card, are listed and left out.
+
+**Undo last bulk change** reverses the last change you applied with find and replace,
+tag stripping, a CSV, or **Save order**. It only covers the latest one, and only on
+that console's page. Saving one game's title or description doesn't replace it. A
+game you've changed since, or whose card is out, is left alone and listed.
+
+### Order
+
+The **Order** tab pins games and folders to the top of a list on the handheld.
+Pinned rows come first, in the order you set, and everything else stays sorted.
+
+- **Pin** moves a row into the **Pinned** section, and **Unpin** takes it out.
+- Drag a pinned row by its handle to move it, with a finger or a mouse, or use its
+  up and down buttons.
+- **Save order** saves the list, and **Discard changes** goes back to what's saved.
+- Folders show the way the handheld groups them with **Show Folders** on. Open one to
+  arrange what's inside. With **Show Folders** off on the handheld, you get one list.
+
+This is the only place to pin a folder or change the order of your pins. On the
+handheld, a game's **Options** menu can only pin or unpin it. See
+[Pinning a game](/guide/games/#pinning-a-game).
 
 ## Supported file formats
 

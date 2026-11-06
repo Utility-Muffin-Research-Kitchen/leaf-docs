@@ -1,12 +1,16 @@
 ---
 title: Language
-description: Switch the Leaf interface to another language, and how Chinese game names render whatever language you use.
+description: Switch the Leaf interface to another language, and how Chinese and Korean game names render whatever language you use.
 ---
 
-Leaf's interface is available in **Simplified Chinese**, **French**, **Mexican
-Spanish**, **Japanese**, **Vietnamese** and **Russian** alongside English. Each one
-was made or checked by a speaker from the community, not run through a machine and
-shipped as-is.
+Leaf's interface is available in **Brazilian Portuguese**, **Dutch (Belgium)**,
+**French**, **German**, **Japanese**, **Korean**, **Mexican Spanish**, **Russian**,
+**Simplified Chinese** and **Vietnamese** alongside English. Each one came from
+someone in the community and was checked before it shipped, not run through a
+machine and shipped as-is.
+
+Korean is by [cumasterns-cpu](https://github.com/cumasterns-cpu), and Brazilian
+Portuguese by [muniz95](https://github.com/muniz95).
 
 A translation that is still being filled in shows the lines nobody has reached yet
 in English. If you would like to finish one, or add a language of your own, see
@@ -26,12 +30,17 @@ Leaf predates the feature.
 ## What changes
 
 Menus, settings, dialogs, button hints, the in-game menu, and system messages are
-translated. **RetroArch and PPSSPP follow too**: their own menus switch with Leaf, so
-you never set the language in three places, and switching back to English brings them
-all with it. For Chinese or Japanese the interface also switches to a font that can
-draw them, since none of the nine regular Leaf fonts carry those characters. That is
-why the **Font** row in Settings is locked while either is active: your chosen font
+translated. **PPSSPP follows too**, in every language it has a translation for, and
+switching back to English brings it with it. RetroArch's own menus follow when you
+choose Chinese, and stay in English otherwise. Fun DraStic's menu follows in Spanish
+and Chinese.
+
+For Chinese, Japanese, or Korean the interface also switches to a font that can draw
+them, since none of the nine regular Leaf fonts carry those characters. That is why
+the **Font** row in Settings is locked while one of them is active: your chosen font
 comes back when you switch back.
+
+Brazilian Portuguese, Dutch, and German work with every regular font.
 
 Vietnamese works with every regular font except **Fredoka**, which is missing its
 letters. While Vietnamese is active, Leaf uses Nunito in its place and skips Fredoka
@@ -57,18 +66,19 @@ Some things are kept in English on purpose:
   is how Chinese players write them too. The arcade category is translated (街机).
 - **Product and app names.** Leaf, RetroArch, and the built-in apps keep their names,
   since those are the words you would search for when asking for help.
-- **Some standalone emulator menus.** PPSSPP now follows Leaf, but the others each
-  carry their own interface and are still English. **DraStic** is only ever offered in
-  Traditional Chinese, which is the one translation it ships, so Leaf leaves it in
-  English rather than switch you to the wrong script. **Flycast** and the **N64
-  emulator** have no Chinese at all. Bringing the rest in line is on the list.
+- **Some standalone emulator menus.** PPSSPP follows Leaf, and Fun DraStic does in
+  Spanish and Chinese, but the others each carry their own interface and are still
+  English. The default **DraStic** front end is only ever offered in Traditional
+  Chinese, which is the one translation it ships, so Leaf leaves it in English rather
+  than switch you to the wrong script. **Flycast** and the **N64 emulator** have no
+  Chinese at all. Bringing the rest in line is on the list.
 
-## Chinese game names
+## Chinese and Korean game names
 
-This part works in any language, including English. A game file named in Chinese, a
-fan translation for example, used to show up as empty boxes. Now it renders
-correctly everywhere titles appear, and the rest of your interface stays exactly as
-it was.
+This part works in any language, including English. A game file named in Chinese or
+Korean, a fan translation for example, used to show up as empty boxes. Now it renders
+correctly in the launcher, the in-game menu, PPSSPP's menus, and the File Explorer,
+and the rest of your interface stays exactly as it was.
 
 ## Fixing a translation
 

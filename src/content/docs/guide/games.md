@@ -29,7 +29,9 @@ BIOS/               BIOS files some systems need (see BIOS & cores)
   `Roms/SNES/Chrono Trigger.sfc` or `Roms/GBA/Metroid Fusion.gba`. Games can sit
   loose in the system folder or tucked into subfolders (a folder per game, or your
   own grouping) - Leaf scans down into them, so
-  `Roms/PSX/Final Fantasy VII/Final Fantasy VII.cue` works just as well.
+  `Roms/PSX/Final Fantasy VII/Final Fantasy VII.cue` works just as well. To
+  browse those subfolders in the launcher, see
+  [Folders in your lists](#folders-in-your-lists).
 - **`Images/<SYSTEM>/`** - put box art next to the matching system folder, named
   to match the game. For `Roms/SNES/Chrono Trigger.sfc`, use
   `Images/SNES/Chrono Trigger.png` or `Images/SNES/Chrono Trigger.jpg`. PNG and
@@ -303,34 +305,86 @@ the change and rescans on its own. Before pulling it out, use
 **Settings → System → SD Cards** so nothing is mid-write.
 
 Removing the second card doesn't throw away anything Leaf knows about its games.
-They stay in your lists, but they won't launch while the card is out. Their
-favorites, recents, playtime, and per-game settings are kept, and work again when
-you put the same card back.
+They leave your lists while the card is out, and come back with their favorites,
+recents, playtime, and per-game settings when you put the card back.
 
-Leaf tracks these games by the slot and their path on the card, not by the physical
-card. A different card in the second slot replaces the previous card's entries on
-its first scan, and their favorites, recents, playtime, and per-game settings go
-with them. If you put the old card back later, its games return as new entries,
-without any of that.
+### Swapping second cards
+
+Leaf tells your second cards apart, so you can swap between several. Each card
+keeps its own games, favorites, recents, playtime, per-game settings, and hidden
+games. When you put in a different card, the previous card's games leave your
+lists, and they come back when you put that card back. Leaf remembers the 8 most
+recent cards that aren't in the slot, and forgets the oldest after that.
+
+- If two cards hold a game at the same path, each copy keeps its own playtime and
+  settings.
+- If you reformat a card, or copy its games onto a bigger one, Leaf still knows it
+  as long as it has at least 16 games and at least 90% of them are in the same
+  folders with the same names. A card with fewer games starts fresh.
+- Leaf goes by each game's folder and file name, so it can't tell two cards apart
+  if they hold nearly all the same games. Those cards, and cards cloned from one
+  image, count as one card and share their favorites, playtime, and per-game
+  settings.
+
+Leaf versions before 0.14.0 don't tell second cards apart. If you go back to one
+after swapping cards, games from your other cards show in your lists but won't
+launch. They leave your lists again when you update, with nothing lost.
 
 ### Moving games off the second card
 
 A game you move to the main card becomes a new entry, so its favorite, playtime, and
-per-game settings don't follow it. The old entry also stays in your lists, which
-makes the game show up twice. Rescanning with the second card out won't remove it,
-because Leaf keeps a missing card's entries in case it comes back.
-
-To move your games and clear the old entries:
+per-game settings don't follow it.
 
 1. On a computer, copy `Roms/`, `Images/`, `Saves/`, and `States/` from the second
    card to the main card. Games on the second card keep their saves on that card, so
    the copies on the main card won't find them otherwise.
-2. Empty the second card's `Roms/` folder, but keep the folder. Any FAT32 card with
-   an empty `Roms/` folder at its root also works.
-3. Put the card in the second slot, press **MENU**, and choose
-   **Actions → Rescan Library**. The old entries disappear.
-4. If you don't want the card in the device, unmount it with
-   **Settings → System → SD Cards** and take it out. The old entries stay gone.
+2. Unmount the second card with **Settings → System → SD Cards** and take it out.
+   Its games leave your lists.
+
+If you put the card back with the games still on it, each one shows twice, once
+from each card. Delete them from the second card first if you want to keep using
+it.
+
+## Your game lists
+
+### Folders in your lists
+
+A system's list shows all its games in one list, wherever they sit under
+`Roms/<SYSTEM>/`. To browse your subfolders instead, turn on
+**Settings → Games → Show Folders**. It's off by default.
+
+- Each subfolder is a row. **A** opens it and **B** goes back up. Folders come
+  first, then the games in that folder.
+- When you quit a game, you're back in the same folder, on the same game.
+- A folder that's really one game's own folder shows as that game. That's a
+  folder holding one game and no subfolders, where the game's file has the
+  folder's name, like `Roms/PSX/Spyro the Dragon/Spyro the Dragon (USA).cue`.
+  Capital letters and tags in brackets at the end, such as `(USA)`, don't count.
+  An RPG Maker game's folder always shows as the game.
+- The same folder on both SD cards shows as one folder, with the games from both.
+- **Favorites**, **Recents**, search, the game switcher, and the
+  [5-Game Mode](/guide/five-game-mode/) picker stay as one list.
+
+### How games are sorted
+
+Lists sort by title, ignoring capital letters and reading numbers as numbers, so
+"Mega Man 2" comes before "Mega Man 10", and a title in lowercase doesn't land
+after "Zelda". This goes for each system's list, **Favorites**, **Hidden Games**,
+and folder names.
+
+### Pinning a game
+
+To keep a game at the top of its system's list, choose **Pin to Top** from its
+[Options menu](#options-menu). Pinned games come first, in the order you pinned
+them, and the rest of the list stays sorted. To put a game back in its place,
+choose **Unpin** from the same menu.
+
+- Pins only order a system's own list. **Favorites**, **Recents**, and search
+  ignore them.
+- With **Show Folders** on, a game you pin inside a folder goes to the top of that
+  folder. If you turn **Show Folders** off, it rises to the top of the whole list.
+- To pin a folder, or to change the order of your pins, use the **Order** tab in
+  [Central Scrutinizer](/apps/central-scrutinizer/#game-info).
 
 ## Box art
 
@@ -395,6 +449,8 @@ This is where per-item actions live, so they stay out of the main list:
   system at once, use **Settings → Games → Scrape Artwork** instead.
 - **Reset Overrides** - clear the custom name, core, performance, and Saturn BIOS
   settings you set above.
+- **Pin to Top** - on a game in its system's list, move it to the top of that
+  list. The row then reads **Unpin**. See [Pinning a game](#pinning-a-game).
 - **Hide Game** - on a game, take it out of your lists without deleting anything.
   See [Hiding a game](#hiding-a-game).
 - **Delete Game** - on a game, delete its files from your SD card. It isn't offered

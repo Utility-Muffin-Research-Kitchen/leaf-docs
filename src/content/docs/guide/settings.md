@@ -32,6 +32,9 @@ How the interface itself looks, under **Settings → Appearance**.
   A Chinese language setting pins the face, and the row says so.
 - **Font Size** - Small, Default, Large, or Extra Large.
 - **List Style** - Rounded, Soft, Square, or the directional Leaf pill.
+- **Round Cover Art** - off by default, so box art in your game lists, **Recents**,
+  **Favorites**, and search has square corners. Turn it on to round the art to match
+  **List Style**. System icons stay square, and Grid tiles keep their own corners.
 - **Status Bar** - toggle the **Button Hints** footer and each status indicator:
   **Clock** (with style options), **Battery**, **Wi-Fi**, **Bluetooth**, and
   **Volume**. With Button Hints off, content expands to fill the screen.
@@ -107,9 +110,12 @@ What the launcher's home screen is and what it shows.
   16:9 TV edge to edge. Leaf switches over on its own when you plug a cable in and
   drops back to the handheld when you unplug, and the sound follows the picture to
   the TV. Grayed out as "Not connected" until a TV is plugged in. The Refresh Rate
-  setting controls how sharp versus smooth the TV image is (see below).
+  setting controls how sharp versus smooth the TV image is (see below), and
+  [standalone emulators](#standalone-emulators-on-a-tv) follow this setting too.
 - **Volume** - system volume (also adjustable with the hardware volume keys, which
-  show an on-screen overlay).
+  show an on-screen overlay). At 100%, the speaker and headphones play as loud as
+  the stock firmware at its maximum. Leaf saves your volume on the stock firmware's
+  own scale, so switching to the stock launcher keeps the level you had.
 - **Audio Output** - audio routing: **Speaker**, **Headphones**, a connected
   **Bluetooth** device, or **HDMI** when a TV is connected. Use the left and right
   buttons to switch.
@@ -145,6 +151,23 @@ Why not sharp and smooth at the same time? TVs only offer 120 Hz at 1080p or hig
 never at 720p, and the 4:3 image is only pixel-perfect at 720p. So crisp (720p, 60 Hz)
 and smooth (1080p, 120 Hz) are a real either-or on a TV, and the Refresh Rate setting
 is how you choose between them.
+
+### Standalone emulators on a TV
+
+Dreamcast, Nintendo 64, and Saturn games in their standalone emulators drive the
+screen themselves, and they follow **HDMI Output** like the rest of Leaf:
+
+- Dreamcast and Nintendo 64 games are upright and use the TV's mode. On **4:3**
+  they're centered, and on **Stretch** they fill the screen.
+- Saturn games are upright on the TV.
+- With **HDMI Output** on **Off** and a cable plugged in, these games stay on the
+  built-in screen.
+- If you plug in or unplug the cable during one of these games, the game stays where
+  it is, and Leaf switches when you quit.
+
+Screenshots and the paused game behind the in-game menu are upright on a TV too.
+If you unplug the TV during a RetroArch game, RetroArch closes the game within a
+few seconds and keeps your in-game save.
 
 ## Lighting
 
@@ -245,6 +268,9 @@ ScreenScraper.fr and control how Leaf picks it (sign in first under
   games, and saves untouched. See
   [RetroArch settings](/guide/retroarch-settings/).
 - **Accounts** - opens the sign-ins below.
+- **Show Folders** - off by default. Turn it on to see a system's ROM subfolders as
+  folders you open with **A**, instead of one list of every game. See
+  [Folders in your lists](/guide/games/#folders-in-your-lists).
 - **Hidden Games** - every game you hid with **Hide Game**, by name, with its card
   and path. Press **A** to unhide the selected game, and it's back in your lists
   right away. A game whose file is no longer on the card reads **Not in your

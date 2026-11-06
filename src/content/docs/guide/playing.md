@@ -208,6 +208,26 @@ Controls that differ from RetroArch. These are fixed, not the configurable
 - **RetroArch Settings** does not appear while using standalone N64; renderer and
   N64-specific options live in the standalone overlay instead.
 
+### D-pad or stick
+
+Some N64 games only read the analog stick. **Input Mode** decides what the d-pad
+does:
+
+- **D-Pad**, the default, sends the N64 d-pad.
+- **Joystick** steers the N64 analog stick with the d-pad.
+
+Press **MENU** during a game and change it in **Options > Controls > Input Mode**,
+or bind **Options > Shortcuts > Toggle Input Mode** to a button. Each game keeps
+its own mode.
+
+You can also bind a d-pad direction to any N64 button, such as the C buttons. In
+**Options > Controls**, pick **C-Up**, press **A**, then press up on the d-pad. In
+**D-Pad** mode that direction then sends C-Up instead of the d-pad, and **R2 + X**
+still works too. In **Joystick** mode the d-pad steers the stick and these bindings
+rest.
+
+[AlexL](https://github.com/dapass5) made **Input Mode** work on this device.
+
 ## Saturn (optional standalone YabaSanshiro)
 
 Saturn games default to **YabaSanshiro** in RetroArch. For a directly launched
@@ -336,6 +356,11 @@ A few things to know before you switch a game over:
 - **MENU** opens Fun DraStic's own menu, which is laid out differently from the
   default one. The **MENU + button** shortcuts above belong to the Steward Fu
   front end and don't carry over.
+- The menu follows your Leaf language when that's Spanish or Chinese, and is in
+  English otherwise, thanks to [AlexL](https://github.com/dapass5). Its translated
+  menus draw Latin letters in Fun DraStic's own font, not the Leaf theme's.
+- The **Cheats** page lists the cheats in Fun DraStic's bundled database for the
+  game you're playing, about 145,000 in all, including ones with Chinese names.
 - Your in-game saves come with you. Both front ends read and write the same DS
   save files, so a game you switch keeps its progress, and so does a game you
   switch back.

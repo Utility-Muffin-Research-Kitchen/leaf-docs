@@ -105,6 +105,7 @@ export default defineConfig({
             { label: 'Overview', slug: 'app-store/introduction' },
             { label: 'Itch.io', slug: 'app-store/itchio' },
             { label: 'Disco Boy', slug: 'app-store/disco-boy' },
+            { label: 'Flycastrophe', slug: 'app-store/flycastrophe' },
             { label: 'J2ME', slug: 'app-store/j2me' },
             { label: 'Nimbus', slug: 'app-store/nimbus' },
             { label: 'PortMaster', slug: 'app-store/portmaster' },

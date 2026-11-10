@@ -54,11 +54,12 @@ Transparency sorting defaults to **Per-strip**. Per-pixel sorting isn't
 available. Daytona USA 2001 uses per-triangle sorting so the car decals show.
 If these options don't help, choose another Flycast core for that game.
 
-This first release has passed boot and clean-exit checks in 17 games and
-benchmarks in Crazy Taxi and Sonic Adventure 2. Full hands-on play, per-game
-state checks and the complete launcher lifecycle checklist remain incomplete.
-You can find the test scope and exact build in the
-[release notes](https://github.com/Helaas/Flycastrophe-pak/releases/tag/v0.1.0).
+Version 0.2.0 draws busy scenes with far fewer GPU calls, so a game like NFL 2K2
+now runs at full speed. It has passed benchmarks in Crazy Taxi, Sonic Adventure 2
+and NFL 2K2, short runs of six more games and a Pak Rat update from 0.1.0. Full
+hands-on play, per-game state checks and the complete launcher lifecycle
+checklist remain incomplete. You can find the test scope and exact build in the
+[release notes](https://github.com/Helaas/Flycastrophe-pak/releases/tag/v0.2.0).
 
 Flycast is by [flyinghead and contributors](https://github.com/flyinghead/flycast),
 and Deadcast is by [tyrannotorus](https://github.com/tyrannotorus/emulator-dreamcast-deadcast).

@@ -6,8 +6,8 @@ description: 'A local video player for Leaf: one library across both SD cards an
 ![Video From Hell's video library on the Recently Added tab, showing a list of videos with thumbnails and durations on the left and a preview panel on the right with the selected video's poster, title, and length](/videofromhell.png)
 
 Video From Hell plays the films and episodes on your SD cards and the gameplay
-you recorded. It plays H.264 and HEVC up to 1080p, and other formats when the
-device can open them. It is named after Frank Zappa's home-video release.
+you recorded. It plays 1080p H.264 and HEVC, and other formats when the device
+can open them. It is named after Frank Zappa's home-video release.
 
 ## Install
 

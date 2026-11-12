@@ -14,6 +14,10 @@ Each system has a default emulator, and some have alternates. To switch, press
 [Options menu](/guide/games/#options-menu)). The games stay in the same folder
 whichever emulator runs them.
 
+Leaf's RetroArch cores are built with a core builder forked from
+[spruceOS](https://github.com/spruceUI)'s, which follows
+[libretro-super](https://github.com/libretro/libretro-super).
+
 | System | Default | You can switch to |
 | --- | --- | --- |
 | Game Boy Advance | mGBA | gpSP |

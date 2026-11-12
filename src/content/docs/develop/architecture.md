@@ -65,7 +65,7 @@ organization. Each is an independent repo with its own build.
 | **miniloong-launcher-switcher** | The on-device mechanism that boots Leaf on top of stock - boot hook, session supervisor, install/recovery payloads, device defaults |
 | **mlp1-toolchain** | The Buildroot-based Docker image used to cross-compile for the device |
 | **retroarch-builds** | RetroArch fetch/build/packaging |
-| **Cores-spruce** | libretro core builder, forked from spruceOS's build lane (downstream of libretro-super) |
+| **Cores-spruce** | libretro core builder, forked from [spruceOS](https://github.com/spruceUI)'s build lane (downstream of [libretro-super](https://github.com/libretro/libretro-super)) |
 | **leaf-contracts** | Public schemas, fixtures, and normative contracts for third-party integrations, including the content-pak interface |
 | **ScummVM-pak** | Buildable reference content pak: adds the ScummVM system, its libretro core, and the standalone ScummVM. The clean-checkout example to clone and validate against leaf-contracts |
 | **J2ME-pak** | Content pak: adds the J2ME system for Java phone games, the FreeJ2ME-Plus libretro core, and the Java runtime it needs |

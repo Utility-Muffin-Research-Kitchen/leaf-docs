@@ -77,7 +77,7 @@ if the pak provides one. Otherwise, it asks **Return to Leaf?** before the
 emulator quits. External
 Guide chords reach these emulators directly, and holding Guide doesn't perform
 Leaf's escape gesture. Use the handheld's **MENU** button for the
-[escape hold](/guide/playing/#standalone-emulators-from-content-paks).
+[escape hold](/guide/systems/#standalone-emulators-from-content-paks).
 
 ## If a controller disconnects
 

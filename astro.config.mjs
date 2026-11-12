@@ -79,6 +79,7 @@ export default defineConfig({
           items: [
             { label: 'Adding games', slug: 'guide/games' },
             { label: 'BIOS files', slug: 'guide/bios-and-cores' },
+            { label: 'Systems and emulators', slug: 'guide/systems' },
           ],
         },
         {

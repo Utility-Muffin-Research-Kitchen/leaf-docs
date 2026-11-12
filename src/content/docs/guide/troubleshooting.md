@@ -32,7 +32,7 @@ older folder's files there whenever you like, or just leave them.
   renamed set silently fails to load.
 - **Wrong folder.** Make sure the game is in the correct `Roms/<SYSTEM>/` folder.
 
-See [Naomi and Atomiswave arcade sets](/guide/games/#naomi-and-atomiswave-arcade-sets),
+See [Naomi and Atomiswave arcade sets](/guide/systems/#naomi-and-atomiswave-arcade-sets),
 [Adding games & ROMs](/guide/games/), and
 [BIOS & cores](/guide/bios-and-cores/).
 

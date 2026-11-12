@@ -1,5 +1,5 @@
 ---
-title: Adding games & ROMs
+title: Adding games
 description: Where to put ROMs, box art, saves, and states on the SD card so Leaf finds them.
 ---
 
@@ -45,7 +45,8 @@ specific to one system.
 Folder names aren't case-sensitive, and most systems accept a few aliases:
 `Roms/NES`, `Roms/FC`, and `Roms/FAMICOM` all land in the same place. Alias
 folders you already have keep working, but put new games and box art in the
-folder named in the table. Pokémon mini also accepts `Roms/POKE/` and
+folder named in the
+[formats table](#supported-game-formats). Pokémon mini also accepts `Roms/POKE/` and
 `Roms/PKM/`.
 
 - Naomi, Naomi GD-ROM, and Naomi 2 are one system. Put all three in
@@ -142,8 +143,8 @@ games. Leaf remembers the last 8 cards you took out.
 - If two cards hold a game at the same path, each copy keeps its own playtime and
   settings.
 - If you reformat a card, or copy its games onto a bigger one, Leaf still knows
-  it as long as nearly all of its games are in the same folders with the same
-  names. A card with only a few games starts fresh.
+  it as long as it has at least 16 games and at least 90% of them are in the same
+  folders with the same names. A card with fewer games starts fresh.
 - Two cards that hold nearly all the same games, or that were cloned from one
   image, count as one card and share their favorites, playtime, and per-game
   settings.
@@ -203,8 +204,6 @@ choose **Unpin** from the same menu.
   [Central Scrutinizer](/apps/central-scrutinizer/#game-info).
 
 ## Box art
-
-You can add box art yourself, or let Leaf fetch it.
 
 ### Adding it yourself
 

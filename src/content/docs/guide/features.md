@@ -12,9 +12,9 @@ page for each. Most of it is in **Settings**, reachable from the launcher.
 
 **Settings > Appearance** has fourteen color schemes in dark and light, list
 styles, nine fonts, and the home layout: the classic **Tabs** view or
-**Coverflow**, a box-art carousel. The status bar across the top (clock,
-battery, Wi-Fi, Bluetooth, volume) and the button hints at the bottom can each
-be turned off. See [Appearance](/guide/settings/#appearance), and
+**Coverflow**, a box-art carousel. Each status bar indicator (clock, battery,
+Wi-Fi, Bluetooth, volume) can be turned off, and so can the button hints at the
+bottom. See [Appearance](/guide/settings/#appearance), and
 [Themes](/guide/pak-rat-themes/) for wallpapers and system art.
 
 ![The Coverflow home layout: a carousel of NES box art with Super Mario Bros. 3 centered and its neighbors angled back with glossy reflections](/screenshot-coverflow.png)

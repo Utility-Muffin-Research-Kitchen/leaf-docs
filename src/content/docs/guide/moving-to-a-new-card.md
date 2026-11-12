@@ -103,7 +103,7 @@ hidden ones included, and drag them to the new card's top level.
 
 ## 5. Boot once
 
-Eject the card properly, put it in the powered-off device's **main** slot, and
+Eject the card properly, put it in the powered-off device's main slot, and
 turn it on. The stock update screen runs the Leaf installer. Let it finish and
 reboot on its own, then boot normally.
 
@@ -135,5 +135,5 @@ with your games on the first scan.
 ## A large file won't copy to the new card
 
 FAT32 can't hold a single file larger than 4 GB. If the old card was ext4, a
-large CHD or PSP ISO may refuse to copy. Convert it to CHD, or format the new
+large disc image or PSP ISO may refuse to copy. Convert it to CHD, or format the new
 card as partitioned ext4 instead.

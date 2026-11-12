@@ -14,10 +14,6 @@ Each system has a default emulator, and some have alternates. To switch, press
 [Options menu](/guide/games/#options-menu)). The games stay in the same folder
 whichever emulator runs them.
 
-Leaf's RetroArch cores are built with a core builder forked from
-[spruceOS](https://github.com/spruceUI)'s, which follows
-[libretro-super](https://github.com/libretro/libretro-super).
-
 | System | Default | You can switch to |
 | --- | --- | --- |
 | Game Boy Advance | mGBA | gpSP |
@@ -31,15 +27,19 @@ Leaf's RetroArch cores are built with a core builder forked from
 
 A system appears in the launcher once its emulator is on the device.
 
-Nintendo 64, Nintendo DS, PSP, Dreamcast and the optional Saturn standalone run
-as standalone emulators. In a standalone session **MENU** opens the emulator's
-own menu, where its save states and settings live. Leaf's in-game menu, RetroArch
+Nintendo 64, Nintendo DS, PSP, Dreamcast, Atomiswave, Naomi and the optional
+Saturn standalone run as standalone emulators. In a standalone session **MENU**
+opens the emulator's own menu, where its save states and settings live. Leaf's in-game menu, RetroArch
 save states and the game switcher don't apply unless the system's section below
 says so. Volume keys work as usual.
 
 PSP, Dreamcast and Nintendo 64 are demanding on this hardware. Whether a game
 runs at full speed varies by title, even with the right emulator and BIOS in
 place.
+
+Leaf's RetroArch cores are built with a core builder forked from
+[spruceOS](https://github.com/spruceUI)'s, which follows
+[libretro-super](https://github.com/libretro/libretro-super).
 
 ## Game Boy Advance
 
@@ -66,7 +66,7 @@ game behaves better there, or if you want RetroArch's in-game menu, shaders or
 RetroAchievements for that game.
 
 In the standalone, these controls are fixed. They aren't the configurable
-[hotkeys](/guide/playing/):
+[hotkeys](/guide/playing/#hotkeys):
 
 - **MENU** - open the Leaf N64 overlay. Renderer and N64 options live there;
   **RetroArch Settings** doesn't appear.
@@ -121,16 +121,15 @@ Neither front end needs a BIOS of your own. To use original Nintendo files, see
 
 ### DraStic controls
 
-The DS has two screens and a touch screen, so the default front end uses
-**MENU** as a modifier you hold with another button. These shortcuts are fixed
+The default front end uses **MENU** as a modifier you hold with another button. These shortcuts are fixed
 and belong to DraStic. They aren't the configurable
-[hotkeys](/guide/playing/), and **MENU + L1** quits DraStic whatever your Leaf
+[hotkeys](/guide/playing/#hotkeys), and **MENU + L1** quits DraStic whatever your Leaf
 screenshot shortcut is.
 
 | Buttons | What it does |
 | --- | --- |
-| **MENU** (tap and release), or **MENU + Select** | Open DraStic's own menu: save and load states, options and the screen-layout picker |
-| **MENU + Start** | Open the Steward Fu menu for the see-through second screen: its size, position, transparency and border |
+| **MENU** (tap and release), or **MENU + SELECT** | Open DraStic's own menu: save and load states, options and the screen-layout picker |
+| **MENU + START** | Open the Steward Fu menu for the see-through second screen: its size, position, transparency and border |
 | **MENU + A** | Flip between your two saved screen layouts. By default that's the stacked view and a transparent second screen in the corner |
 | **MENU + Left / Right** | Cycle through all the screen layouts |
 | **L2** | Switch the D-pad between the game and the DS touch pointer. In pointer mode the D-pad moves the stylus and **A** taps the screen |
@@ -401,7 +400,7 @@ parent folder's name when a CD has to boot as CDTV instead of CD32.
   collection ZIP holding many per-game ZIPs, unpack the outer one on your
   computer and copy the individual archives across.
 - Don't unpack a preinstalled WHDLoad `.lha`; launch the LHA directly.
-- Anything a game writes inside a ZIP is lost when you quit. When a game has to
+- Anything a game writes inside a ZIP isn't written back to the archive. When a game has to
   save to disk, use an uncompressed disk image, a dedicated save disk, or a
   WHDLoad LHA.
 - `.ipf` files and loose `.slave` or `.info` files aren't listed.
@@ -511,8 +510,8 @@ prompt disappear to keep playing.
 
 If a session is stuck, release the other controls, centre the stick, and hold
 the handheld's **MENU** button alone for three seconds. Leaf asks the emulator
-to quit. Keep holding for another two seconds
-to force it to stop. Unsaved progress can be lost, and nothing appears on screen
+to quit. If it stays open, keep holding for another two seconds to force it to
+stop. Unsaved progress can be lost, and nothing appears on screen
 during the hold. Releasing **MENU**, or touching any other button, the D-pad,
 the stick, **Volume** or **Power**, cancels it. Release **MENU** before you try
 again.

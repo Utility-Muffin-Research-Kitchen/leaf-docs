@@ -8,7 +8,7 @@ unzip the release onto a card, and the device installs it.
 
 ## What you need
 
-- A Miniloong Pocket 1 on stock firmware **1.3.0.32 or newer**. A brand-new
+- A Miniloong Pocket 1 on stock firmware 1.3.0.32 or newer. A brand-new
   device can ship on an older stock OS that can't start the installer, so boot
   the stock OS and run its **system update** at least once. Let it finish and
   report it's up to date.
@@ -32,7 +32,7 @@ hidden files (**Command-Shift-Period** in Finder) and check that `.system` is at
 the card's top level, or run `ls -a /Volumes/YOURCARD`.
 :::
 
-1. **Format the card** as FAT32 with a **Master Boot Record** partition scheme,
+1. Format the card as FAT32 with a **Master Boot Record** partition scheme,
    if it isn't already. On macOS, open **Disk Utility**, select the card, choose
    **Erase**, and pick **MS-DOS (FAT)** - that is FAT32 - with **Master Boot
    Record** as the scheme. In Terminal:
@@ -45,17 +45,17 @@ the card's top level, or run `ls -a /Volumes/YOURCARD`.
    never starts. Cards larger than 32 GB usually arrive formatted ExFAT, so
    check even a brand-new card. ext4 also works, but only on a partitioned
    card - a whole-disk ext4 filesystem with no partition table is never mounted.
-2. **Unzip the ZIP onto the card.** Put the contents at the card's top level,
+2. Unzip the ZIP onto the card. Put the contents at the card's top level,
    not in a subfolder, following the caution above.
-3. **Insert and boot.** Put the card in the powered-off device and turn it on.
-   The Miniloong Pocket 1 has two microSD slots: use the **main slot** for the
+3. Insert and boot. Put the card in the powered-off device and turn it on.
+   The Miniloong Pocket 1 has two microSD slots: use the main slot for the
    install card. The second slot is optional extra game storage. If the stock
    update screen never appears, the card may be in the second slot - move it to
    the other one and try again.
-4. **Let it install.** The device's stock update screen detects the installer
+4. Let it install. The device's stock update screen detects the installer
    and runs it. Don't power off mid-install.
-5. **Power off** when the installer reports it's done.
-6. **Boot into Leaf.** Turn the device back on normally. The Leaf boot animation
+5. Power off when the installer reports it's done.
+6. Boot into Leaf. Turn the device back on normally. The Leaf boot animation
    plays and you land on the Leaf launcher.
 
 ## After installing

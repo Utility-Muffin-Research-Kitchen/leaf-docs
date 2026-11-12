@@ -68,7 +68,8 @@ When Leaf starts again it shows the result once:
   **Settings > System > SD Cards**.
 
 A clean check means the file system is consistent again. It doesn't bring back
-the original contents of a file that was damaged.
+the original contents of a file that was damaged, and it doesn't prove the card
+itself is healthy.
 
 Repair works on FAT32 cards. A card with another file system, such as exFAT, can't
 be repaired on the device, so check it on a computer.

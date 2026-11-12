@@ -98,7 +98,7 @@ added since.
    entry falls back to English.
 3. Send it in (see [Sending it in](#sending-it-in)).
 
-An entry looks like this. The English is the key, so **never change `msgid`**:
+An entry looks like this. The English is the key, so never change `msgid`:
 
 ```
 #: internal/settings/settings.c
@@ -108,7 +108,7 @@ msgstr "Reposo automático"
 
 ## What to watch for
 
-**Keep the placeholders exactly.** `%s` is a word Leaf drops in, `%d` is a
+Keep the placeholders exactly. `%s` is a word Leaf drops in, `%d` is a
 number. They must survive into your translation, in a form that still makes
 sense, or Leaf can crash when it draws that line. A check rejects a `%d` that
 became `%s` before it reaches a device.
@@ -118,14 +118,14 @@ msgid "%d games"
 msgstr "%d juegos"
 ```
 
-**Some keys carry a prefix before a `|`.** In `verb|Open`, only `Open` is the
+Some keys carry a prefix before a `|`. In `verb|Open`, only `Open` is the
 text - the `verb|` part tells Leaf which of several identical English words this
 one is. Keep the prefix in `msgid`, and put only the translation in `msgstr`.
 
-**Space is tight.** Leaf draws on a 960x720 handheld screen, and a label that is
+Space is tight. Leaf draws on a 960x720 handheld screen, and a label that is
 twice as long as the English is cut off. Prefer a shorter phrasing where one works.
 
-**Some strings are hard to place.** A few only appear in one situation - a shader
+Some strings are hard to place. A few only appear in one situation - a shader
 caveat shown mid-game, an error you would have to break something to see. The
 `#:` comment above each entry names the source file it comes from. If that isn't
 enough of a clue, ask.

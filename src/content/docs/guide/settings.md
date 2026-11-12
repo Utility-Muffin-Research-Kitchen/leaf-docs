@@ -62,8 +62,9 @@ tabs, **Actions** and **Info**, are covered under
   unplug.
 - **Refresh Rate** - **60**, **100**, or **120 Hz**. **60** and **120** suit 60fps
   (NTSC) games, and **100** suits 50fps (PAL) games. 120 shows less motion blur than
-  60, and 60 uses the least power. If a demanding game runs at full speed at 60 Hz
-  but slows down at 120, play it at 60. On a TV this setting also picks the HDMI
+  60, and 60 uses the least power. With **Game Performance** on **Auto**, every game
+  gets the Performance profile at 100 or 120 Hz. If a demanding game runs at full
+  speed at 60 Hz but slows down at 120, play it at 60. On a TV this setting also picks the HDMI
   mode. See [Playing on a TV](#playing-on-a-tv).
 - **Black Frame Insertion** - inserts a black frame between game frames to cut
   motion blur in fast-scrolling games. It needs **120 Hz** for 60fps games and
@@ -236,7 +237,7 @@ Press **A** on a row to enter your credentials with the on-screen keyboard, and
   [Rumble](/guide/rumble/).
 - **Hotkeys** - the **MENU** button chords: the game switcher, and screenshots and
   game recording with the button each one answers to. See
-  [Screenshots and recording](/guide/screenshots/).
+  [Hotkeys](/guide/playing/#hotkeys).
 
 ## System
 
@@ -256,7 +257,7 @@ Press **A** on a row to enter your credentials with the on-screen keyboard, and
   and whether it starts with Leaf. The row appears only when something is
   installed.
 
-## The System page (Menu button)
+## The System page (MENU button)
 
 Press the **MENU** button anywhere in the launcher to open the System page, and press
 it again to go back to where you were. **B** steps back within System but doesn't
@@ -276,7 +277,8 @@ leave it. **L1 / R1** switch between its three tabs:
 - **Info** - read-only pages about your device and library:
   - **Device** - the installed Leaf version, system info (OS, kernel, hardware, and
     network addresses), and the open-source components Leaf is built on, each with
-    its license.
+    its license. The full license text for every bundled emulator is also on the
+    card under `licenses/`.
   - **Library** - total games, systems, and apps, favorites, box-art coverage, and a
     per-system breakdown.
   - **Playtime** - total time, games played, your most-played titles, and a

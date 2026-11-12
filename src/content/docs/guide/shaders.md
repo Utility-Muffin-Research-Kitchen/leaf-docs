@@ -144,7 +144,7 @@ still shows the preset as loaded.
 
 1. Check that it's a GLSL preset.
 2. Copy its complete folder again, with every file it points at.
-3. Don't copy `zfast_crt_geo` in by hand. Use **CRT Curved**, which is Leaf's
+3. Don't replace `zfast_crt_geo` by hand. Use **CRT Curved**, which is Leaf's
    working version of it.
 
 ## A shader won't apply or keeps coming back
@@ -162,7 +162,7 @@ still shows the preset as loaded.
 
 Check **Settings > Directory > Video Shaders** in RetroArch. It should point to
 `.umrk/mlp1/retroarch/.config/retroarch/shaders/` and not one of the folders inside
-it. Quit the game fully and start it again.
+it. Quit the game fully and start it again so Leaf can refresh the path.
 
 As a last resort, **Settings > Games > Reset RetroArch Config** restores the
 default shader directory. It also resets your other RetroArch settings; see

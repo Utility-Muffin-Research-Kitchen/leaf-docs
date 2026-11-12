@@ -64,8 +64,8 @@ in-game menu instead.
 
 ### When Leaf and RetroArch want the same button
 
-If you bind a RetroArch hotkey to a button a Leaf shortcut is using, Leaf's shortcut
-runs and RetroArch never sees it. Move one of them, or turn the Leaf shortcut off.
+If both use **MENU** and you bind a RetroArch hotkey to a button a Leaf shortcut is
+using, Leaf's shortcut runs and RetroArch never sees it. Move one of them, or turn the Leaf shortcut off.
 
 A Leaf shortcut that has nothing to do passes the chord to RetroArch. That happens
 with the screenshot shortcut while screenshots are off, and with the game switcher
@@ -95,7 +95,7 @@ carousel of your recent games laid over the current one. On the home screen,
 - **Left / Right** - browse your recent games. The tile for the game you're in shows
   a live snapshot of it.
 - **A** - switch to the selected game. Leaf saves your current spot first.
-- **B** - close the switcher and go back to the current game.
+- **B** or **SELECT** - close the switcher and go back to the current game.
 - **Y** - remove a game from the recents list. You can't remove the running game.
 
 When you return to the launcher, it reopens on the same tab and game.

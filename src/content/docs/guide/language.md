@@ -47,8 +47,8 @@ when you switch language.
 - Game names. They come from your files and from the artwork scraper.
 - Console names, such as Game Boy and PlayStation. The arcade category is translated.
 - Product and app names: Leaf, RetroArch, and the built-in apps.
-- The menus of the other standalone emulators, such as **DraStic**, **Flycast** and the
-  **N64 emulator**.
+- The menus of the other standalone emulators, such as DraStic, Flycast and the
+  N64 emulator.
 
 ## Chinese and Korean game names
 
@@ -58,5 +58,8 @@ menu, PPSSPP's menus, and the File Explorer, whatever language Leaf is set to.
 ## Fixing a translation
 
 If a line reads wrong, say so on the [Discord](https://discord.gg/q5F7cZ7KRp). You can
-try a correction on your own device first with an
-[override file](/guide/translating/#testing-it-on-the-device).
+try a correction on your own device first. Put one `English<TAB>translation` pair
+per line in `.umrk/mlp1/i18n/<code>.tsv` on the SD card, for example `zh_CN.tsv`,
+and restart Leaf. The file outranks the built-in translation and survives updates.
+
+To fill in a whole language, see [Translate Leaf](/guide/translating/).

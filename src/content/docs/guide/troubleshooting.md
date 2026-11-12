@@ -81,8 +81,7 @@ resumes on the next normal boot. See [Recovery](/guide/recovery/).
 
 Set **Settings > Games > Game Performance** to **Performance**, or leave it on
 **Auto**, which boosts heavier systems for you. You can also change it for one
-game from the in-game menu - see [Playing games](/guide/playing/). The most
-demanding systems are at the edge of what this hardware can do.
+game from the in-game menu - see [Playing games](/guide/playing/).
 
 ## The device sleeps or powers off on its own
 
@@ -128,7 +127,7 @@ If the setting isn't on that list, quit properly (**MENU > Save & Quit**, or
 **Main Menu > Quit RetroArch** in the app tile) instead of powering off from
 inside RetroArch, and try again.
 
-## A shader is missing, broken, or keeps returning
+## A shader is missing or keeps returning
 
 - A Leaf recommendation is missing: update or reinstall Leaf.
 - A shader keeps coming back: open **MENU > Shader** and choose **Off** at the

@@ -39,7 +39,8 @@ browser, or on your phone. Converting happens in the background, so the launcher
 comes straight back and the MP4 appears a few seconds later. Longer clips take
 longer.
 
-Two more rows on the **Hotkeys** page change what you get:
+Two more rows on the **Hotkeys** page change what you get. Both stay grayed out
+until **Recording** is on.
 
 - **Split Over 10MB** - on by default. Discord's free upload limit is 10 MB, which
   is about 30 seconds of gameplay. A larger clip is saved as numbered parts, each

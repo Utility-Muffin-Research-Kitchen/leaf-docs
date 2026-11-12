@@ -24,11 +24,12 @@ Your changes are saved when RetroArch quits normally:
 
 ### My changes disappeared after powering off
 
-A hard power cut loses the settings you changed in that session. That includes
+A hard power cut can lose the settings you changed in that session. That includes
 holding the power button until the device dies and letting the battery run flat.
 
 Leaf's **Power Off** and **Reboot** save the RetroArch app tile's settings before
-the device goes down. A running game is different: powering off or restarting with
+the device goes down. If RetroArch hangs or the write fails, those changes may
+not be saved. A running game is different: powering off or restarting with
 a game open can lose that session's settings and your recent in-game progress.
 Leave the game with **MENU > Save & Quit** first.
 
@@ -109,6 +110,6 @@ A saved shader preset can apply again after the reset. Remove it from
    there.
 2. Quit with **MENU > Save & Quit**, or **Quit RetroArch** in the app tile. Don't
    power off from inside RetroArch.
-3. Check whether a core, folder, or game override is loaded. It replaces the shared
-   value and stops RetroArch saving the shared configuration on exit.
+3. Check whether a core, folder, or game override is loaded. It can replace the
+   shared value and stop RetroArch saving the shared configuration on exit.
 4. If none of these explains it, see [Troubleshooting](/guide/troubleshooting/).

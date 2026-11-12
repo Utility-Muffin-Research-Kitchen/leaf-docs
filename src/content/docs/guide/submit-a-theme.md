@@ -21,10 +21,10 @@ This page covers packaging and submitting. To make the theme itself, start with
 2. Submit it with the **Submit a theme** form: attach the zip, pick a license, write a
    one-line summary, and check three boxes.
 3. A bot checks your zip and comments on your issue with anything that needs fixing.
-4. When the checks pass, a maintainer reviews your theme.
-5. When the maintainer merges it, your theme is published and added to Pak Rat.
-
-Nothing you submit appears in Pak Rat until a maintainer merges it.
+4. When the checks pass, the bot opens a review pull request and a maintainer
+   looks at your theme.
+5. When the maintainer merges that pull request, your theme is published and added
+   to Pak Rat.
 
 ## Prepare your theme
 
@@ -180,6 +180,7 @@ Before you submit, check that:
 - The folder name is exactly your `id`, and the folder holds nothing but the theme.
 - `theme.json` has the seven required fields and no keys beyond the optional four.
 - `preview.png` is 960 x 720.
+- Every image is within its size limit and named with a system code.
 - The zip holds that one folder, is 10 MiB or smaller, and has no hidden files.
 
 ## Submitting your theme

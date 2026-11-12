@@ -95,19 +95,19 @@ if you want to keep your own copy.
 
 The theme's details say which of these applies:
 
-- **It was withdrawn.** A theme can be taken out of Pak Rat, for example at its
+- It was withdrawn. A theme can be taken out of Pak Rat, for example at its
   author's request. If you have it installed, it keeps working and you can still apply
   or uninstall it, but it can't be installed again or updated.
-- **A theme that comes with Leaf uses the same name**, such as **Sample**.
-- **Your Themes folder is full.** Leaf lists up to 32 themes, counting every folder in
+- A theme that comes with Leaf uses the same name, such as **Sample**.
+- Your `Themes` folder is full. Leaf lists up to 32 themes, counting every folder in
   `Themes`: the bundled **Sample**, themes you copied yourself and the ones from Pak
   Rat. Uninstall a theme, or delete a folder you no longer use, to make room. Updating
   a theme you already have doesn't need a free slot.
 
 ## A theme won't install
 
-- **The download did not match the catalog.** Nothing was changed. Check your Wi-Fi
+- The download didn't match the catalog. Nothing was changed. Check your Wi-Fi
   and try again later.
-- **It is not a valid theme.** Pak Rat checks every theme before installing it and
+- It isn't a valid theme. Pak Rat checks every theme before installing it and
   refuses one that fails, with a short reason. Let the Leaf team know on the
   [Leaf Discord](https://discord.gg/q5F7cZ7KRp).

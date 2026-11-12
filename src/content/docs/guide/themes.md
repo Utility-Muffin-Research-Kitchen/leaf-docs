@@ -1,14 +1,14 @@
 ---
 title: Make a theme
-description: Restyle Grid view and Cover Flow with your own wallpaper, colors, system art and logos. A theme is one folder on the SD card, and you only have to supply the parts you want to change.
+description: Restyle Grid view and Cover Flow with your own wallpaper, colors, system art and logos. A theme is one folder on the SD card.
 ---
 
 A theme restyles **Grid view** and **Cover Flow**. It can change the wallpaper, the
 colors of the panels and highlights, the picture on each system tile, the name written
 across a tile, the system logo on a game list, and the system cards in Cover Flow.
 
-A theme is one folder on the SD card holding images and a small text file. There is
-nothing to compile, and you only have to supply the parts you want to change.
+A theme is one folder on the SD card holding images and a small text file. You only
+have to supply the parts you want to change.
 
 To install themes other people made, see [Themes](/guide/pak-rat-themes/), or browse
 the [Theme gallery](/themes/). When yours is ready to share, see
@@ -42,8 +42,7 @@ Themes/
         FC.png
 ```
 
-Only `theme.json` is required. Everything else is optional, and a folder without a
-readable `theme.json` is skipped.
+Only `theme.json` is required. A folder without a readable `theme.json` is skipped.
 
 - `grid/` holds the art for Grid view. A `wallpaper.png` inside it overrides the
   theme-wide one in Grid view.

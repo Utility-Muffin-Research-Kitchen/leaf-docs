@@ -138,7 +138,7 @@ The two front ends read them from different places on your primary card:
 - **Fun DraStic** reads them directly from `BIOS/`.
 - **DraStic** reads them from `.umrk/mlp1/drastic/system/`.
 
-`BIOS/NDS/` isn't read by either. A Leaf update doesn't replace files in either
+Putting them in `BIOS/NDS/` doesn't make them available to both front ends. A Leaf update doesn't replace files in either
 location.
 
 ## Saturn: choosing a BIOS
@@ -157,11 +157,11 @@ game or on the Saturn system). The **Saturn BIOS** row then appears below
   system, go back to HLE.
 - **HLE** - no BIOS file. Use this to opt one game out of a BIOS you selected for
   the whole system.
-- **A BIOS file of your own** - browse to it and press **A**.
+- A BIOS file of your own - browse to it and press **A**.
 
 Browsing starts at each SD card's `BIOS/SATURN/` folder. The file can have any
 name or extension, and you can organize it in subfolders. Only files of exactly
-512 KiB are listed, because that's the size of a Saturn BIOS image. Leaf
+512 KiB are listed. Leaf
 remembers which file you chose and doesn't move or rename it. If a game
 misbehaves, try the other setting.
 

@@ -48,6 +48,38 @@ Not every package can move. Ones that share files with another installed port,
 or that the manager can't relocate safely, are marked as such and it tells you
 why rather than attempting it.
 
+## Adding ports yourself
+
+Some ports aren't in PortMaster's list, such as a test build or a port shared by
+its author. You can add those from a ZIP or from a folder.
+
+Ports from outside PortMaster's list are supported by their authors, may need
+game data you own, and aren't guaranteed to work on Leaf.
+
+### From a ZIP
+
+1. Open **PortMaster** from the **Apps** tab and choose **Launch PortMaster**.
+   The first time, it creates an `autoinstall` folder in `Roms/PORTS/` with a
+   short `README.txt`.
+2. Copy the port's ZIP into `Roms/PORTS/autoinstall/` as it is, without
+   extracting it.
+3. Launch PortMaster again. It installs each ZIP in the folder and applies
+   Leaf's compatibility changes, the same as for a port from its list.
+
+A ZIP that installs is removed from the folder. One that fails stays there, so
+you can try again. With two SD cards, use the folder on the card chosen under
+**Default Install Card**.
+
+Don't put `PortMaster.zip` in this folder. PortMaster skips it, because Leaf
+handles PortMaster's own updates (see [Updates and repairs](#updates-and-repairs)).
+
+### From a folder
+
+If the port is already extracted, copy its `.sh` launch script and its folder
+side by side into `Roms/PORTS/`, then launch it from **Ports** like any other
+game. The first launch takes a few seconds longer while Leaf adapts the port to
+the Miniloong Pocket 1. Later launches start straight away.
+
 ## Updates and repairs
 
 Open the PortMaster manager from the **Apps** tab to check for a compatible

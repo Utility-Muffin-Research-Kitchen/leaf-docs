@@ -3,256 +3,159 @@ title: Adding games & ROMs
 description: Where to put ROMs, box art, saves, and states on the SD card so Leaf finds them.
 ---
 
-Leaf reads your library from a set of clearly named folders on the SD card. Drop
-files into the right folder and they show up in the launcher; there's no database
-to manage by hand. You can fill the folders by putting the SD card in your
-computer, or over Wi-Fi with the Central Scrutinizer app (see
-[Features → Apps](/guide/features/#apps)).
+Leaf reads your library from folders on the SD card. Put a game in the folder
+for its system and it shows up in the launcher. You can fill the folders with
+the SD card in your computer, or over Wi-Fi with
+[Central Scrutinizer](/apps/central-scrutinizer/).
 
-:::caution[Bring your own games]
-Leaf does not include any games. Only add ROMs you are legally entitled to use.
-:::
+Leaf doesn't include any games. Only add ROMs you're legally entitled to use.
 
 ## Folder layout
 
-At the root of the SD card you'll find these user-facing folders:
+At the root of the SD card you'll find these folders:
 
 ```text
 Roms/<SYSTEM>/      your game files, one folder per system
 Images/<SYSTEM>/    box art, matching each game's filename
 Saves/              in-game saves
 States/             save states
-BIOS/               BIOS files some systems need (see BIOS & cores)
+BIOS/               BIOS files some systems need
 ```
 
-- **`Roms/<SYSTEM>/`** - put each game in the folder for its system, e.g.
+- `Roms/<SYSTEM>/` - put each game in the folder for its system, such as
   `Roms/SNES/Chrono Trigger.sfc` or `Roms/GBA/Metroid Fusion.gba`. Games can sit
-  loose in the system folder or tucked into subfolders (a folder per game, or your
-  own grouping) - Leaf scans down into them, so
-  `Roms/PSX/Final Fantasy VII/Final Fantasy VII.cue` works just as well. To
-  browse those subfolders in the launcher, see
+  loose in the system folder or in subfolders, so
+  `Roms/PSX/Final Fantasy VII/Final Fantasy VII.cue` works too. To browse those
+  subfolders in the launcher, see
   [Folders in your lists](#folders-in-your-lists).
-- **`Images/<SYSTEM>/`** - put box art next to the matching system folder, named
-  to match the game. For `Roms/SNES/Chrono Trigger.sfc`, use
-  `Images/SNES/Chrono Trigger.png` or `Images/SNES/Chrono Trigger.jpg`. PNG and
-  JPEG (`.jpg` or `.jpeg`) both work.
-- **`Saves/` and `States/`** - created and managed for you as you play. See
-  [Playing games](/guide/playing/) for how in-game saves and save states work.
+- `Images/<SYSTEM>/` - box art, named to match the game. See
+  [Box art](#box-art).
+- `Saves/` and `States/` - created and managed for you as you play. See
+  [Playing games](/guide/playing/).
+- `BIOS/` - see [BIOS files](/guide/bios-and-cores/).
 
 ## System folders
 
-For native PICO-8 carts and Splore, see [Native PICO-8](/guide/pico-8/).
-Both FAKE-08 and native playback use `Roms/PICO8/`.
+Each console has one folder under `Roms/`. When a console has more than one
+emulator, you pick between them with **Core** in the
+[Options menu](#options-menu), and the games stay in the same folder. See
+[Systems and emulators](/guide/systems/) for the choices and for setup that's
+specific to one system.
 
-Each console gets **one** `Roms/` subfolder, grouped by maker below - one folder
-per system, not one per emulator. Different emulators or compatibility modes for
-the same console are a **Core** choice (see Options below), not separate folders.
+Folder names aren't case-sensitive, and most systems accept a few aliases:
+`Roms/NES`, `Roms/FC`, and `Roms/FAMICOM` all land in the same place. Alias
+folders you already have keep working, but put new games and box art in the
+folder named in the table. Pokémon mini also accepts `Roms/POKE/` and
+`Roms/PKM/`.
 
-Folder names are not case-sensitive, and most systems accept a few aliases
-(`Roms/NES`, `Roms/FC`, and `Roms/FAMICOM` all land in the same place), so the
-name shown is just the recommended one. Older alias folders keep working if you
-already have them, but new games and box art should go in the recommended folder.
+- Naomi, Naomi GD-ROM, and Naomi 2 are one system. Put all three in
+  `Roms/NAOMI/`.
+- Neo Geo sets go in `Roms/NEOGEO/`, not `Roms/ARCADE/`, so they get their own
+  system in the launcher. Use `Roms/MAME/` only for a set built for MAME 03+.
+  See [Arcade and Neo Geo](/guide/systems/#arcade-and-neo-geo).
+- Content paks from Pak Rat add systems with folders of their own.
+  [ScummVM](/app-store/scummvm/) uses `Roms/SCUMMVM/`, and
+  [J2ME](/app-store/j2me/) uses `Roms/J2ME/`. These folders work once the pak is
+  installed.
+- `Roms/PICO8/` serves both the bundled FAKE-08 and
+  [native PICO-8](/guide/pico-8/).
 
-**Nintendo**
-
-| Folder | System |
-|---|---|
-| `NES` | Nintendo Entertainment System |
-| `FDS` | Famicom Disk System |
-| `SNES` | Super Nintendo / Super Famicom |
-| `N64` | Nintendo 64 |
-| `GB` / `GBC` / `GBA` | Game Boy / Color / Advance |
-| `NDS` | Nintendo DS |
-| `VB` | Virtual Boy |
-| `GW` | Game & Watch |
-| `POKEMINI` | Pokémon mini |
-
-**Sega**
-
-| Folder | System |
-|---|---|
-| `MS` | Master System |
-| `GG` | Game Gear |
-| `GENESIS` | Genesis / Mega Drive |
-| `SEGACD` | Sega CD |
-| `32X` | Sega 32X |
-| `SATURN` | Saturn |
-| `DC` | Dreamcast |
-| `ATOMISWAVE` | Atomiswave |
-| `NAOMI` | Sega Naomi, Naomi GD-ROM, and Naomi 2 |
-
-**NEC**
-
-| Folder | System |
-|---|---|
-| `PCE` | PC Engine / TurboGrafx-16 |
-| `PCECD` | PC Engine CD / TurboGrafx-CD |
-| `PC98` | NEC PC-98 |
-
-**SNK**
-
-| Folder | System |
-|---|---|
-| `NEOGEO` | Neo Geo - home (AES) and arcade (MVS) share this folder; needs a BIOS, see below |
-| `NGP` / `NGPC` | Neo Geo Pocket / Color |
-
-**Sony**
-
-| Folder | System |
-|---|---|
-| `PSX` | PlayStation |
-| `PSP` | PlayStation Portable |
-
-**Atari**
-
-| Folder | System |
-|---|---|
-| `ATARI2600` | Atari 2600 |
-| `A7800` | Atari 7800 |
-| `LYNX` | Atari Lynx |
-
-**Commodore**
-
-| Folder | System |
-|---|---|
-| `AMIGA` | Amiga (OCS/ECS/AGA, CDTV, and CD32) |
-
-**Other**
-
-| Folder | System |
-|---|---|
-| `WS` / `WSC` | WonderSwan / Color |
-| `COLECO` | ColecoVision |
-| `VECTREX` | Vectrex |
-| `PICO8` | Pico-8 |
-| `DOS` | MS-DOS |
-| `EASYRPG` | EasyRPG (RPG Maker 2000/2003) |
-| `ARCADE` | Arcade (FBNeo, recommended for most arcade sets; Neo Geo sets go in `NEOGEO`) |
-| `PORTS` | Ports (native game ports) |
-
-Advanced arcade users can also use `Roms/MAME/` for MAME 03+ zipped ROM sets.
-Use that only when your set is built for that core; otherwise put arcade games
-in `Roms/ARCADE/`. The one exception is Neo Geo: FinalBurn Neo runs those too,
-but they belong in `Roms/NEOGEO/` so they get their own system in the launcher.
-
-Pokémon mini games go in `Roms/POKEMINI/`. If your collection comes from
-another handheld, a `Roms/POKE/` or `Roms/PKM/` folder works too.
-
-Naomi, Naomi GD-ROM, and Naomi 2 are one system in Leaf. Put content from all
-three hardware families in `Roms/NAOMI/`; do not create separate GD-ROM or
-Naomi 2 folders. Their BIOS archives stay separate by hardware generation:
-`BIOS/dc/naomi.zip` serves base Naomi and Naomi GD-ROM, while
-`BIOS/dc/naomi2.zip` serves Naomi 2.
-
-Content paks from Pak Rat add systems of their own, each with its own folder.
-[ScummVM](/app-store/scummvm/) uses `Roms/SCUMMVM/`, and [J2ME](/app-store/j2me/)
-uses `Roms/J2ME/` for Java phone games. These folders work once the pak is
+If a folder's system isn't showing up in the launcher, its emulator may not be
 installed.
 
 ### Supported game formats
 
-These are the accepted game-file formats per folder:
+Each folder, its system, and the game files it accepts:
 
-| Folder | Supported formats | Notes |
-|---|---|---|
-| `NES` | `.fds`, `.nes`, `.unf`, `.unif`, `.7z`, `.zip` |  |
-| `FDS` | `.fds`, `.nes`, `.7z`, `.zip` |  |
-| `SNES` | `.bs`, `.bsx`, `.dx2`, `.fig`, `.gd3`, `.gd7`, `.sfc`, `.smc`, `.st`, `.swc`, `.7z`, `.zip` |  |
-| `N64` | `.n64`, `.v64`, `.z64`, `.7z`, `.zip` |  |
-| `GB` | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
-| `GBC` | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
-| `GBA` | `.bin`, `.gba`, `.7z`, `.zip` |  |
-| `NDS` | `.nds`, `.7z`, `.zip` |  |
-| `VB` | `.vb`, `.vboy`, `.7z`, `.zip` |  |
-| `GW` | `.mgw`, `.7z`, `.zip` |  |
-| `POKEMINI` | `.min`, `.7z`, `.zip` | A `bios.min` here is not listed as a game |
-| `MS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
-| `GG` | `.bin`, `.gg`, `.7z`, `.zip` |  |
-| `GENESIS` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
-| `SEGACD` | `.chd`, `.cue`, `.iso`, `.7z`, `.zip`, `.m3u` |  |
-| `32X` | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
-| `SATURN` | `.ccd`, `.chd`, `.cue`, `.iso`, `.mds`, `.zip`, `.m3u` | Standalone supports direct `.ccd`, `.chd`, `.cue`, `.iso`, and `.mds`; `.zip` and `.m3u` use RetroArch only |
-| `DC` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.m3u` | `.zip` is not accepted directly |
-| `ATOMISWAVE` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
-| `NAOMI` | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
-| `PCE` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.pce`, `.7z`, `.zip` |  |
-| `PCECD` | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.m3u` | `.zip` is not accepted directly |
-| `PC98` | `.2hd`, `.88d`, `.98d`, `.cmd`, `.d88`, `.d98`, `.dup`, `.fdd`, `.fdi`, `.hdd`, `.hdi`, `.hdm`, `.hdn`, `.nhd`, `.tfd`, `.thd`, `.xdf`, `.zip` | Use `.cmd` when multiple images must be mounted together |
-| `NEOGEO` | `.7z`, `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
-| `NGP` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
-| `NGPC` | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
-| `PSX` | `.cbn`, `.chd`, `.cue`, `.img`, `.iso`, `.mdf`, `.pbp`, `.toc`, `.m3u` | `.zip` is not accepted directly |
-| `PSP` | `.chd`, `.cso`, `.iso`, `.pbp` | `.zip` is not accepted directly |
-| `ATARI2600` | `.a26`, `.bin`, `.7z`, `.zip` |  |
-| `A7800` | `.a78`, `.bin`, `.7z`, `.zip` |  |
-| `LYNX` | `.lnx`, `.zip` |  |
-| `AMIGA` | `.adf`, `.adz`, `.dms`, `.fdi`, `.raw`, `.hdf`, `.hdz`, `.lha`, `.cue`, `.ccd`, `.chd`, `.nrg`, `.mds`, `.iso`, `.uae`, `.rp9`, `.zip`, `.7z`, `.m3u` | One folder covers OCS/ECS, AGA, CDTV, and CD32 |
-| `WS` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
-| `WSC` | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
-| `COLECO` | `.bin`, `.col`, `.rom`, `.7z`, `.zip` |  |
-| `VECTREX` | `.bin`, `.vec`, `.7z`, `.zip` |  |
-| `PICO8` | `.p8`, `.png` |  |
-| `DOS` | `.bat`, `.com`, `.conf`, `.dosz`, `.exe`, `.ima`, `.img`, `.ins`, `.iso`, `.jrc`, `.tc`, `.vhd`, `.zip`, `.m3u`, `.m3u8` |  |
-| `EASYRPG` | `.easyrpg`, `.ldb`, `.zip` | One folder per game, launched through its `RPG_RT.ldb`; see [RPG Maker 2000 and 2003 games](#rpg-maker-2000-and-2003-games) |
-| `ARCADE` | `.zip` | `neocd.zip`, `neocdz.zip`, and `neogeo.zip` are BIOS/ignored as games |
-| `PORTS` | `.sh` |  |
-| `MAME` | `.zip` | Optional advanced folder for MAME 03+ sets |
+| Folder | System | Game files | Notes |
+|---|---|---|---|
+| `NES` | Nintendo Entertainment System | `.fds`, `.nes`, `.unf`, `.unif`, `.7z`, `.zip` |  |
+| `FDS` | Famicom Disk System | `.fds`, `.nes`, `.7z`, `.zip` |  |
+| `SNES` | Super Nintendo / Super Famicom | `.bs`, `.bsx`, `.dx2`, `.fig`, `.gd3`, `.gd7`, `.sfc`, `.smc`, `.st`, `.swc`, `.7z`, `.zip` |  |
+| `N64` | Nintendo 64 | `.n64`, `.v64`, `.z64`, `.7z`, `.zip` |  |
+| `GB` | Game Boy | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
+| `GBC` | Game Boy Color | `.bin`, `.dmg`, `.gb`, `.gbc`, `.7z`, `.zip` |  |
+| `GBA` | Game Boy Advance | `.bin`, `.gba`, `.7z`, `.zip` |  |
+| `NDS` | Nintendo DS | `.nds`, `.7z`, `.zip` |  |
+| `VB` | Virtual Boy | `.vb`, `.vboy`, `.7z`, `.zip` |  |
+| `GW` | Game & Watch | `.mgw`, `.7z`, `.zip` |  |
+| `POKEMINI` | Pokémon mini | `.min`, `.7z`, `.zip` | A `bios.min` here isn't listed as a game |
+| `MS` | Master System | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `GG` | Game Gear | `.bin`, `.gg`, `.7z`, `.zip` |  |
+| `GENESIS` | Genesis / Mega Drive | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `SEGACD` | Sega CD | `.chd`, `.cue`, `.iso`, `.7z`, `.zip`, `.m3u` |  |
+| `32X` | Sega 32X | `.32x`, `.68k`, `.bin`, `.chd`, `.gen`, `.iso`, `.md`, `.smd`, `.sms`, `.7z`, `.zip` |  |
+| `SATURN` | Saturn | `.ccd`, `.chd`, `.cue`, `.iso`, `.mds`, `.zip`, `.m3u` | `.zip` and `.m3u` always run in RetroArch |
+| `DC` | Dreamcast | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.m3u` | `.zip` isn't accepted |
+| `ATOMISWAVE` | Atomiswave | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
+| `NAOMI` | Sega Naomi, Naomi GD-ROM, and Naomi 2 | `.cdi`, `.chd`, `.cue`, `.dat`, `.gdi`, `.iso`, `.zip`, `.m3u` | Keep zipped sets at their original shortnames |
+| `PCE` | PC Engine / TurboGrafx-16 | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.pce`, `.7z`, `.zip` |  |
+| `PCECD` | PC Engine CD / TurboGrafx-CD | `.ccd`, `.chd`, `.cue`, `.img`, `.iso`, `.m3u` | `.zip` isn't accepted |
+| `PC98` | NEC PC-98 | `.2hd`, `.88d`, `.98d`, `.cmd`, `.d88`, `.d98`, `.dup`, `.fdd`, `.fdi`, `.hdd`, `.hdi`, `.hdm`, `.hdn`, `.nhd`, `.tfd`, `.thd`, `.xdf`, `.zip` | Use a `.cmd` when two disks have to be mounted together |
+| `NEOGEO` | Neo Geo, home (AES) and arcade (MVS) | `.7z`, `.zip` | Needs `neogeo.zip` in `BIOS/`. `neocd.zip`, `neocdz.zip`, and `neogeo.zip` aren't listed as games |
+| `NGP` | Neo Geo Pocket | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
+| `NGPC` | Neo Geo Pocket Color | `.ngc`, `.ngp`, `.7z`, `.zip` |  |
+| `PSX` | PlayStation | `.cbn`, `.chd`, `.cue`, `.img`, `.iso`, `.mdf`, `.pbp`, `.toc`, `.m3u` | `.zip` isn't accepted |
+| `PSP` | PlayStation Portable | `.chd`, `.cso`, `.iso`, `.pbp` | `.zip` isn't accepted |
+| `ATARI2600` | Atari 2600 | `.a26`, `.bin`, `.7z`, `.zip` |  |
+| `A7800` | Atari 7800 | `.a78`, `.bin`, `.7z`, `.zip` |  |
+| `LYNX` | Atari Lynx | `.lnx`, `.zip` |  |
+| `AMIGA` | Amiga (OCS/ECS/AGA, CDTV, and CD32) | `.adf`, `.adz`, `.dms`, `.fdi`, `.raw`, `.hdf`, `.hdz`, `.lha`, `.cue`, `.ccd`, `.chd`, `.nrg`, `.mds`, `.iso`, `.uae`, `.rp9`, `.zip`, `.7z`, `.m3u` |  |
+| `WS` | WonderSwan | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
+| `WSC` | WonderSwan Color | `.pc2`, `.ws`, `.wsc`, `.7z`, `.zip` |  |
+| `COLECO` | ColecoVision | `.bin`, `.col`, `.rom`, `.7z`, `.zip` |  |
+| `VECTREX` | Vectrex | `.bin`, `.vec`, `.7z`, `.zip` |  |
+| `PICO8` | Pico-8 | `.p8`, `.png` |  |
+| `DOS` | MS-DOS | `.bat`, `.com`, `.conf`, `.dosz`, `.exe`, `.ima`, `.img`, `.ins`, `.iso`, `.jrc`, `.tc`, `.vhd`, `.zip`, `.m3u`, `.m3u8` |  |
+| `EASYRPG` | EasyRPG (RPG Maker 2000/2003) | `.easyrpg`, `.ldb`, `.zip` | One folder per game, launched through its `RPG_RT.ldb`. See [RPG Maker 2000 and 2003](/guide/systems/#rpg-maker-2000-and-2003) |
+| `ARCADE` | Arcade (FinalBurn Neo) | `.zip` | For most arcade sets. `neocd.zip`, `neocdz.zip`, and `neogeo.zip` aren't listed as games |
+| `PORTS` | Ports (native game ports) | `.sh` |  |
+| `MAME` | Arcade (MAME 03+) | `.zip` | Only for sets built for MAME 03+ |
 
 ## A second SD card
 
-The Pocket 1 has **two** microSD slots. The card Leaf boots from is the
-**Primary**; a card in the second slot is picked up automatically as an extra
-**Secondary** source of games.
+The Pocket 1 has two microSD slots. The card Leaf boots from is the **Primary**.
+A card in the second slot is picked up automatically as a **Secondary** source of
+games.
 
-Give the second card the same folder layout as the first - `Roms/<SYSTEM>/`,
-`Images/<SYSTEM>/`, and so on at its root. Leaf merges both cards into one
-library, so a system's games from either card appear together under that one
-system, and you don't need to browse per card.
+Give the second card the same folder layout as the first, with
+`Roms/<SYSTEM>/`, `Images/<SYSTEM>/`, and so on at its root. Leaf merges both
+cards into one library, so a system's games from either card appear together.
 
-:::caution[Format it FAT32]
-The second card must be partitioned and formatted **FAT32**. Leaf mounts it as a
-`vfat` volume, so an exFAT card (which is how most cards over 32 GB come
-formatted out of the box) will not mount at all. Reformat it as FAT32 first.
-:::
+The second card has to be partitioned and formatted FAT32. An exFAT card, which is how most
+cards over 32 GB come, won't mount. See [Install Leaf](/guide/install/) for
+formatting.
 
-You can add or remove the second card while the device is running: Leaf notices
-the change and rescans on its own. Before pulling it out, use
+You can add or remove the second card while the device is running, and Leaf
+rescans on its own. Before pulling it out, use
 **Settings → System → SD Cards** so nothing is mid-write.
 
-Removing the second card doesn't throw away anything Leaf knows about its games.
-They leave your lists while the card is out, and come back with their favorites,
-recents, playtime, and per-game settings when you put the card back.
+A card's games leave your lists while it's out, and come back with their
+favorites, recents, playtime, and per-game settings when you put it back.
 
 ### Swapping second cards
 
 Leaf tells your second cards apart, so you can swap between several. Each card
 keeps its own games, favorites, recents, playtime, per-game settings, and hidden
-games. When you put in a different card, the previous card's games leave your
-lists, and they come back when you put that card back. Leaf remembers the 8 most
-recent cards that aren't in the slot, and forgets the oldest after that.
+games. Leaf remembers the last 8 cards you took out.
 
 - If two cards hold a game at the same path, each copy keeps its own playtime and
   settings.
-- If you reformat a card, or copy its games onto a bigger one, Leaf still knows it
-  as long as it has at least 16 games and at least 90% of them are in the same
-  folders with the same names. A card with fewer games starts fresh.
-- Leaf goes by each game's folder and file name, so it can't tell two cards apart
-  if they hold nearly all the same games. Those cards, and cards cloned from one
+- If you reformat a card, or copy its games onto a bigger one, Leaf still knows
+  it as long as nearly all of its games are in the same folders with the same
+  names. A card with only a few games starts fresh.
+- Two cards that hold nearly all the same games, or that were cloned from one
   image, count as one card and share their favorites, playtime, and per-game
   settings.
 
-Leaf versions before 0.14.0 don't tell second cards apart. If you go back to one
-after swapping cards, games from your other cards show in your lists but won't
-launch. They leave your lists again when you update, with nothing lost.
-
 ### Moving games off the second card
 
-A game you move to the main card becomes a new entry, so its favorite, playtime, and
-per-game settings don't follow it.
+A game you move to the main card becomes a new entry, so its favorite, playtime,
+and per-game settings don't follow it.
 
 1. On a computer, copy `Roms/`, `Images/`, `Saves/`, and `States/` from the second
-   card to the main card. Games on the second card keep their saves on that card, so
-   the copies on the main card won't find them otherwise.
+   card to the main card. Games on the second card keep their saves on that card,
+   so the copies on the main card need them copied too.
 2. Unmount the second card with **Settings → System → SD Cards** and take it out.
    Its games leave your lists.
 
@@ -271,11 +174,10 @@ A system's list shows all its games in one list, wherever they sit under
 - Each subfolder is a row. **A** opens it and **B** goes back up. Folders come
   first, then the games in that folder.
 - When you quit a game, you're back in the same folder, on the same game.
-- A folder that's really one game's own folder shows as that game. That's a
-  folder holding one game and no subfolders, where the game's file has the
-  folder's name, like `Roms/PSX/Spyro the Dragon/Spyro the Dragon (USA).cue`.
-  Capital letters and tags in brackets at the end, such as `(USA)`, don't count.
-  An RPG Maker game's folder always shows as the game.
+- A folder that holds one game named after it, with no subfolders, shows as that
+  game: `Roms/PSX/Spyro the Dragon/Spyro the Dragon (USA).cue`. A tag at the
+  end such as `(USA)` doesn't matter. An RPG Maker game's folder always shows as
+  the game.
 - The same folder on both SD cards shows as one folder, with the games from both.
 - **Favorites**, **Recents**, search, the game switcher, and the
   [5-Game Mode](/guide/five-game-mode/) picker stay as one list.
@@ -283,9 +185,8 @@ A system's list shows all its games in one list, wherever they sit under
 ### How games are sorted
 
 Lists sort by title, ignoring capital letters and reading numbers as numbers, so
-"Mega Man 2" comes before "Mega Man 10", and a title in lowercase doesn't land
-after "Zelda". This goes for each system's list, **Favorites**, **Hidden Games**,
-and folder names.
+"Mega Man 2" comes before "Mega Man 10". This goes for each system's list,
+**Favorites**, **Hidden Games**, and folder names.
 
 ### Pinning a game
 
@@ -303,83 +204,68 @@ choose **Unpin** from the same menu.
 
 ## Box art
 
-You can add box art two ways: drop it in yourself, or let Leaf fetch it.
+You can add box art yourself, or let Leaf fetch it.
 
-**Add it yourself.** Name each image to match its game file (same name, image
-extension) and place it in `Images/<SYSTEM>/`. For `Roms/SNES/Chrono Trigger.sfc`,
-use `Images/SNES/Chrono Trigger.png`. Leaf pairs them up automatically and shows
-the art in the game list. An RPG Maker game is named after its folder instead, so
+### Adding it yourself
+
+Name each image after its game file and put it in
+`Images/<SYSTEM>/`. For `Roms/SNES/Chrono Trigger.sfc`, use
+`Images/SNES/Chrono Trigger.png`. An RPG Maker game is named after its folder, so
 `Roms/EASYRPG/Yume Nikki/` uses `Images/EASYRPG/Yume Nikki.png`.
 
-Your art can be PNG or JPEG (`.png`, `.jpg`, or `.jpeg`), and the extension's
-case doesn't matter: `.jpg`, `.JPG`, and `.JpG` all work. If a game has more than
-one image in the same folder, Leaf uses the PNG first, then the JPG, then the
-JPEG. Where the image sits counts before its format, so art in `Images/<SYSTEM>/`
-is used even when a PNG for the same game is in a folder Leaf checks after it.
+Art can be PNG or JPEG (`.png`, `.jpg`, or `.jpeg`, in any letter case). If a
+game has both, Leaf uses the PNG. On an ext4 card, file names are
+case-sensitive, so match the game's name exactly: `Chrono Trigger.sfc` pairs
+with `Chrono Trigger.jpg`, not `chrono trigger.jpg`.
 
-On an ext4 card, file names are case-sensitive. Match the game's file name and
-folder exactly, capital letters included: `Chrono Trigger.sfc` pairs with
-`Chrono Trigger.jpg`, not `chrono trigger.jpg`.
+### Letting Leaf fetch it
 
-**Let Leaf fetch it.** Leaf can download box art from
+Leaf can download box art from
 [ScreenScraper.fr](https://www.screenscraper.fr/). Sign in once under
-**Settings → Games → Accounts → ScreenScraper.fr**, then start a scrape. For a single
-game, press **X** on it and choose **Scrape Artwork**. To do whole systems at once
-(or every system), use **Settings → Games → Scrape Artwork**, which lists **All
-Systems** plus each system with its missing-art count. Fetched art lands in
-`Images/<SYSTEM>/` exactly as if you had added it by hand, and appears in the list
-as soon as each download finishes. Which image type and region it picks is set
-under **Settings → Games** (Artwork Priority and Region Priority).
+**Settings → Games → Accounts → ScreenScraper.fr**, then start a scrape:
 
-**When a game isn't found.** Leaf looks a game up by its file name, so a file
-ScreenScraper doesn't know, such as `smb.nes` or a fan translation with a name
-of its own, can come back with no art. Set the game's real title with **Display
-Name** in its [Options menu](/guide/games/#options-menu), then scrape it again.
-If the file name still isn't found, Leaf tries the name you set, once. It
-doesn't guess at a close match, so if ScreenScraper doesn't recognize that name
-either, the game stays without art. Only a name you set yourself is tried, and
-the art is still saved under the file's name (`smb.png`), so it keeps pairing
-with the game.
+- For one game, press **X** on it and choose **Scrape Artwork**.
+- For a whole system or every system, use **Settings → Games → Scrape Artwork**,
+  which lists **All Systems** plus each system with its missing-art count.
 
-PC-98, Atomiswave, and the complete Naomi family are supported by live scraping.
-For a Naomi title, Leaf tries the base Naomi catalog first, then Naomi GD-ROM,
-then Naomi 2. It computes the game hash once and stops as soon as the correct
-family matches; no extra setup is needed. Artwork still lands at
-`Images/<SYSTEM>/<game-name>.png`, including `Images/NAOMI/` for every Naomi
-family.
+Scraping runs in the background, so you can keep browsing or play a game while
+art downloads. Fetched art lands in `Images/<SYSTEM>/` and appears in the list as
+each download finishes. **Artwork Priority** and **Region Priority** under
+**Settings → Games** set which image type and region it picks.
 
-A Naomi miss can query all three family catalogs, so scraping a large unmatched
-Naomi set can use more of ScreenScraper's daily request allowance than a
-single-catalog system.
+Naomi and Amiga games are looked up across their hardware families for you, and
+the art still lands in the one `Images/NAOMI/` or `Images/AMIGA/` folder. A
+Naomi game that isn't found takes up to three lookups from your daily
+ScreenScraper allowance.
 
-Amiga scraping follows the same pattern. Leaf tries the general Amiga catalog,
-then AGA, CDTV, and CD32, stopping on the first match. You keep one
-`Images/AMIGA/` artwork folder and do not need to choose the hardware family by
-hand.
+### A game isn't found
 
-An RPG Maker game in its own folder is searched by the folder's name, and its art
-is saved under that name in `Images/EASYRPG/`. See
-[RPG Maker 2000 and 2003 games](#rpg-maker-2000-and-2003-games).
+Leaf looks a game up by its file name, so a file
+ScreenScraper doesn't know, such as `smb.nes` or a fan translation, can come
+back with no art. Set the game's real title with **Display Name** in its
+[Options menu](#options-menu), then scrape it again. If the file name still
+isn't found, Leaf tries the name you set, once. If ScreenScraper doesn't
+recognize that name either, the game stays without art. The art is saved under
+the file's name (`smb.png`), so it keeps pairing with the game.
 
 ## Options menu
 
-Press **X** on a game or a system in the launcher to open its **Options** menu.
-This is where per-item actions live, so they stay out of the main list:
+Press **X** on a game or a system in the launcher to open its **Options** menu:
 
 - **Display Name** - rename how the game or system shows in the launcher. When
   scraping can't find a game by its file name, it tries this name too.
-- **Core** - choose which emulator core runs this game or system, when more than
-  one is available.
-- **Saturn BIOS** - appears only when **YabaSanshiro Standalone** is the emulator
-  in force. Choose **Default**, **HLE**, or one of your own BIOS files. See
-  [Saturn BIOS selection](/guide/bios-and-cores/#saturn-choosing-a-bios).
-- **Performance** - set a per-game or per-system performance profile that
-  overrides the global default.
+- **Core** - choose which emulator runs this game or system, when there's more
+  than one. See [Systems and emulators](/guide/systems/).
+- **Saturn BIOS** - appears only when **YabaSanshiro Standalone** is the
+  emulator. See
+  [Saturn: choosing a BIOS](/guide/bios-and-cores/#saturn-choosing-a-bios).
+- **Performance** - set a performance profile for this game or system in place
+  of the global default.
 - **Scrape Artwork** - on a game, fetch and replace its box art. While that scrape
-  is queued the row reads **Cancel Scraping**. To scrape a whole system or every
-  system at once, use **Settings → Games → Scrape Artwork** instead.
-- **Reset Overrides** - clear the custom name, core, performance, and Saturn BIOS
-  settings you set above.
+  is queued the row reads **Cancel Scraping**.
+- **Reset Game Overrides** on a game, **Reset System Overrides** on a system -
+  clear the custom name, core, performance, and Saturn BIOS settings you set
+  above.
 - **Pin to Top** - on a game in its system's list, move it to the top of that
   list. The row then reads **Unpin**. See [Pinning a game](#pinning-a-game).
 - **Hide Game** - on a game, take it out of your lists without deleting anything.
@@ -387,16 +273,13 @@ This is where per-item actions live, so they stay out of the main list:
 - **Delete Game** - on a game, delete its files from your SD card. It isn't offered
   on every system. See [Deleting a game](#deleting-a-game).
 
-Scraping runs in the background, so you can leave the menu, keep browsing, or
-even play a game while art downloads.
-
 ### Hiding a game
 
 **Hide Game** takes a game out of your library without touching its files. It
 disappears right away from its system's list and game count, **Favorites**,
 **Recents**, **Search**, and the game switcher, and a message tells you where to
-find it again. Its file, saves, states, artwork, favorite, and **Options** settings all stay
-as they were, and come back with it when you unhide it.
+find it again. Its file, saves, states, artwork, favorite, and **Options**
+settings all stay as they were, and come back with it when you unhide it.
 
 To bring a game back, open **Settings → Games → Hidden Games**, pick it, and press
 **A** (**Unhide**). See [Settings → Games](/guide/settings/#games).
@@ -406,113 +289,71 @@ To bring a game back, open **Settings → Games → Hidden Games**, pick it, and
 - A game stays hidden through rescans, and while its card is out.
 - A game you already picked for [5-Game Mode](/guide/five-game-mode/) stays on the
   focus screen after you hide it, but you can't pick a hidden game.
-- Leaf versions before 0.13.0 don't know about hidden games. If you go back to
-  one, your hidden games show up again, and they're hidden again when you update.
 
 ### Deleting a game
 
-**Delete Game** removes a game from your SD card: the file you launch, and every file
-that file names. Use it to free space without taking the card out.
+**Delete Game** removes a game from your SD card: the file you launch, and every
+file that file names. A `.m3u` playlist takes every disc it lists and each
+disc's tracks, a `.cue`, `.gdi`, or `.toc` takes its tracks, and a PC-98 `.cmd`
+takes the disk images it names. Any other file is deleted on its own.
 
 :::caution[There is no undo]
-Deleted files are gone. There is no undo and no Trash. Leaf doesn't check whether
-another game uses the same files, so read the file list before you confirm.
+Deleted files are gone, with no Trash. If two games use the same file, such as
+two playlists that list the same disc, deleting one breaks the other. Read the
+file list before you confirm.
 :::
 
-Choose **Options → Delete Game** and Leaf checks the game's files, then shows you:
+1. Choose **Options → Delete Game**. Leaf shows how many files the game has, how
+   much space they take, and which card it's on.
+2. Press **X** (**Files**) to see each file with its card and size, and **X**
+   again to go back.
+3. **Cancel** is selected first. Press **Right** to select **Delete Game**, then
+   press **A**. Keep your cards in while Leaf deletes.
 
-- how many files the game has, how much space they take, and which card it's on
-- that deletion is permanent, and might not delete every file your game uses
-- that your saves, states, and artwork are kept
-
-Press **X** (**Files**) to see each file with its card and size, and **X** again to
-go back. **Cancel** is selected first. To go ahead, press **Right** to select
-**Delete Game**, then press **A**. Keep your cards in while Leaf deletes. When it's
-done, Leaf tells you how many files it deleted. If a file can't be deleted, Leaf
-stops, tells you which one, and **Files** shows what was removed. The file you
+If a file can't be deleted, Leaf stops and tells you which one. The file you
 launch goes last, so you can open **Delete Game** again to delete the rest.
 
-#### What it deletes
+What goes and what stays:
 
-Leaf reads the file you launch and follows the files it names:
+- The game leaves your library with its favorite, its place in **Recents** and
+  5-Game Mode, and its **Options** settings. Putting the file back later doesn't
+  bring them back.
+- Your saves, states, and artwork stay in `Saves/`, `States/`, and `Images/`.
+  Delete them from your computer if you don't want them.
+- DOS, Amiga, and PC-98 games can keep your progress inside their own disk
+  images, and that progress goes with the image. The confirmation warns you.
+- A `.ccd`, `.mds`, `.uae`, or `.conf` file is deleted on its own and the images
+  it uses stay, as does a `.sub` or `.sbi` file beside a PlayStation image.
+- Folders stay, even when they end up empty.
 
-- A `.m3u` playlist takes every disc it lists, and each disc's tracks.
-- A `.cue` takes its tracks, usually `.bin` files.
-- A `.gdi` or `.toc` takes the tracks it lists.
-- A PC-98 `.cmd` takes the disk images it names.
-- Any other file, such as a `.chd`, `.zip`, or `.sfc`, is deleted on its own.
-
-The game also leaves your library. Its favorite, its place in **Recents** and
-5-Game Mode, and its **Options** settings go with it, and putting the file back
-later doesn't bring them back.
-
-#### What stays
-
-- **Your saves, states, and artwork.** They stay in `Saves/`, `States/`, and
-  `Images/`. Delete them from your computer if you don't want them.
-- **Files the game doesn't name.** A `.sub` or `.sbi` file beside a PlayStation
-  image stays. A `.ccd`, `.mds`, `.uae`, or `.conf` file is deleted on its own,
-  and the images it uses stay.
-- **Folders.** Leaf never removes a folder, so a game's own folder stays on the
-  card, even when it's empty.
-
-#### Shared files aren't protected
-
-If two games use the same file, deleting one deletes that file, and the other game
-stops working. For example, two playlists that list the same disc share it. The
-**Files** list shows exactly what goes, so check it before you confirm.
-
-#### Games that can't be deleted
-
-**Delete Game** isn't in the menu for:
-
-- arcade systems, including `ARCADE`, `MAME`, `NEOGEO`, `NAOMI`, and `ATOMISWAVE`,
-  because deleting a parent ROM set breaks the clones that need it
-- **Ports**, because PortMaster installs and removes those
-- systems a content pak adds, such as [ScummVM](/app-store/scummvm/) and
-  [J2ME](/app-store/j2me/), because the pak manages its own games
-- EasyRPG, because each game is a folder
-
+**Delete Game** isn't in the menu for arcade systems (`ARCADE`, `MAME`,
+`NEOGEO`, `NAOMI`, and `ATOMISWAVE`), **Ports**, EasyRPG, or systems a content
+pak adds, such as [ScummVM](/app-store/scummvm/) and [J2ME](/app-store/j2me/).
 Use **Hide Game** for those, or delete the files from your computer.
 
-DOS, Amiga, and PC-98 games can store your progress inside their own disk or
-hard-drive images. For those systems, the confirmation also warns that this
-progress is erased with the image.
-
-Leaf won't delete while your library is scanning, or while the game's card or your
-launcher card is read-only. A read-only card gets the same SD card check and repair
-offer you see elsewhere.
+Leaf won't delete while your library is scanning, or while the game's card or
+your launcher card is read-only.
 
 ## Multi-disc games
 
-Leaf handles multi-disc games (PlayStation, Sega CD, and the like) for you. Name
-the disc files with the usual `(Disc 1)`, `(Disc 2)` tags, drop them in the system
-folder - loose or in a subfolder of their own - and Leaf groups them into a single
-`.m3u` playlist automatically. The game then shows up once instead of once per
-disc, and RetroArch reads that playlist to swap discs from its in-game menu.
+Name the disc files of a multi-disc game (PlayStation, Sega CD, and the like)
+with the usual `(Disc 1)`, `(Disc 2)` tags and put them in the system folder,
+loose or in a subfolder of their own. Leaf groups them into a single `.m3u`
+playlist, so the game shows up once, and RetroArch uses that playlist to swap
+discs from its in-game menu.
 
-Prefer to manage it yourself? Add your own `.m3u` listing the disc files and Leaf
-uses it as-is - it never overwrites a playlist you made by hand.
+If you add your own `.m3u` listing the disc files, Leaf uses it as it is and
+never overwrites it.
 
 **Hide Game** and **Delete Game** work on the whole game, never on one disc.
-Deleting a multi-disc game deletes its playlist and every disc in it, so a rescan
-doesn't bring it back. See [Deleting a game](#deleting-a-game).
 
 ## Arcade names
 
-Arcade ROMs are named by their short internal ID (`mslug`, `1942`, `sf2ce`)
-rather than the full title. Leaf recognizes these for arcade and Neo Geo sets and
-shows the friendly name instead, so `mslug` reads as **Metal Slug** and your
-arcade list looks like the rest of your library. There's nothing to switch on; it
-happens as your games are scanned.
+Arcade ROMs are named by a short internal ID (`mslug`, `1942`, `sf2ce`). For
+arcade and Neo Geo sets, Leaf shows the full title instead, so `mslug` reads as
+**Metal Slug**.
 
-To override a name, drop a `map.txt` in that system's folder (for example
-`Roms/ARCADE/map.txt`) with one `romname = Your Title` line per game - the
+To override a name, put a `map.txt` in that system's folder (for example
+`Roms/ARCADE/map.txt`) with one `romname = Your Title` line per game. The
 `romname` is the zip's name without its extension. Your entries win over the
 built-in list.
-
-## BIOS-dependent systems
-
-Some systems need a BIOS file you provide yourself (Neo Geo, for example, needs
-`neogeo.zip` in `BIOS/`). Arcade games are also picky about ROM-set versions.
-See [BIOS & cores](/guide/bios-and-cores/) for the details.

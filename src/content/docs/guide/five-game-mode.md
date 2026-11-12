@@ -3,10 +3,9 @@ title: 5-Game Mode
 description: A locked, minimal focus mode for the Miniloong Pocket 1. Curate up to five games, hide everything else, and lock the device behind a PIN.
 ---
 
-5-Game Mode turns your handheld into a stripped-down, focused device. You pick up
-to five games, and everything else disappears behind a lock. It is handy for
-handing the device to a kid, cutting out the endless scrolling, or just enjoying a
-small curated set without distractions.
+5-Game Mode shows up to five games you pick and hides everything else behind a
+lock. It's handy for handing the device to a kid, or for cutting a big library down
+to the few games you mean to play.
 
 ## Turning it on
 
@@ -27,15 +26,14 @@ Press **MENU** to open the system menu, switch to the **Actions** tab, and choos
 5. **Confirm** - a preview of the chosen games appears. Press **A** to start.
 
 Once you confirm, the device drops into the focus screen and stays there, even
-across a reboot, until it is unlocked. The last set you picked is remembered, so
-starting the mode again begins right where you left off.
+across a reboot, until it's unlocked. The last set you picked is remembered for the
+next time you start the mode.
 
 ## Using the focus screen
 
-The focus screen shows your games as box-art tiles and nothing else, apart from a
-small battery indicator in the corner (and a **Bluetooth icon** beside it when a
-paired headset is disconnected). Move with the D-pad and press **A** to play. When
-you quit a game, you come straight back to the focus screen.
+The focus screen shows your games as box-art tiles and a small battery indicator in
+the corner. Move with the D-pad and press **A** to play. When you quit a game, you
+come straight back to the focus screen.
 
 ![The 5-Game Mode focus screen: five Game Boy Advance box-art tiles laid out two on top and three below, the top-left tile highlighted with a brighter accent border, and a small battery and Bluetooth icon in the top corner](/5_game_view.png)
 
@@ -46,32 +44,27 @@ Press **MENU** to open the unlock prompt:
 - With **no lock**, press **A** to return to the normal launcher.
 - With a **PIN**, enter your four-digit code and press **A**.
 
-The same prompt also offers **L1** to reboot and **R1** to power off. Those do not
-need the PIN, since powering off or rebooting just brings the device back into
-focus mode rather than unlocking it. You can also sleep the device with a tap of
-the power button, or power it off with a long press, at any time.
+The same prompt offers **L1** to reboot and **R1** to power off. Neither needs the
+PIN, and the device comes back up in focus mode. You can also sleep the device with
+a tap of the power button, or power it off with a long press, at any time.
 
 ![The unlock prompt over the dimmed game grid: an "Enter PIN to exit" panel with four PIN digit boxes and a button legend - Up/Down changes a digit, Left/Right moves the slot, B cancels, A confirms, L1 reboots, R1 shuts down, and Y reconnects Bluetooth](/5_game_lock.png)
 
 ## Wi-Fi and Bluetooth
 
-Entering 5-Game Mode turns **Wi-Fi off**. It is not needed here, and switching it
-off helps battery life and keeps Bluetooth audio stable. Your previous Wi-Fi state
-is restored automatically when you exit.
+Entering 5-Game Mode turns Wi-Fi off. Your previous Wi-Fi state is restored when
+you exit.
 
-If you use a **Bluetooth headset**, pair it in the normal launcher first. In focus
-mode, a small **Bluetooth icon** appears next to the battery when the headset is
-paired but not connected. Open the unlock prompt and press **Y** to reconnect it.
+If you use a Bluetooth headset, pair it in the normal launcher first. In focus
+mode, a small Bluetooth icon appears next to the battery when the headset is paired
+but not connected. Open the unlock prompt and press **Y** to reconnect it.
 
 ## Forgot the PIN?
 
 There are two ways back in if you forget your code:
 
-- **The failsafe button hold.** On the focus screen, hold
-  **Menu + Select + Start + L2 + R2** together for about two seconds. This always
-  exits, whatever the lock is set to. It takes five buttons on purpose, so a child
-  will not trigger it by accident.
-- **Delete the lock file.** Power the device off, remove the microSD card, put it
-  in a computer, and delete the file named `.leaf-focus-lock` at the top level of
-  the card. The device comes up unlocked on the next boot. Your games and saves
-  are untouched.
+- On the focus screen, hold **Menu + Select + Start + L2 + R2** together for about
+  two seconds. This always exits, whatever the lock is set to.
+- Or power the device off, put the microSD card in a computer, and delete the file
+  named `.leaf-focus-lock` at the top level of the card. The device comes up
+  unlocked on the next boot. Your games and saves are untouched.

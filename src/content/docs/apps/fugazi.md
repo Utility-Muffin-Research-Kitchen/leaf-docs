@@ -3,24 +3,13 @@ title: Fugazi
 description: "Tune a global CRT shader, remove it safely, and resolve conflicts with another RetroArch global preset."
 ---
 
-Fugazi is Leaf's specialized global CRT tuner. It shows a full-screen live
-preview, lets you adjust the look in real time, and can apply that look to every
+Fugazi tunes a CRT look against a full-screen live preview and applies it to every
 RetroArch game.
 
 For a ready-made shader on one game, start with
-**[MENU > Shader](/guide/shaders/)** instead. Use Fugazi when you want to tune
-its curvature, scanlines, mask, and color globally.
+**[MENU > Shader](/guide/shaders/)** instead.
 
 ![Fugazi tuning Curvature over its built-in test pattern, showing Not applied and the Quit, Reset, Image, and Apply controls](/fugazi.png)
-
-## How it works
-
-You tune eight settings against a live preview. **Apply** bakes those values
-into a two-pass GLSL preset and installs it as RetroArch's global automatic
-preset. The next RetroArch game loads it automatically.
-
-Fugazi treats a global preset as your durable data. It recognizes its own
-preset by content and will not silently overwrite or remove an unknown one.
 
 ## What you can adjust
 
@@ -32,6 +21,9 @@ preset by content and will not silently overwrite or remove an unknown one.
 - **Vignette** - darkens the corners.
 - **Brightness** - offsets the darkening from the other effects.
 - **Warmth** - adds a slight warm tint.
+
+CRT effects darken the picture. Raise **Brightness** here, and the backlight under
+**Settings > Display & Sound**, if you need to.
 
 ## Controls
 
@@ -46,66 +38,45 @@ preset by content and will not silently overwrite or remove an unknown one.
 | **START** | Remove Fugazi or resolve a conflicting preset state |
 | **B** | Quit |
 
-**Reset is not Remove.** Pressing **Y** changes the tuner values only. If
-Fugazi is already installed globally, resetting the sliders does not uninstall
-its preset. Use **START > Remove** to disable Fugazi.
+**Y** only resets the sliders. If Fugazi is already applied, use **START > Remove**
+to turn it off.
 
-## Apply or remove a global preset
+## Apply or remove the look
 
-When no global preset exists, **Apply** installs Fugazi. When Fugazi already
-owns the global preset, **Apply** updates it.
+**Apply** makes your tuning the shader for all RetroArch games. The next game you
+start loads it. If Fugazi is already applied, **Apply** updates it.
 
-If another global preset is active, Fugazi asks before replacing it. Confirming
-the replacement preserves that preset as `global.glslp.fugazi-backup` before
-Fugazi installs its own. Only one predecessor is kept.
+If another global shader is active, Fugazi asks before replacing it and keeps that
+shader so you can get it back. It keeps one.
 
-**Remove** behaves according to ownership:
+**Remove** takes Fugazi's shader out. If Fugazi kept an earlier shader, **Remove**
+puts it back. If the active global shader isn't Fugazi's, **Remove** leaves it
+alone.
 
-- If Fugazi owns the global preset and no backup exists, **Remove** deletes only
-  Fugazi's automatic preset.
-- If Fugazi owns the global preset and a backup exists, **Remove** restores that
-  preset byte-for-byte.
-- If another preset owns the global path, **Remove** refuses to delete it.
-
-Removing Fugazi leaves its small generated shader files in place. They are
-harmless and may still be referenced by a running game or another preset.
-
-## Fugazi says the state needs attention
-
-Fugazi shows **State needs attention** when another current global preset and a
-Fugazi backup coexist. This can happen if you apply Fugazi over one global
-preset, then save a different **All RetroArch** shader later.
-
-Press **START** and deliberately choose one action:
-
-- **Keep current** keeps the current global preset and discards Fugazi's saved
-  predecessor.
-- **Restore previous** replaces the current global preset with the preserved
-  predecessor.
-- **Cancel** leaves both files untouched.
-
-Fugazi will not guess which preset you meant to keep. Resolve this state before
-trying **Apply** again, and do not delete the files by hand.
-
-## Status messages
+The status line tells you where things stand:
 
 | Status | Meaning |
 | --- | --- |
-| **Not applied** | No global automatic preset exists |
-| **Applied globally** | Fugazi owns the global preset |
-| **Applied globally - previous shader preserved** | Fugazi owns the global preset and Remove will restore one predecessor |
-| **Another global shader is active** | A preset Fugazi does not own is current |
-| **State needs attention** | Another current preset and Fugazi's backup both exist |
+| **Not applied** | No global shader is set |
+| **Applied globally** | Fugazi's look is the global shader |
+| **Applied globally - previous shader preserved** | Fugazi's look is active, and **Remove** will restore the shader it replaced |
+| **Another global shader is active** | The global shader isn't Fugazi's |
+| **State needs attention** | Another global shader is active, and Fugazi is still keeping an earlier one |
 
-## Tips
+A shader saved for one game, folder, or core takes priority over Fugazi. See
+[RetroArch shaders](/guide/shaders/#save-at-the-right-scope).
 
-- CRT effects darken the picture. Raise **Brightness** and the backlight under
-  **Settings > Display & Sound** if needed.
-- Press **X** to compare the game image with the test pattern.
-- A more specific game, folder, or core shader can override Fugazi within the
-  same automatic-preset directory. See
-  [RetroArch shaders](/guide/shaders/#save-at-the-right-scope).
-- Saving another global preset can replace Fugazi. Open Fugazi again if you
-  need to resolve the preserved predecessor.
+## Fugazi says the state needs attention
+
+This happens if you apply Fugazi over a global shader, then save a different
+**All RetroArch** shader later. Press **START** and choose one:
+
+- **Keep current** keeps the current global shader and discards the one Fugazi was
+  keeping.
+- **Restore previous** replaces the current global shader with the one Fugazi was
+  keeping.
+- **Cancel** changes nothing.
+
+Do this before you try **Apply** again, and don't delete the files by hand.
 
 Fugazi is open source under the MIT license.

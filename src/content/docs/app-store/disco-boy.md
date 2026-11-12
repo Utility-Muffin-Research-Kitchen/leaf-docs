@@ -18,7 +18,7 @@ your **Apps** tab.
 
 ## Adding music
 
-Disco Boy reads from the **Music** folder on your SD card. Organize it however
+Disco Boy reads from the `Music` folder on your SD card. Organize it however
 you like, whether loose tracks, `Artist/Album` subfolders, or a mix. It plays
 WAV, MP3, FLAC, OGG, M4A / AAC / ALAC, Opus, WMA, AIFF and more.
 
@@ -47,21 +47,21 @@ again to wake it and unlock.
 
 | Button | Action |
 |---|---|
-| Up / Down | move in the list |
-| Left / Right | jump by letter |
-| A | open an artist, album, or folder, or play a track |
-| B | back up one level |
-| X | play / pause |
-| Y | toggle the now-playing screen |
-| L1 / R1 | switch tab; skip tracks on the now-playing screen |
-| L2 / R2 | hold to seek (now-playing track) |
-| SELECT | full-screen cover art (press again, or B, to close) |
+| **Up** / **Down** | move in the list |
+| **Left** / **Right** | jump by letter |
+| **A** | open an artist, album, or folder, or play a track |
+| **B** | back up one level |
+| **X** | play / pause |
+| **Y** | toggle the now-playing screen |
+| **L1** / **R1** | switch tab; skip tracks on the now-playing screen |
+| **L2** / **R2** | hold to seek (now-playing track) |
+| **SELECT** | full-screen cover art (press again, or **B**, to close) |
 | Stick click | lock the screen (pocket mode); click again to unlock |
-| MENU | quit |
+| **MENU** | quit |
 
 ## Credits
 
 Disco Boy is open source
-([MIT](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy)). Downloads
-are on its
+([MIT](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy)). To install by
+hand, download `DiscoBoy.pak.zip` from its
 [releases page](https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/latest).

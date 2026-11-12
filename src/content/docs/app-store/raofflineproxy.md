@@ -9,12 +9,12 @@ while you are not, and queues anything you unlock offline to send the next time
 you reconnect.
 
 :::caution[Casual only, and experimental]
-Achievements earned through this pak are **casual** unlocks. With Hardcore
+Achievements earned through this pak are casual unlocks. With Hardcore
 enabled, games launch directly, as they would if the pak weren't installed.
 
 The pak is built on the Linux support in
 [misantronic/RAOfflineProxy](https://github.com/misantronic/RAOfflineProxy),
-which its authors describe as **alpha**, so expect rough edges.
+which its authors describe as alpha, so expect rough edges.
 :::
 
 ## Install

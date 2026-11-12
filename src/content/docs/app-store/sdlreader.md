@@ -19,9 +19,8 @@ your **Apps** tab.
 Put your files anywhere on the SD card and browse to them in the app. The file
 browser remembers the last directory you were in.
 
-In the browser, the **d-pad** navigates and pages through long lists, **L1 /
-R1** jump by letter, **A** opens, **B** goes back, and **MENU** quits. Press
-**X** to switch between a plain list and a thumbnail grid that previews covers.
+Press **X** in the browser to switch between a plain list and a thumbnail grid
+that previews covers.
 
 ## Reading
 
@@ -41,25 +40,37 @@ rest:
 
 ## Controls
 
-These are the controls while reading a document.
+In the file browser:
 
 | Button | Action |
 |---|---|
-| D-pad | scroll / pan; hold at a page edge to turn the page |
-| L1 / R1 | previous / next page |
-| L1 + R1 | open the font & reading-style menu |
-| L2 / R2 | jump back / forward 10 pages |
-| L2 + R2 | reset the page view |
-| X | zoom in |
-| A | zoom out |
-| B | fit page to width |
-| Y | rotate 90° clockwise |
-| Start | toggle horizontal mirror |
-| Select | toggle vertical mirror |
-| Menu | open the font & reading-style menu |
+| **D-pad** | navigate; page through long lists |
+| **L1** / **R1** | jump by letter |
+| **A** | open |
+| **B** | go back |
+| **X** | switch between list and thumbnail grid |
+| **MENU** | quit |
+
+While reading a document:
+
+| Button | Action |
+|---|---|
+| **D-pad** | scroll / pan; hold at a page edge to turn the page |
+| **L1** / **R1** | previous / next page |
+| **L1 + R1** | open the font & reading-style menu |
+| **L2** / **R2** | jump back / forward 10 pages |
+| **L2 + R2** | reset the page view |
+| **X** | zoom in |
+| **A** | zoom out |
+| **B** | fit page to width |
+| **Y** | rotate 90° clockwise |
+| **START** | toggle horizontal mirror |
+| **SELECT** | toggle vertical mirror |
+| **MENU** | open the font & reading-style menu |
 
 ## Credits
 
 SDLReader is built on SDL2 and MuPDF, and is open source
-([AGPL-3.0](https://github.com/Helaas/SDLReader-brick)). Downloads are on its
+([AGPL-3.0](https://github.com/Helaas/SDLReader-brick)). To install by hand,
+download `SDLReader.mlp1.pak.zip` from its
 [releases page](https://github.com/Helaas/SDLReader-brick/releases/latest).

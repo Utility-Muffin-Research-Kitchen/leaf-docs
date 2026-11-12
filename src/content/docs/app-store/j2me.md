@@ -79,6 +79,10 @@ after the game. Some games keep your place only when you leave through their own
 menu: Final Fantasy saves when you choose **Quit** in its menu. Leave a game that
 way before you choose **Quit** in Leaf's in-game menu.
 
+FreeJ2ME's own settings for each game go to
+`Saves/FreeJ2ME-Plus/freej2me/config/`. It also creates a `freej2me_system/`
+folder in `BIOS/` for its log.
+
 ## A game asks you to touch the screen
 
 Some later games were made for touchscreen phones and wait for a tap. Final

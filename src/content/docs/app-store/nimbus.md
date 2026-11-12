@@ -35,11 +35,11 @@ location as home or delete it. Your home location is what Nimbus opens to.
 
 | Button | Action |
 |---|---|
-| L1 / R1 | switch view (Current, Forecast, Hourly, Astro) |
-| Left / Right | switch saved location |
-| Up / Down | scroll the view |
-| Y | open the menu (Units, Time, Locations, About) |
-| B | quit |
+| **L1** / **R1** | switch view (Current, Forecast, Hourly, Astro) |
+| **Left** / **Right** | switch saved location |
+| **Up** / **Down** | scroll the view |
+| **Y** | open the menu (Units, Time, Locations, About) |
+| **B** | quit |
 
 **Units** switches between Fahrenheit and Celsius, and **Time** between a 12 and
 24 hour clock.
@@ -48,5 +48,5 @@ location as home or delete it. Your home location is what Nimbus opens to.
 
 Weather data is by [Open-Meteo](https://open-meteo.com) (CC-BY 4.0). Nimbus is
 open source ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/Nimbus)).
-Downloads are on its
+To install by hand, download `Nimbus.pak.zip` from its
 [releases page](https://github.com/Utility-Muffin-Research-Kitchen/Nimbus/releases/latest).

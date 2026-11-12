@@ -46,7 +46,7 @@ There's no recycle bin. A file you delete is gone.
 ## SSH Server
 
 SSH Server lets you open a terminal to the device from a computer on the same
-network. Most people will never need it.
+network.
 
 ![The SSH Server app showing the server toggled on, with its IP address and port, username, masked password, and start folder listed](/ssh-server.png)
 

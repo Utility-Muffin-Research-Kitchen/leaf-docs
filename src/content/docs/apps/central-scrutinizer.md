@@ -105,7 +105,8 @@ Most cartridge consoles, arcade, and Neo Geo read `.zip` files directly, so thei
 format list includes `.zip`. For the rest, mostly disc-based systems, use
 **Upload ZIP** to extract a supported file from the archive.
 
-A console's card only appears when an emulator for it is installed. Opening **BIOS**
+The NEC PC-98, Atomiswave, Sega Naomi, and Amiga cards only appear when an
+emulator for that system is installed. Opening **BIOS**
 on a card browses the folder that system's emulator reads, and BIOS uploads land
 there. See [BIOS files](/guide/bios-and-cores/) for the files each system needs.
 

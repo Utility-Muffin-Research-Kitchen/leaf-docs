@@ -177,9 +177,8 @@ If files are still arriving, wait for them or press **MENU** for **Start now**.
 Starting now stops Syncthing before launching. Canceling leaves Syncthing
 running so it can finish.
 
-There can be a short delay while Leaf checks that Syncthing has stopped. After
-the game exits, Syncthing starts again and uploads the new save. Launching from
-**Recents** works the same way.
+After the game exits, Syncthing starts again and uploads the new save. Launching
+from **Recents** works the same way.
 
 If Leaf can't match the game to the card's configured folders, it shows a card
 setup warning. See
@@ -318,7 +317,7 @@ documentation for what the setting changes.
 ### A folder is Stopped on the computer or VPS
 
 Open that device's own Syncthing interface and read its notice. An error such as
-`failed to create folder root` or `permission denied` means its **local** folder
+`failed to create folder root` or `permission denied` means its local folder
 path is invalid or is not writable by the account running Syncthing.
 
 Choose a real directory intended for Syncthing data and give the Syncthing service
@@ -329,7 +328,7 @@ delete the directory that contains the copy you want to keep.
 
 ### Sync appears stuck at 95% or 0 B
 
-Check the notices on **every** device. A remote folder can be stopped by a path,
+Check the notices on every device. A remote folder can be stopped by a path,
 permission, disk-space, or database error while Leaf has no local issue to display.
 Also confirm that the remote folder is still shared with Leaf and that neither the
 device nor folder is paused.

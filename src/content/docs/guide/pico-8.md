@@ -8,7 +8,7 @@ Native PICO-8 lets you browse Splore and play PICO-8 carts on your MLP1.
 from [Joseph White / Lexaloffle](https://www.lexaloffle.com/pico-8.php).
 FAKE-08 remains available and stays your default until you choose native PICO-8.
 
-## Set up PICO-8
+## Install
 
 1. Purchase PICO-8 from Lexaloffle and download the **Raspberry Pi** ZIP. The
    Windows, macOS, and desktop Linux downloads won't work here.
@@ -51,8 +51,9 @@ If Splore only supplies an ID as a title, Leaf makes it readable, for example
 
 Removing a Splore favorite keeps your library copy. Whenever you exit Splore,
 Leaf also updates imported games that Splore has downloaded newer versions of.
-Their library entries, playtime, and core choices stay in place, and a cart
-you've edited yourself isn't overwritten.
+Their library entries, playtime, and core choices stay in place. A cart you've
+edited yourself isn't overwritten: edited carts and filename conflicts are
+skipped, and no error is shown.
 
 A favorite must finish downloading before it can be imported. Leaf tries again
 after your next Splore session. If you delete an imported game while it remains
@@ -77,7 +78,7 @@ Press **MENU** to show **Return to Leaf?**, then press **MENU** again within
 four seconds to quit PICO-8 normally. If you want to keep playing, let the
 prompt disappear. This works in a game and in Splore, even when no cart is
 selected. If PICO-8 stays frozen, wait at least two seconds and repeat the
-MENU confirmation to force it to close. Unsaved progress may be lost.
+**MENU** confirmation to force it to close. Unsaved progress may be lost.
 
 Use the D-pad and action buttons to navigate and play. Press **START** for
 PICO-8's native menu:

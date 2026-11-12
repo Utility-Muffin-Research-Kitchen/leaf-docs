@@ -1,6 +1,6 @@
 ---
 title: Fugazi
-description: "Tune a global CRT shader, remove it safely, and resolve conflicts with another RetroArch global preset."
+description: "Tune a global CRT shader, remove it safely, and resolve conflicts with another RetroArch global shader."
 ---
 
 Fugazi tunes a CRT look against a full-screen live preview and applies it to every
@@ -35,7 +35,7 @@ CRT effects darken the picture. Raise **Brightness** here, and the backlight und
 | **X** | Toggle between the game image and test pattern |
 | **Y** | Reset the tuner values to no visible effect |
 | **A** | Apply the current tuning globally |
-| **START** | Remove Fugazi or resolve a conflicting preset state |
+| **START** | Remove Fugazi or resolve a conflict with another global shader |
 | **B** | Quit |
 
 **Y** only resets the sliders. If Fugazi is already applied, use **START > Remove**
@@ -47,7 +47,8 @@ to turn it off.
 start loads it. If Fugazi is already applied, **Apply** updates it.
 
 If another global shader is active, Fugazi asks before replacing it and keeps that
-shader so you can get it back. It keeps one.
+shader as `global.glslp.fugazi-backup` so you can get it back. Only one earlier
+shader is kept.
 
 **Remove** takes Fugazi's shader out. If Fugazi kept an earlier shader, **Remove**
 puts it back. If the active global shader isn't Fugazi's, **Remove** leaves it
@@ -77,6 +78,7 @@ This happens if you apply Fugazi over a global shader, then save a different
   keeping.
 - **Cancel** changes nothing.
 
-Do this before you try **Apply** again, and don't delete the files by hand.
+Do this before you try **Apply** again, and don't delete the backup or the current
+global shader by hand.
 
 Fugazi is open source under the MIT license.

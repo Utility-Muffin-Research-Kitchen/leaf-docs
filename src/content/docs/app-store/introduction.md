@@ -58,12 +58,13 @@ from Pak Rat, [update Leaf](/guide/updating/).
 
 ### Installing without Wi-Fi
 
-Where an app's page links its releases page under Credits, you can install it
-by hand. Download the app's `.pak.zip` on a computer, unzip it, copy the `.pak`
-folder into `Apps/mlp1/` on the SD card, then run **System > Rescan Library**.
+You can install some apps by hand: the ones whose page names a `.pak.zip` to
+download under Credits. Download it on a computer, unzip it, and copy the `.pak`
+folder into `Apps/mlp1/` on the SD card. Then press **MENU** and choose
+**Actions > Rescan Library**.
 
 ## Removing a pak
 
 Removing a pak that added a system or an emulator takes that system or emulator
 away on the next rescan. Your files under `Roms/`, `Images/`, `BIOS/`, `Saves/`,
-and `States/` stay on the card.
+`States/`, and `.userdata/` stay on the card.

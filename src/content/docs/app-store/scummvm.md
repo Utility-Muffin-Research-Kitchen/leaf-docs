@@ -82,10 +82,11 @@ rather than moving files between them.
 - **ScummVM (Libretro)** writes saves under `Saves/ScummVM/`. It has no save
   states, so use each game's own ScummVM save menu.
 - **ScummVM (Standalone)** writes saves under `Saves/ScummVM-Standalone/` on the
-  card the game is on, one folder per game. Options you change in ScummVM's menu
-  apply to every game, and each game's own options and button changes are kept
-  for that game. Leaf's in-game menu and save states don't apply to the
-  standalone; save from ScummVM's menu.
+  card the game is on, one folder per game. Its settings are in
+  `.userdata/mlp1/scummvm-standalone/scummvm.ini` on your main card. Options you
+  change in ScummVM's menu apply to every game, and each game's own options and
+  button changes are kept for that game. Leaf's in-game menu and save states
+  don't apply to the standalone; save from ScummVM's menu.
 
 ## Credits
 

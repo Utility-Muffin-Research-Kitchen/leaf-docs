@@ -40,7 +40,7 @@ The ZIP metadata records whether the feature was enabled.
 ## Tagged builds
 
 Beta and stable ZIPs require ScreenScraper developer credentials and valid
-cached outputs for all 31 stock-parity cores. They use the same full toolchain
+cached outputs for every stock-parity core. They use the same full toolchain
 image ID for preflight, core report assembly, and packaging. Check the inputs
 before a tagged build:
 
@@ -66,4 +66,5 @@ make stage DEVICE=mlp1 TOOLCHAIN_IMAGE="$toolchain_image"
 
 `make doctor` checks ADB and the device. You don't need it for a ZIP build.
 Leaf also has narrower staging targets for the launcher, RetroArch, and
-individual apps. See the [Repo map](/develop/architecture/#repositories) for the owning repos.
+individual apps. See the [repository table](/develop/architecture/#repositories)
+for the owning repos.

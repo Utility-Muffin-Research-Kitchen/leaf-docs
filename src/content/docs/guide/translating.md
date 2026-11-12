@@ -3,15 +3,12 @@ title: Translate Leaf
 description: Start a new language for the Leaf interface, or finish one that is partly done, using the template of every translatable string.
 ---
 
-![Español](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.es_MX.percent&suffix=%25&label=Espa%C3%B1ol&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Français](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.fr_FR.percent&suffix=%25&label=Fran%C3%A7ais&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Tiếng Việt](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.vi_VN.percent&suffix=%25&label=Ti%E1%BA%BFng%20Vi%E1%BB%87t&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Русский](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.ru_RU.percent&suffix=%25&label=%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![中文](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.zh_CN.percent&suffix=%25&label=%E4%B8%AD%E6%96%87&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![日本語](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.ja_JP.percent&suffix=%25&label=%E6%97%A5%E6%9C%AC%E8%AA%9E&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Deutsch](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.de_DE.percent&suffix=%25&label=Deutsch&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Nederlands](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.nl_BE.percent&suffix=%25&label=Nederlands&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![Português](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.pt_BR.percent&suffix=%25&label=Portugu%C3%AAs&color=7FB069&labelColor=0F160E&cacheSeconds=300) ![한국어](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FUtility-Muffin-Research-Kitchen%2FJawaka%2Fmain%2Fi18n%2Fcoverage.json&query=%24.languages.ko_KR.percent&suffix=%25&label=%ED%95%9C%EA%B5%AD%EC%96%B4&color=7FB069&labelColor=0F160E&cacheSeconds=300)
+Leaf's interface is translated by people who use it. This page covers starting a new
+language, or filling in one that is partly done. You don't need to build Leaf or
+write any code.
 
-Leaf's interface is translated by people who use it. This page is how to start a
-new language, or fill in one that is partly done. You do not need to build Leaf
-or write any code.
-
-If you only want to correct a line in a language that already ships, see
-[Fixing a translation](/guide/language/#fixing-a-translation) instead. It is a
-smaller job and does not need any of this.
+To report a single wrong line in a language that already ships, see
+[Fixing a translation](/guide/language/#fixing-a-translation).
 
 ## What you work from
 
@@ -19,14 +16,12 @@ Every translatable string lives in one generated file:
 
 **[`i18n/leaf.pot`](https://github.com/Utility-Muffin-Research-Kitchen/Jawaka/blob/main/i18n/leaf.pot)**
 
-It is a template, so every entry has an empty translation waiting to be filled
-in. It is regenerated from the code, which means it is always the complete list -
-if a string is not in there, it is not translatable yet, and that is a bug worth
-reporting rather than something you can fix in the file.
+It is a template, so every entry has an empty translation waiting to be filled in. It
+is regenerated from the code, so it is always the complete list. If a string isn't in
+there, it isn't translatable yet: report it instead of adding it to the file.
 
-A language sitting at 70 percent is not stalled, it is waiting for someone.
-These are the languages that exist today, straight from the repository, with the
-current file for each one:
+These are the languages that exist today, with how much of each is covered and its
+current file:
 
 <table id="leaf-translations">
   <thead>
@@ -88,19 +83,19 @@ current file for each one:
 })();
 </script>
 
-Those files are the live ones, and each one lists every string in the template.
-Anything nobody has translated yet is there with an empty `msgstr ""`, so to
-finish a language, download its file from the table and fill in the empty lines.
-Start from a fresh copy each time, since every new string Leaf gains is added to
-every file. If you are partway through an older copy, Poedit's **Translation >
-Update from POT File** with `leaf.pot` brings in the strings added since.
+Each file lists every string in the template. Anything nobody has translated yet is
+there with an empty `msgstr ""`, so to finish a language, download its file from the
+table and fill in the empty lines. Start from a fresh copy each time, since every new
+string Leaf gains is added to every file. If you are partway through an older copy,
+Poedit's **Translation > Update from POT File** with `leaf.pot` brings in the strings
+added since.
 
 ## Starting a language
 
 1. Download `leaf.pot` and rename it to your language code: `de_DE.po`,
    `pt_BR.po`, `ja_JP.po`. Use the `language_REGION` form.
-2. Fill in the `msgstr ""` lines. Leave anything you are unsure of empty - an
-   empty entry falls back to English, which is always better than a guess.
+2. Fill in the `msgstr ""` lines. Leave anything you're unsure of empty - an empty
+   entry falls back to English.
 3. Send it in (see [Sending it in](#sending-it-in)).
 
 An entry looks like this. The English is the key, so **never change `msgid`**:
@@ -111,15 +106,12 @@ msgid "Auto Sleep"
 msgstr "Reposo automático"
 ```
 
-## Things that will bite you
-
-These are the ones that have actually caused problems, not a general style guide.
+## What to watch for
 
 **Keep the placeholders exactly.** `%s` is a word Leaf drops in, `%d` is a
 number. They must survive into your translation, in a form that still makes
-sense, or Leaf can crash when it draws that line. The tooling rejects a `%d`
-that became `%s`, so a mistake here fails a check rather than reaching a device,
-but it is still the easiest thing to get wrong.
+sense, or Leaf can crash when it draws that line. A check rejects a `%d` that
+became `%s` before it reaches a device.
 
 ```
 msgid "%d games"
@@ -130,46 +122,35 @@ msgstr "%d juegos"
 text - the `verb|` part tells Leaf which of several identical English words this
 one is. Keep the prefix in `msgid`, and put only the translation in `msgstr`.
 
-**Leave the English in when you are not sure.** Mixed English is normal in a
-translation in progress and nobody minds. A confidently wrong line is harder to
-find later than an empty one.
-
 **Space is tight.** Leaf draws on a 960x720 handheld screen, and a label that is
-twice as long as the English will be cut off with an ellipsis. Where a shorter
-phrasing is honest, prefer it.
+twice as long as the English is cut off. Prefer a shorter phrasing where one works.
 
 **Some strings are hard to place.** A few only appear in one situation - a shader
 caveat shown mid-game, an error you would have to break something to see. The
-`#:` comment above each entry names the source file it comes from, which is
-usually enough of a clue. If it is not, ask rather than guess.
+`#:` comment above each entry names the source file it comes from. If that isn't
+enough of a clue, ask.
 
 ## Testing it on the device
 
-You do not have to wait for a release to see your work. Leaf reads a plain
-tab-separated file from the SD card and prefers it over anything built in, so you
-can drop a file on the card and restart.
+You don't have to wait for a release to see your work. Leaf reads a plain
+tab-separated file from the SD card and prefers it over the built-in translation. The
+same file corrects a language that already ships, and it survives updates.
 
 1. Convert your `.po` to a `.tsv` of `English<TAB>translation` lines, one per
    line.
 2. Put it on the SD card at `.umrk/mlp1/i18n/<your code>.tsv`, for example
    `.umrk/mlp1/i18n/de_DE.tsv`.
-3. Restart Leaf. Your language appears in **Settings > System > Language** just
-   from the file being there.
+3. Restart Leaf. A new language appears in **Settings > System > Language** from the
+   file being there.
 
-That is the same mechanism used to correct a shipped translation, so anything you
-test this way behaves exactly as it will once merged, with one exception: a string
-that contains a line break, such as a two-paragraph message, cannot be written as a
-single `.tsv` line, so it stays in English while you test. It still ships, and it
-will appear translated in a release. There are only a handful of them.
+A string that contains a line break, such as a two-paragraph message, can't be written
+as a single `.tsv` line, so it stays in English while you test.
 
 ## Sending it in
 
 Open an issue on the
 [Jawaka repository](https://github.com/Utility-Muffin-Research-Kitchen/Jawaka/issues)
-with your `.po` attached, or say so on [Discord](https://discord.gg/leaf) and we
-will take it from there. Tell us the name you want credited, or that you would
-rather not be.
+with your `.po` attached, or say so on [Discord](https://discord.gg/q5F7cZ7KRp). Say
+which name you want credited, or that you'd rather not be.
 
-Partial work is welcome. Half a language that someone else can finish is worth
-far more than nothing, and the coverage badge is there so the next person can see
-where to pick it up.
+Partial work is welcome. The table above shows the next person where to pick it up.

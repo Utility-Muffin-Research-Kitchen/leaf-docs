@@ -18,14 +18,21 @@ npm run preview  # serve the built site locally
 
 Pages live in `src/content/docs/`:
 
-- `guide/` - end-user docs (install, updating, games, BIOS, features, …)
-- `develop/` - contributor docs (architecture, repo map, building, contributing)
+- `guide/` - end-user docs (install, games, systems, playing, themes, settings, help)
+- `apps/` - the apps bundled with Leaf
+- `app-store/` - one page per Pak Rat app or pak
+- `develop/` - contributor docs (how Leaf is built, building, paks, contributing)
 
-The sidebar order is defined explicitly in `astro.config.mjs`. Add a page by
-creating the Markdown file and adding it to the matching sidebar group.
+The sidebar is defined explicitly in `astro.config.mjs`, and its groups do not
+follow the folders: a page's URL comes from its file path, its place in the
+sidebar from the config. Add a page by creating the Markdown file and adding it
+to the matching sidebar group.
 
-Stubs are real pages with a short "in progress" note; fill them in by editing
-the Markdown - no structural change needed.
+When two pages merge, add the old URL to `redirects` in `astro.config.mjs` so
+existing links keep working.
+
+Prose follows `docs/writing-style.md` in the `umrk-workspace` repo, including
+what a page leaves out and the shape every app store page takes.
 
 ## Deploy URL & custom domain
 

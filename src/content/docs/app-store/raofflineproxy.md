@@ -28,11 +28,11 @@ Do these in order. The pak learns your account token from a game launched
 through it, so the service has to be on and Hardcore has to be off first.
 Nothing works offline until it has that token.
 
-1. Sign in to RetroAchievements under **Settings → Games → Accounts**.
+1. Sign in to RetroAchievements under **Settings > Games > Accounts**.
 2. Turn off Hardcore. RetroArch turns it on by default. Start a RetroArch game,
-   open **MENU → RetroArch Settings → Settings → Achievements**, and turn off
+   open **MENU > RetroArch Settings > Settings > Achievements**, and turn off
    **Hardcore Mode**. RetroArch restarts the game when you change this, so save
-   first. Then exit through **MENU → Save & Quit** so the setting is kept.
+   first. Then exit through **MENU > Save & Quit** so the setting is kept.
 3. Open RAOfflineProxy and turn the service on.
 4. With a network connection, launch a game that runs in RetroArch and let it
    log in. Standalone emulators like N64, DraStic, and PPSSPP don't teach the
@@ -45,7 +45,7 @@ Nothing works offline until it has that token.
   It doesn't start or stop anything by itself.
 
 Turn on both if you want it always available. Both are also in
-**Settings → System → Services**.
+**Settings > System > Services**.
 
 ## Preparing games for a trip
 

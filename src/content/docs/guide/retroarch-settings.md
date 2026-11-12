@@ -19,8 +19,8 @@ The file is `.umrk/mlp1/retroarch/retroarch.cfg` on your primary SD card.
 
 Your changes are saved when RetroArch quits normally:
 
-- leave a game with **MENU → Save & Quit**, or
-- in the RetroArch app tile, use **Main Menu → Quit RetroArch**.
+- leave a game with **MENU > Save & Quit**, or
+- in the RetroArch app tile, use **Main Menu > Quit RetroArch**.
 
 ### My changes disappeared after powering off
 
@@ -30,7 +30,7 @@ holding the power button until the device dies and letting the battery run flat.
 Leaf's **Power Off** and **Reboot** save the RetroArch app tile's settings before
 the device goes down. A running game is different: powering off or restarting with
 a game open can lose that session's settings and your recent in-game progress.
-Leave the game with **MENU → Save & Quit** first.
+Leave the game with **MENU > Save & Quit** first.
 
 ## Settings Leaf sets on every launch
 
@@ -39,11 +39,11 @@ them in RetroArch's menus, it lasts for that session only.
 
 | Setting | Where to change it instead |
 | --- | --- |
-| Audio output | **Settings → Display & Sound** |
-| Refresh rate and Black Frame Insertion | **Settings → Display & Sound** |
-| Menu language | **Settings → System → Language** |
-| RetroAchievements account | **Settings → Games → Accounts** |
-| Recording on or off | **Settings → Hotkeys & Rumble → Hotkeys → Recording**. See [Recording](/guide/screenshots/#recording) |
+| Audio output | **Settings > Display & Sound** |
+| Refresh rate and Black Frame Insertion | **Settings > Display & Sound** |
+| Menu language | **Settings > System > Language** |
+| RetroAchievements account | **Settings > Games > Accounts** |
+| Recording on or off | **Settings > Hotkeys & Rumble > Hotkeys > Recording**. See [Recording](/guide/screenshots/#recording) |
 | Player count and controller order | Set from the controllers connected when the game starts. See [Controllers](/guide/controllers/) |
 | Aspect ratio and integer scaling | No Leaf setting. Save a core override, as described [below](#aspect-ratio-and-integer-scaling) |
 | Quit hotkey | Always unbound. Use **Save & Quit** in the in-game menu |
@@ -64,9 +64,9 @@ every launch. To keep integer scaling, save it as a per-core override. Overrides
 load after Leaf's values, so they survive relaunches:
 
 1. Start a game on the core you want it for.
-2. Open **MENU → RetroArch Settings**, then **Settings → Video → Scaling**, and turn
+2. Open **MENU > RetroArch Settings**, then **Settings > Video > Scaling**, and turn
    **Integer Scale** on.
-3. Back out to RetroArch's Quick Menu and choose **Overrides → Save Core
+3. Back out to RetroArch's Quick Menu and choose **Overrides > Save Core
    Overrides**.
 
 The setting now applies to every game on that core. **Save Game Overrides** and
@@ -90,7 +90,7 @@ is ignored. Copy values across by hand if you need them.
 
 ## Reset the RetroArch config
 
-**Settings → Games → Reset RetroArch Config** replaces the shared configuration with
+**Settings > Games > Reset RetroArch Config** replaces the shared configuration with
 Leaf's defaults. Use it when RetroArch is misbehaving and you'd rather start clean
 than find the setting that caused it.
 
@@ -101,13 +101,13 @@ configuration overrides, per-core options, or input remaps.
 
 A saved shader preset can apply again after the reset. Remove it from
 [RetroArch shaders](/guide/shaders/). Remove a configuration override through
-**Quick Menu → Overrides**.
+**Quick Menu > Overrides**.
 
 ## A setting still won't stick
 
 1. Check the table above. If Leaf sets it, change it from the Leaf setting named
    there.
-2. Quit with **MENU → Save & Quit**, or **Quit RetroArch** in the app tile. Don't
+2. Quit with **MENU > Save & Quit**, or **Quit RetroArch** in the app tile. Don't
    power off from inside RetroArch.
 3. Check whether a core, folder, or game override is loaded. It replaces the shared
    value and stops RetroArch saving the shared configuration on exit.

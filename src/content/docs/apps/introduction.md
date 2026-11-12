@@ -50,7 +50,7 @@ network. Most people will never need it.
 
 ![The SSH Server app showing the server toggled on, with its IP address and port, username, masked password, and start folder listed](/ssh-server.png)
 
-1. Connect the device to Wi-Fi (**Settings → Wi-Fi**).
+1. Connect the device to Wi-Fi (**Settings > Wi-Fi**).
 2. Open **SSH Server** from the **Apps** tab.
 3. Select **Start**. The screen shows the device's **IP address** and **port**.
 4. From a terminal on your computer, connect:

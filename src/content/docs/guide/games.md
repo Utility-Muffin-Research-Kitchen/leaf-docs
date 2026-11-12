@@ -128,7 +128,7 @@ formatting.
 
 You can add or remove the second card while the device is running, and Leaf
 rescans on its own. Before pulling it out, use
-**Settings → System → SD Cards** so nothing is mid-write.
+**Settings > System > SD Cards** so nothing is mid-write.
 
 A card's games leave your lists while it's out, and come back with their
 favorites, recents, playtime, and per-game settings when you put it back.
@@ -156,7 +156,7 @@ and per-game settings don't follow it.
 1. On a computer, copy `Roms/`, `Images/`, `Saves/`, and `States/` from the second
    card to the main card. Games on the second card keep their saves on that card,
    so the copies on the main card need them copied too.
-2. Unmount the second card with **Settings → System → SD Cards** and take it out.
+2. Unmount the second card with **Settings > System > SD Cards** and take it out.
    Its games leave your lists.
 
 If you put the card back with the games still on it, each one shows twice, once
@@ -169,7 +169,7 @@ it.
 
 A system's list shows all its games in one list, wherever they sit under
 `Roms/<SYSTEM>/`. To browse your subfolders instead, turn on
-**Settings → Games → Show Folders**. It's off by default.
+**Settings > Games > Show Folders**. It's off by default.
 
 - Each subfolder is a row. **A** opens it and **B** goes back up. Folders come
   first, then the games in that folder.
@@ -222,16 +222,16 @@ with `Chrono Trigger.jpg`, not `chrono trigger.jpg`.
 
 Leaf can download box art from
 [ScreenScraper.fr](https://www.screenscraper.fr/). Sign in once under
-**Settings → Games → Accounts → ScreenScraper.fr**, then start a scrape:
+**Settings > Games > Accounts > ScreenScraper.fr**, then start a scrape:
 
 - For one game, press **X** on it and choose **Scrape Artwork**.
-- For a whole system or every system, use **Settings → Games → Scrape Artwork**,
+- For a whole system or every system, use **Settings > Games > Scrape Artwork**,
   which lists **All Systems** plus each system with its missing-art count.
 
 Scraping runs in the background, so you can keep browsing or play a game while
 art downloads. Fetched art lands in `Images/<SYSTEM>/` and appears in the list as
 each download finishes. **Artwork Priority** and **Region Priority** under
-**Settings → Games** set which image type and region it picks.
+**Settings > Games** set which image type and region it picks.
 
 Naomi and Amiga games are looked up across their hardware families for you, and
 the art still lands in the one `Images/NAOMI/` or `Images/AMIGA/` folder. A
@@ -281,8 +281,8 @@ disappears right away from its system's list and game count, **Favorites**,
 find it again. Its file, saves, states, artwork, favorite, and **Options**
 settings all stay as they were, and come back with it when you unhide it.
 
-To bring a game back, open **Settings → Games → Hidden Games**, pick it, and press
-**A** (**Unhide**). See [Settings → Games](/guide/settings/#games).
+To bring a game back, open **Settings > Games > Hidden Games**, pick it, and press
+**A** (**Unhide**). See [Settings > Games](/guide/settings/#games).
 
 - **Hide Game** works on every system.
 - Hiding is per card. A copy of the same game on your other SD card stays visible.
@@ -303,7 +303,7 @@ two playlists that list the same disc, deleting one breaks the other. Read the
 file list before you confirm.
 :::
 
-1. Choose **Options → Delete Game**. Leaf shows how many files the game has, how
+1. Choose **Options > Delete Game**. Leaf shows how many files the game has, how
    much space they take, and which card it's on.
 2. Press **X** (**Files**) to see each file with its card and size, and **X**
    again to go back.

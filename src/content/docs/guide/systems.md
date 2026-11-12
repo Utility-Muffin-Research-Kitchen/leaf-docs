@@ -222,7 +222,7 @@ buttons, and **L1**, **X**, and **R1** are its X, Y, and Z:
 | A, B, C | **Y**, **B**, **A** |
 | X, Y, Z | **L1**, **X**, **R1** |
 | L, R | **L2**, **R2** |
-| Start | **Start** |
+| Start | **START** |
 
 To move a button for one game or for all of them, open **RetroArch Settings**
 in the in-game menu, change it in **Quick Menu > Controls**, and save a remap
@@ -330,7 +330,7 @@ from the handheld without a keyboard:
 | **L1 / R1** | **Backspace / Right Shift** |
 | **SELECT / START** | **Escape / Return**. Press **START** at a typical "press any key" prompt |
 
-For a mouse-driven game, open **MENU → RetroArch Settings → Quick Menu → Core
+For a mouse-driven game, open **MENU > RetroArch Settings > Quick Menu > Core
 Options** and change **Joypad D-pad to Mouse/Keyboard/Joypad Mapping** to
 **Mouse**. The D-pad then moves the pointer, **B** left-clicks, and **A**
 right-clicks. Switch it back to **Arrows** for keyboard-driven games.
@@ -379,7 +379,7 @@ progress. Kickstart ROMs go in `BIOS/puae/` (see
 | **SELECT** (short press) | Toggle PUAE's virtual keyboard. In the keyboard, use the **D-pad** to move, **B** to press a key, **A** for transparency, **X** for Space, and **START** for Return |
 
 Some Amiga games expect a mouse instead of a joystick. Open the virtual keyboard
-and choose **J/M**, or change **Quick Menu → Core Options → RetroPad
+and choose **J/M**, or change **Quick Menu > Core Options > RetroPad
 Joystick/Mouse**.
 
 PUAE 2021 keeps saves under `Saves/PUAE 2021/` and states under
@@ -406,7 +406,7 @@ For a multi-disk game, create a text `.m3u` file with one disk per line and
 launch that playlist. Leaf shows the playlist as the game and hides the disks it
 names, including entries with labels such as `Disk 1.adf|Game Disk` or ZIP
 members such as `Game.zip#Disk 1.adf`. PUAE also understands `#SAVEDISK:Label`
-in a playlist. Change disks with **MENU → RetroArch Settings → Quick Menu → Disc
+in a playlist. Change disks with **MENU > RetroArch Settings > Quick Menu > Disc
 Control**.
 
 ## RPG Maker 2000 and 2003

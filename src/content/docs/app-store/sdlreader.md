@@ -20,7 +20,7 @@ Put your files anywhere on the SD card and browse to them in the app. The file
 browser remembers the last directory you were in.
 
 In the browser, the **d-pad** navigates and pages through long lists, **L1 /
-R1** jump by letter, **A** opens, **B** goes back, and **Menu** quits. Press
+R1** jump by letter, **A** opens, **B** goes back, and **MENU** quits. Press
 **X** to switch between a plain list and a thumbnail grid that previews covers.
 
 ## Reading
@@ -29,7 +29,7 @@ Zoom in and out, fit a page to the screen width, scroll within an oversized
 page, and rotate or mirror the view to suit how you're holding the device.
 Reading history keeps your place in each document.
 
-The font and reading-style menu (the **Menu** button, or **L1 + R1**) holds the
+The font and reading-style menu (the **MENU** button, or **L1 + R1**) holds the
 rest:
 
 - Reading themes for EPUB, MOBI, and text: Sepia, Dark Mode, High Contrast,

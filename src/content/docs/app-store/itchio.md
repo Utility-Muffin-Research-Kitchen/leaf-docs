@@ -75,7 +75,7 @@ new files.
 Browsing and free downloads need no account. Sign in to download paid games you
 own:
 
-1. Open **Start → Settings → itch.io Account**, or press **A** on a paid game.
+1. Open **Start > Settings > itch.io Account**, or press **A** on a paid game.
 2. Read and accept the physical-access warning (first time only).
 3. Scan the QR code with your phone. The code expires after a few minutes;
    press **A** for a new one.
@@ -93,7 +93,7 @@ card.
 A content warning asks you to confirm before you continue; it doesn't hide the
 game. Adult/suggestive, heavy theme, and substance-use warnings default to on;
 queer/LGBTQ+ warnings default to off. Change the category and individual tag
-behavior under **Settings → Content Moderation**. itch.io authors control their
+behavior under **Settings > Content Moderation**. itch.io authors control their
 own tags, so these advisories are best effort.
 
 ## Credits

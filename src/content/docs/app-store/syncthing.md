@@ -77,7 +77,7 @@ fallback.
 1. If the other device is a VPS or is outside the current network, open
    **Network** on Leaf, enable **Sync Anywhere**, and confirm the warning. Leave
    **LAN-only** enabled when both devices are on the same local network.
-2. On Leaf, open **Devices → My device ID + QR**.
+2. On Leaf, open **Devices > My device ID + QR**.
 3. On the other device, choose **Add Remote Device** and scan the QR when its
    Syncthing app supports that, or enter Leaf's displayed device ID there.
 4. Still on the other device, edit the existing Saves folder, open **Sharing**,
@@ -95,7 +95,7 @@ Sharing change. Accepting a device never accepts a folder automatically.
 Choose **Create new Saves folder instead** only when this is a new share. The
 new folder gets its own folder ID, so it can't join an existing remote folder.
 
-After creating it, use **Folders → Sharing** on Leaf to include the other devices,
+After creating it, use **Folders > Sharing** on Leaf to include the other devices,
 then accept the folder on each of them and choose a writable local path there.
 
 When you add a new peer later, Leaf can ask whether to share existing folders.
@@ -118,7 +118,7 @@ keep the version you intend to use.
 ### Match the other emulator
 
 Leaf already points RetroArch at the managed `Saves` and `States` directories.
-On another RetroArch device, check **Settings → Directory → Save Files** and
+On another RetroArch device, check **Settings > Directory > Save Files** and
 **Save States**, or its per-core directory override, before accepting a folder.
 Point Saves at the normal save directory used by the matching core. Menu names
 vary between RetroArch builds, so confirm by creating one test save and checking
@@ -173,7 +173,7 @@ the screen:
 - **Making saves safe**
 - **Starting game**
 
-If files are still arriving, wait for them or press **Menu** for **Start now**.
+If files are still arriving, wait for them or press **MENU** for **Start now**.
 Starting now stops Syncthing before launching. Canceling leaves Syncthing
 running so it can finish.
 
@@ -227,7 +227,7 @@ Keep the existing folder and its folder ID, but give Leaf a fresh device identit
 1. Stop and remove any community Syncthing Pak or manually started Syncthing on
    the Leaf handheld. Leaf refuses to run beside another local instance or a
    folder already managed by one.
-2. Start the Leaf Syncthing Pak and open **Devices → My device ID + QR**.
+2. Start the Leaf Syncthing Pak and open **Devices > My device ID + QR**.
 3. On the existing peer, add Leaf's displayed ID and share the existing folder
    with that new Leaf device.
 4. Back on Leaf, accept the **Pending** device, then choose **Join offered
@@ -371,7 +371,7 @@ writable local directory; adding the device alone does not accept its folders.
 
 ## Resetting Syncthing
 
-Use **Settings & Recovery → Recovery** only when ordinary folder or device controls
+Use **Settings & Recovery > Recovery** only when ordinary folder or device controls
 cannot repair the setup. Each reset asks you to confirm twice. Read both screens
 carefully:
 

@@ -16,7 +16,7 @@ your DS saves, PSP saves, favorites, and playtime stay behind.
 
 Show hidden files before you copy anything. In Finder press
 **Command-Shift-Period**. In File Explorer turn on
-**View → Show → Hidden items**.
+**View > Show > Hidden items**.
 :::
 
 ## What to copy

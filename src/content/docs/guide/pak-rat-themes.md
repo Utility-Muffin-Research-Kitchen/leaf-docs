@@ -27,7 +27,7 @@ copied to the card shows up without a restart.
 
 ## Browsing themes
 
-Press the **Menu** button, open **Actions**, and choose **Pak Rat**. Press **Y** on the
+Press the **MENU** button, open **Actions**, and choose **Pak Rat**. Press **Y** on the
 list to switch between apps and themes. While you're looking at themes, the header
 reads **Pak Rat Themes** and the **Y** hint reads **Apps**.
 

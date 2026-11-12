@@ -30,7 +30,7 @@ need the `.jar`; Leaf ignores the `.jad`. Japanese KDDI games come as `.kjx`,
 which the core reads too. Don't unzip either one. File names can be in any
 language.
 
-Press **MENU**, then choose **Actions → Rescan Library** after copying games.
+Press **MENU**, then choose **Actions > Rescan Library** after copying games.
 A game takes about 6 to 9 seconds to start.
 
 For box art, put `Images/J2ME/Diamond Rush.png` beside the example above, named
@@ -57,7 +57,7 @@ The buttons press the keys of a phone keypad:
 | **Y** | 9 |
 | **L1** / **R1** | 1 / 3 |
 | **L2** / **R2** | * / # |
-| **Select** / **Start** | left / right soft key |
+| **SELECT** / **START** | left / right soft key |
 | Left stick | 2, 4, 6, 8 |
 | **L3** (press the stick) | 5 |
 
@@ -87,7 +87,7 @@ stick by default. The MLP1 has only a left stick, so for each of these games,
 move the pointer to that stick:
 
 1. Start the game and press **MENU**.
-2. Open **RetroArch Settings**, then **Quick Menu → Core Options → Advanced
+2. Open **RetroArch Settings**, then **Quick Menu > Core Options > Advanced
    Settings**, and set **Pointer Stick** to **Left Stick**.
 3. Go back to **Core Options**, open **Manage Core Options**, and choose
    **Save Game Options**, so the change applies to this game only.
@@ -109,7 +109,7 @@ a corner, or says it doesn't support portrait mode needs a different resolution.
 To set one for a single game:
 
 1. Start the game and press **MENU**.
-2. Open **RetroArch Settings**, then **Quick Menu → Core Options → System**,
+2. Open **RetroArch Settings**, then **Quick Menu > Core Options > System**,
    and change **Phone Resolution**.
 3. Go back to **Core Options**, open **Manage Core Options**, and choose
    **Save Game Options**.
@@ -120,7 +120,7 @@ Larger resolutions are slower.
 
 ## A game stays on a white screen
 
-Open **RetroArch Settings**, then **Quick Menu → Core Options → Compatibility
+Open **RetroArch Settings**, then **Quick Menu > Core Options > Compatibility
 Settings**, and set **Repaint on MIDP Display setCurrent** to **Enabled**. Save
 it as a game option the same way as the resolution, and restart the game. Need
 for Speed: Most Wanted needs this.

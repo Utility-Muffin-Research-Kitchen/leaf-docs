@@ -9,7 +9,7 @@ card, without Wi-Fi or a computer. Screenshots work in the launcher, Leaf menus,
 
 ## Turning them on
 
-Both are off by default. Go to **Settings → Hotkeys & Rumble → Hotkeys** and turn on
+Both are off by default. Go to **Settings > Hotkeys & Rumble > Hotkeys** and turn on
 the **Screenshots** row, the **Recording** row, or both.
 
 ![The Hotkeys settings page with the Screenshots row highlighted and set to Off, above a Screenshot Hotkey row reading Menu + L1, alongside Game Switcher, Recording, and the recording options](/screenshot_settings.png)

@@ -8,12 +8,12 @@ restarts to install it, all from the launcher.
 
 ## Before you start
 
-- Connect to Wi-Fi. Open **Settings → Wi-Fi** and join a network.
+- Connect to Wi-Fi. Open **Settings > Wi-Fi** and join a network.
 - Charge the battery. The device reboots to install.
 
 ## Update from the launcher
 
-1. Press the **Menu** button to open the System page, switch to the **Actions** tab
+1. Press the **MENU** button to open the System page, switch to the **Actions** tab
    (**L1 / R1**), and choose **System Update**.
 2. Leaf checks your [update channel](#update-channel-stable-or-beta) and tells
    you whether a newer version is available.
@@ -21,7 +21,7 @@ restarts to install it, all from the launcher.
 4. Choose to install. The device reboots into its installer to apply the update,
    then reboots into the new version.
 5. Confirm the running version on the **Info** tab's **Device** page
-   (**Menu → Info → Device**).
+   (**Menu > Info > Device**).
 
 ## Update channel (Stable or Beta)
 
@@ -61,7 +61,7 @@ sure the release was published on that channel.
 
 ## The download fails
 
-Check your connection in **Settings → Wi-Fi** and try again.
+Check your connection in **Settings > Wi-Fi** and try again.
 
 ## A release misbehaves
 

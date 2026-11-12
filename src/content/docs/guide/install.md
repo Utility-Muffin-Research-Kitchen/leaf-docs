@@ -61,7 +61,7 @@ the card's top level, or run `ls -a /Volumes/YOURCARD`.
 ## After installing
 
 - Connect to Wi-Fi so you can update and scrape box art: open
-  **Settings → Wi-Fi**.
+  **Settings > Wi-Fi**.
 - Add your games - see [Adding games](/guide/games/).
 - Add BIOS files for the systems that need them - see
   [BIOS files](/guide/bios-and-cores/).

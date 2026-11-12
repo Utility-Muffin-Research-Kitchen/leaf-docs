@@ -34,7 +34,7 @@ The file contains only the ID, such as `kq1`. You can find game IDs in the
 ScummVM's own detection output. The ID is not necessarily the same as the game
 folder name.
 
-Press **MENU**, then choose **Actions → Rescan Library** after copying games.
+Press **MENU**, then choose **Actions > Rescan Library** after copying games.
 Each `.scummvm` file appears as its own title. Put artwork at
 `Images/SCUMMVM/Kings Quest 1.png` for the example above, using the `.scummvm`
 filename without its extension. You can also download artwork with Leaf's
@@ -60,18 +60,18 @@ These are the standalone's controls.
 | --- | --- |
 | **A** | click or interact |
 | **B** | right-click |
-| **Start** | open ScummVM's menu, where you save, load, change options, and quit |
-| **Select** | open the virtual keyboard, for example to name a save |
-| **X** / **Y** | different in each game; to change them, press **Start** and open **Options → Keymaps** |
-| **Menu** | ask **Return to Leaf?** |
+| **START** | open ScummVM's menu, where you save, load, change options, and quit |
+| **SELECT** | open the virtual keyboard, for example to name a save |
+| **X** / **Y** | different in each game; to change them, press **START** and open **Options > Keymaps** |
+| **MENU** | ask **Return to Leaf?** |
 
-Press **Menu** again within four seconds to leave the game, or let the prompt
+Press **MENU** again within four seconds to leave the game, or let the prompt
 disappear to keep playing. Leaving this way doesn't save, so save from ScummVM's
-menu first. If ScummVM doesn't close, hold **Menu** for three seconds, and keep
+menu first. If ScummVM doesn't close, hold **MENU** for three seconds, and keep
 holding for two more to force it.
 
 **Return to Launcher** in ScummVM's menu opens ScummVM's own game list. Choose
-**Quit** there, or press **Menu**, to get back to Leaf.
+**Quit** there, or press **MENU**, to get back to Leaf.
 
 ## Saves
 

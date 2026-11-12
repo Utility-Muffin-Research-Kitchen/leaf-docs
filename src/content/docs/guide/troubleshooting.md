@@ -36,7 +36,7 @@ files there, or leave them.
 
 ## A game is missing from its list
 
-- You hid it. Hidden games are listed in **Settings → Games → Hidden Games**.
+- You hid it. Hidden games are listed in **Settings > Games > Hidden Games**.
   Pick the game and press **A** to bring it back. See
   [Hiding a game](/guide/games/#hiding-a-game).
 - It's in the wrong folder or format. Check that the game is in the right
@@ -45,7 +45,7 @@ files there, or leave them.
 - Its card is out. Games on the second SD card leave your lists while that
   card is out, and come back when you put it back. See
   [A second SD card](/guide/games/#a-second-sd-card).
-- It's in a folder. With **Settings → Games → Show Folders** on, a game in a
+- It's in a folder. With **Settings > Games > Show Folders** on, a game in a
   subfolder is inside that folder's row. See
   [Folders in your lists](/guide/games/#folders-in-your-lists).
 
@@ -59,13 +59,13 @@ both. Delete the games from the second card, or take it out. See
 
 This happens most on routers set to mixed WPA2/WPA3 security. Try:
 
-1. Toggling Wi-Fi off and on (**Settings → Wi-Fi**), or forgetting and rejoining
+1. Toggling Wi-Fi off and on (**Settings > Wi-Fi**), or forgetting and rejoining
    the network.
 2. Rebooting the device.
 
 ## Updates won't download
 
-- Confirm Wi-Fi is connected and has working internet (**Settings → Wi-Fi**).
+- Confirm Wi-Fi is connected and has working internet (**Settings > Wi-Fi**).
 - Make sure you're on a published release channel. A dev or test build may
   report "up to date" when no public release is newer.
 
@@ -79,26 +79,26 @@ resumes on the next normal boot. See [Recovery](/guide/recovery/).
 
 ## A game feels slow or laggy
 
-Set **Settings → Games → Game Performance** to **Performance**, or leave it on
+Set **Settings > Games > Game Performance** to **Performance**, or leave it on
 **Auto**, which boosts heavier systems for you. You can also change it for one
 game from the in-game menu - see [Playing games](/guide/playing/). The most
 demanding systems are at the edge of what this hardware can do.
 
 ## The device sleeps or powers off on its own
 
-Check the auto-sleep setting under **Settings → System**. If it's enabled and set
+Check the auto-sleep setting under **Settings > System**. If it's enabled and set
 short, lengthen it or turn it off.
 
 ## Bluetooth audio stutters or cuts out
 
 Wi-Fi and Bluetooth share one radio on this device, so heavy Wi-Fi use can interrupt
-Bluetooth audio. Turn Wi-Fi off (**Settings → Wi-Fi**) while using Bluetooth
+Bluetooth audio. Turn Wi-Fi off (**Settings > Wi-Fi**) while using Bluetooth
 headphones. If it still sounds rough, try re-pairing, or test a different pair of
 earbuds.
 
 ## A Bluetooth device won't reconnect
 
-Open **Settings → Bluetooth** and connect it again. If it still won't, unpair it
+Open **Settings > Bluetooth** and connect it again. If it still won't, unpair it
 (**Y**) and pair fresh. Some earbuds (Apple AirPods in particular) don't reconnect
 to non-Apple hardware automatically and may need a manual reconnect each time.
 
@@ -110,7 +110,7 @@ stick's range needs calibrating. Open **Joe's Calibrage** from the **Apps** tab 
 
 ## Black Frame Insertion is grayed out
 
-At 60 Hz the row shows "100/120 Hz only". Set **Settings → Display & Sound → Refresh
+At 60 Hz the row shows "100/120 Hz only". Set **Settings > Display & Sound > Refresh
 Rate** to **120** for 60fps games or **100** for 50fps (PAL) games, and the toggle becomes
 available. The row then names the frame rate it's set up for, such as "On (50 fps)".
 Match that to what you're playing, or a 60fps game running at 100 Hz is paced down
@@ -124,8 +124,8 @@ them inside RetroArch only lasts for that session.
 change each one instead. Aspect ratio and **Integer Scale** are on that list,
 and the same page shows how to keep them per core with a RetroArch override.
 
-If the setting isn't on that list, quit properly (**MENU → Save & Quit**, or
-**Main Menu → Quit RetroArch** in the app tile) instead of powering off from
+If the setting isn't on that list, quit properly (**MENU > Save & Quit**, or
+**Main Menu > Quit RetroArch** in the app tile) instead of powering off from
 inside RetroArch, and try again.
 
 ## A shader is missing, broken, or keeps returning
@@ -151,7 +151,7 @@ clean shutdown. Put the card in a computer and repair it - see
 [Check the card on a computer](/guide/sd-card-read-only/#check-the-card-on-a-computer) -
 then reinsert it.
 
-To avoid it, power the device down with **MENU → Power Off** or a 2 second hold
+To avoid it, power the device down with **MENU > Power Off** or a 2 second hold
 of the power button, and let go when the screen changes. Holding it for the
 **Force Off Hold** time (10 seconds by default) cuts power with no clean
 shutdown, so keep that for a frozen device.

@@ -11,7 +11,7 @@ the SD card.
 
 ## Connecting
 
-1. Make sure the device is on Wi-Fi (**Settings → Wi-Fi**).
+1. Make sure the device is on Wi-Fi (**Settings > Wi-Fi**).
 2. Open **Central Scrutinizer** from the **Apps** tab. The screen shows a **web
    address** and a **PIN**.
 3. On your computer or phone, open that address in a browser.

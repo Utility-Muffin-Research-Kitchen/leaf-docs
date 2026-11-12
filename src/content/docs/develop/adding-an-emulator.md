@@ -124,11 +124,11 @@ The target is usually a small launch script. Pass every location on the
 emulator's command line each time, don't store an absolute mount path, and end
 with `exec` so Leaf supervises the emulator itself.
 
-With `supports_menu` set to `false`, a tap on Leaf's **Menu** button shows
+With `supports_menu` set to `false`, a tap on Leaf's **MENU** button shows
 **Return to Leaf?**, and a second tap within four seconds sends the emulator
 `SIGTERM`. If Leaf can't show the prompt, the first tap sends it. With
 `supports_menu` set to `true`, the tap reaches the emulator as its own menu
-button. Either way, holding **Menu** for three seconds sends `SIGTERM`, and two
+button. Either way, holding **MENU** for three seconds sends `SIGTERM`, and two
 more seconds send `SIGKILL`. Neither saves the game, so make sure players can save
 inside the emulator.
 
@@ -203,8 +203,8 @@ gate the two versions separately.
 When your frontend answers `GET_INFO`, players get Leaf's in-game menu for it as
 for any core: save states with thumbnails, load, reset, disc swapping, shaders,
 and **RetroArch Settings**. They also get the Game Switcher, saving on power
-hold and resuming after power-off, and **Menu** hotkeys. If it doesn't answer,
-**Menu** opens RetroArch's own menu instead and those features stay off for that
+hold and resuming after power-off, and **MENU** hotkeys. If it doesn't answer,
+**MENU** opens RetroArch's own menu instead and those features stay off for that
 game.
 
 Some things don't come with it:
@@ -317,7 +317,7 @@ For a quick device iteration:
 1. Assemble `MySystem.pak/` on your computer.
 2. Copy that one directory to `Apps/mlp1/` on the primary SD card.
 3. Put ROMs in the declared `Roms/<SYSTEM>/` folder.
-4. In Leaf, press **MENU**, then choose **Actions → Rescan Library**.
+4. In Leaf, press **MENU**, then choose **Actions > Rescan Library**.
 
 The new system and its games appear in that rescan. Removing the pak and
 rescanning removes the system. The player's ROMs, images, saves, and states stay.

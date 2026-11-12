@@ -3,7 +3,7 @@ title: Settings reference
 description: A reference for the Leaf launcher's Settings menu, grouped by section.
 ---
 
-A reference for the Settings menu. Press the **Menu** button to open the **System**
+A reference for the Settings menu. Press the **MENU** button to open the **System**
 page. It opens on the **Settings** tab, whose sections are listed below. The other two
 tabs, **Actions** and **Info**, are covered under
 [The System page](#the-system-page-menu-button) at the end.
@@ -165,7 +165,7 @@ the device you want. Leaf doesn't scan in the background. For controllers, see
 - One audio device connects at a time. A game controller can stay connected
   alongside a headset.
 - Game and system audio follows the connected headset. You can still pick the output
-  under **Display & Sound → Audio Output**.
+  under **Display & Sound > Audio Output**.
 - Reconnect a paired device from this page whenever you want it. **Y** unpairs it.
 
 ## Games
@@ -177,7 +177,7 @@ Artwork comes from ScreenScraper.fr. Sign in first under [Accounts](#accounts).
   **Missing** (only games without art) and **Replace All** (re-fetch everything);
   **A** starts the scrape and drops you on the Scrape Queue to watch it. For one
   game, press **X** on it in the launcher instead. See
-  [Adding games → Box art](/guide/games/#box-art).
+  [Adding games > Box art](/guide/games/#box-art).
 - **Scrape Queue** - the live list of scrape jobs and their progress. **A** opens a
   finished job's result, **Y** filters the list, and **X** stops everything or
   clears finished rows.
@@ -234,7 +234,7 @@ Press **A** on a row to enter your credentials with the on-screen keyboard, and
 - **Game Rumble** - rumble inside games, handed to the emulator.
 - **Strength** - how strong both are, from 0 to 100 percent in steps of 5. See
   [Rumble](/guide/rumble/).
-- **Hotkeys** - the **Menu** button chords: the game switcher, and screenshots and
+- **Hotkeys** - the **MENU** button chords: the game switcher, and screenshots and
   game recording with the button each one answers to. See
   [Screenshots and recording](/guide/screenshots/).
 
@@ -258,7 +258,7 @@ Press **A** on a row to enter your credentials with the on-screen keyboard, and
 
 ## The System page (Menu button)
 
-Press the **Menu** button anywhere in the launcher to open the System page, and press
+Press the **MENU** button anywhere in the launcher to open the System page, and press
 it again to go back to where you were. **B** steps back within System but doesn't
 leave it. **L1 / R1** switch between its three tabs:
 

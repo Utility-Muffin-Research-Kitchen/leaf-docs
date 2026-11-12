@@ -33,7 +33,7 @@ example, has no **RetroArch Settings** row.
 ## Hotkeys
 
 Leaf's shortcuts are **MENU** held with a second button. The second button is yours
-to change in **Settings → Hotkeys & Rumble → Hotkeys**.
+to change in **Settings > Hotkeys & Rumble > Hotkeys**.
 
 | Action | Default |
 | --- | --- |
@@ -50,7 +50,7 @@ beside it. Press **X** on the row to clear the shortcut.
 RetroArch has its own hotkeys, separate from Leaf's. Each one is **MENU + the button
 you bound it to**. RetroArch calls the **MENU** part **Hotkey Enable**.
 
-To add or change one, open **MENU → RetroArch Settings → Settings → Input →
+To add or change one, open **MENU > RetroArch Settings > Settings > Input >
 Hotkeys**, bind it to a button no Leaf shortcut uses, then leave the game normally
 so the change is saved.
 
@@ -114,7 +114,7 @@ in the launcher (see [Options menu](/guide/games/#options-menu)).
 The line at the top shows the profile in use and how warm the chip is.
 
 - **Profile** - **Balanced**, **Performance**, **Battery Saver**, or **Custom**. It
-  starts on the profile in use, whether that comes from **Settings → Games → Game
+  starts on the profile in use, whether that comes from **Settings > Games > Game
   Performance** or from the game's or system's **Options**.
 - **CPU**, **GPU**, and **DMC** (memory) - leave each one automatic or pin it to a
   fixed speed. Changing any of them switches **Profile** to **Custom**. Raising them

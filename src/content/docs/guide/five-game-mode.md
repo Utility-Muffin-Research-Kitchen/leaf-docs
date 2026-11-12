@@ -63,7 +63,7 @@ but not connected. Open the unlock prompt and press **Y** to reconnect it.
 
 There are two ways back in if you forget your code:
 
-- On the focus screen, hold **Menu + Select + Start + L2 + R2** together for about
+- On the focus screen, hold **MENU + SELECT + START + L2 + R2** together for about
   two seconds. This always exits, whatever the lock is set to.
 - Or power the device off, put the microSD card in a computer, and delete the file
   named `.leaf-focus-lock` at the top level of the card. The device comes up

@@ -46,7 +46,7 @@ library. For the apps that come with Leaf, see
 
 ## Installing an app
 
-Open **System** with the **Menu** button, go to **Actions**, then choose
+Open **System** with the **MENU** button, go to **Actions**, then choose
 **Pak Rat**. Pick what you want and install it over Wi-Fi.
 
 An app appears in the **Apps** tab and launches like any game. A new system
@@ -60,7 +60,7 @@ from Pak Rat, [update Leaf](/guide/updating/).
 
 Where an app's page links its releases page under Credits, you can install it
 by hand. Download the app's `.pak.zip` on a computer, unzip it, copy the `.pak`
-folder into `Apps/mlp1/` on the SD card, then run **System → Rescan Library**.
+folder into `Apps/mlp1/` on the SD card, then run **System > Rescan Library**.
 
 ## Removing a pak
 

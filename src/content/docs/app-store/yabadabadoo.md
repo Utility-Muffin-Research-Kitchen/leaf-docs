@@ -56,7 +56,7 @@ The face buttons follow the shape of a Saturn pad:
 | A, B, C | **Y**, **B**, **A** |
 | X, Y, Z | **L1**, **X**, **R1** |
 | L, R | **L2**, **R2** |
-| Start | **Start** |
+| Start | **START** |
 
 To move a button for one game or for all of them, open **RetroArch Settings**
 in the in-game menu, change it in **Quick Menu > Controls**, and save a remap

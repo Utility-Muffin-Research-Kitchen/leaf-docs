@@ -1,119 +1,68 @@
 ---
 title: Features tour
-description: 'A walkthrough of the Leaf launcher: appearance, status bar, display, lighting, networking, performance, and built-in apps.'
+description: 'A short tour of what Leaf adds: appearance, display, lighting, the in-game menu, apps, box art, and shortcuts, with a link to the page for each.'
 ---
 
-A quick tour of what Leaf adds on top of your games. Most of this lives in
-**Settings**, reachable from the launcher.
+A short tour of what Leaf adds on top of your games, with a link to the full
+page for each. Most of it is in **Settings**, reachable from the launcher.
 
 ## Appearance
 
 ![The launcher in the light Petal color scheme, showing the Favorites tab with pink accents](/screenshot-theme-light.png)
 
-Make the launcher yours from **Settings → Appearance**:
-
-- **Color schemes** - pick from fourteen curated palettes: a full spectrum in dark
-  and the same spectrum in light, led by **Leaf** (the soft-green default). You can
-  also hand-tune individual colors, which switches the scheme to "Custom."
-- **List style** - choose how the selection highlight looks (rounded, soft, square,
-  or the directional **Leaf** pill).
-- **Fonts** - pick a font family (Nunito by default, with eight more) and adjust
-  the font size.
-- **Home layout** - keep the classic **Tabs** view or switch to **Coverflow**, a
-  box-art carousel with console icons where **X** opens search and a game's Options.
+**Settings → Appearance** has fourteen color schemes in dark and light, list
+styles, nine fonts, and the home layout: the classic **Tabs** view or
+**Coverflow**, a box-art carousel. The status bar across the top (clock,
+battery, Wi-Fi, Bluetooth, volume) and the button hints at the bottom can each
+be turned off. See [Appearance](/guide/settings/#appearance), and
+[Themes](/guide/pak-rat-themes/) for wallpapers and system art.
 
 ![The Coverflow home layout: a carousel of NES box art with Super Mario Bros. 3 centered and its neighbors angled back with glossy reflections](/screenshot-coverflow.png)
 
 ![The Coverflow layout browsing by console: a Game Boy centered among 3D system renders, with an arcade cabinet, Atari 2600, Game Boy Advance, and Game Boy Color angled back and reflected](/screenshot-coverflow-systems.png)
 
-*Cover Flow browses your games as a box-art carousel and your systems as glossy 3D consoles.*
-
-## Status bar
-
-A configurable bar across the top (**Settings → Appearance → Status Bar**):
-
-- **Clock** - with style options.
-- **Battery** - animated while charging, with a low-battery warning.
-- **Wi-Fi** - connection state and signal strength.
-- **Bluetooth** - shown when the radio is on, highlighted when a device is connected.
-- **Volume** - the current system volume.
-
-Each indicator can be toggled. You can also hide the button hints footer; with
-hints off, content expands to fill the screen, and apps built on Leaf's toolkit
-follow the same setting.
-
 ## Display
 
-The Pocket 1 panel is rated for 60Hz, but Leaf drives it faster
-(**Settings → Display & Sound**):
+**Settings → Display & Sound** runs the screen at 100 or 120 Hz as well as 60.
+Use 120 for 60fps (NTSC) games, 100 for 50fps (PAL) games, and 60 for the longest
+battery life. **Black Frame Insertion** cuts motion blur in RetroArch games and
+costs some brightness. See
+[Display & Sound](/guide/settings/#display--sound).
 
-- **100 or 120Hz refresh** - a smoother launcher and smoother games on a screen the
-  stock firmware runs at 60. Games launched through RetroArch inherit the higher
-  rate too. Each rate divides evenly into a frame rate, so motion stays even: 120 for
-  60fps (NTSC) games, and **100 for 50fps (PAL) games**, which judder at every other
-  rate because 50 does not divide into them. 60Hz stays available for the longest
-  battery life. The panel only advertises 60, so we
-  [measured it optically](/panel-refresh-measurement/) to confirm the higher rates
-  are real.
-- **Black Frame Insertion** - an optional extra that flashes a black frame between
-  game frames to cut LCD motion blur, for a sharper, more CRT-like image in
-  fast-scrolling games. It needs a refresh that is twice the game's frame rate, so it
-  is available at 120Hz for 60fps games and 100Hz for 50fps PAL games. It works in
-  RetroArch cores and trades some brightness for the clarity, so turn brightness up to
-  compensate. See [Settings → Display & Sound](/guide/settings/#display--sound).
+## Lighting
 
-## Lighting (RGB ring)
+The stick has an RGB ring with solid, breathing, rainbow, and animated modes.
+Click the stick to turn it on or off. See [Lighting](/guide/settings/#lighting).
 
-The stick has an RGB ring you can drive from Settings:
+## Wi-Fi and Bluetooth
 
-- Solid, breathing, and rainbow modes, plus a few animated effects.
-- A breathing-green glow is the default Leaf identity.
-- Toggle the ring on/off with a stick click.
-
-## Networking
-
-- **Wi-Fi** (**Settings → Network**) - scan, connect, and turn the radio on or off.
-  Your choice persists across reboots.
-- **Bluetooth** (**Settings → Bluetooth**) - scan for and pair headsets and
-  controllers; game and system audio follows a connected headset automatically.
+Join a network in **Settings → Wi-Fi**. Pair headsets and controllers in
+**Settings → Bluetooth** - game and system audio follows a connected headset.
+See [Controllers](/guide/controllers/).
 
 ## Achievements
 
-Sign in to RetroAchievements once (**Settings → Games → Accounts**) and RetroArch logs
-you in at every game launch; achievements and progress show up in supported
-cores. See [Settings → Games → Accounts](/guide/settings/#accounts).
+Sign in to RetroAchievements once in **Settings → Games → Accounts** and
+RetroArch logs you in at every game launch. See
+[Accounts](/guide/settings/#accounts).
 
 ## Performance
 
-**Settings → Games → Game Performance** lets you pick how hard the device works
-during gameplay:
-
-- **Auto** - light systems run efficiently; heavier systems automatically boost.
-  At 100 or 120 Hz every game boosts, because each frame has half as long to be
-  ready.
-- **Balanced** / **Performance** / **Battery Saver** - pick a fixed behavior.
-
-Leaf keeps the launcher itself in a low-power state and ramps up the CPU, GPU, and
-memory only when a game launches, then winds back down on exit. There's also a
-live performance panel in the in-game menu for tuning while a game runs.
+**Settings → Games → Game Performance** sets how hard the device works during
+games: **Auto**, **Balanced**, **Performance**, or **Battery Saver**. You can
+also set it per game or system, and change it while a game runs. See
+[Playing games](/guide/playing/).
 
 ## Menu button
 
-In the launcher, the **Menu** button opens the **System** page - everything about
-the device, kept apart from your games. It's tab-driven (**L1 / R1**): **Settings**,
-**Actions** (Search, **System Update**, a library rescan, and the session and power
-actions), and **Info** (a **Device** page plus **Library** and **Playtime** stats).
-The Menu button toggles between your games and System, so press it again to drop
-back to where you were. See
-[The System page](/guide/settings/#the-system-page-menu-button).
+In the launcher, the **Menu** button opens the **System** page, with tabs for
+**Settings**, **Actions** (Search, **System Update**, a library rescan, and the
+power actions), and **Info**. Press it again to go back to your games. See
+[Settings reference](/guide/settings/).
 
-While a game is running, the same button opens the **in-game menu** instead -
-quick actions (resume, save and load states, the performance panel, shaders,
-RetroArch settings, and quit back to the launcher) without leaving the game.
-**MENU > Shader** is the common path for browsing Leaf's recommendations over a
-frozen still and saving one for a game, folder, or all RetroArch content. See
-[Playing games](/guide/playing/) for the full in-game menu, save states, and
-per-game performance.
+While a game is running, the same button opens the in-game menu: resume, save
+and load states, performance, shaders, RetroArch settings, and quit. See
+[Playing games](/guide/playing/).
 
 ![The in-game menu over a paused game, with a save-state thumbnail and button hints](/screenshot-ingame-menu.png)
 
@@ -121,145 +70,60 @@ per-game performance.
 
 ![The Apps tab listing Central Scrutinizer, Disco Boy, File Explorer, Fugazi, RetroArch, and SSH Server](/screenshot-apps.png)
 
-Leaf ships with a few built-in apps (under the **Apps** tab). Each has its own page
-under [Built-in apps](/apps/introduction/):
+The **Apps** tab holds Leaf's built-in apps:
 
-- **[Central Scrutinizer](/apps/central-scrutinizer/)** - manage your library over
-  Wi-Fi from a web browser: upload ROMs and box art, manage saves and BIOS files,
-  edit game titles and descriptions, pin games to the top of a list, and browse the
-  SD card, all without pulling the card.
-- **[Fugazi](/apps/fugazi/)** - a live CRT-shader tuner. Dial in a retro look
-  (scanlines, screen curvature, a phosphor mask, glow, and more) against a full-screen
-  preview, then deliberately install it as the global RetroArch shader. Fugazi
-  preserves an existing global preset after confirmation and can restore it later.
-- **[Joe's Calibrage](/apps/introduction/#joes-calibrage)** - calibrate the analog stick so games
-  see its full range.
-- **[SSH Server](/apps/introduction/#ssh-server)** - start an SSH server to reach the device over
-  the network.
-- **[File manager](/apps/introduction/#file-explorer)** - browse and manage files on the device.
+- [Central Scrutinizer](/apps/central-scrutinizer/) - manage your games, box
+  art, saves, and BIOS files over Wi-Fi from a web browser.
+- [Fugazi](/apps/fugazi/) - tune a CRT shader against a live preview.
+- [Joe's Calibrage](/apps/introduction/#joes-calibrage) - calibrate the analog
+  stick.
+- [SSH Server](/apps/introduction/#ssh-server) - reach the device over the
+  network.
+- [File Explorer](/apps/introduction/#file-explorer) - browse and manage files
+  on the device.
+
+You can add more from the [app store](/app-store/introduction/).
 
 ## Box art
 
-Press **X** on a game or system to open its **Options** menu, where you can rename
-it, pick a core, or set a performance profile; on a game you can also scrape its
-box art. To scrape a whole system or every system at once, use **Settings → Game
-Art → Scrape Artwork**. Leaf downloads art from ScreenScraper.fr (sign in under
-**Settings → Games → Accounts**), and it runs in the background while you keep browsing or
-playing. You can always drop images into `Images/` by hand instead. See
-[Adding games → Box art](/guide/games/#box-art).
+Press **X** on a game to open its **Options** and scrape its box art. To scrape
+a whole system or every system at once, use **Settings → Games → Scrape
+Artwork**. Art comes from ScreenScraper.fr, and you can drop your own images
+into `Images/` instead. See [Box art](/guide/games/#box-art).
 
 ## Game switcher
 
 ![The game switcher carousel showing recent games as cover tiles, Final Fantasy Tactics centered](/screenshot-switcher.png)
 
-Press **SELECT** anywhere on the home screen to open the game switcher - a focused
-carousel of your recent games for jumping back in fast.
-
-| Button | Action |
-|---|---|
-| Left / Right | move through recent games |
-| A | resume the highlighted game |
-| Y | remove the highlighted game from Recents |
-| B or SELECT | close the switcher |
-
-The currently running game shows a live snapshot of where you left off; others show
-their box art, or a placeholder card with the system name when there's no art yet.
+Press **SELECT** on the home screen, or **MENU + SELECT** in a game, to open a
+carousel of your recent games. **A** resumes the highlighted game and **Y**
+removes it from Recents. See [Playing games](/guide/playing/).
 
 ## Rumble
 
-The Pocket 1 has a vibration motor, and Leaf uses it two ways. The interface taps
-as you confirm something or run into the end of a list, and games drive the motor
-themselves on RetroArch cores, Dreamcast, and N64.
-
-**Settings → Hotkeys & Rumble** holds the controls: **UI Rumble** for the
-interface taps (off by default, since the cursor tap fires constantly while you
-scroll), **Game Rumble** for games (on by default), and a strength slider shared by
-both that also acts as the ceiling for in-game rumble.
-
-See [Rumble](/guide/rumble/) for what each pattern means and the three controller
-changes that make in-game rumble possible.
+The interface can tap as you confirm something or reach the end of a list, and
+games drive the motor themselves on RetroArch cores, Dreamcast, and N64. Both
+are set in **Settings → Hotkeys & Rumble**. See [Rumble](/guide/rumble/).
 
 ## 5-Game Mode
 
-A lockable focus mode that shows five games and nothing else. Pick and arrange
-them from **Menu → Actions → Start 5-Game Mode**, choose theme colors or black and
-white, and optionally set a four-digit PIN.
+A lockable screen that shows five games and nothing else, with an optional
+four-digit PIN. Start it from **Menu → Actions → Start 5-Game Mode**. See
+[5-Game Mode](/guide/five-game-mode/).
 
-The focused screen survives reboots, quitting a game returns to it rather than the
-launcher, and Wi-Fi switches off while it is active and comes back as you left it.
-Useful for handing the device to a child, or for cutting a large library down to
-the few things you actually mean to play.
+## Screenshots and recording
 
-See [5-Game Mode](/guide/five-game-mode/), including the failsafe for a forgotten
-PIN.
-
-## Screenshots
-
-Turn on **Settings → Hotkeys & Rumble → Hotkeys → Screenshots**, then
-press **Menu + L1** to capture whatever is on screen: the launcher, a menu,
-5-Game Mode, or a running RetroArch game. **Menu + L1** is the default; you can
-put it on another button, or turn the shortcut off, on the same page. Files land
-in the top-level `Screenshots/` folder as PNGs, and none of it needs Wi-Fi.
-
-See [Screenshots](/guide/screenshots/).
+Turn them on in **Settings → Hotkeys & Rumble → Hotkeys**, then press
+**Menu + L1** to capture the screen or **Menu + R1** to record a game. See
+[Screenshots and recording](/guide/screenshots/).
 
 ## Hotkeys
 
-Leaf's shortcuts use **MENU** held with a second button. **MENU** is always the
-modifier; the second button is yours to choose in **Settings → Hotkeys & Rumble
-→ Hotkeys**.
+Leaf's shortcuts are **MENU** held with a second button, and you choose that
+button yourself. See [Hotkeys](/guide/playing/#hotkeys).
 
-| Action | Default |
-| --- | --- |
-| Game Switcher | **Menu + Select** |
-| Screenshot | **Menu + L1** |
-| Recording | **Menu + R1** |
+## Shaders
 
-Press **A** on a shortcut to open the supported button list, pick one, and press
-**A** again. A button another action already uses is greyed out with that
-action's name beside it, so you can see the clash before you choose rather than
-being told afterwards. **X** on the row clears a shortcut outright.
-
-Two actions cannot share a button. The buttons are named as they are printed on
-the device, because the point is to avoid clashing with buttons you have bound
-in RetroArch, and those are physical too.
-
-### When Leaf and RetroArch want the same chord
-
-RetroArch has its own hotkeys behind its own modifier, which also defaults to
-**MENU** - see [Playing games](/guide/playing/#retroarch-hotkeys). If you bind a
-RetroArch hotkey to a button Leaf is already using and both modifiers are
-**MENU**, **Leaf wins** and RetroArch
-never sees it. Move one of them, or turn the Leaf shortcut off.
-
-Leaf only wins when it actually does something. A screenshot shortcut with
-screenshots turned off, or a game switcher outside a RetroArch game, hands the
-whole chord to RetroArch instead - so assigning a button does not reserve it in
-every situation.
-
-## RetroArch shaders
-
-Leaf bundles a small, curated set of GLSL shader presets, tested on this screen.
-Nothing switches on by itself, so a fresh install shows the original picture until
-you pick one. Launch a RetroArch game, press **MENU**, and open **Shader** to
-  browse the recommendations over a frozen still, then use **Left** and
-  **Right** to choose **This game**, **This folder**, or **All RetroArch** before
-  applying or saving. Use **Advanced RetroArch menu** for the native Shaders
-  screen and save there through **Manage Presets > Save Game Preset** or the
-  matching native automatic scope.
-
-The thirteen recommendations cover crisp pixel scaling, subtle scanlines,
-per-system Game Boy and GBA color and LCD simulations, shimmer-free scaling,
-and flat or curved CRT looks. Shaders only affect games running through
-RetroArch; standalone emulators have their own video settings. Fugazi remains
-the specialized tuner for a custom CRT look applied globally.
-
-See [RetroArch shaders](/guide/shaders/), including which presets to keep away
-from Black Frame Insertion.
-
-## Recents & saves
-
-- **Recents** shows what you've been playing; you can remove entries you don't
-  want.
-- In-game saves and save states are written to the SD card (`Saves/`,
-  `States/`).
+In a RetroArch game, press **MENU** and open **Shader** to try Leaf's
+recommended presets, then save one for this game, this folder, or all of
+RetroArch. Nothing is on until you pick one. See [Shaders](/guide/shaders/).

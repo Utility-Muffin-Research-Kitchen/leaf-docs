@@ -132,11 +132,11 @@ under [Built-in apps](/apps/introduction/):
   (scanlines, screen curvature, a phosphor mask, glow, and more) against a full-screen
   preview, then deliberately install it as the global RetroArch shader. Fugazi
   preserves an existing global preset after confirmation and can restore it later.
-- **[Joe's Calibrage](/apps/joes-calibrage/)** - calibrate the analog stick so games
+- **[Joe's Calibrage](/apps/introduction/#joes-calibrage)** - calibrate the analog stick so games
   see its full range.
-- **[SSH Server](/apps/ssh-server/)** - start an SSH server to reach the device over
+- **[SSH Server](/apps/introduction/#ssh-server)** - start an SSH server to reach the device over
   the network.
-- **[File manager](/apps/file-manager/)** - browse and manage files on the device.
+- **[File manager](/apps/introduction/#file-explorer)** - browse and manage files on the device.
 
 ## Box art
 

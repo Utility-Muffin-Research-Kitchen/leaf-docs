@@ -1,6 +1,6 @@
 ---
-title: Themes from Pak Rat
-description: Browse community themes in Pak Rat, preview them, and install, apply, update or remove them over Wi-Fi.
+title: Themes
+description: Pick a theme, or browse community themes in Pak Rat and install, apply, update or remove them over Wi-Fi.
 ---
 
 **Pak Rat**, Leaf's on-device store, carries themes as well as apps. You can browse
@@ -12,6 +12,23 @@ Every theme in Pak Rat was made by someone in the community and reviewed before 
 published. You can browse them all on the web in the [Theme gallery](/themes/). To make
 your own, see [Themes](/guide/themes/). To put yours in Pak Rat, see
 [Submit a theme](/guide/submit-a-theme/).
+
+## Choosing a theme
+
+Go to **Settings > Appearance > Theme** and press **Left** or **Right** to
+step through your themes. **None** turns themes off. The row shows each theme's name,
+and the change takes effect right away.
+
+A theme dresses Grid view and Cover Flow only. If **Home Layout** on the same page is
+set to **Tabs**, pick **Grid** or **Coverflow** to see it. Menus, Settings and the
+Tabs layout keep your color scheme however loud a theme is.
+
+Leaf looks for new theme folders each time you open **Layout**, so a theme you just
+copied to the card shows up without a restart.
+
+When you pick a theme, the status line reports what Leaf found in its Grid icons, for
+example `My Theme: 12 icons ok` or `My Theme: 2 icons over 1024px skipped`. It is the
+quickest way to catch an icon that is the wrong size.
 
 ## Browsing themes
 

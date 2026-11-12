@@ -8,7 +8,7 @@ Contributions are welcome. Leaf is cooked up in the open at the
 
 ## Where to start
 
-1. Find the right repository for your change - see the [Repo map](/develop/repo-map/).
+1. Find the right repository for your change - see the [Repo map](/develop/architecture/#repositories).
    Keep changes in the owning repo (e.g. launcher logic in Jawaka, UI-toolkit
    changes in Catastrophe, the boot/install mechanism in miniloong-launcher-switcher).
 2. Read that repo's README and any in-repo plans/docs.

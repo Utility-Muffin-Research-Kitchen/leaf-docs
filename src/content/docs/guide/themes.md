@@ -1,5 +1,5 @@
 ---
-title: Themes
+title: Make a theme
 description: Restyle Grid view and Cover Flow with your own wallpaper, colors, system art and logos. A theme is one folder on the SD card, and you only have to supply the parts you want to change.
 ---
 
@@ -15,23 +15,6 @@ You can install themes other people made from [Pak Rat](/guide/pak-rat-themes/),
 make your own by following this page. When yours is ready to share, see
 [Submit a theme](/guide/submit-a-theme/). To see every published theme before you pick
 one, browse the [Theme gallery](/themes/).
-
-## Choosing a theme
-
-Go to **Settings > Appearance > Theme** and press **Left** or **Right** to
-step through your themes. **None** turns themes off. The row shows each theme's name,
-and the change takes effect right away.
-
-A theme dresses Grid view and Cover Flow only. If **Home Layout** on the same page is
-set to **Tabs**, pick **Grid** or **Coverflow** to see it. Menus, Settings and the
-Tabs layout keep your color scheme however loud a theme is.
-
-Leaf looks for new theme folders each time you open **Layout**, so a theme you just
-copied to the card shows up without a restart.
-
-When you pick a theme, the status line reports what Leaf found in its Grid icons, for
-example `My Theme: 12 icons ok` or `My Theme: 2 icons over 1024px skipped`. It is the
-quickest way to catch an icon that is the wrong size.
 
 ## Where themes live
 

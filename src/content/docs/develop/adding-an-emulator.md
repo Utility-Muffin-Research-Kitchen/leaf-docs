@@ -196,7 +196,7 @@ specifies them all; in short, it must:
 
 Upstream RetroArch answers only a few of those commands, so your build needs
 patches for the rest. Leaf's own RetroArch patches, in the **retroarch-builds**
-repository (see the [repo map](/develop/repo-map/)), are the reference
+repository (see the [repo map](/develop/architecture/#repositories)), are the reference
 implementation.
 
 Set `min_leaf_version` to the first Leaf release that supports `frontend`, which

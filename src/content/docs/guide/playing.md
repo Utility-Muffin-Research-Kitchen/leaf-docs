@@ -485,7 +485,7 @@ Those menus follow Leaf's language, so setting Leaf to 中文 puts PPSSPP in Sim
 Chinese as well. See [Language](/guide/language/).
 
 The analog stick uses the calibration from
-[Joe's Calibrage](/apps/joes-calibrage/), so if the stick drifts or doesn't reach
+[Joe's Calibrage](/apps/introduction/#joes-calibrage), so if the stick drifts or doesn't reach
 full tilt in PSP games, calibrate it there rather than inside PPSSPP.
 
 ### If your face buttons or stick were wrong

@@ -38,7 +38,7 @@ open source ([MIT](https://github.com/Utility-Muffin-Research-Kitchen/VideoFromH
 - **One library, both cards** - with two SD cards, the `Videos` folder on each is merged
   into a single library. Folders with the same name join up, and anything ambiguous is
   labelled **SD1** or **SD2** so you can tell which card it came from.
-- **Your recorded gameplay** - Leaf's [recordings](/guide/recording/) appear as a
+- **Your recorded gameplay** - Leaf's [recordings](/guide/screenshots/#recording) appear as a
   **Recorded Gameplay** folder, so you can watch a session back without moving files
   around first.
 - **Posters** - artwork comes from an image sitting next to the file, a `poster` or

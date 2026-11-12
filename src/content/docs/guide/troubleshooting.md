@@ -112,7 +112,7 @@ reconnect to non-Apple hardware automatically and may need a manual reconnect ea
 
 If characters walk when you push the stick all the way (or aiming feels clipped), the
 stick's range needs calibrating. Open **Joe's Calibrage** from the **Apps** tab and run
-**Calibrate**. See [Joe's Calibrage](/apps/joes-calibrage/).
+**Calibrate**. See [Joe's Calibrage](/apps/introduction/#joes-calibrage).
 
 ## Black Frame Insertion is grayed out
 

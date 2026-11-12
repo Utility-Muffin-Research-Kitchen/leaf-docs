@@ -15,6 +15,14 @@ const ASSET_PREFIX = BASE === '/' ? '' : BASE;
 export default defineConfig({
   site: SITE,
   base: BASE,
+  // Pages that were merged into another page. Keep old links working.
+  redirects: {
+    '/guide/recording': '/guide/screenshots/#recording',
+    '/apps/file-manager': '/apps/introduction/#file-explorer',
+    '/apps/ssh-server': '/apps/introduction/#ssh-server',
+    '/apps/joes-calibrage': '/apps/introduction/#joes-calibrage',
+    '/develop/repo-map': '/develop/architecture/#repositories',
+  },
   integrations: [
     starlight({
       title: 'Leaf',
@@ -58,34 +66,51 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Guide',
+          label: 'Start here',
           items: [
             { label: 'Introduction', slug: 'guide/introduction' },
             { label: 'Install Leaf', slug: 'guide/install' },
-            { label: 'Updating (OTA)', slug: 'guide/updating' },
+            { label: 'Updating', slug: 'guide/updating' },
+            { label: 'Features tour', slug: 'guide/features' },
+          ],
+        },
+        {
+          label: 'Games',
+          items: [
+            { label: 'Adding games', slug: 'guide/games' },
+            { label: 'BIOS files', slug: 'guide/bios-and-cores' },
+          ],
+        },
+        {
+          label: 'Playing',
+          items: [
+            { label: 'Playing games', slug: 'guide/playing' },
+            { label: 'Controllers', slug: 'guide/controllers' },
+            { label: 'Rumble', slug: 'guide/rumble' },
+            { label: 'Screenshots and recording', slug: 'guide/screenshots' },
+            { label: '5-Game Mode', slug: 'guide/five-game-mode' },
+            { label: 'RetroArch settings', slug: 'guide/retroarch-settings' },
+            { label: 'Shaders', slug: 'guide/shaders' },
+          ],
+        },
+        {
+          label: 'Make it yours',
+          items: [
+            { label: 'Themes', slug: 'guide/pak-rat-themes' },
+            { label: 'Theme gallery', slug: 'themes' },
+            { label: 'Language', slug: 'guide/language' },
+            { label: 'Settings reference', slug: 'guide/settings' },
+            // The individual studios stay orphaned; this hub is the way in.
+            { label: 'Colorway studios', slug: 'colorways' },
+          ],
+        },
+        {
+          label: 'Help',
+          items: [
+            { label: 'Troubleshooting', slug: 'guide/troubleshooting' },
             { label: 'Recovery', slug: 'guide/recovery' },
             { label: 'My SD card is read-only', slug: 'guide/sd-card-read-only' },
             { label: 'Moving to a new SD card', slug: 'guide/moving-to-a-new-card' },
-            { label: 'Adding games & ROMs', slug: 'guide/games' },
-            { label: 'BIOS & cores', slug: 'guide/bios-and-cores' },
-            { label: 'Playing games', slug: 'guide/playing' },
-            { label: 'RetroArch settings', slug: 'guide/retroarch-settings' },
-            { label: 'RetroArch shaders', slug: 'guide/shaders' },
-            { label: 'Native PICO-8', slug: 'guide/pico-8' },
-            { label: 'Features tour', slug: 'guide/features' },
-            { label: '5-Game Mode', slug: 'guide/five-game-mode' },
-            { label: 'Screenshots', slug: 'guide/screenshots' },
-            { label: 'Recording', slug: 'guide/recording' },
-            { label: 'Controllers', slug: 'guide/controllers' },
-            { label: 'Rumble', slug: 'guide/rumble' },
-            { label: 'Language', slug: 'guide/language' },
-            { label: 'Translate Leaf', slug: 'guide/translating' },
-            { label: 'Themes', slug: 'guide/themes' },
-            { label: 'Theme gallery', slug: 'themes' },
-            { label: 'Themes from Pak Rat', slug: 'guide/pak-rat-themes' },
-            { label: 'Submit a theme', slug: 'guide/submit-a-theme' },
-            { label: 'Settings reference', slug: 'guide/settings' },
-            { label: 'Troubleshooting', slug: 'guide/troubleshooting' },
           ],
         },
         {
@@ -94,34 +119,59 @@ export default defineConfig({
             { label: 'Overview', slug: 'apps/introduction' },
             { label: 'Central Scrutinizer', slug: 'apps/central-scrutinizer' },
             { label: 'Fugazi', slug: 'apps/fugazi' },
-            { label: "Joe's Calibrage", slug: 'apps/joes-calibrage' },
-            { label: 'SSH Server', slug: 'apps/ssh-server' },
-            { label: 'File manager', slug: 'apps/file-manager' },
           ],
         },
         {
           label: 'App store',
           items: [
             { label: 'Overview', slug: 'app-store/introduction' },
-            { label: 'Itch.io', slug: 'app-store/itchio' },
-            { label: 'Disco Boy', slug: 'app-store/disco-boy' },
-            { label: 'Flycastrophe', slug: 'app-store/flycastrophe' },
-            { label: 'J2ME', slug: 'app-store/j2me' },
-            { label: 'Nimbus', slug: 'app-store/nimbus' },
-            { label: 'PortMaster', slug: 'app-store/portmaster' },
-            { label: 'RAOfflineProxy', slug: 'app-store/raofflineproxy' },
-            { label: 'ScummVM', slug: 'app-store/scummvm' },
-            { label: 'SDLReader', slug: 'app-store/sdlreader' },
-            { label: 'Syncthing', slug: 'app-store/syncthing' },
-            { label: 'Video From Hell', slug: 'app-store/video-from-hell' },
-            { label: 'Yabadabadoo', slug: 'app-store/yabadabadoo' },
+            {
+              label: 'Systems and emulators',
+              items: [
+                { label: 'Flycastrophe', slug: 'app-store/flycastrophe' },
+                { label: 'J2ME', slug: 'app-store/j2me' },
+                { label: 'PICO-8', slug: 'guide/pico-8' },
+                { label: 'ScummVM', slug: 'app-store/scummvm' },
+                { label: 'Yabadabadoo', slug: 'app-store/yabadabadoo' },
+              ],
+            },
+            {
+              label: 'More games',
+              items: [
+                { label: 'Itch.io', slug: 'app-store/itchio' },
+                { label: 'PortMaster', slug: 'app-store/portmaster' },
+              ],
+            },
+            {
+              label: 'Media',
+              items: [
+                { label: 'Disco Boy', slug: 'app-store/disco-boy' },
+                { label: 'SDLReader', slug: 'app-store/sdlreader' },
+                { label: 'Video From Hell', slug: 'app-store/video-from-hell' },
+              ],
+            },
+            {
+              label: 'Tools',
+              items: [
+                { label: 'Nimbus', slug: 'app-store/nimbus' },
+                { label: 'RAOfflineProxy', slug: 'app-store/raofflineproxy' },
+                { label: 'Syncthing', slug: 'app-store/syncthing' },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Contribute',
+          items: [
+            { label: 'Translate Leaf', slug: 'guide/translating' },
+            { label: 'Make a theme', slug: 'guide/themes' },
+            { label: 'Submit a theme', slug: 'guide/submit-a-theme' },
           ],
         },
         {
           label: 'Develop',
           items: [
-            { label: 'Architecture', slug: 'develop/architecture' },
-            { label: 'Repo map', slug: 'develop/repo-map' },
+            { label: 'How Leaf is built', slug: 'develop/architecture' },
             { label: 'Building from source', slug: 'develop/building' },
             { label: 'Building a Leaf app', slug: 'develop/building-an-app' },
             { label: 'Adding a system or emulator', slug: 'develop/adding-an-emulator' },
@@ -130,8 +180,6 @@ export default defineConfig({
             { label: 'Measuring the refresh rate', slug: 'panel-refresh-measurement' },
           ],
         },
-        // The individual studios stay orphaned; this hub is the way in.
-        { label: 'Colorway studios', slug: 'colorways' },
         { label: 'Credits', slug: 'credits' },
       ],
     }),

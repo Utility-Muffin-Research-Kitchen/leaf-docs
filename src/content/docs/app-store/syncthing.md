@@ -5,27 +5,25 @@ description: 'Keep game saves and optional save states in sync between Leaf, com
 
 Syncthing keeps a card's game saves in sync with your other devices. The other
 device can be another Leaf handheld, a computer, a NAS, a home server, a VPS, or
-an Android handheld running a compatible Syncthing app.
-
-Leaf manages the fiddly parts on the handheld: it binds folders to physical SD
-cards, protects the first sync, pauses Syncthing while a game is using its files,
-and follows a card if its mount point changes after a reboot.
+an Android handheld running a compatible Syncthing app. Leaf pauses Syncthing
+while a game is using its files and starts it again when you quit.
 
 ## What Leaf syncs
 
 - **Saves** are the normal in-game save files. Start here.
 - **States** are emulator snapshots. They are optional and less portable.
 
-Syncthing is not used for ROMs or BIOS files. It is also **not a backup**: a
-deletion or damaged file can sync to every device. Keep backups or enable file
-versioning on an always-on computer, NAS, or server.
+Syncthing is not used for ROMs or BIOS files.
 
-:::note[Folder names and folder IDs]
-`ra-saves` is only a descriptive label. Syncthing decides whether two folders are
-the same share by their **folder ID**. Two folders can have the same label and still
-be completely separate. To join an existing share, wait for its folder offer and
-choose **Join offered folder**.
+:::caution[Syncthing is not a backup]
+A deletion or a damaged file can sync to every device. Keep backups or enable
+file versioning on an always-on computer, NAS, or server.
 :::
+
+Syncthing decides whether two folders are the same share by their **folder ID**.
+The label, such as `ra-saves`, is only a name, so two folders with the same
+label can be completely separate. To join an existing share, wait for its folder
+offer and choose **Join offered folder**.
 
 ## A good multi-device layout
 
@@ -36,67 +34,45 @@ The simplest setup uses one always-on device as a hub:
 3. Connect each Leaf or Android handheld to that hub.
 4. Explicitly share each Saves or States folder with every device that needs it.
 
-Devices can also sync directly with each other. A hub is easier to reason about,
-is more likely to be online when you finish playing, and gives you one place for
-version history and backups.
+Devices can also sync directly with each other, but a hub is more likely to be
+online when you finish playing.
 
-Folder paths are local to each device. They do not need to match, and a path from
-one device must never be copied blindly to another.
-
-| Device | Example local path when accepting a Leaf folder |
-| --- | --- |
-| Windows | `C:\Users\<you>\Syncthing\Leaf Saves` |
-| macOS | `/Users/<you>/Syncthing/Leaf Saves` |
-| Linux, NAS, or VPS | `/home/<you>/Syncthing/Leaf Saves`, or another directory writable by the Syncthing service account |
-| Android | Choose a writable folder such as **Internal storage → Syncthing → Leaf Saves** in that app's folder picker |
-| Leaf | Leaf chooses the selected card's `Saves` or `States` directory; the path is intentionally read-only |
-| Another retro handheld | Choose the save directory actually used by that handheld's emulator; do not assume it matches Leaf |
+Folder paths are local to each device and don't need to match. On a computer,
+NAS, VPS, or Android device, choose any writable folder when you accept a Leaf
+folder. On another retro handheld, choose the save directory its emulator
+actually uses. On Leaf, the path is always the selected card's `Saves` or
+`States` directory and can't be changed.
 
 Use a different hub directory for every physical card's Saves folder and every
-optional States folder. The folder ID, not the local path or label, connects the
-copies.
+optional States folder.
 
 ## Install and start Syncthing
 
-Install Syncthing with **Menu → Actions → Pak Rat**. It will appear in the
-**Apps** tab.
+Install **Syncthing** from Pak Rat; see
+[installing an app](/app-store/introduction/#installing-an-app). It appears in
+the **Apps** tab.
 
-Opening the app does not start the service by itself. If the main screen says
-**Stopped**, that is a normal state:
+Opening the app doesn't start the service. If the main screen says **Stopped**:
 
 1. Choose **Run Syncthing**.
 2. Turn on **Start with Leaf** if you want it available after every boot.
 3. Open **Guided setup**.
 
-The screen refreshes automatically as the service starts, stops, or discovers new
-devices and offers. You do not need to leave and reopen it.
-
 ## Guided setup
 
-Guided setup is resumable. It shows the next unfinished action rather than making
-you repeat completed steps. Before setup is complete it appears near the top of
-the main screen; afterward it moves to the bottom.
+Guided setup shows the next unfinished step, so you can leave and come back.
 
 ### Choose a card
 
-Choose the writable SD card whose Saves folder you want to sync. Leaf gives the
-physical card a durable identity. It does not rely on names such as `/mnt/sdcard`,
-which can swap between cards after a reboot.
-
-If a card is missing, read-only, or has a duplicate identity, Leaf pauses its
-managed folders rather than guessing and writing to the wrong place.
+Choose the writable SD card whose Saves folder you want to sync. If a card is
+missing, read-only, or has a duplicate identity, Leaf pauses its folders.
 
 ### Connect to a hub and join its Saves folder (recommended)
 
-Use the computer, server, NAS, VPS, or Android device holding the existing Saves
-folder to start the connection. This avoids entering its long device ID with the
-handheld controls.
-
-:::tip[No long device ID on Leaf]
-Normally you only show Leaf's QR or device ID and do the typing on the other
-device. **Add peer by ID** on Leaf is a manual fallback, not the recommended hub
-setup.
-:::
+Start the connection from the computer, server, NAS, VPS, or Android device
+holding the existing Saves folder. You only show Leaf's QR or device ID and do
+the typing on the other device. **Add peer by ID** on Leaf is the manual
+fallback.
 
 1. If the other device is a VPS or is outside the current network, open
    **Network** on Leaf, enable **Sync Anywhere**, and confirm the warning. Leave
@@ -108,32 +84,22 @@ setup.
    select Leaf, and save. Adding Leaf as a device without sharing the folder is
    not enough.
 5. Press **B** on Leaf to return to **Devices**. Select the device marked
-   **Pending**, choose **Accept**, and give it a recognizable name. The list
-   refreshes automatically while it is open.
-6. Guided setup returns to Saves setup. Choose **Join offered folder**. Leaf keeps
-   the existing folder ID while binding it safely to the selected card.
-
-If the other device says **Disconnected (Unused)** after step 3, continue with
-step 4. It means that device knows Leaf but has not shared a folder with it yet,
-so it has no reason to contact the handheld.
+   **Pending**, choose **Accept**, and give it a recognizable name.
+6. Guided setup returns to Saves setup. Choose **Join offered folder**.
 
 Leaf shows **Waiting for folder offer** until the other device completes its
-Sharing change. The connection request and folder offer remain explicit:
-accepting a device never accepts an unknown folder automatically.
+Sharing change. Accepting a device never accepts a folder automatically.
 
 ### Create a new Saves folder
 
-Choose **Create new Saves folder instead** only when this is genuinely a new
-share. Leaf warns before doing this because the new folder receives a different
-folder ID. It cannot join an existing remote folder merely by using the same
-`ra-saves` label.
+Choose **Create new Saves folder instead** only when this is a new share. The
+new folder gets its own folder ID, so it can't join an existing remote folder.
 
 After creating it, use **Folders → Sharing** on Leaf to include the other devices,
 then accept the folder on each of them and choose a writable local path there.
 
 When you add a new peer later, Leaf can ask whether to share existing folders.
-Every folder defaults to **Exclude** so a new device never receives Saves or States
-silently.
+Every folder defaults to **Exclude**.
 
 ### Choose the direction
 
@@ -154,21 +120,20 @@ keep the version you intend to use.
 Leaf already points RetroArch at the managed `Saves` and `States` directories.
 On another RetroArch device, check **Settings → Directory → Save Files** and
 **Save States**, or its per-core directory override, before accepting a folder.
-Point Saves at the normal save directory used by the matching core. Only share
-States when both devices use the same ROM revision, emulator, core, and core
-version. Menu names vary between RetroArch builds, so confirm by creating one
-test save and checking where it appears.
+Point Saves at the normal save directory used by the matching core. Menu names
+vary between RetroArch builds, so confirm by creating one test save and checking
+where it appears.
 
 ### Review first-sync safety
 
-Leaf does not immediately let a new receive-capable folder overwrite the card.
-It first creates a safety copy on the same physical card, then keeps the folder
-paused until you explicitly start the sync.
+Before a new folder can receive files, Leaf makes a safety copy on the same
+card, then keeps the folder paused until you start the sync.
 
 Before continuing:
 
-- Stop games and do not edit Saves with **File explorer** while the safety copy is
-  being made.
+- Stop games and don't edit Saves with
+  [**File Explorer**](/apps/introduction/#file-explorer) while the safety copy
+  is being made.
 - Make sure the card has enough free space for the existing Saves tree.
 - Enable versioning or backups on the receiving hub first.
 - Read the direction and included-device summary, then confirm **Start**.
@@ -178,48 +143,30 @@ space or use **Only send Leaf's files** instead.
 
 Setup is complete only after Leaf has no files left to receive and every included
 device reports the folder as current. An offline, paused, or not-sharing peer is
-shown as an action to resolve, not treated as success.
+shown as an action to resolve.
 
 ### Add States, if you want them
 
 After Saves is current, Guided setup offers States as an optional second folder.
 If the remote device has already shared `ra-states`, review and join that offer.
-You can also deliberately ignore an unwanted offer and restore it later.
+You can also ignore an unwanted offer and restore it later.
 
-:::caution[Save states are not portable saves]
-A state depends on the exact ROM, emulator, core, and often the core version that
-created it. A state can sync perfectly and still fail to load on another device.
-Use normal in-game Saves whenever possible.
-:::
+A state depends on the exact ROM revision, emulator, core, and often the core
+version that created it, so a state can sync perfectly and still fail to load on
+another device. Only share States between devices that match on all four, and
+use normal in-game Saves whenever possible.
 
 ## Multiple cards
 
-It is **one Saves folder and one States folder per physical card**, not one folder
-total per card.
-
-| Leaf storage | Managed Syncthing folders |
-| --- | --- |
-| Card 1 | One Saves folder and one optional States folder |
-| Card 2 | One Saves folder and one optional States folder |
-
-A two-card Leaf can therefore have four managed folders. Set up each card
-separately. Each share has its own folder ID, and a hub should accept them into
-different local directories.
-
-:::note[Why the folder path is read-only on Leaf]
-Leaf owns the local Saves and States paths so it can keep them bound to the correct
-physical card. Do not try to replace them with a mount-point path. If the operating
-system swaps card mount points after a reboot, Leaf moves the Syncthing binding to
-the correct card automatically.
-
-Paths on a computer, NAS, VPS, or Android device are local to that device and are
-chosen there when it accepts the folder.
-:::
+Each physical card has its own Saves folder and its own optional States folder,
+so a two-card Leaf can have four. Set up each card separately. Each share has
+its own folder ID, and a hub should accept them into different local
+directories.
 
 ## Playing while Syncthing is enabled
 
-Launching or resuming a game uses a safe handoff. Leaf shows the current stage at
-the bottom of the screen:
+When you launch or resume a game, Leaf shows the current stage at the bottom of
+the screen:
 
 - **Checking saves**
 - **Syncing N items**
@@ -227,23 +174,21 @@ the bottom of the screen:
 - **Starting game**
 
 If files are still arriving, wait for them or press **Menu** for **Start now**.
-Starting now stops Syncthing before launching; it never lets the emulator and
-Syncthing write the same files at once. Canceling leaves Syncthing running so it
-can finish.
+Starting now stops Syncthing before launching. Canceling leaves Syncthing
+running so it can finish.
 
-There can be a short delay while Leaf verifies that Syncthing has fully stopped.
-After the game exits, Syncthing starts again and uploads the new save. Launching
-from **Recents** uses the same protection.
+There can be a short delay while Leaf checks that Syncthing has stopped. After
+the game exits, Syncthing starts again and uploads the new save. Launching from
+**Recents** works the same way.
 
-If Leaf cannot match the game to the card's configured folders, it shows a card
-setup warning. **Cancel** lets you inspect **Cards** and **Folders**. **Stop & Play**
-is a safe fallback: Leaf skips the unavailable sync check but still verifies that
-Syncthing has stopped before starting the game.
+If Leaf can't match the game to the card's configured folders, it shows a card
+setup warning. See
+[Leaf says the card setup needs attention](#leaf-says-the-card-setup-needs-attention).
 
 ## Read-only web view
 
-Leaf includes a browser view for status and diagnostics. It is deliberately not a
-second settings interface: make all changes in the handheld app.
+Leaf includes a browser view for status and diagnostics. You can't change
+anything from it; make all changes in the handheld app.
 
 1. Open **Read-only web view**.
 2. Scan the QR code or open the HTTPS address from a device on the same LAN.
@@ -257,28 +202,23 @@ Leaving with **B** closes the view. After pairing at least one browser, press **
 to keep the status view available for 15 minutes. Press **Y** to revoke every
 trusted browser and close it immediately.
 
-The dashboard carries a read-only warning. Some upstream Syncthing controls may
-still be visible, but Leaf blocks changes made through this gateway.
+Some of Syncthing's own controls may still be visible in the dashboard, but
+changes made there are blocked.
+
+Revoke trusted browsers if a paired computer or phone is lost.
 
 ## Privacy and network modes
 
 Syncthing encrypts device-to-device traffic. **LAN-only** keeps Leaf to local
-discovery and direct encrypted connections on the current network. **Sync
-Anywhere** additionally enables internet discovery, relays, and router traversal.
-That can expose device IDs and connection metadata to discovery or relay
-infrastructure, and encrypted file traffic may pass through a relay. Leaf keeps
-upstream usage reporting disabled in both modes.
+discovery and direct connections on the current network. **Sync Anywhere**
+additionally enables internet discovery, relays, and router traversal. That can
+expose device IDs and connection metadata to discovery or relay infrastructure,
+and encrypted file traffic may pass through a relay. Usage reporting is off in
+both modes.
 
-The read-only web view is a separate local-LAN listener protected by its pairing
-code, browser trust record, and TLS certificate. Revoke trusted browsers if a
-paired computer or phone is lost.
-
-Leaf apps run with the same system authority as the launcher. FAT-formatted SD
-cards do not provide per-app permission isolation. Someone with physical access
-to a card can copy credential-equivalent material, including the Syncthing device
-private key and, when created, the web-view TLS private key. Treat a removed or
-copied card as you would a copied account credential: reset Syncthing to create a
-new identity, revoke trusted browsers, and remove the old device from every peer.
+Someone with physical access to a card can copy your Syncthing identity from it.
+If a card is lost or copied, reset Syncthing to create a new identity, revoke
+trusted browsers, and remove the old device from every peer.
 
 ## Coming from an existing Syncthing setup
 
@@ -295,8 +235,8 @@ Keep the existing folder and its folder ID, but give Leaf a fresh device identit
 
 Never copy another device's `cert.pem`, `key.pem`, `config.xml`, database, local
 folder path, folder type, or marker settings onto Leaf. Cloned certificates make
-two devices claim one identity; copied local settings can bind Syncthing to the
-wrong card or bypass Leaf's first-sync protection.
+two devices claim one identity, and copied local settings can bind Syncthing to
+the wrong card or skip the first-sync safety copy.
 
 ## Day-to-day management
 
@@ -308,7 +248,6 @@ wrong card or bypass Leaf's first-sync protection.
   conflicts and history, or stop syncing a folder on this Leaf.
 - **Devices** adds, accepts, and removes peers. A device must be removed from each
   folder's Sharing list before Leaf will forget it.
-- **Issues** appears only when the local controller has a real issue to report.
 - **Settings & Recovery** contains diagnostics, retained snapshots and versions,
   and reset tools.
 
@@ -316,33 +255,20 @@ wrong card or bypass Leaf's first-sync protection.
 card binding. It does not delete the live Saves or States tree. Retained safety
 snapshots and version history are managed separately.
 
-Pause a folder before making manual changes with **File explorer**. Resume and
+Pause a folder before making manual changes with **File Explorer**. Resume and
 rescan it afterward. Editing while Syncthing is active can create conflicts.
 
 ## Uninstalling
 
-Pak Rat removes the app and revokes trusted web-view browsers, but preserves the
+Removing Syncthing in Pak Rat revokes trusted web-view browsers but keeps the
 Syncthing identity, configuration, index, safety snapshots, version history, and
-live Saves and States. This lets a reinstall reconnect as the same device; the
-service starts disabled after reinstall.
+your live Saves and States. A reinstall reconnects as the same device, with the
+service turned off.
 
 The retained Syncthing data lives under `.userdata/mlp1/Syncthing` on the
 relevant card or cards. Use **Settings & Recovery** to see exact locations and
-sizes and to remove retained history or perform a separately confirmed reset.
-Do not delete a whole `.userdata` directory: other Leaf features and apps use it.
-
-## Known limitations in the first release
-
-- Leaf's important configuration, card-enrollment, first-sync, and reset writes
-  have targeted interruption recovery. A dedicated abrupt-power-loss campaign
-  during every upstream index and version-history write has not been completed.
-  After an unsafe power loss, inspect **Status** and use **Reset index only** if
-  Leaf reports a database problem; this preserves identity and configuration.
-- SD cards use FAT32. The first release has not exhaustively characterized file
-  names that differ only by case, every Unicode or host-invalid name, FAT's coarse
-  timestamp behavior, or files larger than FAT32's 4 GiB limit. Normal game saves
-  are much smaller, but avoid using these managed folders for unrelated large
-  files and resolve name conflicts on the computer or server.
+sizes and to remove retained history or reset. Don't delete a whole `.userdata`
+directory: other Leaf features and apps use it.
 
 ## Troubleshooting
 
@@ -351,8 +277,7 @@ Do not delete a whole `.userdata` directory: other Leaf features and apps use it
 The other device knows Leaf's ID but does not share a folder with it yet. Edit the
 intended Saves folder on that device, open **Sharing**, select Leaf, and save.
 Then return to **Devices** on Leaf, select the **Pending** request, and choose
-**Accept**. You do not need to enter the computer or VPS device ID on Leaf just to
-clear the Unused status.
+**Accept**. You don't need to enter the computer or VPS device ID on Leaf.
 
 ### The folder offer never appears
 
@@ -365,14 +290,14 @@ Confirm all of the following:
 - Both Syncthing services are running and the peer is not paused.
 - **Sync Anywhere** is enabled on Leaf when the peer is not on the local network.
 
-Merely adding Leaf as a device on the remote system is not enough. If Guided setup
-says **Waiting for folder offer**, it is safe to leave and return later.
+If Guided setup says **Waiting for folder offer**, it is safe to leave and return
+later.
 
 ### I accidentally created another `ra-saves`
 
-The matching label does not make it the same share. In **Folders**, choose the
-mistaken folder and **Stop syncing on Leaf**. The live files remain. Then explicitly
-share the original remote folder with Leaf and join the new offer.
+In **Folders**, choose the mistaken folder and **Stop syncing on Leaf**. The live
+files remain. Then share the original remote folder with Leaf and join the new
+offer.
 
 Before removing anything on the other device, verify which folder ID contains the
 files you want to keep.
@@ -386,10 +311,9 @@ offers. On the device offering the folder:
 2. Share the folder with Leaf without a folder encryption password.
 3. Remove the old encrypted share or offer, then share it again.
 
-Normal Syncthing connections still encrypt data in transit; this setting controls
-whether files remain encrypted on an untrusted receiving device. See Syncthing's
+Syncthing connections still encrypt data in transit. See Syncthing's
 [Untrusted (Encrypted) Devices](https://docs.syncthing.net/users/untrusted.html)
-documentation for the distinction.
+documentation for what the setting changes.
 
 ### A folder is Stopped on the computer or VPS
 
@@ -398,11 +322,10 @@ Open that device's own Syncthing interface and read its notice. An error such as
 path is invalid or is not writable by the account running Syncthing.
 
 Choose a real directory intended for Syncthing data and give the Syncthing service
-account permission to use it. A username such as `kevin` is not, by itself, a
-folder path. If that Syncthing installation will not let you change an accepted
-folder's path, remove only the broken folder configuration on that device and
-accept the same folder ID again with the correct path. Do not delete the directory
-that contains the copy you want to keep.
+account permission to use it. If that Syncthing installation will not let you
+change an accepted folder's path, remove only the broken folder configuration on
+that device and accept the same folder ID again with the correct path. Do not
+delete the directory that contains the copy you want to keep.
 
 ### Sync appears stuck at 95% or 0 B
 
@@ -414,24 +337,30 @@ device nor folder is paused.
 ### Status says Needs attention
 
 Select **Status** to see the reason and next action. Common causes are an offline
-peer, a paused folder, or a remote device that has stopped sharing it. The **Issues**
-row is reserved for local controller problems, so it may be absent when the action
-must be taken on another device.
+peer, a paused folder, or a remote device that has stopped sharing it. The
+**Issues** row only covers problems on this Leaf, so it may be absent when the
+action must be taken on another device.
 
 ### A synced state will not load
 
-Use the same ROM revision, emulator, core, and core version on both devices. If
-that is not possible, use the game's normal save instead. Successful file transfer
-does not guarantee state compatibility.
+The two devices don't match closely enough; see
+[Add States, if you want them](#add-states-if-you-want-them). If you can't match
+them, use the game's normal save instead.
 
 ### Leaf says the card setup needs attention
 
-Open **Cards** and **Folders**. Reinsert an absent card, clear a read-only condition,
-or resolve a duplicate card identity. Leaf normally follows cards across swapped
-mount points automatically, so do not edit paths to match the current mount name.
+Open **Cards** and **Folders**. Reinsert an absent card, clear a read-only
+condition, or resolve a duplicate card identity.
 
-You can choose **Stop & Play** when you need to launch immediately. Leaf first stops
-Syncthing and verifies it is gone, but the newest remote save may not have arrived.
+When the warning appears as you launch a game, **Cancel** lets you inspect
+**Cards** and **Folders**. Choose **Stop & Play** when you need to launch
+immediately. Leaf stops Syncthing before starting the game, but the newest remote
+save may not have arrived.
+
+### Leaf reports a database problem
+
+This can happen after an unsafe power loss. Check **Status**, then use
+**Reset index only**, which keeps your identity and configuration.
 
 ### An Android handheld keeps going offline
 
@@ -440,19 +369,13 @@ the app to run in the background, keep its persistent notification enabled when
 offered, and check its run conditions. Accept each folder on Android and choose a
 writable local directory; adding the device alone does not accept its folders.
 
-### Syncthing is stopped
-
-Open the app and choose **Run Syncthing**. Enable **Start with Leaf** if it should
-start at boot. A stopped service is not an error, and opening the app never starts
-it without your choice.
-
 ## Resetting Syncthing
 
 Use **Settings & Recovery → Recovery** only when ordinary folder or device controls
-cannot repair the setup. Reset actions use two controller confirmations and never
-ask you to type a phrase. Read both screens carefully:
+cannot repair the setup. Each reset asks you to confirm twice. Read both screens
+carefully:
 
-- **Reset index only** rebuilds Syncthing's derived database while keeping the
+- **Reset index only** rebuilds Syncthing's database while keeping the
   configuration, identity, Saves, States, snapshots, and versions.
 - **Restore fresh setup** returns Syncthing to the same local state as a fresh Pak
   setup. It clears the identity, devices, folders, index, browser trust, snapshots,

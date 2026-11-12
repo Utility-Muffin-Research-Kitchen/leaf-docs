@@ -4,29 +4,15 @@ description: Add ScummVM games to Leaf with the optional content pak, which incl
 ---
 
 ScummVM runs many classic point-and-click adventures and other supported game
-engines. Leaf's optional ScummVM content pak adds a dedicated **ScummVM** system,
-two emulators that run it, artwork, and scraper metadata. Games start on the
-libretro core, and you can switch any game or the whole system to the standalone
-ScummVM. The pak does not add an app to the **Apps** tab.
-
-:::note[Requires content-pak support]
-The ScummVM pak requires Leaf 0.11, including compatible 0.11 beta builds, or
-newer. Leaf 0.10 and earlier do not offer it in Pak Rat because they cannot
-activate its system and core safely. Pak Rat offers each newer version of the pak
-only to Leaf versions that can run it: the standalone ScummVM arrives in pak 1.4.0,
-which needs Leaf 0.12 or newer.
-:::
+engines. The ScummVM pak adds a **ScummVM** system. Games start on the libretro
+core, and you can switch any game or the whole system to the standalone ScummVM.
 
 ## Install
 
-On a compatible Leaf release, press **Menu**, open **Actions → Pak Rat**, choose
-**ScummVM**, and install it over Wi-Fi. The package is large because it contains
-both emulators. When installation finishes, **ScummVM** appears with the other
-systems rather than in **Apps**.
-
-The pak is open source and independently packaged in the
-[ScummVM-pak repository](https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak).
-It does not include any games.
+Install **ScummVM** from Pak Rat; see
+[installing an app](/app-store/introduction/#installing-an-app). **ScummVM**
+appears with your other systems, and nothing is added to **Apps**. The pak
+doesn't include any games.
 
 ## Add a game
 
@@ -43,21 +29,16 @@ Roms/SCUMMVM/
     ...your original game data files...
 ```
 
-The hook contains only the id, such as `kq1`; it does not contain an absolute
-path. Keeping it beside the game data lets the same card work whichever MLP1 SD
-mount point is active after a reboot. Both emulators read the same hook.
-
-Press **MENU**, then choose **Actions → Rescan Library** after copying games. Leaf scans subdirectories,
-so every per-game hook appears as its own title. Put artwork at
-`Images/SCUMMVM/Kings Quest 1.png` for the example above, using the hook
-filename without its extension. You can also download artwork with Leaf's
-scraper when the game is recognized.
-
-You can find game IDs in the
+The file contains only the ID, such as `kq1`. You can find game IDs in the
 [ScummVM compatibility database](https://www.scummvm.org/compatibility/) or in
 ScummVM's own detection output. The ID is not necessarily the same as the game
-folder name. Use a game ID for a hook beside the data; a configured ScummVM
-target instead depends on a saved path in `scummvm.ini`.
+folder name.
+
+Press **MENU**, then choose **Actions → Rescan Library** after copying games.
+Each `.scummvm` file appears as its own title. Put artwork at
+`Images/SCUMMVM/Kings Quest 1.png` for the example above, using the `.scummvm`
+filename without its extension. You can also download artwork with Leaf's
+scraper when the game is recognized.
 
 ## Choose the standalone emulator
 
@@ -71,38 +52,42 @@ To use it for one game, press **X** on that game, choose **Core**, then choose
 **Reset Game Overrides** on a game to return it to the system's choice. See
 [Adding games](/guide/games/#options-menu) for the options menu.
 
-### Standalone controls
+## Controls
 
-- **A** clicks or interacts, and **B** right-clicks.
-- **Start** opens ScummVM's menu, where you save, load, change options, and quit.
-- **Select** opens the virtual keyboard, for example to name a save.
-- **X** and **Y** do different things in each game. In Flight of the Amazon
-  Queen, **X** opens the journal, which also skips the current scene, and **Y**
-  switches fast mode. To change a game's buttons, press **Start** and open
-  **Options → Keymaps**.
-- **Menu** asks **Return to Leaf?**. Press **Menu** again within four seconds
-  to leave the game, or let the prompt disappear to keep playing. Leaving this
-  way doesn't save, so save from ScummVM's menu first. If ScummVM doesn't close,
-  hold **Menu** for three seconds, and keep holding for two more to force it.
-- **Return to Launcher** in ScummVM's menu opens ScummVM's own game list. Choose
-  **Quit** there, or press **Menu**, to get back to Leaf.
+These are the standalone's controls.
 
-## Saves and limitations
+| Button | Action |
+| --- | --- |
+| **A** | click or interact |
+| **B** | right-click |
+| **Start** | open ScummVM's menu, where you save, load, change options, and quit |
+| **Select** | open the virtual keyboard, for example to name a save |
+| **X** / **Y** | different in each game; to change them, press **Start** and open **Options → Keymaps** |
+| **Menu** | ask **Return to Leaf?** |
 
-The two emulators keep their saves and settings separate. A save made in one does
-not appear in the other, so switch back to the emulator that made a save rather
-than moving files between them.
+Press **Menu** again within four seconds to leave the game, or let the prompt
+disappear to keep playing. Leaving this way doesn't save, so save from ScummVM's
+menu first. If ScummVM doesn't close, hold **Menu** for three seconds, and keep
+holding for two more to force it.
 
-- **ScummVM (Libretro)** writes saves under Leaf's normal `Saves/ScummVM/` data
-  area. The packaged core reports no RetroArch savestate support, so use each
-  game's normal ScummVM save menu instead of the Leaf savestate actions.
+**Return to Launcher** in ScummVM's menu opens ScummVM's own game list. Choose
+**Quit** there, or press **Menu**, to get back to Leaf.
+
+## Saves
+
+The two emulators keep their saves and settings separate. A save made in one
+doesn't appear in the other, so switch back to the emulator that made a save
+rather than moving files between them.
+
+- **ScummVM (Libretro)** writes saves under `Saves/ScummVM/`. It has no save
+  states, so use each game's own ScummVM save menu.
 - **ScummVM (Standalone)** writes saves under `Saves/ScummVM-Standalone/` on the
-  card the game is on, one folder per game. Its settings live in
-  `.userdata/mlp1/scummvm-standalone/scummvm.ini` on your main card. Options you
-  change in ScummVM's menu apply to every game, and each game's own options and
-  button changes are kept for that game. Leaf's in-game menu and save states
-  don't apply to the standalone; save from ScummVM's menu.
+  card the game is on, one folder per game. Options you change in ScummVM's menu
+  apply to every game, and each game's own options and button changes are kept
+  for that game. Leaf's in-game menu and save states don't apply to the
+  standalone; save from ScummVM's menu.
 
-Removing the content pak removes the system and emulators on the next rescan. It
-does not remove your files under `Roms/`, `Images/`, `Saves/`, `States/`, or
-`.userdata/`.
+## Credits
+
+The pak is open source in the
+[ScummVM-pak repository](https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak).

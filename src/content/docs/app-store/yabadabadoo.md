@@ -3,17 +3,9 @@ title: Yabadabadoo
 description: Add Yabadabadoo, an experimental Sega Saturn core built for handhelds, as an alternate core with the optional Pak Rat pak.
 ---
 
-Yabadabadoo is a Sega Saturn core tuned for low-power handhelds. The optional
-Yabadabadoo pak adds it as an alternate core for the **Saturn** system, next to
-YabaSanshiro, which stays the default. The pak doesn't add a system, and nothing
-appears in the **Apps** tab.
-
-Yabadabadoo is by
-[ProRapSuperstarOriginalMaster](https://github.com/ProRapSuperstarOriginalMaster),
-a fork of the libretro port of Yabause built to make Saturn games playable on the
-Miyoo Mini. The pak packages its
-[releases](https://github.com/ProRapSuperstarOriginalMaster/Yabadabadoo/releases)
-for Leaf.
+Yabadabadoo is a Sega Saturn core tuned for low-power handhelds. The pak adds it
+as an alternate core for the **Saturn** system, next to YabaSanshiro, which stays
+the default.
 
 :::caution[Experimental]
 Yabadabadoo is early work, and its author describes it as largely AI-assisted.
@@ -23,31 +15,24 @@ YabaSanshiro for the games it already runs well. The
 list the games known to have problems.
 :::
 
-:::note[Requires Leaf 0.13]
-The pak needs Leaf 0.13 or newer. Older releases don't offer it in Pak Rat.
-:::
-
 ## Install
 
-Open **System** with the **Menu** button, go to **Actions**, then choose
-**Pak Rat**. Pick **Yabadabadoo** and install it over Wi-Fi. The download is
-about 33 MB, and the pak takes about 71 MB on the card. Most of that is a 32-bit
-graphics driver; see [How it works](#how-it-works).
-
-The pak is open source and independently packaged in the
-[Yabadabadoo-pak repository](https://github.com/Utility-Muffin-Research-Kitchen/Yabadabadoo-pak).
-It doesn't include any games or BIOS files.
+Install **Yabadabadoo** from Pak Rat; see
+[installing an app](/app-store/introduction/#installing-an-app). It adds a core
+to the Saturn system, so nothing appears in the **Apps** tab. The pak doesn't
+include any games or BIOS files.
 
 ## Play a game on Yabadabadoo
 
 To play one game on Yabadabadoo, press **X** on that game, choose **Core**, then
 choose **Yabadabadoo (experimental)**. To use it for every Saturn game, do the
 same on the **Saturn** system. To go back, choose **YabaSanshiro**, or use
-**Reset Overrides** on a game to return it to the system's choice. See the
+**Reset Game Overrides** on a game to return it to the system's choice. See the
 [Options menu](/guide/games/#options-menu).
 
 Yabadabadoo runs `.chd`, `.cue`, `.iso`, `.mds`, `.ccd`, `.m3u`, and `.zip`
-games from `Roms/SATURN/`.
+games from `Roms/SATURN/`. Recording and Bluetooth audio aren't available with
+this core.
 
 ## BIOS
 
@@ -64,9 +49,7 @@ BIOS** option applies to YabaSanshiro Standalone only.
 
 ## Controls
 
-The face buttons follow the shape of a Saturn pad. **Y**, **B**, and **A**, left
-to right around your thumb, are the Saturn's A, B, and C buttons, and **L1**,
-**X**, and **R1** are its X, Y, and Z:
+The face buttons follow the shape of a Saturn pad:
 
 | Saturn | MLP1 |
 | --- | --- |
@@ -79,61 +62,28 @@ To move a button for one game or for all of them, open **RetroArch Settings**
 in the in-game menu, change it in **Quick Menu > Controls**, and save a remap
 file there.
 
-Everything else matches Leaf's other RetroArch cores.
-
-- **Menu** opens Leaf's in-game menu over the game, with save states, reset, and
-  the rest; see [The in-game menu](/guide/playing/#the-in-game-menu). Choose
-  **Quit** there to leave the game. RetroArch's own menu is under **RetroArch
-  Settings**, and core options are in its **Quick Menu**.
-- **Menu** held with another button works as it does on other cores. By default,
-  **Menu + Select** opens the [Game Switcher](/guide/playing/#the-game-switcher),
-  **Menu + L1** takes a screenshot, and any RetroArch hotkey you've bound works
-  the same way. See [Hotkeys](/guide/features/#hotkeys) and
-  [RetroArch hotkeys](/guide/playing/#retroarch-hotkeys).
-- With a controller connected, it's player 1, as everywhere else in Leaf, and
-  its Guide or Home button opens Leaf's in-game menu.
+The in-game menu, hotkeys, and save states work as they do on Leaf's other
+RetroArch cores; see [Playing games](/guide/playing/).
 
 ## Saves and states
 
-- In-game saves go to `Saves/Yabadabadoo/` on the game's card. They're written a
-  moment after the game saves, so a crash or a flat battery doesn't lose them.
-- Save states go to `States/Yabadabadoo/` on the game's card. Each slot in
-  Leaf's in-game menu shows a thumbnail.
-- Saving a state when you hold the power button, and resuming after power-off,
-  work as they do on other cores.
-- RetroArch settings, core options, and remaps for Yabadabadoo are kept with the
-  rest of Leaf's RetroArch settings, in `.umrk/mlp1/retroarch/` on your main
-  card.
+In-game saves go to `Saves/Yabadabadoo/` and save states to
+`States/Yabadabadoo/`, both on the game's card. They're separate from
+YabaSanshiro's, so switch back to the core that made a save rather than moving
+files between them.
 
-Yabadabadoo's saves and states are separate from YabaSanshiro's, so switch back
-to the core that made a save rather than moving files between them.
+## A RetroArch setting I changed here didn't carry over
 
-Removing the pak removes the core on the next rescan. It doesn't remove your
-files under `Roms/`, `BIOS/`, `Saves/`, `States/`, or `.userdata/`.
+Yabadabadoo runs with the same RetroArch settings as Leaf's other cores; see
+[RetroArch settings](/guide/retroarch-settings/). A change you make from inside
+Yabadabadoo isn't always saved to those shared settings. If it doesn't carry
+over to your other games, make it from a game on another core.
 
-## Settings
+## Credits
 
-Yabadabadoo runs with the same RetroArch settings as Leaf's other cores, so a
-change you made in **RetroArch Settings** for another game applies here too. Leaf
-still sets a few things itself on every launch; see
-[RetroArch settings](/guide/retroarch-settings/).
-
-A change you make from inside Yabadabadoo's RetroArch is saved to Leaf's shared
-settings only when its RetroArch is the same version as Leaf's. If a change
-doesn't carry over to your other games, make it from a game on another core.
-
-## Limits
-
-Recording and Bluetooth audio aren't available with this core.
-
-## How it works
-
-Most of Yabadabadoo's speed comes from its recompiler, which turns Saturn code
-into ARM code as the game runs. That recompiler only exists for 32-bit ARM. The
-MLP1 can run 32-bit programs, but Leaf and its RetroArch are 64-bit, so the pak
-brings its own 32-bit RetroArch and every library it needs, including a 32-bit
-build of the MLP1's graphics driver. It doesn't need PortMaster or any other pak.
-
-Leaf runs that RetroArch in place of its own, with the same settings, and controls
-it the way it controls its own. That's why the in-game menu, the Game Switcher,
-and hotkeys work, and why this version needs Leaf 0.13.
+Yabadabadoo is by
+[ProRapSuperstarOriginalMaster](https://github.com/ProRapSuperstarOriginalMaster),
+a fork of the libretro port of Yabause. The pak packages its
+[releases](https://github.com/ProRapSuperstarOriginalMaster/Yabadabadoo/releases)
+for Leaf, and is open source in the
+[Yabadabadoo-pak repository](https://github.com/Utility-Muffin-Research-Kitchen/Yabadabadoo-pak).

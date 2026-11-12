@@ -4,33 +4,16 @@ description: Play Java phone games on Leaf with the optional J2ME content pak, w
 ---
 
 J2ME games are the Java games that phones from Nokia, Sony Ericsson, Motorola,
-and others ran before smartphones. The optional J2ME content pak adds a **J2ME**
-system with its own `Roms/J2ME/` folder, and the FreeJ2ME-Plus core that runs the
-games. The pak brings the Java runtime that core needs, so you don't install
-anything else, and it doesn't add an app to the **Apps** tab.
-
-FreeJ2ME-Plus is the work of Paulo Sousa
-([AShiningRay](https://github.com/AShiningRay)), David Richardson
-([recompileorg](https://github.com/recompileorg)), Saket Dandawate
-([hex007](https://github.com/hex007)), and the
-[FreeJ2ME-Plus contributors](https://github.com/TASEmulators/freej2me-plus). The
-pak builds their code with a small patch so it runs from inside a pak.
-
-:::note[Requires Leaf 0.13]
-The pak needs Leaf 0.13 or newer. Older releases don't offer it in Pak Rat.
-:::
+and others ran before smartphones. The J2ME pak adds a **J2ME** system with its
+own `Roms/J2ME/` folder. It brings the Java it needs, so you don't install
+anything else.
 
 ## Install
 
-Open **System** with the **Menu** button, go to **Actions**, then choose
-**Pak Rat**. Pick **J2ME** and install it over Wi-Fi. The download is about
-38 MB, and the pak takes about 70 MB on the card, most of it Java. When the
-install finishes, **J2ME** appears with your other systems rather than in
-**Apps**.
-
-The pak is open source and independently packaged in the
-[J2ME-pak repository](https://github.com/Utility-Muffin-Research-Kitchen/J2ME-pak).
-It doesn't include any games.
+Install **J2ME** from Pak Rat; see
+[installing an app](/app-store/introduction/#installing-an-app). **J2ME** appears
+with your other systems, and nothing is added to **Apps**. The pak doesn't
+include any games.
 
 ## Add a game
 
@@ -44,25 +27,22 @@ Roms/J2ME/
 
 A J2ME game is a single `.jar`, sometimes with a `.jad` file beside it. You only
 need the `.jar`; Leaf ignores the `.jad`. Japanese KDDI games come as `.kjx`,
-which the core reads too. Don't unzip either one: a `.jar` already is a zip,
-and the core reads it as it is. File names can be in any language: a game
-named in Chinese, Japanese, or Korean starts like any other.
+which the core reads too. Don't unzip either one. File names can be in any
+language.
 
 Press **MENU**, then choose **Actions → Rescan Library** after copying games.
+A game takes about 6 to 9 seconds to start.
+
 For box art, put `Images/J2ME/Diamond Rush.png` beside the example above, named
 like the game, or let Leaf [fetch it from ScreenScraper](/guide/games/#box-art).
 ScreenScraper finds J2ME games by file name, so name each `.jar` after the
 game's full title: `Asphalt 4 Elite Racing.jar` finds its art, but
 `Asphalt 4.jar` doesn't. Anything in parentheses is ignored, so a name such as
-`Diamond Rush (Gameloft) (1.0.1).jar` works too. Phone games never came in
-boxes, so the box art ScreenScraper has for them is one it made from a
-screenshot. A game without box art shows the J2ME system icon.
+`Diamond Rush (Gameloft) (1.0.1).jar` works too. A game without box art shows
+the J2ME system icon.
 
-A game takes about 6 to 9 seconds to start, because Java starts with it.
-
-**Delete Game** isn't offered for J2ME games, as for every system a content pak
-adds. Use [Hide Game](/guide/games/#hiding-a-game), or delete the file from your
-computer.
+**Delete Game** isn't offered for J2ME games. Use
+[Hide Game](/guide/games/#hiding-a-game), or delete the file from your computer.
 
 ## Controls
 
@@ -86,18 +66,20 @@ buttons under a phone's screen. The number keys are there for games that use the
 whole keypad, like Doom II RPG. When a game says "press 5", **A** usually works
 too.
 
-Everything else matches Leaf's other RetroArch cores.
+The in-game menu and hotkeys work as they do on Leaf's other RetroArch cores;
+see [Playing games](/guide/playing/).
 
-- **Menu** opens Leaf's in-game menu over the game; see
-  [The in-game menu](/guide/playing/#the-in-game-menu). Choose **Quit** there
-  to leave the game. **Save State** and **Load State** show **No states**,
-  because this core can't save states; see [Saves](#saves).
-- **Menu** held with another button works as it does on other cores. By default,
-  **Menu + Select** opens the [Game Switcher](/guide/playing/#the-game-switcher),
-  and any RetroArch hotkey you've bound works the same way. See
-  [Hotkeys](/guide/features/#hotkeys).
+## Saves
 
-## Games that ask you to touch the screen
+Phone games save in their own menus. This core can't save states, so
+**Save State** and **Load State** in the in-game menu show **No states**.
+
+Each game's saves go to `Saves/FreeJ2ME-Plus/freej2me/rms/`, in a folder named
+after the game. Some games keep your place only when you leave through their own
+menu: Final Fantasy saves when you choose **Quit** in its menu. Leave a game that
+way before you choose **Quit** in Leaf's in-game menu.
+
+## A game asks you to touch the screen
 
 Some later games were made for touchscreen phones and wait for a tap. Final
 Fantasy is one. FreeJ2ME gives these games a pointer, which follows the right
@@ -113,9 +95,9 @@ move the pointer to that stick:
 The left stick now moves the pointer, and pressing the stick (**L3**) taps where
 it points. Aim with the left stick, let go, then press **L3** within about 3
 seconds to tap. After that the pointer hides and **L3** presses 5 again.
-Pressing any other button hides the pointer at once, so you can go back to the
-keys without waiting. While **Pointer Stick** is set, the left stick no longer
-presses 2, 4, 6, and 8, and the D-pad works as before.
+Pressing any other button hides the pointer at once. While **Pointer Stick** is
+set, the left stick no longer presses 2, 4, 6, and 8, and the D-pad works as
+before.
 
 ## A game is cut off or too small
 
@@ -134,8 +116,7 @@ To set one for a single game:
 4. Quit the game and start it again. Until you do, it keeps drawing at the old
    size.
 
-Larger resolutions are slower. Asphalt 4 at 640x480 plays, but at about 40
-frames per second instead of 60.
+Larger resolutions are slower.
 
 ## A game stays on a white screen
 
@@ -150,32 +131,12 @@ FreeJ2ME-Plus doesn't run every phone game, and a few never start; Nokia's
 Bounce is one. The same game often exists in several builds for different
 phones, so another build of it may work.
 
-## Saves
+## Credits
 
-Phone games save in their own menus, and there are no save states. Each game's
-saves go to `Saves/FreeJ2ME-Plus/freej2me/rms/`, in a folder named after the
-game. Some games keep your place only when you leave through their own menu:
-Final Fantasy saves when you choose **Quit** in its menu. Leave a game that way
-before you choose **Quit** in Leaf's in-game menu.
-
-- FreeJ2ME's own settings for each game go to
-  `Saves/FreeJ2ME-Plus/freej2me/config/`.
-- Core options, including the game options you save, are kept with the rest of
-  Leaf's RetroArch settings, in `.umrk/mlp1/retroarch/` on your main card.
-- FreeJ2ME also creates a `freej2me_system/` folder in `BIOS/` for its log.
-
-Removing the pak removes the system on the next rescan. It doesn't remove your
-files under `Roms/`, `Images/`, `Saves/`, or `BIOS/`.
-
-## How it works
-
-Phone games are Java programs, and the MLP1 has no Java. The pak carries its
-own, Eclipse Temurin 17, cut down to the parts FreeJ2ME uses. When you start a
-game, the core starts that Java beside it, FreeJ2ME runs the game, and each frame
-goes to RetroArch. Starting Java is why a game takes a few seconds to appear, and
-why the pak is larger than most cores. Game text is drawn with the MLP1
-firmware's fonts, so Chinese, Japanese, and Korean games show their text too.
-
-The pak sets a few defaults for a handheld: **A** is Fire, the green tint of an
-old phone screen is off, and music plays on two synthesizers instead of four,
-which starts games about half a second faster.
+FreeJ2ME-Plus is the work of Paulo Sousa
+([AShiningRay](https://github.com/AShiningRay)), David Richardson
+([recompileorg](https://github.com/recompileorg)), Saket Dandawate
+([hex007](https://github.com/hex007)), and the
+[FreeJ2ME-Plus contributors](https://github.com/TASEmulators/freej2me-plus). The
+pak is open source in the
+[J2ME-pak repository](https://github.com/Utility-Muffin-Research-Kitchen/J2ME-pak).

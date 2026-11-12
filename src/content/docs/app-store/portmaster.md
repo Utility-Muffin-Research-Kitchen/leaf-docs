@@ -17,10 +17,9 @@ or ask in the [Leaf Discord](https://discord.gg/q5F7cZ7KRp).
 
 ## Install
 
-PortMaster is a standalone app, not bundled with Leaf. Install it on-device with
-**Pak Rat**: press the **Menu** button, open **Actions → Pak Rat**, choose
-**PortMaster**, and install it over Wi-Fi. It appears in the **Apps** tab when
-the install finishes.
+Install **PortMaster** from Pak Rat; see
+[installing an app](/app-store/introduction/#installing-an-app). It appears in
+the **Apps** tab.
 
 ## Setting it up
 
@@ -54,10 +53,3 @@ Open the PortMaster manager from the **Apps** tab to check for a compatible
 update, or choose **Repair PortMaster** if the app or its compatibility files are
 missing or damaged. The repair checks the installed files and restores what Leaf
 needs to launch PortMaster.
-
-## Getting help
-
-This integration is maintained by the Leaf project. Report problems in the
-[Leaf issue tracker](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/issues)
-or in the [Leaf Discord](https://discord.gg/q5F7cZ7KRp), not in the official
-PortMaster Discord.

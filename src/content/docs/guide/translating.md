@@ -34,7 +34,7 @@ current file for each one:
   </thead>
   <tbody>
     <tr><td>Deutsch</td><td>50%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/de_DE.po">de_DE.po</a></td></tr>
-    <tr><td>Español (México)</td><td>45%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/es_MX.po">es_MX.po</a></td></tr>
+    <tr><td>Español (México)</td><td>100%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/es_MX.po">es_MX.po</a></td></tr>
     <tr><td>Français</td><td>45%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/fr_FR.po">fr_FR.po</a></td></tr>
     <tr><td>Nederlands (België)</td><td>100%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/nl_BE.po">nl_BE.po</a></td></tr>
     <tr><td>Português (Brasil)</td><td>61%</td><td><a href="https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Jawaka/main/i18n/pt_BR.po">pt_BR.po</a></td></tr>

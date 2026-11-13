@@ -5,10 +5,14 @@ description: 'A music player for Leaf: browse by artist, album, or folder, with 
 
 ![Disco Boy browsing music by artist, with album thumbnails down the list and a now-playing panel on the right showing the current track's cover art, title, album, and progress](/discoboy.png)
 
-Disco Boy is a music player. It plays through the speaker,
-[wired headphones](/guide/settings/#display--sound), or a
-[Bluetooth](/guide/settings/#bluetooth) headset, and shows which one up top. Plug
-in or connect part way through a song and the sound follows.
+The mono speaker on the MLP1 is nothing to write home about, and no-one wants to
+hear your device in public anyway. So put on your headphones,
+[wired](/guide/settings/#display--sound) or
+[Bluetooth](/guide/settings/#bluetooth), and rock out.
+
+Disco Boy is a small music player that sends sound to whatever you're listening
+on and shows which one up top. Plug in or connect part way through a song and the
+sound follows.
 
 ## Install
 

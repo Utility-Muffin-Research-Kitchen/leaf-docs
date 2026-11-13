@@ -61,11 +61,15 @@ tabs, **Actions** and **Info**, are covered under
   slightly while the charger is plugged in and returns to your setting when you
   unplug.
 - **Refresh Rate** - **60**, **100**, or **120 Hz**. **60** and **120** suit 60fps
-  (NTSC) games, and **100** suits 50fps (PAL) games. 120 shows less motion blur than
-  60, and 60 uses the least power. With **Game Performance** on **Auto**, every game
-  gets the Performance profile at 100 or 120 Hz. If a demanding game runs at full
-  speed at 60 Hz but slows down at 120, play it at 60. On a TV this setting also picks the HDMI
-  mode. See [Playing on a TV](#playing-on-a-tv).
+  (NTSC) games, and **100** suits 50fps (PAL) games: 100 divides evenly by 50, so
+  every frame stays on screen for the same time and scrolling doesn't stutter the
+  way it does at 60. 120 shows less motion blur than 60, and 60 uses the least
+  power. With **Game Performance** on **Auto**, every game gets the Performance
+  profile at 100 or 120 Hz. If a demanding game runs at full speed at 60 Hz but
+  slows down at 120, play it at 60. The panel only advertises 60 Hz;
+  [Measuring the refresh rate](/panel-refresh-measurement/) shows how the higher
+  rates were confirmed. On a TV this setting also picks the HDMI mode. See
+  [Playing on a TV](#playing-on-a-tv).
 - **Black Frame Insertion** - inserts a black frame between game frames to cut
   motion blur in fast-scrolling games. It needs **120 Hz** for 60fps games and
   **100 Hz** for 50fps (PAL) games. At 60 Hz the row is grayed out as "100/120 Hz
@@ -95,6 +99,9 @@ With a TV connected, **Refresh Rate** offers **60** and **120 Hz**:
   and **Black Frame Insertion** becomes available on the TV, but the image is scaled
   up and looks slightly softer. If the TV tops out at 60 Hz, the picture stays at
   720p.
+
+A TV can't be sharp and smooth at once: TVs only offer 120 Hz at 1080p or higher,
+and the 4:3 image is only pixel-perfect at 720p.
 
 A 1080p120 signal needs a high-speed (HDMI 2.0 or newer) cable. When Leaf switches to
 it, it shows a short prompt. Once you can see the picture on the TV, press **L1 then

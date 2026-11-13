@@ -222,7 +222,10 @@ python3 analyze_vsyncmark.py rate120.mov --camera-fps 240
 
 It reports counts per camera frame, the residual scatter of the fit, and a rolling
 rate across the clip. Two numbers tell you whether to trust the result: the residual
-RMS should be well under one count, and the rolling rate should be flat.
+RMS should be about one count or less, and the rolling rate should be flat. The
+rate comes from the slope fitted over thousands of frames, so scatter of that size
+doesn't move it. At 120 Hz the scatter is about twice the 60 Hz figure, probably
+because each camera frame catches the counter mid-change about twice as often.
 
 The counter measures what the program presented, so the program has to keep up. On
 this device the GPU idles at 200 MHz under `simple_ondemand`, which

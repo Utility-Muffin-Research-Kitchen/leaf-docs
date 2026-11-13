@@ -31,7 +31,9 @@ Leaf's **Power Off** and **Reboot** save the RetroArch app tile's settings befor
 the device goes down. If RetroArch hangs or the write fails, those changes may
 not be saved. A running game is different: powering off or restarting with
 a game open can lose that session's settings and your recent in-game progress.
-Leave the game with **MENU > Save & Quit** first.
+Leave the game with **MENU > Save & Quit** first, or turn on
+[**Save Before Power Off**](/guide/settings/#games), which saves the game and
+closes RetroArch properly when you hold the power button.
 
 ## Settings Leaf sets on every launch
 

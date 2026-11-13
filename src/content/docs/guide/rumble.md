@@ -38,4 +38,5 @@ With **Game Rumble** on, a game that supports rumble drives the motor with the
 force it asks for. **Strength** caps how strong the strongest moment gets.
 
 Game rumble works in RetroArch games, which covers most systems, and in the
-standalone Dreamcast and N64 emulators. PSP and Nintendo DS games aren't covered.
+standalone Dreamcast and N64 emulators. PSP games have no rumble, and
+Nintendo DS games don't rumble yet.

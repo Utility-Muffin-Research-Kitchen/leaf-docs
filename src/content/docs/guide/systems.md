@@ -177,8 +177,7 @@ they're about a third bigger. Turn the MLP1 a quarter clockwise, with the d-pad
 at the top: the d-pad, face buttons and stick turn with it. To play TATE on a TV,
 turn the TV a quarter clockwise instead and hold the MLP1 as usual. TATE uses
 DSperate's saves, save states and settings, so you can switch between the two in
-the middle of a game. It doesn't use the RetroAchievements account saved in Leaf
-yet; plain DSperate does.
+the middle of a game.
 
 DSperate reads `.nds` and `.zip` files. Launching a `.7z` shows a warning:
 extract it to `.nds`, or choose another Nintendo DS emulator.

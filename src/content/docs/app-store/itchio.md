@@ -3,7 +3,7 @@ title: Itch.io
 description: 'Browse itch.io and add compatible homebrew games and soundtracks directly to Leaf.'
 ---
 
-![The Itch.io app browsing Game Boy homebrew, with a game list, cover art, title, author, and Catastrophe button hints](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.2.0/docs/screenshots/main-list.png)
+![The Itch.io app browsing Game Boy homebrew, with a game list, cover art, title, author, and Catastrophe button hints](/itchio.png)
 
 The Itch.io app brings compatible console homebrew into Leaf without a computer.
 Browse or search the public catalog, read a game's description and look at its
@@ -42,7 +42,7 @@ folder. Set it to **Ask** to choose either card and, if you like, a subfolder
 below that card's ROM folder. A second card that isn't inserted is shown as
 unavailable. Artwork goes on the same card as its ROM.
 
-![The Itch.io destination picker showing the mounted primary and secondary SD-card choices](https://raw.githubusercontent.com/Utility-Muffin-Research-Kitchen/Leaf-Itchio-Pak/v0.2.0/docs/screenshots/dual-sd-destination.png)
+![The Itch.io destination picker showing the mounted primary and secondary SD-card choices](/itchio-destination.png)
 
 ## Soundtracks
 

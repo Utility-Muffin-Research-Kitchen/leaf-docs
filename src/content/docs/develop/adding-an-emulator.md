@@ -3,19 +3,18 @@ title: Adding a system or emulator
 description: Package a third-party system, libretro core, or standalone emulator for Leaf as a self-contained content pak.
 ---
 
-You can add a system and its emulator to Leaf, or add an alternate core to an
-existing system, by installing a **content pak**. It is a `.pak` whose
-`pak.json` has a top-level `provides` object. It never
-patches Leaf's installed files: the core, metadata, and artwork stay inside the
-pak, and uninstalling the pak removes its contribution on the same library
-rescan.
+A **content pak** adds a system and its emulator to Leaf, or an alternate core to
+an existing system. It is a `.pak` whose `pak.json` has a top-level `provides`
+object. The core, metadata, and artwork stay inside the pak, and uninstalling it
+removes its contribution on the next library rescan.
 
-The complete buildable example is
-[ScummVM-pak](https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak).
-Clone that repository if you want a working starting point rather than an empty
-directory. The public
+This page is the walkthrough. The
+[content pak reference](/develop/content-pak-reference/) has every field, and the
+public
 [content-pak contract](https://github.com/Utility-Muffin-Research-Kitchen/leaf-contracts/blob/main/docs/content-paks.md)
-is the final authority when this guide and the schema disagree.
+is the final authority when the two disagree.
+[ScummVM-pak](https://github.com/Utility-Muffin-Research-Kitchen/ScummVM-pak) is a
+complete buildable example you can clone as a starting point.
 
 ## Before you start
 
@@ -24,12 +23,8 @@ A content pak must:
 - target a concrete platform such as `mlp1`, not `shared`;
 - live under `Apps/<platform>/Name.pak/` on the primary SD card;
 - declare `min_leaf_version` for a Leaf release that supports content paks;
-- keep every executable, core, `.info` file, and icon inside the pak;
-- use pak-relative paths with no absolute path or `..` component.
-
-The last rule matters on the MLP1: the same card can mount at `/mnt/sdcard` or
-`/media/sdcard1` after a reboot. Leaf resolves pak-relative paths against the
-pak's current install location, so the contribution survives that swap.
+- keep every executable, core, `.info` file, and icon inside the pak, declared by
+  a path that follows the [path rules](/develop/content-pak-reference/#path-rules).
 
 ## Start with this layout
 
@@ -44,14 +39,14 @@ MySystem.pak/
     mycore_libretro.info
 ```
 
-Do not add `launch.sh` for a pure content pak. It will contribute its system but
-stay out of the Apps tab. Add an executable `launch.sh` only if the package also
-has an app UI; that hybrid pak contributes content and appears in Apps.
+A pure content pak has no `launch.sh` and stays out of the Apps tab. Add an
+executable `launch.sh` only if the package also has an app UI. The reference has
+the [full table](/develop/content-pak-reference/#package-marker).
 
 ## Declare a new system and libretro core
 
-This is the minimal useful shape. Replace every example identifier and file with
-your own; paths are relative to `MySystem.pak/`.
+Replace every example identifier and file with your own. Paths are relative to
+`MySystem.pak/`.
 
 ```json
 {
@@ -93,14 +88,17 @@ your own; paths are relative to `MySystem.pak/`.
 }
 ```
 
-`id` is the catalog identity. `patterns` are ROM-folder names Leaf recognizes;
-keep the canonical spelling only because matching is case-insensitive.
-`rom_root` and `image_root` are the public SD-card folders. `default_core` must
-name a core in the final merged catalog.
+`id` is the catalog identity. `patterns` are the ROM-folder names Leaf recognizes.
+Matching is case-insensitive, so list the canonical spelling only. `rom_root` and
+`image_root` are the public SD-card folders. `default_core` must name a core in
+the final merged catalog.
 
-`config_folder` becomes a real directory under `Saves/` and `States/`, so use a
-single FAT32-safe component. Set the three capability flags from the emulator's
-actual behavior rather than assuming every libretro core supports them.
+`config_folder` becomes a real directory under `Saves/` and `States/`. Set the
+three capability flags from what the emulator does; not every libretro core
+supports them. The reference lists the allowed values for
+[`systems[]`](/develop/content-pak-reference/#systems) and
+[`cores[]`](/develop/content-pak-reference/#cores), and the fields a third-party
+manifest can't use.
 
 ## Ship a standalone emulator
 
@@ -122,17 +120,17 @@ target must exist inside the pak and be executable:
 Leaf runs the target with one argument, the absolute path of the selected game,
 and exports the runtime paths such as `ROMS_PATH`, `SAVES_PATH`, `USERDATA_PATH`,
 and `LOGS_PATH`. `ROMS_PATH` and `SAVES_PATH` belong to the card the game is on.
-The target is usually a small launch script: pass every location on the
+The target is usually a small launch script. Pass every location on the
 emulator's command line each time, don't store an absolute mount path, and end
 with `exec` so Leaf supervises the emulator itself.
 
-With `supports_menu` set to `false`, a tap on Leaf's **Menu** button shows
+With `supports_menu` set to `false`, a tap on Leaf's **MENU** button shows
 **Return to Leaf?**, and a second tap within four seconds sends the emulator
 `SIGTERM`. If Leaf can't show the prompt, the first tap sends it. With
-`supports_menu` set to `true`, the tap
-reaches the emulator as its own menu button. Either way, holding **Menu** for
-three seconds sends `SIGTERM`, and two more seconds send `SIGKILL`. Neither saves
-the game, so make sure players can save inside the emulator.
+`supports_menu` set to `true`, the tap reaches the emulator as its own menu
+button. Either way, holding **MENU** for three seconds sends `SIGTERM`, and two
+more seconds send `SIGKILL`. Neither saves the game, so make sure players can save
+inside the emulator.
 
 A path core in `alternate_cores` starts only for games or systems where the
 player chose it; the system's `default_core` stays the default.
@@ -140,11 +138,6 @@ player chose it; the system's `default_core` stays the default.
 ships its standalone ScummVM this way. Its `standalone/` build and
 `launch-game.sh` are a complete example, including checks that the binary only
 needs libraries the device provides, and its corresponding-source archive.
-
-A third-party manifest cannot request direct DRM, legacy flat-core migration,
-arcade name maps, or a core status. The forbidden fields are
-`requires_direct_drm`, `legacy_flat_core`, `name_map`, and `status`; Leaf derives
-runtime status from the installed files.
 
 ## Ship your own RetroArch build
 
@@ -172,14 +165,15 @@ treats the game as an ordinary RetroArch game.
 }
 ```
 
-`frontend.path` is a pak-relative executable. It is usually a short script that
-sets up what your build needs, such as a 32-bit loader and libraries, and then
-`exec`s RetroArch. `protocol` is exactly `leaf-ra-1`. The rest of the core is
-unchanged: you still ship the core file and its `.info`, and `config_folder`
-must be the name the core reports to RetroArch as its library name. RetroArch
-files saves, states, and thumbnails under that name, and Leaf's menu looks for
-states there, so a mismatch hides the player's saves. The validator can't check
-this for you.
+`frontend.path` is usually a short script that sets up what your build needs,
+such as a 32-bit loader and libraries, and then `exec`s RetroArch. The reference
+has the [field rules and rejection reasons](/develop/content-pak-reference/#frontend).
+You still ship the core file and its `.info`.
+
+`config_folder` must be the name the core reports to RetroArch as its library
+name. RetroArch files saves, states, and thumbnails under that name, and Leaf's
+menu looks for states there, so a mismatch hides the player's saves. The validator
+can't check this for you.
 
 Your frontend takes on a few obligations. The
 [LEAF-RA-1 contract](https://github.com/Utility-Muffin-Research-Kitchen/leaf-contracts/blob/main/docs/leaf-retroarch-frontend.md)
@@ -196,22 +190,21 @@ specifies them all; in short, it must:
 
 Upstream RetroArch answers only a few of those commands, so your build needs
 patches for the rest. Leaf's own RetroArch patches, in the **retroarch-builds**
-repository (see the [repo map](/develop/repo-map/)), are the reference
-implementation.
+repository (see the [repository table](/develop/architecture/#repositories)), are
+the reference implementation.
 
 Set `min_leaf_version` to the first Leaf release that supports `frontend`, which
-is Leaf 0.13. A Leaf that predates the field refuses the pak rather than run
-the core in the wrong RetroArch, and the gate keeps the store from offering the
-pak to it. To keep working on older Leaf, publish an earlier version without
-`frontend` and gate the two versions separately.
+is Leaf 0.13. An older Leaf refuses the pak, and the store doesn't offer it there.
+To keep working on older Leaf, publish an earlier version without `frontend` and
+gate the two versions separately.
 
 ### What players get
 
 When your frontend answers `GET_INFO`, players get Leaf's in-game menu for it as
 for any core: save states with thumbnails, load, reset, disc swapping, shaders,
 and **RetroArch Settings**. They also get the Game Switcher, saving on power
-hold and resuming after power-off, and **Menu** hotkeys. If it doesn't answer,
-**Menu** opens RetroArch's own menu instead and those features stay off for that
+hold and resuming after power-off, and **MENU** hotkeys. If it doesn't answer,
+**MENU** opens RetroArch's own menu instead and those features stay off for that
 game.
 
 Some things don't come with it:
@@ -224,8 +217,8 @@ Some things don't come with it:
 
 ## Add a core to an existing system
 
-Do not copy an existing system into `systems[]`. Use `system_extensions[]`,
-which can only append alternate cores:
+Use `system_extensions[]`, which appends alternate cores. Don't copy an existing
+system into `systems[]`.
 
 ```json
 {
@@ -259,12 +252,9 @@ second PNG or be `null`; when it is absent, Leaf uses the flat icon even under
 the **Photographic** setting. A user-created `Roms/<SYSTEM>/icon.png` still wins
 over both.
 
-Optional system fields include:
-
-- `screenscraper_platform_ids`: ScreenScraper numeric platform IDs;
-- `group`: the group Central Scrutinizer displays, such as `Computer`;
-- `bios_directory`: the directory below `BIOS/` used by the system;
-- `bios_notes`: short descriptions of required user-supplied BIOS files.
+A system can also declare its Central Scrutinizer `group`, its `bios_directory`
+and `bios_notes`, and its ScreenScraper platform IDs. See
+[`systems[]`](/develop/content-pak-reference/#systems) for the values.
 
 ### How ScreenScraper IDs work
 
@@ -279,18 +269,16 @@ or emulator core id. For example, ScreenScraper's ScummVM platform is `123`:
 Use ScreenScraper's official
 [Web API reference](https://www.screenscraper.fr/webapi2.php) and its
 `systemesListe.php` response to find the number for a platform. A system may
-declare up to eight IDs when its games genuinely span multiple ScreenScraper
-platforms. Leaf tries them in the declared order until it finds usable artwork,
-so put the most specific match first. A wrong ID produces wrong or missing
-matches and wastes the user's request allowance. A new third-party system
-should declare its mapping explicitly. When no IDs are declared, Leaf falls
-back to its built-in mappings for release systems; if neither mapping exists,
-it cannot start a scrape.
+declare up to eight IDs when its games span several ScreenScraper platforms. Leaf
+tries them in the declared order until it finds usable artwork, so put the most
+specific match first. A wrong ID produces wrong or missing matches and uses up the
+player's request allowance. Without declared IDs, Leaf can't scrape a new
+third-party system.
 
-The platform ID answers **where to search**. The ROM filename normally answers
-**what to search for**. Some systems instead use a small descriptor file whose
-contents are the canonical game identity. Declare that separately with the
-optional top-level `content_scrape` companion:
+The platform ID says where to search, and the ROM filename normally says what to
+search for. Some systems instead use a small descriptor file whose contents are
+the canonical game identity. Declare that with the optional top-level
+`content_scrape` companion:
 
 ```json
 {
@@ -329,21 +317,16 @@ For a quick device iteration:
 1. Assemble `MySystem.pak/` on your computer.
 2. Copy that one directory to `Apps/mlp1/` on the primary SD card.
 3. Put ROMs in the declared `Roms/<SYSTEM>/` folder.
-4. In Leaf, press **MENU**, then choose **Actions → Rescan Library**.
+4. In Leaf, press **MENU**, then choose **Actions > Rescan Library**.
 
-The new system and its games appear in that same rescan. Removing the pak and
-rescanning removes the system contribution; it does not delete the user's ROMs,
-images, saves, or states.
+The new system and its games appear in that rescan. Removing the pak and
+rescanning removes the system. The player's ROMs, images, saves, and states stay.
 
 ## My pak installs but doesn't add its system or core
 
-First open its Pak Rat detail page. Leaf shows what the installed manifest says
-it provides and the newest matching catalog diagnostic. Developers can also
-inspect:
-
-```text
-.umrk/<platform>/catalog/diagnostics.json
-```
+Open its Pak Rat detail page. Leaf shows what the installed manifest says it
+provides and the newest matching catalog diagnostic. The same diagnostics are in
+`.umrk/<platform>/catalog/diagnostics.json`.
 
 Common failures are:
 
@@ -357,5 +340,5 @@ Common failures are:
 - a system's `default_core` was rejected or does not exist.
 
 Leaf drops only the refused contribution, logs the reason, and continues with a
-valid catalog. The [content-pak field reference](/develop/content-pak-reference/)
-lists the allowed fields and identifier rules.
+valid catalog. The reference covers the [path rules](/develop/content-pak-reference/#path-rules)
+and [what counts as a collision](/develop/content-pak-reference/#merge-ownership).

@@ -1,19 +1,17 @@
 ---
 title: Language
-description: Switch the Leaf interface to another language, and how Chinese and Korean game names render whatever language you use.
+description: Switch the Leaf interface to another language, and see what follows the switch and what stays in English.
 ---
 
 Leaf's interface is available in **Brazilian Portuguese**, **Dutch (Belgium)**,
 **French**, **German**, **Japanese**, **Korean**, **Mexican Spanish**, **Russian**,
 **Simplified Chinese** and **Vietnamese** alongside English. Each one came from
-someone in the community and was checked before it shipped, not run through a
-machine and shipped as-is.
-
-Korean is by [cumasterns-cpu](https://github.com/cumasterns-cpu), and Brazilian
-Portuguese by [muniz95](https://github.com/muniz95).
+someone in the community. Korean is by
+[cumasterns-cpu](https://github.com/cumasterns-cpu), and Brazilian Portuguese by
+[muniz95](https://github.com/muniz95).
 
 A translation that is still being filled in shows the lines nobody has reached yet
-in English. If you would like to finish one, or add a language of your own, see
+in English. To finish one, or add a language of your own, see
 [Translate Leaf](/guide/translating/).
 
 ## Switching
@@ -22,73 +20,46 @@ Go to **Settings > System > Language**, choose one with **Left** and **Right**, 
 press **A**. Leaf asks you to confirm, then switches in place: you stay on the same
 page, and nothing restarts. Choose **English** the same way to switch back.
 
-Languages are listed with English first and the rest in alphabetical order.
-
-The row only appears when a translation is installed, so if you do not see it, your
-Leaf predates the feature.
-
 ## What changes
 
 Menus, settings, dialogs, button hints, the in-game menu, and system messages are
-translated. **PPSSPP follows too**, in every language it has a translation for, and
-switching back to English brings it with it. RetroArch's own menus follow when you
-choose Chinese, and stay in English otherwise. Fun DraStic's menu follows in Spanish
-and Chinese.
+translated. PPSSPP follows too, in every language it has a translation for. RetroArch's
+own menus follow when you choose Chinese, and stay in English otherwise. Fun DraStic's
+menu follows in Spanish and Chinese.
 
-For Chinese, Japanese, or Korean the interface also switches to a font that can draw
-them, since none of the nine regular Leaf fonts carry those characters. That is why
-the **Font** row in Settings is locked while one of them is active: your chosen font
-comes back when you switch back.
+To run PSP games in a different language from the rest of Leaf, set it in PPSSPP's own
+settings. Leaf then stops changing it.
 
-Brazilian Portuguese, Dutch, and German work with every regular font.
+Some languages need letters your font doesn't have, and Leaf swaps the font while that
+language is active:
 
-Vietnamese works with every regular font except **Fredoka**, which is missing its
-letters. While Vietnamese is active, Leaf uses Nunito in its place and skips Fredoka
-in the **Font** row. If you had chosen Fredoka, it comes back when you switch
-language.
+- Chinese, Japanese and Korean use their own font, and the **Font** row in Settings is
+  locked.
+- Vietnamese uses Nunito in place of **Fredoka**.
+- Russian uses Nunito in place of **Space Grotesk**, **Lexend**, **Baloo 2** and
+  **Fredoka**.
 
-Russian works the same way with four fonts that have no Cyrillic letters: **Space
-Grotesk**, **Lexend**, **Baloo 2** and **Fredoka**. While Russian is active, Leaf
-uses Nunito in place of any of them and skips them in the **Font** row. Your choice
-comes back when you switch language.
-
-If you would rather run PSP games in a different language from the rest of Leaf, set it
-inside PPSSPP's own settings. Leaf notices you have chosen for yourself and stops
-changing it.
+The **Font** row skips the fonts a language can't use, and your own choice comes back
+when you switch language.
 
 ## What stays in English
 
-Some things are kept in English on purpose:
-
-- **Game names.** They come from your files and from the artwork scraper. Leaf never
-  rewrites them.
-- **Console names.** Game Boy, PlayStation, and the rest stay in Latin script, which
-  is how Chinese players write them too. The arcade category is translated (街机).
-- **Product and app names.** Leaf, RetroArch, and the built-in apps keep their names,
-  since those are the words you would search for when asking for help.
-- **Some standalone emulator menus.** PPSSPP follows Leaf, and Fun DraStic does in
-  Spanish and Chinese, but the others each carry their own interface and are still
-  English. The default **DraStic** front end is only ever offered in Traditional
-  Chinese, which is the one translation it ships, so Leaf leaves it in English rather
-  than switch you to the wrong script. **Flycast** and the **N64 emulator** have no
-  Chinese at all. Bringing the rest in line is on the list.
+- Game names. They come from your files and from the artwork scraper.
+- Console names, such as Game Boy and PlayStation. The arcade category is translated.
+- Product and app names: Leaf, RetroArch, and the built-in apps.
+- The menus of the other standalone emulators, such as DraStic, Flycast and the
+  N64 emulator.
 
 ## Chinese and Korean game names
 
-This part works in any language, including English. A game file named in Chinese or
-Korean, a fan translation for example, used to show up as empty boxes. Now it renders
-correctly in the launcher, the in-game menu, PPSSPP's menus, and the File Explorer,
-and the rest of your interface stays exactly as it was.
+A game file named in Chinese or Korean displays correctly in the launcher, the in-game
+menu, PPSSPP's menus, and the File Explorer, whatever language Leaf is set to.
 
 ## Fixing a translation
 
-If a string reads wrong, say so on the [Discord](https://discord.gg/q5F7cZ7KRp). No
-update is needed to test a fix: Leaf reads a plain text override file from
-`.umrk/mlp1/i18n/<code>.tsv` on the SD card, for example `zh_CN.tsv`, one
-`English<TAB>translation` pair per line, which outranks the built-in translation.
-Restart Leaf after adding or changing it, since the table is read at start. That
-file is how the Chinese translation was reviewed in the first place, and it survives
-updates.
+If a line reads wrong, say so on the [Discord](https://discord.gg/q5F7cZ7KRp). You can
+try a correction on your own device first. Put one `English<TAB>translation` pair
+per line in `.umrk/mlp1/i18n/<code>.tsv` on the SD card, for example `zh_CN.tsv`,
+and restart Leaf. The file outranks the built-in translation and survives updates.
 
-Filling in a language rather than correcting a line is a bigger job, and has its
-own page: [Translate Leaf](/guide/translating/).
+To fill in a whole language, see [Translate Leaf](/guide/translating/).

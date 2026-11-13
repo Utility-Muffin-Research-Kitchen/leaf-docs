@@ -11,8 +11,7 @@ new is saved to that card until it is checked or repaired.
 ## What the warning means
 
 When the device finds a problem in the card's file system, it switches the card to
-read-only on purpose. Writing to a damaged file system can make the damage worse,
-so stopping is the safer choice.
+read-only so the damage can't spread.
 
 While a card is read-only:
 
@@ -37,7 +36,7 @@ read-only when it is wearing out.
   Choose **Restart and check**. If the check passes, you can save files again. If
   it finds errors, the warning changes to **Your SD card needs repair**.
 - **The cause couldn't be determined** means the card is read-only but the device
-  couldn't tell why. Repair is still worth trying.
+  couldn't tell why. Try a repair.
 - **Your SD card is write-protected** means the device can't write to the card at
   all. If you use a microSD adapter with a lock switch, check that it isn't set to
   lock.
@@ -97,9 +96,6 @@ If a repair didn't finish on the card Leaf runs from, your device shows **Your S
 card is still protected** instead of starting Leaf. Turn off your device, repair
 the card on a computer, then put it back and turn your device on to check it again.
 If you leave the screen up, the device turns itself off after 15 minutes.
-
-The repair log stays on the device's internal storage, not on the card. If you use
-ADB, you can copy it with `adb pull /userdata/umrk/storage-repair`.
 
 ## Avoid it next time
 

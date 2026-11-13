@@ -4,31 +4,27 @@ description: Package your Leaf theme as a zip, send it in through the submission
 ---
 
 You can share a theme you made with everyone who uses Leaf by submitting it to Pak Rat.
-You fill in a form on GitHub and attach your theme as a zip, with no git needed. A bot
-checks the zip within a few minutes and tells you exactly what to fix, a maintainer
-reviews the theme, and once it is published, anyone can install it from
-[Pak Rat](/guide/pak-rat-themes/).
+You fill in a form on GitHub and attach your theme as a zip. A bot checks the zip
+within a few minutes and lists what to fix, a maintainer reviews the theme, and once
+it's published, anyone can install it from [Pak Rat](/guide/pak-rat-themes/).
 
 Submissions live in the
 [leaf-themes](https://github.com/Utility-Muffin-Research-Kitchen/leaf-themes)
 repository. You need a free GitHub account to submit.
 
 This page covers packaging and submitting. To make the theme itself, start with
-[Themes](/guide/themes/).
+[Make a theme](/guide/themes/).
 
 ## How it works
 
-1. **Package** your theme as a zip holding one folder, named after your theme's `id`.
-2. **Submit** it with the **Submit a theme** form: attach the zip, pick a license,
-   write a one-line summary, and check three boxes.
-3. **Checks.** A bot downloads your zip, checks it, and comments on your issue. If
-   something needs fixing, the comment lists every problem at once.
-4. **Review.** When the checks pass, the bot opens a review pull request, and a
-   maintainer looks at your theme.
-5. **Publish.** When the maintainer merges it, your theme is published and added to
-   Pak Rat. The bot comments and closes your issue.
-
-Nothing you submit appears in Pak Rat until a maintainer merges it.
+1. Package your theme as a zip holding one folder, named after your theme's `id`.
+2. Submit it with the **Submit a theme** form: attach the zip, pick a license, write a
+   one-line summary, and check three boxes.
+3. A bot checks your zip and comments on your issue with anything that needs fixing.
+4. When the checks pass, the bot opens a review pull request and a maintainer
+   looks at your theme.
+5. When the maintainer merges that pull request, your theme is published and added
+   to Pak Rat.
 
 ## Prepare your theme
 
@@ -71,10 +67,6 @@ and underscores, such as `GBA` or `FC`. `_apps`, in lowercase, is also allowed f
 Apps tile's icons and its Grid label, but not as a wordmark. Names are compared
 exactly, so `grid/icons/FC.PNG` and `Grid/icons/FC.png` are both refused.
 
-If you use the same icons in Grid and Cover Flow, put them in `icons/` once. Each
-view checks its own folder first, then the shared one. Shared icons need Leaf
-0.12.0; the 0.12.0 test builds up to beta 4 do not accept a theme that has them.
-
 If you started from a copy of the bundled **Sample** theme, remove the
 `GRID-ICON-SOURCE.md` and `commons.json` files from its `grid/icons` folder, and make
 sure you have the right to share any of its art you kept.
@@ -116,20 +108,14 @@ These fields are required:
 | `author` | Your name as it should appear, 1 to 60 characters and at most 63 bytes |
 | `version` | Three numbers, such as `1.0.0`. Each number is 0 to 9999, with no leading zeros |
 | `min_leaf_version` | The oldest Leaf your theme works on, written the same way, and at least `0.12.0` |
-| `license` | One of `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-SA-2.0`, `CC-BY-NC-SA-4.0`, `CC0-1.0` or `redistribution-permitted`. See [Licenses](#licenses) |
+| `license` | One of the values under [Licenses](#licenses) |
 
-These are optional:
+`description` is optional: up to 300 characters, shown on the theme's details page in
+Pak Rat. Line breaks are allowed. `grid`, `colors` and `status_style` are optional
+too, and [Make a theme](/guide/themes/#themejson) lists their values and what they do
+on screen.
 
-| Field | Rule |
-| --- | --- |
-| `description` | Up to 300 characters, shown on the theme's details page in Pak Rat. Line breaks are allowed |
-| `grid` | Both `cols` (1 to 8) and `rows` (1 to 6) |
-| `colors` | `text`, `highlight`, `highlight_text`, `underlay`, `tile_border` and `focus_ring` as `#RRGGBB` or `#RRGGBBAA`, plus `underlay_opacity` and `shadow` from 0 to 255 |
-| `status_style` | `auto`, `light` or `dark` |
-
-[Themes](/guide/themes/#themejson) explains what the optional fields do on screen.
-
-A few rules catch people out:
+The checks also enforce these:
 
 - No other keys, at the top level or inside `grid` and `colors`. A leftover key from an
   experiment, or a typo such as `colour`, gets the theme refused.
@@ -143,16 +129,13 @@ A few rules catch people out:
 
 `preview.png` is the picture Pak Rat shows in its theme list and on the details page.
 It must be a PNG of exactly 960 x 720. That is the size of the screen, so a
-[screenshot](/guide/screenshots/) of your theme in Grid view, taken on the device, is
-exactly right.
+[screenshot](/guide/screenshots/) of your theme in Grid view, taken on the device,
+fits.
 
 ### Images
 
-| File | Format | Size, width and height |
-| --- | --- | --- |
-| `preview.png` | PNG | exactly 960 x 720 |
-| `wallpaper.*`, `grid/wallpaper.*` | PNG for `.png`, JPEG for `.jpg` and `.jpeg` | 1 to 2048 each |
-| Icons, labels and wordmarks | PNG | 1 to 1024 each |
+Every image has to be within the limits under [Sizes](/guide/themes/#sizes):
+wallpapers at most 2048 px per side, and icons, labels and wordmarks at most 1024.
 
 - Each folder may hold only one wallpaper.
 - A file has to really be the format its name says. A JPEG renamed to `.png` is
@@ -194,12 +177,10 @@ Before you submit, check that:
 - The theme works on your own device. Copy the folder into `Themes/`, pick it in
   **Settings > Appearance > Theme**, and look at it in Grid view and, if you
   made Cover Flow icons, in Cover Flow.
-- The folder name is exactly your `id`.
-- `theme.json` has `schema`, `id`, `name`, `author`, `version`, `min_leaf_version` and
-  `license`, and no keys beyond the optional four.
+- The folder name is exactly your `id`, and the folder holds nothing but the theme.
+- `theme.json` has the seven required fields and no keys beyond the optional four.
 - `preview.png` is 960 x 720.
 - Every image is within its size limit and named with a system code.
-- The folder holds nothing but the theme.
 - The zip holds that one folder, is 10 MiB or smaller, and has no hidden files.
 
 ## Submitting your theme
@@ -230,10 +211,9 @@ Within a few minutes, the bot comments on your issue with one of two results.
 **Your theme needs changes** means at least one check failed. The comment is a table
 with a row for each problem: the name of the check, such as `theme-image-dimensions`,
 what to fix, and the file in your zip it is about, such as
-`neon-nights/grid/icons/GB.png`. It lists every problem it found, so you can fix them
-all in one go. The
-issue gets the `needs-changes` label. [Common problems](#common-problems) below
-explains the ones people hit most.
+`neon-nights/grid/icons/GB.png`. It lists every problem it found, and the issue gets
+the `needs-changes` label. [A check failed](#a-check-failed) below explains the ones
+people hit most.
 
 **Your theme passed the checks** means the zip is good. The comment links the review
 pull request, and the issue gets the `ready-for-review` label. There is nothing more
@@ -255,16 +235,12 @@ opening a new one:
 A maintainer then comments `/recheck`, and the bot runs every check again and comments
 with the new result. Only maintainers can run `/recheck`.
 
-The same applies after your theme has passed: to change something before it is
-published, attach the new zip and a maintainer rechecks it. If the new zip fails, the
-review pull request for the old one is closed, so an outdated version can't be
-published by mistake.
+The same applies after your theme has passed: to change something before it's
+published, attach the new zip and a maintainer rechecks it.
 
 ### Review
 
-The review pull request shows a maintainer your preview, the name, author, summary and
-description, the license, whether this is a new theme or an update and which account
-owns it, and any warnings. The maintainer checks that:
+A maintainer checks that:
 
 - The preview shows the theme, and the name, summary and description describe it.
 - The license fits, and you made the art or have the right to share it under that
@@ -275,17 +251,12 @@ owns it, and any warnings. The maintainer checks that:
 ### Publishing
 
 When a maintainer merges the review pull request, your theme is published. The bot
-creates a release in leaf-themes holding the zip and the preview, adds the theme to
-the Pak Rat catalog, comments **Published** on your issue with a link to the release,
-and closes the issue.
+comments **Published** on your issue with a link to the release, and closes the issue.
 
-The theme shows up in Pak Rat once leaf.game finishes deploying, usually within a few
-minutes. At the same time, it appears in the [Theme gallery](/themes/) on this site.
+The theme shows up in Pak Rat and in the [Theme gallery](/themes/) within a few
+minutes.
 
-The zip people download is rebuilt by the bot from the files that passed the checks,
-so every device gets exactly what was reviewed.
-
-## Common problems
+## A check failed
 
 These are the checks people run into most. The bot's comment names the check and the
 file, and the
@@ -309,7 +280,7 @@ lists every one.
 | `theme-id-invalid` | Use 2 to 40 lowercase letters, digits and hyphens for `id`, with no spaces or underscores |
 | `theme-version-invalid` | Write `version` as three numbers, such as `1.0.0`, with no leading zeros |
 | `theme-min-leaf-version` | Set `min_leaf_version` to `0.12.0` or later |
-| `theme-unknown-license` | Set `license` to `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-SA-2.0`, `CC-BY-NC-SA-4.0`, `CC0-1.0` or `redistribution-permitted` |
+| `theme-unknown-license` | Set `license` to one of the values under [Licenses](#licenses) |
 | `theme-reserved-name` | Your `id` is the name of a theme that comes with Leaf, such as `sample`. Pick another |
 | `submission-missing-attachment` | Attach your zip in the **Theme zip** field |
 | `submission-license-mismatch` | Make the license in the form and in `theme.json` the same |
@@ -337,17 +308,16 @@ installed your theme. If a new version needs a newer Leaf, raise its
 
 Only one submission per theme can wait for review at a time.
 
-A theme can have up to 16 published versions in its lifetime, and published versions
-are never removed, so save a new version for changes worth downloading. If you reach
-the limit, ask a maintainer.
+A theme can have up to 16 published versions, and published versions are never
+removed. If you reach the limit, ask a maintainer.
 
 ## Ownership
 
 The GitHub account that first publishes an `id` owns it. Only that account, or a
-maintainer, can publish new versions of it. Ownership follows your account, not your
-username, so renaming your GitHub account doesn't lose your themes.
+maintainer, can publish new versions of it. Renaming your GitHub account doesn't lose
+your themes.
 
-If you want to hand a theme over to someone else, ask a maintainer to transfer it.
+To hand a theme over to someone else, ask a maintainer to transfer it.
 
 ## Licenses
 
@@ -365,24 +335,21 @@ Pick one when you submit. The form choice and `license` in `theme.json` must mat
 Pak Rat shows the license on the theme's details page. You can include the full
 license text as `LICENSE.txt` in your theme folder.
 
-Choose the actual license covering your theme and its artwork. If it is missing
-from the list, ask a maintainer before submitting. Include the source credits and
-any required notices in `LICENSE.txt`; choosing a form option does not change the
-artwork's existing terms.
+Choose the license that covers your theme and its artwork. If it's missing from the
+list, ask a maintainer before submitting. Include the source credits and any required
+notices in `LICENSE.txt`; choosing a form option doesn't change the artwork's existing
+terms.
 
 [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/) and
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) include
-noncommercial and ShareAlike conditions. They are different versions of the
-license, so choose the one your artwork actually uses. Leaf 0.12.0 test builds up
-to beta 6 do not accept themes with 2.0, and builds up to beta 7 do not accept
-themes with 4.0.
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) are different
+versions of the license, so choose the one your artwork uses.
 
 ## Takedowns and contact
 
 If a theme uses your work without permission, or you want your own theme removed, tell
 a maintainer on the [Leaf Discord](https://discord.gg/q5F7cZ7KRp) or
 [open an issue in the Leaf repository](https://github.com/Utility-Muffin-Research-Kitchen/Leaf/issues).
-The theme is withdrawn first and discussed after.
+The theme is withdrawn first, then discussed.
 
 A withdrawn theme disappears from Pak Rat for everyone who hasn't installed it, and
 can't be installed or updated. Copies already on a device keep working.

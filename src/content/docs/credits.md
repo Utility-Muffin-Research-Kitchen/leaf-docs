@@ -43,8 +43,7 @@ license; see its [source and credits](https://github.com/Utility-Muffin-Research
 [DSperate](https://github.com/beebono/DSperate), by
 [beebono](https://github.com/beebono), is an independent Nintendo DS emulator
 under GPL-3.0-or-later. UMRK's [Leaf content pak](https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak)
-packages their work for MLP1. You can install it through Pak Rat on Leaf 0.12.0
-or newer.
+packages their work for MLP1. You can install it through Pak Rat.
 The pak's console render and wordmark were generated with ChatGPT and supplied
 by UMRK; they are packaging artwork, not an official DSperate logo.
 

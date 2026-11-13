@@ -3,7 +3,7 @@ title: Content pak reference
 description: Field reference for Leaf content-paks-v1 manifests.
 ---
 
-This page is the short authoring reference for `content-paks-v1`. See
+This page is the field reference for `content-paks-v1`. See
 [Adding a system or emulator](/develop/adding-an-emulator/) for a walkthrough
 and the public
 [normative contract](https://github.com/Utility-Muffin-Research-Kitchen/leaf-contracts/blob/main/docs/content-paks.md)
@@ -98,8 +98,10 @@ mix is refused with `core-type-field-mismatch`.
 Both types may declare boolean `supports_menu`, `supports_savestate`,
 `supports_disk_control`, and `needs_swap`; each defaults to `false`.
 
-The fields `requires_direct_drm`, `legacy_flat_core`, `name_map`, and `status`
-are forbidden.
+A third-party manifest can't request direct DRM, legacy flat-core migration,
+arcade name maps, or a core status. The fields `requires_direct_drm`,
+`legacy_flat_core`, `name_map`, and `status` are forbidden; Leaf derives runtime
+status from the installed files.
 
 ## `frontend`
 
@@ -148,8 +150,8 @@ This is the only supported way to add an alternate core to an existing system:
 }
 ```
 
-It has exactly those two fields. It cannot override a system's name, folders,
-art, extensions, or default core.
+It has exactly those two fields. It can't replace a first-party system or
+override its name, folders, art, extensions, or default core.
 
 ## Path rules
 
@@ -161,8 +163,9 @@ Every declared file path is relative to the pak root and must:
 - exist as a regular file;
 - be executable when it is a standalone `path` core or a `frontend`.
 
-Do not persist an SD-card mount point in a manifest. Leaf resolves the provider
-pak at runtime so `/mnt/sdcard` and `/media/sdcard1` swaps remain safe.
+Don't store an SD-card mount point in a manifest. The same card can mount at
+`/mnt/sdcard` or `/media/sdcard1` after a reboot, and Leaf resolves pak-relative
+paths against the pak's current location.
 
 ## Merge ownership
 

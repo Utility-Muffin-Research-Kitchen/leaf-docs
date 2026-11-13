@@ -1,41 +1,73 @@
 ---
-title: Screenshots
-description: Capture whatever is on screen on the Miniloong Pocket 1 with a button combo, saved straight to the SD card. Works in menus, in games, and in 5-Game Mode.
+title: Screenshots and recording
+description: Capture a screenshot or record video of a game on the Miniloong Pocket 1 with a button combo, saved straight to the SD card.
 ---
 
-Screenshots let you capture whatever is on screen with a single button combo,
-saved straight to the SD card as a PNG. You can capture the launcher, Leaf
-menus, RetroArch games, and the locked 5-Game Mode without Wi-Fi or a computer.
+A button combo saves a screenshot or records video of a game, straight to the SD
+card, without Wi-Fi or a computer. Screenshots work in the launcher, Leaf menus,
+5-Game Mode, and RetroArch games. Recording works in RetroArch games.
 
-## Turning it on
+## Turning them on
 
-Screenshots are off by default. Turn them on in **Settings → Hotkeys & Rumble →
-Hotkeys**, on the **Screenshots** row. Once on, your capture hotkey works in the
-launcher, Leaf menus, 5-Game Mode, and RetroArch games. Standalone emulators use
-their own controls.
+Both are off by default. Go to **Settings > Hotkeys & Rumble > Hotkeys** and turn on
+the **Screenshots** row, the **Recording** row, or both.
 
 ![The Hotkeys settings page with the Screenshots row highlighted and set to Off, above a Screenshot Hotkey row reading Menu + L1, alongside Game Switcher, Recording, and the recording options](/screenshot_settings.png)
 
+The **Screenshot Hotkey** and **Recording Hotkey** rows on the same page put each
+shortcut on another button, or turn the shortcut off. See
+[Hotkeys](/guide/playing/#hotkeys).
+
 ## Taking a screenshot
 
-Hold **MENU** and tap **L1** - the default. The **Screenshot Hotkey** row on the
-same page puts it on another button, or turns the shortcut off while leaving
-screenshots themselves on. See
-[Hotkeys](/guide/features/#hotkeys).
+Hold **MENU** and tap **L1**.
 
-- In the launcher, a menu, or 5-Game Mode, the screen gives a quick white **flash**.
-- In a game, RetroArch shows its own **Screenshot saved** note in the corner.
+- In the launcher, a menu, or 5-Game Mode, the screen flashes white.
+- In a game, RetroArch shows **Screenshot saved** in the corner.
 
-## Where they go
+## Recording
 
-Every screenshot is saved to a **`Screenshots`** folder at the top level of the SD
-card, so you can browse or copy them off the card easily. Filenames include the
-date and time. A screenshot taken in a game is also named after the game, so a
-folder full of captures is easy to sort.
+Hold **MENU** and tap **R1** to start recording, and the same combo again to stop.
+Neither button reaches the game, so you can record from a title screen without
+pressing anything in the game itself.
+
+A small red dot pulses in the top left corner while a recording is running. The dot
+isn't in your clips.
+
+When you leave the game, Leaf converts the clip to an MP4 that plays in Discord, a
+browser, or on your phone. Converting happens in the background, so the launcher
+comes straight back and the MP4 appears a few seconds later. Longer clips take
+longer.
+
+Two more rows on the **Hotkeys** page change what you get. Both stay grayed out
+until **Recording** is on.
+
+- **Split Over 10MB** - on by default. Discord's free upload limit is 10 MB, which
+  is about 30 seconds of gameplay. A larger clip is saved as numbered parts, each
+  small enough to upload. Turn it off to always get one file.
+- **Keep Original** - on by default. Each clip keeps its original `.mkv` capture
+  next to the `.mp4`. Turn it off to keep only the MP4. The original is deleted
+  only after the MP4 has been written.
+
+## Where files go
+
+- Screenshots are saved as PNGs in the `Screenshots` folder at the top level of the
+  SD card. Filenames include the date and time, and the game's name for a
+  screenshot taken in a game.
+- Clips are saved in the `Recordings` folder at the top level of the SD card.
+  Filenames include the game's name and the date and time.
+
+To get clips off the handheld, use
+[Central Scrutinizer](/apps/central-scrutinizer/) to download them over Wi-Fi to a
+computer or phone.
 
 ## What gets captured
 
-- **In a game**, RetroArch captures its own video frame, so the picture is exactly
-  what the game drew - crisp, at the game's own resolution.
-- **In the launcher, a menu, or 5-Game Mode**, the whole screen is captured as you
-  see it.
+- In the launcher, a menu, or 5-Game Mode, a screenshot captures the whole screen
+  as you see it.
+- In a game, a screenshot is the game's own picture at the game's own resolution.
+- A recording is the game's picture before any shader runs. A clip of a game with
+  a CRT shader won't have the scanlines you were looking at.
+- Recording only works in RetroArch games. PSP, Dreamcast, and PortMaster games run
+  in their own emulators, and the combo does nothing there. Standalone emulators
+  also have their own screenshot controls.

@@ -1,20 +1,19 @@
 ---
 title: Measuring the Miniloong Pocket 1's refresh rate
-description: How we optically proved the MLP1 panel really runs at 120 Hz, with the method, the math, and the footage.
+description: An optical measurement showing the MLP1 panel runs at 120 Hz, with the method, the math, and the footage.
 tableOfContents: true
 editUrl: false
 ---
 
-Leaf can drive the Miniloong Pocket 1's panel at 60, 90, or 120 Hz. The panel only
+Leaf can drive the Miniloong Pocket 1's panel at 60, 100, or 120 Hz. The panel only
 advertises one mode, 720x960 at 60 Hz, so everything above that is an overclock of a
-custom timing. That raises a fair question: when the driver says 120 Hz, is the screen
-actually showing 120 distinct images per second?
+custom timing. When the driver says 120 Hz, is the screen showing 120 distinct images
+per second?
 
-Every easy answer reads the wrong end of the pipeline. The pixel clock, the mode
-string, a program's own frame counter: all of them describe what the SoC is sending,
-not what the panel is doing. This page is the measurement that reads the panel.
+The pixel clock, the mode string, and a program's own frame counter all describe what
+the SoC is sending. This page measures what the panel shows.
 
-**Short answer: 119.85 Hz measured optically, against a programmed 120.000.**
+The result: 119.85 Hz measured optically, against a programmed 120.000 Hz.
 
 ## What the rate actually is
 
@@ -39,44 +38,41 @@ clk_MHz = 782842 x Hz / 1,000,000 = 0.782842 x Hz
 | 120 Hz | 93.94 MHz |
 
 At 120 Hz the driver reports `clk[93940] real_clk[93940]`. Requested and achieved are
-identical, and both match the formula exactly. That is a good sign, but it is still
-the source side.
+identical and match the formula, but that is still the source side.
 
 ## Why filming it is harder than it looks
 
 The obvious experiment is to flash a color every frame, film it in slow motion, and
-find the frequency. It does not work, and it fails in a way that produces a
-confident wrong answer.
+find the frequency. It returns a clean number that is wrong.
 
 An iPhone's slow motion captures at a nominal 240 fps. A 120 Hz display filmed at
-240 fps sits exactly at the **Nyquist limit**:
+240 fps sits exactly at the Nyquist limit:
 
 ```
 f_display / f_camera = 120 / 240 = 0.5
 ```
 
 At exactly half the sampling rate, a signal cannot be distinguished from the sampler
-itself. Run an FFT on that footage and the peak lands on the camera. Our first
+itself. Run an FFT on that footage and the peak lands on the camera. The first
 attempt returned a 79.976 Hz fundamental, and since the pattern cycled three colors,
-79.976 x 3 = **239.9 Hz**. That is the phone, not the panel, and it was identical
-across all three color channels.
+79.976 x 3 = 239.9 Hz. That is the phone's rate, and it was identical across all
+three color channels.
 
-Counting color changes instead does not save it, because a rolling-shutter sensor
-smears transitions and silently drops some. The same footage yielded 108 Hz or 147 Hz
-depending on how the counting was done.
+Counting color changes instead doesn't help, because a rolling-shutter sensor smears
+transitions and drops some. The same footage yielded 108 Hz or 147 Hz depending on
+how the counting was done.
 
-Two further traps sit underneath:
+Two more things get in the way:
 
-**The camera's real rate is not its nominal rate.** Our capture measured 177.74 fps
-on one attempt, not 240.
-
-**iOS re-times slow motion on export.** The shared file is stamped at 30 fps playback
-(`full-frame-rate-playback-intent=0`, exactly 33.333 ms between frames). Fitting
-against those timestamps reads low by the slowdown factor.
+- The camera's real rate isn't its nominal rate. One capture measured 177.74 fps,
+  not 240.
+- iOS re-times slow motion on export. The shared file is stamped at 30 fps playback
+  (`full-frame-rate-playback-intent=0`, exactly 33.333 ms between frames). Fitting
+  against those timestamps reads low by the slowdown factor.
 
 ## The method: an absolute frame counter
 
-Rather than measure a frequency, display a **number** and read it.
+Instead of measuring a frequency, display a number and read it.
 
 `vsyncmark` draws a 13-bit counter as a row of black and white cells, incrementing
 once per vsync'd present, with a white reference bar above and a black one below.
@@ -84,19 +80,18 @@ once per vsync'd present, with a white reference bar above and a black one below
 <img src="/panel-refresh/pattern.png" alt="The vsyncmark pattern on the device: a white bar across the top, thirteen black and white cells across the middle, a black bar across the bottom" style="width:100%;max-width:640px;border-radius:12px" />
 
 Every legible camera frame now carries the exact display-frame index at that instant.
-Refresh becomes the **slope** of counter against frame number, fitted by least squares
-over thousands of samples. This sidesteps all three problems at once: no frequency is
-estimated so nothing can alias, a dropped camera frame just leaves a gap in the fit,
-and frame index survives an export that rewrites timestamps.
+Refresh becomes the slope of counter against frame number, fitted by least squares
+over thousands of samples. No frequency is estimated, so nothing can alias. A dropped
+camera frame leaves a gap in the fit. And the frame index survives an export that
+rewrites timestamps.
 
 ### Why the counter is Gray coded
 
 A rolling-shutter sensor reads its rows over several milliseconds, so a single camera
-frame can straddle two counter values. In plain binary that is catastrophic: counting
-from 4095 to 4096 flips all thirteen bits at once, and a straddled read could land
-anywhere in between.
+frame can straddle two counter values. In plain binary, counting from 4095 to 4096
+flips all thirteen bits at once, and a straddled read could land anywhere in between.
 
-**Gray code** changes exactly one bit between consecutive values:
+Gray code changes exactly one bit between consecutive values:
 
 ```
  4  ->  0110
@@ -123,8 +118,8 @@ The counter advances once per display frame, so across the clip:
 counts per camera frame = refresh_Hz / camera_fps
 ```
 
-Both quantities on the right are unknown, which looks unhelpful. But film **two**
-rates with the same camera and divide:
+Both quantities on the right are unknown. Film two rates with the same camera and
+divide:
 
 ```
 (refresh_A / camera_fps)     refresh_A
@@ -132,10 +127,9 @@ rates with the same camera and divide:
 (refresh_B / camera_fps)     refresh_B
 ```
 
-The camera's rate cancels completely. No assumption about 240 fps, no reliance on
-metadata, no timestamps. If the 120 Hz clip yields exactly twice the counts per frame
-of the 60 Hz clip, the panel doubled, and no property of the camera can change that
-conclusion.
+The camera's rate cancels, so the result doesn't depend on the nominal 240 fps, the
+file's metadata, or its timestamps. If the 120 Hz clip yields exactly twice the counts
+per frame of the 60 Hz clip, the panel doubled.
 
 ## Procedure
 
@@ -146,9 +140,9 @@ conclusion.
    is the only light source.
 4. Decode every frame, read the counter, fit slope against frame index.
 
-**The 60 Hz run is the control, and it comes first.** Native 60 needs no overclock, so
-it is the one rate that is true by construction. If the pipeline does not return 60 on
-it, the pipeline is wrong and its answer at 120 means nothing.
+Film 60 Hz first, as the control. Native 60 needs no overclock, so it is the one rate
+known in advance. If the analysis doesn't return 60 for it, its answer at 120 can't be
+trusted.
 
 ## Results
 
@@ -184,57 +178,57 @@ measured refresh          119.8490 Hz
 0.499371 / 0.249883 = 1.9984
 ```
 
-Within **0.08% of exactly 2**, with the camera eliminated from the calculation.
+That is within 0.08% of exactly 2, with the camera's rate cancelled out.
 
 ## Why this proves 120 Hz
 
-The counter advances once per **present**, and presents are throttled to vsync. A
-program cannot present faster than the panel refreshes, so:
+The counter advances once per present, and presents are throttled to vsync. A
+program can't present faster than the panel refreshes, so:
 
 ```
 present rate  <=  vblank rate
 ```
 
-Measuring 119.85 presents per second optically therefore puts a **lower bound** of
+Measuring 119.85 presents per second optically therefore puts a lower bound of
 119.85 Hz on the panel's vblank rate. The mode is programmed at exactly 120.000 Hz and
-the PLL readback confirms the clock landed on target. A lower bound of 119.85 against
-a programmed 120 leaves nothing else the panel can be doing.
+the PLL readback confirms the clock landed on target, so the panel is running at
+120 Hz.
 
-The inequality only runs one way, which is worth stating plainly: a measurement
-*below* the target would be ambiguous, because it could mean either a slower panel or
-a program missing frames. A measurement *at* the target is not ambiguous.
+The inequality only runs one way. A measurement below the target would be ambiguous,
+because it could mean a slower panel or a program missing frames. A measurement at
+the target isn't.
 
 ## What this does not prove
 
-The measurement reads the vblank rate, which is the panel's timing. It does not
-formally prove that every vblank produces a distinct visible image rather than the
-panel accepting the timing and holding pixels.
-
-In practice the distinction is hard to make matter. A panel that failed to lock a
-timing this far from its native mode would not show a subtly worse picture; it would
-show no valid image at all, which is not what we measured or saw.
+The measurement reads the vblank rate, which is the panel's timing. It doesn't
+formally prove that every vblank produces a distinct visible image: the panel could
+accept the timing and hold pixels. But a panel that failed to lock a timing this far
+from its native mode would show no valid image at all, and the footage shows a stable
+one.
 
 The measurement also says nothing about rates above 120. 110 Hz is the highest rate
 that produces zero VOP errors in the kernel log, and 120 logs a single output-buffer
-underrun at the mode switch itself with no recurrence under load, so 120 is one small
-step past the conservative ceiling rather than a limit that has been probed.
+underrun at the mode switch itself with no recurrence under load. So 120 is one small
+step past the conservative ceiling, and the limit above it hasn't been probed.
 
 ## Reproducing it
 
 The tools are `vsyncmark.c` and `analyze_vsyncmark.py`. The analyzer locates the
-pattern from the reference bars rather than assuming where it sits, so it tolerates
-framing that does not perfectly fill the camera frame:
+pattern from the reference bars, so the pattern doesn't have to fill the camera frame:
 
 ```
 python3 analyze_vsyncmark.py rate120.mov --camera-fps 240
 ```
 
 It reports counts per camera frame, the residual scatter of the fit, and a rolling
-rate across the clip. Two numbers tell you whether to trust the result: **residual
-RMS** should be well under one count, and the **rolling rate** should be flat.
+rate across the clip. Two numbers tell you whether to trust the result: the residual
+RMS should be about one count or less, and the rolling rate should be flat. The
+rate comes from the slope fitted over thousands of frames, so scatter of that size
+doesn't move it. At 120 Hz the scatter is about twice the 60 Hz figure, probably
+because each camera frame catches the counter mid-change about twice as often.
 
-One practical note. The counter measures what the *program* presented, so the program
-has to keep up. On this device the GPU idles at 200 MHz under `simple_ondemand`, which
+The counter measures what the program presented, so the program has to keep up. On
+this device the GPU idles at 200 MHz under `simple_ondemand`, which
 is not enough to sustain 120 presents per second. Setting
 `/sys/class/devfreq/fde60000.gpu/governor` to `performance` raises it to 800 MHz and
 holds the rate.

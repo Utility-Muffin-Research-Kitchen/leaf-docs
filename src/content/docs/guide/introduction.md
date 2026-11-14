@@ -1,60 +1,40 @@
 ---
 title: Introduction
-description: What Leaf is, the device it runs on, and how it stays safe by riding on top of the stock OS.
+description: What Leaf is, what it adds to the Miniloong Pocket 1, and what happens to the stock OS when you install it.
 ---
 
-**Leaf** is a custom firmware (CFW) for the Miniloong Pocket 1 (MLP1) handheld.
-It replaces the stock home screen with a fast, themeable launcher and adds
-emulation, apps, and over-the-air updates, all without overwriting the device's
-original operating system.
+Leaf is custom firmware for the Miniloong Pocket 1 (MLP1) handheld. It replaces
+the stock home screen with a themeable launcher and adds emulation, apps, and
+over-the-air updates. The device's original operating system stays installed
+underneath.
 
-## The big idea: run on top of stock
+## Leaf runs on top of stock
 
-Most custom firmware *replaces* the stock OS. Leaf doesn't. Instead it hooks
-into the device's normal boot and takes over before the stock home screen
-appears, leaving stock LoongOS intact underneath.
-
-This has two practical benefits:
-
-- **Safety.** If Leaf ever fails to start, the device automatically falls back to
-  the stock interface instead of bricking. A [recovery card](/guide/recovery/)
-  can also restore the device to a clean stock state at any time.
-- **Compatibility.** Leaf reuses the stock display, audio, Wi-Fi, and power
-  systems rather than reinventing drivers, so it behaves like a native part of
-  the device.
-
-## The device
-
-| | |
-|---|---|
-| **Model** | Miniloong Pocket 1 (MLP1) |
-| **SoC** | Rockchip RK3566 - quad Cortex-A55 @ 1.8 GHz |
-| **GPU** | Mali-G52 |
-| **RAM** | 1 GB LPDDR4X |
-| **Display** | 4" IPS, 720×960 (shown as 960×720 landscape) |
-| **Battery** | 4000 mAh |
-| **Connectivity** | Wi-Fi + Bluetooth |
+Leaf takes over at boot, before the stock home screen appears, and leaves stock
+LoongOS in place. If Leaf ever fails to start, the device falls back to the
+stock interface on its own, and a [recovery card](/guide/recovery/) returns it
+to clean stock whenever you want.
 
 ## What you get
 
 ![The Leaf launcher browsing a Sega Genesis game list, with box art shown alongside](/screenshot-games.png)
 
-- **A themeable launcher** - two home layouts (classic Tabs or a Coverflow box-art
-  carousel), color schemes, list styles, fonts, an animated status bar (clock,
-  battery, Wi-Fi, Bluetooth, volume), and a configurable RGB stick-ring.
-- **Emulation** - RetroArch with per-system folders for ROMs, box art, saves,
-  and states. You provide the games and any required BIOS files.
-- **Apps** - Central Scrutinizer (manage games and files over Wi-Fi from your
+- A launcher you can restyle - two home layouts (classic Tabs or a Coverflow
+  box-art carousel), color schemes, list styles, fonts, a status bar, and an RGB
+  ring around the stick. See the [Features tour](/guide/features/).
+- Emulation - RetroArch with one folder per system for ROMs, box art, saves, and
+  states. You provide the games and any required BIOS files.
+- Apps - Central Scrutinizer (manage games and files over Wi-Fi from your
   browser), Fugazi (a live CRT-shader tuner), Joe's Calibrage (analog-stick
-  calibration), an SSH server, and a file manager.
-- **Over-the-air updates** - check for and install new releases right from the
-  launcher. See [Updating](/guide/updating/).
+  calibration), an SSH server, and a file manager. See
+  [Built-in apps](/apps/introduction/).
+- Over-the-air updates - check for and install new releases from the launcher.
+  See [Updating](/guide/updating/).
 
 ## Project status
 
-Leaf is stable and released often. Every release is published on GitHub with
-notes worth reading before you install. It currently targets the Miniloong
-Pocket 1 only.
+Leaf is stable and released often, and runs on the Miniloong Pocket 1 only.
+Every release is published on GitHub with release notes.
 
 Leaf is open source, baked in the
 [Utility-Muffin-Research-Kitchen](https://github.com/Utility-Muffin-Research-Kitchen).
@@ -62,7 +42,6 @@ See [Contributing](/develop/contributing/) if you'd like to help.
 
 ## Next steps
 
-- **[Install Leaf](/guide/install/)** - get it running on your device.
-- **[Adding games & ROMs](/guide/games/)** - fill your library.
-- **[BIOS & cores](/guide/bios-and-cores/)** - what some systems need
-  to run.
+- [Install Leaf](/guide/install/) - get it running on your device.
+- [Adding games](/guide/games/) - fill your library.
+- [BIOS files](/guide/bios-and-cores/) - what some systems need to run.

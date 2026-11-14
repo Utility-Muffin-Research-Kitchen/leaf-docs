@@ -5,17 +5,16 @@ description: Make an app that looks and behaves like the rest of Leaf, using the
 
 Leaf apps are small native programs packaged as a `.pak`. They are built on
 [Catastrophe](https://github.com/Utility-Muffin-Research-Kitchen/Catastrophe),
-the same C/SDL2 toolkit the launcher itself uses, so a well-built app looks and
-feels like a built-in part of Leaf rather than a bolt-on.
+the C/SDL2 toolkit the launcher uses, so your app can look and behave like the
+rest of Leaf.
 
-This page shows how to make an app that fits in: how a pak is structured, how the
-**box model** lays out a screen so your spacing matches the launcher at any font
-size, and the handful of conventions (theme colors, fonts, button grammar) that
-make an app feel native.
+This page covers how a pak is structured, how the box model lays out a screen so
+your spacing matches the launcher at any font size, and the conventions for theme
+colors, fonts, and buttons.
 
-There is a complete, runnable example to read alongside this page:
-`Catastrophe/examples/leaf-app/` - a list with a preview that drills into a
-scrollable detail page, which is the shape most Leaf apps take.
+`Catastrophe/examples/leaf-app/` is a complete, runnable example to read alongside
+this page: a list with a preview that drills into a scrollable detail page, the
+shape most Leaf apps take.
 
 ## Anatomy of a pak
 
@@ -29,8 +28,8 @@ YourApp.pak/
   icon.png        # square app icon (optional; a default is shown if absent)
 ```
 
-`pak.json` is what the launcher reads to list your app. The display name and icon
-come from here, not the folder or binary name:
+The launcher reads `pak.json` to list your app. The display name and icon come
+from here, not from the folder or binary name:
 
 ```json
 {
@@ -47,14 +46,12 @@ come from here, not the folder or binary name:
 }
 ```
 
-This page covers a launchable app. To add a console-style system, libretro core,
-or standalone emulator, build a
-[content pak instead](/develop/adding-an-emulator/); content paks use a
-`provides` manifest and do not patch Leaf's release-managed catalog.
+To add a system, libretro core, or standalone emulator instead of a launchable
+app, build a [content pak](/develop/adding-an-emulator/).
 
-`launch.sh` is run from inside the pak directory with the platform environment
-set (`PLATFORM`, `DEVICE`, `HOME`, and the `*_PATH` data roots). The minimal job
-is to route logs to the shared userdata area and exec your binary:
+Leaf runs `launch.sh` from inside the pak directory with the platform environment
+set (`PLATFORM`, `DEVICE`, `HOME`, and the `*_PATH` data roots). At minimum, route
+logs to the shared userdata area and exec your binary:
 
 ```sh
 #!/bin/sh
@@ -71,28 +68,27 @@ echo "=== Launching $APP_BIN at $(date) ==="
 exec "./$APP_BIN" "$@"
 ```
 
-Write durable data under the `*_PATH` roots Leaf provides, never inside the pak
-(an app store update replaces the pak directory). See the example's `pak/`
-folder for a working copy.
+Write durable data under the `*_PATH` roots Leaf provides, never inside the pak:
+an app store update replaces the pak directory. The example's `pak/` folder has a
+working copy.
 
 ## The box model
 
-Every Leaf screen is the same three parts: a **title** band, a **content** area,
-and an optional **footer** hint bar. The content area is usually split into a
-list column and a detail column. You build that layout by carving fixed-height
-bands off the screen and splitting the remainder - the box model.
+Every Leaf screen has the same three parts: a title band, a content area, and an
+optional footer hint bar. The content area is usually split into a list column
+and a detail column. You build that layout by carving fixed-height bands off the
+screen and splitting the remainder.
 
 ![The box model: a screen carved into a title band, a content area split into list and detail columns, and a footer hint bar](/box-model.svg)
 
-Two ideas make it produce Leaf-consistent layouts for free:
+Two rules keep your layout consistent with the launcher's:
 
-- **Padding, never margins.** A box only ever pads its contents inward; it never
-  reserves space outside itself. Boxes tile their parent with no gaps, so every
-  visible gap on screen traces back to one box's internal padding. There is a
-  single number to tune.
-- **Heights come from the live font.** The title and footer band heights are
-  derived from the current font at render time, never hardcoded. The same layout
-  is correct at any font size or DPI, and with the hint bar on or off.
+- A box pads its contents inward and never reserves space outside itself. Boxes
+  tile their parent with no gaps, so every visible gap on screen comes from one
+  box's padding, and there is a single number to tune.
+- The title and footer band heights come from the current font at render time and
+  are never hardcoded. The same layout is correct at any font size or DPI, and
+  with the hint bar on or off.
 
 The primitives live in `catastrophe.h`:
 
@@ -106,12 +102,11 @@ cat_box_split_cols(&root, list_w, gutter, &list, &detail);   // remainder -> col
 SDL_Rect rows = cat_box_fit_rows(&list, base_row_h, count, &visible, &row_h);
 ```
 
-`cat_box_fit_rows` is worth calling out: it stretches the rows to fill the column
-exactly (no ragged gap below the last row) and is the **filled-grid invariant** -
-the number of items never changes the geometry, so a 3-item list and a 30-item
-list sit on the same grid.
+`cat_box_fit_rows` stretches the rows to fill the column exactly, with no ragged
+gap below the last row. The number of items never changes the geometry, so a
+3-item list and a 30-item list sit on the same grid.
 
-The example wraps this carve in a tiny, copy-paste header,
+The example wraps this carve in a small header you can copy,
 `examples/leaf-app/leaf_layout.h`, so your screens read as:
 
 ```c
@@ -122,21 +117,17 @@ cat_box list_box, detail_box;
 leaf_split(&content, /*list_pct=*/58, &list_box, &detail_box);
 ```
 
-The two columns share one width: `list_pct` is how much goes to the list and the
-detail column takes the rest, so the split flexes to whatever the screen needs.
-Pass `100` for a list with no preview, or skip `leaf_split` entirely and hand the
-whole content box to one thing - which is exactly what the example's detail screen
-does, giving its full width to a scroll view.
+`list_pct` is the share of the width that goes to the list, and the detail column
+takes the rest. Pass `100` for a list with no preview, or skip `leaf_split` and
+hand the whole content box to one thing, as the example's detail screen does with
+its scroll view.
 
-Drop the header into your app, or rebuild the same few lines from the primitives -
-either way your gaps match the launcher.
+## Conventions
 
-## Conventions that make it feel native
+### Theme colors
 
-The layout gets you most of the way; these conventions do the rest.
-
-**Use theme color roles, never hardcoded colors.** Leaf ships 14 color schemes;
-an app that hardcodes colors breaks on most of them. Pull from `cat_get_theme()`:
+Use theme color roles, never hardcoded colors. Leaf has many color schemes, and an
+app that hardcodes colors breaks on most of them. Pull from `cat_get_theme()`:
 
 | Role | Use it for |
 |---|---|
@@ -148,11 +139,15 @@ an app that hardcodes colors breaks on most of them. Pull from `cat_get_theme()`
 | `accent` | the footer pill, status bar |
 | `background` | the screen background |
 
-**Use the font tiers** from `cat_get_font(...)`: `CAT_FONT_EXTRA_LARGE` for screen
-titles (matches the launcher's drilled-in pages), `CAT_FONT_MEDIUM` for body and
-list rows, `CAT_FONT_SMALL` for metadata. Never load your own sizes.
+### Fonts
 
-**Follow the button grammar** so muscle memory carries over:
+Use the font tiers from `cat_get_font(...)`: `CAT_FONT_EXTRA_LARGE` for screen
+titles, `CAT_FONT_MEDIUM` for body and list rows, `CAT_FONT_SMALL` for metadata.
+Don't load your own sizes.
+
+### Buttons
+
+Use the same buttons for the same things as the launcher:
 
 | Button | Meaning |
 |---|---|
@@ -165,20 +160,22 @@ list rows, `CAT_FONT_SMALL` for metadata. Never load your own sizes.
 Always draw the footer hint bar with `cat_draw_footer(...)` so the buttons are
 labeled, and respect the user's Show Hints setting.
 
-**Overflow scrolls, it does not shrink.** When content is taller than its box, put
-it in a `cat_draw_scroll_view` and let the user scroll (the detail page in the
-example does this), rather than shrinking the font to fit. For a single long line,
-use a marquee or `cat_draw_text_ellipsized`.
+### Long content
 
-**Drill in to a page, do not stack modals.** The Leaf pattern for "show me more"
-is a sub-screen in your own render loop (press A to enter, B to return), not a
-nested blocking dialog. The example's detail page is exactly this.
+When content is taller than its box, put it in a `cat_draw_scroll_view` and let
+the user scroll, as the example's detail page does. Don't shrink the font to fit.
+For a single long line, use a marquee or `cat_draw_text_ellipsized`.
+
+### Detail pages
+
+To show more about an item, open a sub-screen in your own render loop (**A** to
+enter, **B** to return). Don't stack blocking dialogs. The example's detail page
+works this way.
 
 ## The render loop
 
-Unlike the all-in-one `cat_list()` helper, a real app drives its own loop: poll
-input, draw the active screen, present. This is what lets you have a list that
-drills into a detail page.
+An app with more than one screen drives its own loop: poll input, draw the active
+screen, present.
 
 ```c
 bool running = true;
@@ -202,38 +199,39 @@ that ties them together.
 
 ## Quick paths and more widgets
 
-You do not always need a custom loop. For a simple "pick one item" screen,
-`cat_list()` runs the whole thing for you (see `examples/hello/`), and
-`cat_confirmation()` is a ready-made yes/no dialog. For richer UI - tab bars
-(`cat_draw_tab_bar`), progress screens (`cat_process_message`), keyboards, sliders -
-the `examples/combo/` and `examples/demo/` programs in the Catastrophe repo
-exercise the full widget set.
+You don't always need a custom loop. For a "pick one item" screen, `cat_list()`
+runs the whole thing for you (see `examples/hello/`), and `cat_confirmation()` is
+a ready-made yes/no dialog. For tab bars (`cat_draw_tab_bar`), progress screens
+(`cat_process_message`), keyboards, and sliders, the `examples/combo/` and
+`examples/demo/` programs in the Catastrophe repo exercise the full widget set.
 
-## Speak the user's language
+## Translate your app
 
-Leaf itself is translated, and so are Central Scrutinizer and Thing-File. Your app
-is a separate program, so it stays English unless you do this. It is worth doing:
-someone running Leaf in Chinese hits your app and drops back into English.
+Leaf is translated, and so are Central Scrutinizer and Thing-File. Your app is a
+separate program, so it stays English unless you translate it too.
 
-**Read the language Leaf gives you.** Every pak is launched with `UMRK_LANGUAGE`
-set to the user's choice (`en`, `zh_CN`, `fr_FR`), so nothing has to be configured:
+### Read the language Leaf gives you
+
+Every pak is launched with `UMRK_LANGUAGE` set to the user's choice (`en`,
+`zh_CN`, `fr_FR`):
 
 ```c
 const char *lang = getenv("UMRK_LANGUAGE");
 ```
 
-**Wrap the strings you draw.** The pattern every Leaf program uses is a one-line
-`T()` around each visible literal, which is both the lookup and the marker that
-says "this one is user-facing":
+### Wrap the strings you draw
+
+Leaf programs put a `T()` around each visible literal. It is both the lookup and
+the marker that the string is user-facing:
 
 ```c
 cat_draw_text(font, T("No files found"), x, y, theme->text);
 ```
 
-Paths, log lines and config keys stay unwrapped on purpose. A missed wrap shows up
-as English on the screen, which is a visible, harmless bug rather than a silent one.
+Leave paths, log lines and config keys unwrapped. A string you forget to wrap
+shows up in English on screen.
 
-**Keep a template and a table per language.** The shape is the same everywhere:
+### Keep a template and a table per language
 
 ```text
 i18n/your-app.pot       every wrapped string, generated from your source
@@ -242,18 +240,17 @@ i18n/zh_CN.po           one translation, edited by a person
 
 Extract the template from your source, then compile each `.po` into the small
 lookup table your app loads at startup. Thing-File is the smallest complete
-example, at 58 strings: see its `tools/i18n-extract.py` and `tools/i18n-po2tsv.py`,
-which you can copy and point at your own sources.
+example: see its `tools/i18n-extract.py` and `tools/i18n-po2tsv.py`, which you can
+copy and point at your own sources.
 
-**Let a translator work without a build.** Load a table from
-`$USERDATA_PATH/<YourApp>/i18n/<lang>.tsv` before the one you ship, and someone
-can drop a file on the card, restart your app, and see their changes. That is how
-Leaf's own translations get reviewed on hardware.
+### Let a translator work without a build
 
-**A partial translation is fine.** Every string is looked up by its English text,
-so anything a translator has not reached simply stays English. There is no
-half-translated broken state to avoid, which means you can ship the first 20
-strings the day someone sends them.
+Load a table from `$USERDATA_PATH/<YourApp>/i18n/<lang>.tsv` before the one you
+ship. A translator can then drop a file on the card, restart your app, and see
+their changes. Leaf's own translations are reviewed on hardware the same way.
+
+Every string is looked up by its English text, so anything a translator hasn't
+reached stays English, and you can ship a partial translation.
 
 ## Build and run
 
@@ -264,6 +261,6 @@ make mac        # or: make linux / make windows / make native
 ./build/mac/leaf-app/leaf-app
 ```
 
-Build for the device with the MLP1 toolchain the same way the launcher is built,
-then package the binary with a `pak.json` and `launch.sh` as shown above and drop
+Build for the device with the MLP1 toolchain, the same way the launcher is built.
+Then package the binary with a `pak.json` and `launch.sh` as shown above and copy
 the `.pak` into the device's `Apps` folder.

@@ -82,6 +82,8 @@ the Miniloong Pocket 1. Later launches start straight away.
 ## Updates and repairs
 
 Open the PortMaster manager from the **Apps** tab to check for a compatible
-update, or choose **Repair PortMaster** if the app or its compatibility files are
-missing or damaged. The repair checks the installed files and restores what Leaf
-needs to launch PortMaster.
+update. Choose **Repair PortMaster** if the app or its compatibility files are
+missing or damaged, or if **Launch PortMaster** shows **Setup needed** after you
+update the manager from Pak Rat. The repair checks the installed files, restores
+what Leaf needs to launch PortMaster, and scans your installed ports again so
+they get the update's fixes.

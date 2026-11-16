@@ -103,7 +103,9 @@ try {
           sha256: '1'.repeat(64),
         },
       },
-      { version: pkg.version, artifact: structuredClone(pkg.artifact) },
+      // Keep whatever history the fixture app already publishes, or the
+      // append-only check rightly reports the dropped versions.
+      ...(pkg.versions ?? [{ version: pkg.version, artifact: structuredClone(pkg.artifact) }]),
     ];
     return { app, pkg };
   };
@@ -163,7 +165,7 @@ try {
 
   await expectRejected('history-no-safe-floor', (catalog) => {
     const { pkg } = addValidHistory(catalog);
-    pkg.versions[1].min_leaf_version = '0.1.0';
+    pkg.versions.slice(1).forEach((entry) => { entry.min_leaf_version = '0.1.0'; });
   }, 'must contain an ungated safe-floor version');
 
   await expectRejected('history-safe-floor-version', (catalog) => {

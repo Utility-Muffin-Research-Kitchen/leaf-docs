@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20261114T213009Z",
-  "generated_at": "2026-11-14T21:30:09Z",
+  "catalog_revision": "prod-20261116T194705Z",
+  "generated_at": "2026-11-16T19:47:05Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -70,23 +70,34 @@
         "music",
         "media"
       ],
-      "version": "0.2.2",
+      "version": "0.2.3",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.2.2",
+          "version": "0.2.3",
           "install_name": "DiscoBoy.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/download/v0.2.2/DiscoBoy.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/download/v0.2.3/DiscoBoy.pak.zip",
             "name": "DiscoBoy.pak.zip",
             "archive": "zip",
-            "size": 609864,
-            "installed_size": 887579,
-            "sha256": "253a98a1fbaf80ad92e598aa3466742c3e521a099ae2f85b22f0606dee761ed4"
+            "size": 1812072,
+            "installed_size": 3252642,
+            "sha256": "2f1a5614a7cec8f1fd7453d58420331e8aafdf955beaea4825e93a517079cd18"
           },
           "versions": [
+            {
+              "version": "0.2.3",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/DiscoBoy/releases/download/v0.2.3/DiscoBoy.pak.zip",
+                "name": "DiscoBoy.pak.zip",
+                "archive": "zip",
+                "size": 1812072,
+                "installed_size": 3252642,
+                "sha256": "2f1a5614a7cec8f1fd7453d58420331e8aafdf955beaea4825e93a517079cd18"
+              }
+            },
             {
               "version": "0.2.2",
               "artifact": {
@@ -377,22 +388,46 @@
         "video",
         "media"
       ],
-      "version": "0.3.1",
+      "version": "0.3.2",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.3.1",
+          "version": "0.3.2",
           "install_name": "VideoFromHell.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.1/VideoFromHell.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.2/VideoFromHell.pak.zip",
             "name": "VideoFromHell.pak.zip",
             "archive": "zip",
-            "size": 221216,
-            "installed_size": 405731,
-            "sha256": "6943885e61ebde2ba751ba3c9e52056d9ecc4eba30fa5de208ad09dcc8d979d2"
-          }
+            "size": 3608386,
+            "installed_size": 7561012,
+            "sha256": "ee72301966920b6f38e103f427a3a890b4a2ca8ec176efc99df8ed7f0e26a608"
+          },
+          "versions": [
+            {
+              "version": "0.3.2",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.2/VideoFromHell.pak.zip",
+                "name": "VideoFromHell.pak.zip",
+                "archive": "zip",
+                "size": 3608386,
+                "installed_size": 7561012,
+                "sha256": "ee72301966920b6f38e103f427a3a890b4a2ca8ec176efc99df8ed7f0e26a608"
+              }
+            },
+            {
+              "version": "0.3.1",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.1/VideoFromHell.pak.zip",
+                "name": "VideoFromHell.pak.zip",
+                "archive": "zip",
+                "size": 221216,
+                "installed_size": 405731,
+                "sha256": "6943885e61ebde2ba751ba3c9e52056d9ecc4eba30fa5de208ad09dcc8d979d2"
+              }
+            }
+          ]
         }
       ]
     },

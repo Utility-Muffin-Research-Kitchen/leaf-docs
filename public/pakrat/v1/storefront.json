@@ -388,23 +388,34 @@
         "video",
         "media"
       ],
-      "version": "0.3.2",
+      "version": "0.3.3",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "0.3.2",
+          "version": "0.3.3",
           "install_name": "VideoFromHell.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.2/VideoFromHell.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.3/VideoFromHell.pak.zip",
             "name": "VideoFromHell.pak.zip",
             "archive": "zip",
-            "size": 3608386,
-            "installed_size": 7561012,
-            "sha256": "ee72301966920b6f38e103f427a3a890b4a2ca8ec176efc99df8ed7f0e26a608"
+            "size": 3613157,
+            "installed_size": 7569516,
+            "sha256": "a669d27e1c891781bfa1b311c1396d3bef9192d769289b739d2baef61d2cb204"
           },
           "versions": [
+            {
+              "version": "0.3.3",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/VideoFromHell/releases/download/v0.3.3/VideoFromHell.pak.zip",
+                "name": "VideoFromHell.pak.zip",
+                "archive": "zip",
+                "size": 3613157,
+                "installed_size": 7569516,
+                "sha256": "a669d27e1c891781bfa1b311c1396d3bef9192d769289b739d2baef61d2cb204"
+              }
+            },
             {
               "version": "0.3.2",
               "artifact": {

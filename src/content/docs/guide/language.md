@@ -25,7 +25,9 @@ page, and nothing restarts. Choose **English** the same way to switch back.
 Menus, settings, dialogs, button hints, the in-game menu, and system messages are
 translated. PPSSPP follows too, in every language it has a translation for. RetroArch's
 own menus follow when you choose Chinese, and stay in English otherwise. Fun DraStic's
-menu follows in Spanish and Chinese.
+menu follows in Spanish and Chinese. File Explorer, Central Scrutinizer, Fugazi and
+Joe's Calibrage follow in Chinese. To add a language to any of them, see
+[Translating the built-in apps](/guide/translating/#translating-the-built-in-apps).
 
 To run PSP games in a different language from the rest of Leaf, set it in PPSSPP's own
 settings. Leaf then stops changing it.

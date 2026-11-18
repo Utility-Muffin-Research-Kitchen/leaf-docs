@@ -1,11 +1,12 @@
 ---
 title: Translate Leaf
-description: Start a new language for the Leaf interface, or finish one that is partly done, using the template of every translatable string.
+description: Start a new language for the Leaf interface and its built-in apps, or finish one that is partly done, using the template of every translatable string.
 ---
 
 Leaf's interface is translated by people who use it. This page covers starting a new
 language, or filling in one that is partly done. You don't need to build Leaf or
-write any code.
+write any code. The built-in apps and Fun DraStic have their own, smaller files: see
+[Translating the built-in apps](#translating-the-built-in-apps).
 
 To report a single wrong line in a language that already ships, see
 [Fixing a translation](/guide/language/#fixing-a-translation).
@@ -154,3 +155,56 @@ with your `.po` attached, or say so on [Discord](https://discord.gg/q5F7cZ7KRp).
 which name you want credited, or that you'd rather not be.
 
 Partial work is welcome. The table above shows the next person where to pick it up.
+
+## Translating the built-in apps
+
+File Explorer, Central Scrutinizer, Fugazi and Joe's Calibrage each have their own
+template, a few dozen to a few hundred strings long. They open in the language you
+chose in **Settings > System > Language**, and anything without a translation shows
+in English. Each one ships in Chinese so far.
+
+| App | Template | Test file on the SD card |
+| --- | --- | --- |
+| File Explorer | [`thing-file.pot`](https://github.com/Utility-Muffin-Research-Kitchen/Thing-File/blob/main/i18n/thing-file.pot) | `.userdata/mlp1/Thing-File/i18n/<code>.tsv` |
+| Central Scrutinizer | [`central-scrutinizer.pot`](https://github.com/Utility-Muffin-Research-Kitchen/CentralScrutinizer/blob/main/i18n/central-scrutinizer.pot) | `.userdata/mlp1/CentralScrutinizer/i18n/<code>.tsv` |
+| Fugazi | [`fugazi.pot`](https://github.com/Utility-Muffin-Research-Kitchen/Fugazi/blob/main/i18n/fugazi.pot) | `.userdata/mlp1/Fugazi/i18n/<code>.tsv` |
+| Joe's Calibrage | [`joes-calibrage.pot`](https://github.com/Utility-Muffin-Research-Kitchen/joes-calibrage/blob/main/i18n/joes-calibrage.pot) | `.userdata/mlp1/joes-calibrage/i18n/<code>.tsv` |
+
+1. Download the app's template and rename it to your language code, the same code
+   Leaf uses: `de_DE.po`. The `zh_CN.po` next to it shows a finished one.
+2. Fill in the `msgstr ""` lines. Everything in [What to watch for](#what-to-watch-for)
+   applies here too.
+3. Convert it to a `.tsv` with the app's own `tools/i18n-po2tsv.py`, for example
+   `python3 i18n-po2tsv.py de_DE.po -o de_DE.tsv`. Central Scrutinizer has no
+   converter: write its `.tsv` as `English<TAB>translation` lines, with `\n` where a
+   line breaks.
+4. Put the `.tsv` on the SD card at the path in the table, set Leaf to that language,
+   and open the app again. The file outranks the translation built into the app.
+5. Open an issue on the app's repository with your `.po` attached, the repository the
+   template link points to.
+
+The app follows Leaf's language, so the language has to be in Leaf's list first. To
+test a language Leaf doesn't have yet, also add a Leaf `.tsv` for it, as described
+under [Testing it on the device](#testing-it-on-the-device). One line is enough to
+make it appear.
+
+Central Scrutinizer's browser page is in English and Chinese only. A new language
+translates the screen on the handheld, and the browser page stays in English.
+
+### Fun DraStic
+
+Fun DraStic's menu reads a plain text file, with no `.po` or conversion:
+
+1. Copy
+   [`template.txt`](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src/blob/main/shared/language/template.txt)
+   and rename it to your language code: `de_DE.txt`.
+2. Translate the right side of each `ENGLISH=translation` line. Leave the left side
+   as it is. A line you remove or leave untranslated shows in English.
+3. Put it on the SD card at `.userdata/mlp1/fun-drastic/language/de_DE.txt`, set
+   Leaf to that language, and start a Nintendo DS game with Fun DraStic.
+4. Open an issue on
+   [Fun-Drastic-src](https://github.com/Utility-Muffin-Research-Kitchen/Fun-Drastic-src/issues)
+   with the file attached.
+
+Fun DraStic replaces its own Spanish and Chinese files each time a game starts, so a
+correction to one of those has to be sent in to stick.

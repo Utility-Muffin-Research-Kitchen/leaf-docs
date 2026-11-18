@@ -207,8 +207,9 @@ a ready-made yes/no dialog. For tab bars (`cat_draw_tab_bar`), progress screens
 
 ## Translate your app
 
-Leaf is translated, and so are Central Scrutinizer and Thing-File. Your app is a
-separate program, so it stays English unless you translate it too.
+Leaf is translated, and so are its built-in apps: Central Scrutinizer, Fugazi,
+Joe's Calibrage and Thing-File. Your app is a separate program, so it stays English
+unless you translate it too.
 
 ### Read the language Leaf gives you
 

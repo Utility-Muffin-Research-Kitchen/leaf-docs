@@ -48,6 +48,13 @@ on by default. Restart the game after changing **Threaded Audio**,
 
 If these options don't help, choose another Flycast core for that game.
 
+## A game runs slow
+
+Turn on **Group Translucent Polygons** in the same **Core Options** menu if a
+game with lots of see-through effects, such as NFL 2K2, drops below full speed.
+It's off by default and draws the same picture with fewer draw calls. It applies
+to **Per-Strip** alpha sorting, which is the default.
+
 ## Credits
 
 Flycast is by [flyinghead and contributors](https://github.com/flyinghead/flycast),

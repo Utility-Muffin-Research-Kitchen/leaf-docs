@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "product": "pak-rat",
-  "catalog_revision": "prod-20261120T211515Z",
-  "generated_at": "2026-11-20T21:15:15Z",
+  "catalog_revision": "prod-20261120T222635Z",
+  "generated_at": "2026-11-20T22:26:35Z",
   "apps": [
     {
       "id": "org.umrk.itchio",
@@ -648,24 +648,36 @@
         "emulation",
         "content"
       ],
-      "version": "3.0.5",
+      "version": "3.5.0",
       "packages": [
         {
           "platform": "mlp1",
           "runtime": "leaf",
-          "version": "3.0.5",
+          "version": "3.5.0",
           "min_leaf_version": "0.12.0",
           "install_name": "DSperate.pak",
           "runtime_manifest_path": "pak.json",
           "artifact": {
-            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v3.0.5/DSperate.mlp1.pak.zip",
+            "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v3.5.0/DSperate.mlp1.pak.zip",
             "name": "DSperate.mlp1.pak.zip",
             "archive": "zip",
-            "size": 3347780,
-            "installed_size": 5003743,
-            "sha256": "b4ee53fb5abd64c92dde882640ed615298bb4175a3765af446017820e65ef37e"
+            "size": 3609591,
+            "installed_size": 5630436,
+            "sha256": "48b75ef8f589c4dd18d5297379692983d72e9c6569db4ea1b170eaf297ed654b"
           },
           "versions": [
+            {
+              "version": "3.5.0",
+              "min_leaf_version": "0.12.0",
+              "artifact": {
+                "url": "https://github.com/Utility-Muffin-Research-Kitchen/DSperate-pak/releases/download/v3.5.0/DSperate.mlp1.pak.zip",
+                "name": "DSperate.mlp1.pak.zip",
+                "archive": "zip",
+                "size": 3609591,
+                "installed_size": 5630436,
+                "sha256": "48b75ef8f589c4dd18d5297379692983d72e9c6569db4ea1b170eaf297ed654b"
+              }
+            },
             {
               "version": "3.0.5",
               "min_leaf_version": "0.12.0",
